@@ -1,10 +1,291 @@
 [
   {
-    "id": "0b9fcc12a2734f5e913fac73e3df43e9",
-    "card_id": "0cd5a83deb",
+    "id": "6f4c45c7966e4b7795832c4eb79bf018",
+    "card_id": "8052e60aca",
     "dia": "26/02/2026",
-    "horario": "17:54:45",
-    "data_hora_iso": "2026-02-26T17:54:45.702233-03:00",
+    "horario": "11:55:14",
+    "data_hora_iso": "2026-02-26T11:55:14.256023-03:00",
+    "destinatario": {
+      "nome": "Jefakjsakj",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "dsdksjk"
+    },
+    "remetente": {
+      "nome": "dskdksaçl",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "dsdsd"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia"
+    ],
+    "mensagem": "45s454a46d4s65d4",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-8052e60aca.png",
+      "uploaded_image_url": "https://i.ibb.co/Jwyr7Fzk/card-8052e60aca.png",
+      "pdf_url": "https://SEU-ENDERECO-PUBLICO/media/card-8052e60aca.pdf",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-8052e60aca.png",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "e406e7010ceb4cffb31763471d0877e4",
+    "card_id": "f8b7f3b867",
+    "dia": "26/02/2026",
+    "horario": "14:55:33",
+    "data_hora_iso": "2026-02-26T14:55:33.779461-03:00",
+    "destinatario": {
+      "nome": "Teste",
+      "numero": "5511999999999",
+      "numero_normalizado": "+5511999999999",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Teste",
+      "numero": "5511888888888",
+      "numero_normalizado": "+5511888888888",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Cortesia"
+    ],
+    "mensagem": "registro sem pdf",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5511999999999",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-f8b7f3b867.png",
+      "uploaded_image_url": "https://i.ibb.co/ZR7SQGgj/card-f8b7f3b867.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-f8b7f3b867.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/f8b7f3b867?token=da056c8970bbe64e47e24d7f950300173edfb2f82b2117d5eadc862d93b2c805",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "c273b9a6805e484286b1c49374cb44a1",
+    "card_id": "2593219f1a",
+    "dia": "26/02/2026",
+    "horario": "15:06:06",
+    "data_hora_iso": "2026-02-26T15:06:06.367065-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Jefry",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "jkjdklsjkjfafsafkdjskjdksajdkjsakdjkl",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-2593219f1a.png",
+      "uploaded_image_url": "https://i.ibb.co/r2C1tCgf/card-2593219f1a.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-2593219f1a.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/2593219f1a?token=1735065bf7db0677aaa00bf8bebcc76b6526a986daaa05f4edfd7ccacf7611a3",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "b857a5e43197409a9d92b89d89926096",
+    "card_id": "8a27471612",
+    "dia": "26/02/2026",
+    "horario": "15:14:28",
+    "data_hora_iso": "2026-02-26T15:14:28.384180-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Jefry",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "-",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-8a27471612.png",
+      "uploaded_image_url": "https://i.ibb.co/tPkYv3y3/card-8a27471612.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-8a27471612.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/8a27471612?token=ef1afb297878908b341d4094a340601e6b1e36dcf78ce0da6f65f6cce173431d",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "117206cfa0c3435ba749091e3c85d3bd",
+    "card_id": "2be411515f",
+    "dia": "26/02/2026",
+    "horario": "15:19:30",
+    "data_hora_iso": "2026-02-26T15:19:30.635294-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Jefry",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "-",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-2be411515f.png",
+      "uploaded_image_url": "https://i.ibb.co/DPrcLm4W/card-2be411515f.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-2be411515f.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/2be411515f?token=d6548d0899522f9fd7e0acc829e00388a8b27806a582c9d3498e102692066711",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "d770ddce7d954651923547dfa24f5bea",
+    "card_id": "e8a854ee8d",
+    "dia": "26/02/2026",
+    "horario": "15:30:09",
+    "data_hora_iso": "2026-02-26T15:30:09.647895-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Jefry",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Eficiência"
+    ],
+    "mensagem": "cssddfdsf",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-e8a854ee8d.png",
+      "uploaded_image_url": "https://i.ibb.co/nNKwyKnQ/card-e8a854ee8d.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-e8a854ee8d.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/e8a854ee8d?token=450719b1b199bd4911325a81928f0a223550bc4142a6e6b9a793f2fed416a046",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "ae5464699f164d369403604e85f82152",
+    "card_id": "e9612fdd89",
+    "dia": "26/02/2026",
+    "horario": "15:32:08",
+    "data_hora_iso": "2026-02-26T15:32:08.833529-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "dskdksaçl",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia"
+    ],
+    "mensagem": "Olá meu niome é jeferson",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-e9612fdd89.png",
+      "uploaded_image_url": "https://i.ibb.co/Q7XD48Nx/card-e9612fdd89.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-e9612fdd89.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/e9612fdd89?token=4cf151a2ddccce93aa5557c988be08ba5e8279480df81887830e67bc6a32c155",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "588c631e49a54e2190fa99ffdea6ea29",
+    "card_id": "ff89281a89",
+    "dia": "26/02/2026",
+    "horario": "15:41:26",
+    "data_hora_iso": "2026-02-26T15:41:26.830243-03:00",
     "destinatario": {
       "nome": "Jeferson",
       "numero": "5582991226467",
@@ -12,16 +293,16 @@
       "funcao": "-"
     },
     "remetente": {
-      "nome": "Patrícia Carvalho",
-      "numero": "5582988035500",
-      "numero_normalizado": "+5582988035500",
+      "nome": "TEste",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
       "funcao": "-"
     },
     "opcoes_marcadas": [
       "Acolhimento",
-      "Eficiência"
+      "Cortesia"
     ],
-    "mensagem": "Testando",
+    "mensagem": "d5s4555sd1c2a154ca545d4as56da5c1231321c32z15c4sa56d465as4d564f564f564ds12d3cv123x1v5s4s12",
     "whatsapp": {
       "status": "wa_me",
       "to": "+5582991226467",
@@ -30,11 +311,51 @@
       "format": "image"
     },
     "arquivos": {
-      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-0cd5a83deb.png",
-      "uploaded_image_url": "https://i.ibb.co/bgFFr8Tg/card-0cd5a83deb.png",
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-ff89281a89.png",
+      "uploaded_image_url": "https://i.ibb.co/1GvZq91q/card-ff89281a89.png",
       "pdf_url": "",
-      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-0cd5a83deb.png",
-      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/0cd5a83deb?token=54fa6d093cdfbe983632048585aee061854ecfcabebaa56392783f256dad08e3",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-ff89281a89.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/ff89281a89?token=a9a4c27edbd05c4fc97a28eb19b485f66232b28312835a2d395a7ac077885efd",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  },
+  {
+    "id": "dee0880377eb4080b60cd47eb7507ce7",
+    "card_id": "8ce56afec1",
+    "dia": "26/02/2026",
+    "horario": "18:18:05",
+    "data_hora_iso": "2026-02-26T18:18:05.304878-03:00",
+    "destinatario": {
+      "nome": "Teste",
+      "numero": "5582999999999",
+      "numero_normalizado": "+5582999999999",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Teste",
+      "numero": "5582988888888",
+      "numero_normalizado": "+5582988888888",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia"
+    ],
+    "mensagem": "Teste envio webjs",
+    "whatsapp": {
+      "status": "webjs_error",
+      "to": "+5582999999999",
+      "message_sid": "",
+      "error": "<urlopen error [WinError 10061] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente>",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-8ce56afec1.png",
+      "uploaded_image_url": "https://i.ibb.co/wF4yPKTG/card-8ce56afec1.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-8ce56afec1.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/8ce56afec1?token=5bbd6d79faddb202465e0db17b3412fac41f209ec7ff1c5e0f6547c4030859c6",
       "upload_status": "success",
       "upload_error": ""
     }
