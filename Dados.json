@@ -76,5 +76,46 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "c273b9a6805e484286b1c49374cb44a1",
+    "card_id": "2593219f1a",
+    "dia": "26/02/2026",
+    "horario": "15:06:06",
+    "data_hora_iso": "2026-02-26T15:06:06.367065-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Jefry",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "jkjdklsjkjfafsafkdjskjdksajdkjsakdjkl",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-2593219f1a.png",
+      "uploaded_image_url": "https://i.ibb.co/r2C1tCgf/card-2593219f1a.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-2593219f1a.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/2593219f1a?token=1735065bf7db0677aaa00bf8bebcc76b6526a986daaa05f4edfd7ccacf7611a3",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
