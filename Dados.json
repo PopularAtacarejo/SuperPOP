@@ -1,1 +1,41 @@
-
+[
+  {
+    "id": "6f4c45c7966e4b7795832c4eb79bf018",
+    "card_id": "8052e60aca",
+    "dia": "26/02/2026",
+    "horario": "11:55:14",
+    "data_hora_iso": "2026-02-26T11:55:14.256023-03:00",
+    "destinatario": {
+      "nome": "Jefakjsakj",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "dsdksjk"
+    },
+    "remetente": {
+      "nome": "dskdksaçl",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "dsdsd"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Cortesia"
+    ],
+    "mensagem": "45s454a46d4s65d4",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999158412",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-8052e60aca.png",
+      "uploaded_image_url": "https://i.ibb.co/Jwyr7Fzk/card-8052e60aca.png",
+      "pdf_url": "https://SEU-ENDERECO-PUBLICO/media/card-8052e60aca.pdf",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-8052e60aca.png",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  }
+]
