@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop Recognition Form</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#E63946", // Vibrant Red
+                        secondary: "#FFB703", // Accent Yellow/Orange
+                        "background-light": "#FFFFFF", // Solid bright white
+                        "background-dark": "#121212", 
+                        "surface-light": "#F8F9FA", // Very subtle gray for inputs
+                        "surface-dark": "#2D282A",
+                        "text-light": "#1F1A1C", // Darker text for contrast
+                        "text-gray": "#6B7280",
+                    },
+                    fontFamily: {
+                        display: ["Fredoka One", "cursive"], 
+                        body: ["Nunito", "sans-serif"], 
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        xl: "20px",
+                        '2xl': "24px",
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 15px -3px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 4px 15px -3px rgba(230, 57, 70, 0.3)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.08)',
+                    }
+                },
+            },
+        };
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
+<style>
+        .material-symbols-rounded { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .checkbox-wrapper input:checked + div {
+            background-color: #E63946;
+            border-color: #E63946;
+            color: white;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+        }
+        .checkbox-wrapper input:checked + div span {
+             color: white;
+        }.paper-lines {
+            background-image: linear-gradient(transparent, transparent 29px, #e5e7eb 29px, #e5e7eb 30px);
+            background-size: 100% 30px;
+            line-height: 30px;
+            background-attachment: local;
+        }
+        .dark .paper-lines {
+            background-image: linear-gradient(transparent, transparent 29px, #374151 29px, #374151 30px);
+        }
+        .header-decor {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            animation: decorPan 18s ease-in-out infinite alternate, decorBreath 9s ease-in-out infinite;
+        }
+        .header-decor::before,
+        .header-decor::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(1px);
+            opacity: 0.2;
+        }
+        .header-decor::before {
+            width: 240px;
+            height: 240px;
+            left: -70px;
+            top: -35px;
+            background: radial-gradient(circle, rgba(255, 183, 3, 0.35) 0%, rgba(255, 183, 3, 0) 70%);
+            animation: blobDriftA 11s ease-in-out infinite;
+        }
+        .header-decor::after {
+            width: 280px;
+            height: 280px;
+            right: -90px;
+            top: -55px;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.28) 0%, rgba(230, 57, 70, 0) 72%);
+            animation: blobDriftB 13s ease-in-out infinite;
+        }
+        .header-decor-item {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            --dur: 6s;
+            --delay: 0s;
+            --glow-dur: 4s;
+            --o1: 0.14;
+            --o2: 0.24;
+            --glow: 230, 57, 70;
+            opacity: var(--o1);
+            will-change: transform, opacity, filter;
+            animation:
+                floatDecor var(--dur) ease-in-out var(--delay) infinite,
+                glowDecor var(--glow-dur) ease-in-out var(--delay) infinite,
+                spinDecor calc(var(--dur) * 2.2) linear var(--delay) infinite;
+        }
+        .header-decor-item.star {
+            color: #FFB703;
+            --o1: 0.22;
+            --o2: 0.38;
+            --glow: 255, 183, 3;
+        }
+        .header-decor-item.value {
+            color: #E63946;
+            --o1: 0.12;
+            --o2: 0.22;
+            --glow: 230, 57, 70;
+        }
+        .header-logo-wrap {
+            position: relative;
+            z-index: 10;
+            display: inline-block;
+        }
+        .header-logo {
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes floatDecor {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate3d(8px, -8px, 0) rotate(-4deg) scale(1.04); }
+            50% { transform: translate3d(-6px, -14px, 0) rotate(3deg) scale(1.1); }
+            75% { transform: translate3d(9px, -6px, 0) rotate(-2deg) scale(1.04); }
+            100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+        }
+        @keyframes glowDecor {
+            0%, 100% {
+                opacity: var(--o1);
+                filter: drop-shadow(0 0 0 rgba(var(--glow), 0));
+            }
+            50% {
+                opacity: var(--o2);
+                filter: drop-shadow(0 0 10px rgba(var(--glow), 0.28));
+            }
+        }
+        @keyframes spinDecor {
+            from { rotate: 0deg; }
+            to { rotate: 360deg; }
+        }
+        @keyframes decorPan {
+            0% { transform: translateX(-4px); }
+            100% { transform: translateX(4px); }
+        }
+        @keyframes decorBreath {
+            0%, 100% { scale: 1; }
+            50% { scale: 1.02; }
+        }
+        @keyframes blobDriftA {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            50% { transform: translate(24px, -10px) scale(1.1); opacity: 0.28; }
+        }
+        @keyframes blobDriftB {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.16; }
+            50% { transform: translate(-26px, 8px) scale(1.08); opacity: 0.24; }
+        }
+        @keyframes logoEnter {
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .header-decor,
+            .header-decor-item,
+            .header-logo-wrap,
+            .header-logo {
+                animation: none !important;
+            }
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    .send-whatsapp-btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transform: translateZ(0);
+    }
+    .send-whatsapp-btn-progress {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.35) 42%, rgba(255, 255, 255, 0.12) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.06) 100%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      transition: width 0.28s cubic-bezier(.2,.85,.3,1), opacity 0.2s ease;
+    }
+    .send-whatsapp-btn-content {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .send-whatsapp-btn-label.is-step {
+      animation: sendBtnLabelStep 0.24s ease both;
+    }
+    .send-whatsapp-btn-label.is-super-pop {
+      color: #ff2a2a;
+      text-shadow: 0 0 8px rgba(255, 42, 42, 0.75), 0 0 2px rgba(255, 255, 255, 0.95);
+      animation: sendBtnSuperPopPulseBlink 0.62s ease-in-out infinite;
+    }
+    .send-whatsapp-btn.is-loading .send-whatsapp-btn-progress {
+      opacity: 0.92;
+    }
+    .send-whatsapp-btn.is-loading .send-whatsapp-btn-icon {
+      animation: sendBtnIconPulse 0.85s ease-in-out infinite;
+    }
+    .send-whatsapp-btn.is-success {
+      box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(255, 255, 255, 0.16) inset;
+    }
+    .send-whatsapp-btn.is-success .send-whatsapp-btn-progress {
+      width: 100% !important;
+      opacity: 1;
+      background:
+        linear-gradient(90deg, rgba(255, 214, 10, 0.4) 0%, rgba(255, 246, 174, 0.72) 50%, rgba(255, 214, 10, 0.38) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 100%);
+      animation: sendBtnSuccessFlash 0.55s ease both;
+    }
+    @keyframes sendBtnLabelStep {
+      0% {
+        transform: translateY(5px) scale(0.96);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes sendBtnIconPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.16);
+      }
+    }
+    @keyframes sendBtnSuperPopPulseBlink {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      25% {
+        opacity: 0.55;
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      75% {
+        opacity: 0.62;
+      }
+    }
+    @keyframes sendBtnSuccessFlash {
+      0% {
+        filter: saturate(1);
+      }
+      50% {
+        filter: saturate(1.35) brightness(1.08);
+      }
+      100% {
+        filter: saturate(1);
+      }
+    }
+    .send-confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 120;
+      overflow: hidden;
+    }
+    .send-confetti-piece {
+      position: fixed;
+      width: 9px;
+      height: 16px;
+      border-radius: 2px;
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0deg);
+      animation: sendConfettiBurst var(--dur, 980ms) cubic-bezier(.1,.7,.2,1) forwards;
+    }
+    @keyframes sendConfettiBurst {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--tx, 0px), var(--ty, 420px), 0) rotate(var(--rot, 420deg)) scale(0.8);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .send-whatsapp-btn,
+      .send-whatsapp-btn-progress,
+      .send-whatsapp-btn-icon,
+      .send-whatsapp-btn-label,
+      .send-confetti-piece {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-white font-body antialiased min-h-screen flex flex-col transition-colors duration-300">
+<header class="relative px-6 pb-4 pt-2 text-center">
+<div class="header-decor" aria-hidden="true">
+<span class="header-decor-item star material-symbols-rounded text-2xl" style="top: 8%; left: 12%; --dur: 7s; --delay: -1.2s; --glow-dur: 4.6s;">star</span>
+<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 18%; right: 14%; --dur: 6.2s; --delay: -2.4s; --glow-dur: 4.1s;">auto_awesome</span>
+<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 40%; left: 4%; --dur: 5.6s; --delay: -1.8s; --glow-dur: 3.5s;">volunteer_activism</span>
+<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 38%; right: 5%; --dur: 5.2s; --delay: -0.9s; --glow-dur: 3.2s;">front_hand</span>
+<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 2%; left: 32%; --dur: 6.8s; --delay: -3.1s; --glow-dur: 4.4s;">bolt</span>
+<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 4%; right: 31%; --dur: 7.4s; --delay: -2s; --glow-dur: 4.9s;">trending_up</span>
+<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 52%; left: 14%; --dur: 6.6s; --delay: -2.8s; --glow-dur: 3.9s;">stars</span>
+<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 56%; right: 16%; --dur: 7.1s; --delay: -1.1s; --glow-dur: 4.2s;">kid_star</span>
+<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 62%; left: 28%; --dur: 5.9s; --delay: -2.2s; --glow-dur: 3.6s;">groups</span>
+<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 61%; right: 26%; --dur: 6.4s; --delay: -3.4s; --glow-dur: 4s;">handshake</span>
+<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 22%; left: 22%; --dur: 6.9s; --delay: -0.6s; --glow-dur: 3.7s;">thumb_up</span>
+<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 24%; right: 22%; --dur: 7.3s; --delay: -2.7s; --glow-dur: 4.3s;">emoji_events</span>
+<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 10%; left: 48%; --dur: 8.1s; --delay: -1.5s; --glow-dur: 4.8s;">flare</span>
+<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 50%; right: 44%; --dur: 7.8s; --delay: -3s; --glow-dur: 4.5s;">auto_awesome_motion</span>
+</div>
+<div class="header-logo-wrap">
+<img alt="SuperPop" class="header-logo mx-auto w-full max-w-[420px] h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</header>
+<main class="flex-1 px-5 pb-32 overflow-y-auto">
+<form class="space-y-6 mt-2">
+<div class="bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-700 p-6 rounded-2xl shadow-soft space-y-5">
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="colaborador">Nome Do Colaborador que você quer enviar o Super POP!</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">person</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="colaborador" placeholder="Nome do colega" type="text"/>
+</div>
+</div>
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="reconhecidopor">Escreva seu nome</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">badge</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="reconhecidopor" placeholder="Seu nome" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_colaborador">Número do colaborador para quem quer enviar o Super POP!</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">call</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="numero_colaborador" placeholder="Insera o seu número aqui!" type="text"/>
+</div>
+</div>
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_reconhecidopor">Seu número</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">smartphone</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="numero_reconhecidopor" placeholder="Coloque o número de quem quer enviar o SuperPOP!" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h2 class="text-sm font-bold text-center text-gray-600 dark:text-gray-300 px-4">
+                    Eu reconhe&ccedil;o voc&ecirc; pela pr&aacute;tica do(s) valor(es):
+                </h2>
+<div class="grid grid-cols-2 gap-3">
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">volunteer_activism</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Acolhimento</span>
+</div>
+</label>
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">bolt</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Efici&ecirc;ncia</span>
+</div>
+</label>
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">front_hand</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Cortesia</span>
+</div>
+</label>
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">trending_up</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Resultado</span>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-4">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="mensagem">Mensagem</label>
+<div class="relative flex items-start group">
+<span class="absolute left-3.5 top-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded pointer-events-none">edit_note</span>
+<textarea aria-describedby="mensagem-contador" class="w-full min-h-[140px] max-h-[260px] pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm resize-none leading-relaxed" id="mensagem" maxlength="400" name="mensagem" placeholder="Escreva sua mensagem personalizada aqui..."></textarea>
+</div>
+<div class="mt-1 flex justify-end pr-1">
+<span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider" id="mensagem-contador">0/400</span>
+</div>
+</div>
+<div class="mt-2 pt-2 relative">
+<div class="w-full">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1">Data</label>
+<div class="relative group">
+<span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded pointer-events-none">calendar_month</span>
+<input class="pl-11 pr-3 py-3 w-full bg-surface-light dark:bg-surface-dark border-gray-200 dark:border-gray-600 rounded-xl shadow-sm text-sm font-semibold text-gray-800 dark:text-gray-200 cursor-not-allowed" id="dataDisplay" readonly type="text"/>
+<input id="data" name="data" type="hidden"/>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<button class="send-whatsapp-btn w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold shadow-sm transition-all active:scale-[0.99] flex items-center justify-center gap-2" id="enviarWhatsapp" type="button">
+<span aria-hidden="true" class="send-whatsapp-btn-progress" id="sendButtonProgress"></span>
+<span class="send-whatsapp-btn-content">
+<span class="send-whatsapp-btn-icon material-symbols-rounded text-xl" id="sendButtonIcon">chat</span>
+<span class="send-whatsapp-btn-label" id="sendButtonLabel">Enviar pelo WhatsApp</span>
+</span>
+</button>
+</div>
+</form>
+</main>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dateDisplayInput = document.getElementById("dataDisplay");
+    const dateValueInput = document.getElementById("data");
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = String(today.getFullYear());
+
+    if (dateDisplayInput) {
+      dateDisplayInput.value = dd + "/" + mm + "/" + yyyy;
+    }
+
+    if (dateValueInput) {
+      dateValueInput.value = yyyy + "-" + mm + "-" + dd;
+    }
+
+    const messageInput = document.getElementById("mensagem");
+    const messageCounter = document.getElementById("mensagem-contador");
+    const collaboratorInput = document.getElementById("colaborador");
+    const recognizedByInput = document.getElementById("reconhecidopor");
+    const collaboratorNumberInput = document.getElementById("numero_colaborador");
+    const senderNumberInput = document.getElementById("numero_reconhecidopor");
+    const sendWhatsappButton = document.getElementById("enviarWhatsapp");
+    const sendButtonProgress = document.getElementById("sendButtonProgress");
+    const sendButtonIcon = document.getElementById("sendButtonIcon");
+    const sendButtonLabel = document.getElementById("sendButtonLabel");
+    const defaultSendButtonIcon = sendButtonIcon ? sendButtonIcon.textContent : "chat";
+    const defaultSendButtonLabel = sendButtonLabel ? sendButtonLabel.textContent : "Enviar pelo WhatsApp";
+    const defaultCountryCode = String(window.SUPERPOP_COUNTRY_CODE || "55").replace(/\D/g, "") || "55";
+    const defaultAreaCode = String(window.SUPERPOP_AREA_CODE || "82").replace(/\D/g, "") || "82";
+    const apiRequestTimeoutMs = Number(window.SUPERPOP_REQUEST_TIMEOUT_MS || 75000);
+    const apiWakeupTimeoutMs = Number(window.SUPERPOP_WAKEUP_TIMEOUT_MS || 65000);
+
+    function sanitizeApiBaseUrl(value) {
+      const text = String(value || "").trim();
+      if (!text) return "";
+      return text.replace(/\/+$/, "");
+    }
+
+    function resolveApiBaseUrl() {
+      const fromWindow = sanitizeApiBaseUrl(window.SUPERPOP_API_URL);
+      if (fromWindow) {
+        return fromWindow;
+      }
+
+      let fromQuery = "";
+      try {
+        const params = new URLSearchParams(window.location.search || "");
+        fromQuery = sanitizeApiBaseUrl(params.get("api"));
+      } catch (error) {}
+      if (fromQuery) {
+        try {
+          window.localStorage.setItem("SUPERPOP_API_URL", fromQuery);
+        } catch (error) {}
+        return fromQuery;
+      }
+
+      let fromStorage = "";
+      try {
+        fromStorage = sanitizeApiBaseUrl(window.localStorage.getItem("SUPERPOP_API_URL"));
+      } catch (error) {}
+      if (fromStorage) {
+        return fromStorage;
+      }
+
+      return "https://superpopbackend.onrender.com";
+    }
+
+    const apiBase = resolveApiBaseUrl();
+    let apiWakeupPromise = null;
+
+    function waitMs(duration) {
+      return new Promise(function (resolve) {
+        window.setTimeout(resolve, duration);
+      });
+    }
+
+    async function wakeUpApi(baseUrl, timeoutMs) {
+      const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      let timeoutId = null;
+
+      if (controller && timeoutMs > 0) {
+        timeoutId = window.setTimeout(function () {
+          controller.abort();
+        }, timeoutMs);
+      }
+
+      try {
+        const response = await fetch(baseUrl + "/health", {
+          method: "GET",
+          cache: "no-store",
+          signal: controller ? controller.signal : undefined
+        });
+        return response.ok;
+      } catch (error) {
+        return false;
+      } finally {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+      }
+    }
+
+    async function registerCardWithImage(apiBase, payload) {
+      const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      let timeoutId = null;
+
+      if (controller) {
+        timeoutId = window.setTimeout(function () {
+          controller.abort();
+        }, apiRequestTimeoutMs);
+      }
+
+      try {
+        const response = await fetch(apiBase + "/api/logs/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller ? controller.signal : undefined
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || "Falha ao registrar dados e gerar imagem.");
+        }
+
+        const uploadedImageUrl = result.uploaded_image_url || "";
+        if (!uploadedImageUrl) {
+          throw new Error("Upload da imagem no ImgBB nao retornou link.");
+        }
+
+        return uploadedImageUrl;
+      } catch (error) {
+        if (error && error.name === "AbortError") {
+          throw new Error("Tempo limite para gerar/upload da imagem (cold start).");
+        }
+        throw error;
+      } finally {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+      }
+    }
+
+    function updateSendButtonStep(iconName, labelText) {
+      if (sendButtonIcon && iconName) {
+        sendButtonIcon.textContent = iconName;
+      }
+
+      if (sendButtonLabel) {
+        const isSuperPopStep = /super\s*pop/i.test(String(labelText || ""));
+        sendButtonLabel.textContent = labelText;
+        sendButtonLabel.classList.toggle("is-super-pop", isSuperPopStep);
+        sendButtonLabel.classList.remove("is-step");
+        void sendButtonLabel.offsetWidth;
+        sendButtonLabel.classList.add("is-step");
+      }
+    }
+
+    function setSendButtonProgress(value) {
+      if (!sendButtonProgress) {
+        return;
+      }
+      const normalized = Math.max(0, Math.min(100, Number(value) || 0));
+      sendButtonProgress.style.width = normalized + "%";
+    }
+
+    async function playSendButtonSequence() {
+      if (!sendWhatsappButton) {
+        return;
+      }
+
+      const steps = [
+        { icon: "progress_activity", label: "Preparando seu envio...", duration: 820, progress: 18 },
+        { icon: "looks_3", label: "3...", duration: 340, progress: 42 },
+        { icon: "looks_two", label: "2...", duration: 340, progress: 63 },
+        { icon: "looks_one", label: "1...", duration: 340, progress: 82 },
+        { icon: "celebration", label: "Super POP!", duration: 620, progress: 96 }
+      ];
+
+      sendWhatsappButton.classList.add("is-loading");
+      setSendButtonProgress(8);
+
+      for (const step of steps) {
+        updateSendButtonStep(step.icon, step.label);
+        setSendButtonProgress(step.progress);
+        await waitMs(step.duration);
+      }
+    }
+
+    function launchConfettiBurst() {
+      const buttonRef = sendWhatsappButton;
+      if (!buttonRef) {
+        return;
+      }
+
+      const rect = buttonRef.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + Math.max(16, rect.height * 0.35);
+      const colors = ["#ffb703", "#e63946", "#25D366", "#ffffff", "#ffd166"];
+      const layer = document.createElement("div");
+      layer.className = "send-confetti-layer";
+
+      const count = 58;
+      for (let i = 0; i < count; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "send-confetti-piece";
+        const tx = (Math.random() * 2 - 1) * Math.max(150, window.innerWidth * 0.38);
+        const ty = Math.max(180, Math.random() * (window.innerHeight * 0.62));
+        const rot = (Math.random() * 2 - 1) * 920;
+        const dur = 760 + Math.random() * 520;
+        const delay = Math.random() * 140;
+
+        piece.style.left = originX + "px";
+        piece.style.top = originY + "px";
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.setProperty("--tx", tx.toFixed(0) + "px");
+        piece.style.setProperty("--ty", ty.toFixed(0) + "px");
+        piece.style.setProperty("--rot", rot.toFixed(0) + "deg");
+        piece.style.setProperty("--dur", dur.toFixed(0) + "ms");
+        piece.style.animationDelay = delay.toFixed(0) + "ms";
+
+        if (Math.random() > 0.55) {
+          piece.style.width = "7px";
+          piece.style.height = "7px";
+          piece.style.borderRadius = "999px";
+        }
+
+        layer.appendChild(piece);
+      }
+
+      document.body.appendChild(layer);
+      window.setTimeout(function () {
+        if (layer.parentNode) {
+          layer.parentNode.removeChild(layer);
+        }
+      }, 1600);
+    }
+
+    async function playSendSuccessEffects() {
+      if (!sendWhatsappButton) {
+        return;
+      }
+
+      sendWhatsappButton.classList.add("is-success");
+      updateSendButtonStep("celebration", "Super POP! Pronto!");
+      setSendButtonProgress(100);
+      launchConfettiBurst();
+      await waitMs(680);
+    }
+
+    function resetSendButtonVisual() {
+      if (!sendWhatsappButton) {
+        return;
+      }
+
+      sendWhatsappButton.classList.remove("is-loading", "is-success");
+      setSendButtonProgress(0);
+      if (sendButtonIcon) {
+        sendButtonIcon.textContent = defaultSendButtonIcon;
+      }
+      if (sendButtonLabel) {
+        sendButtonLabel.textContent = defaultSendButtonLabel;
+        sendButtonLabel.classList.remove("is-step", "is-super-pop");
+      }
+    }
+
+    apiWakeupPromise = wakeUpApi(apiBase, apiWakeupTimeoutMs);
+
+    function normalizeWhatsappDigits(rawValue) {
+      const raw = String(rawValue || "").trim();
+      if (!raw) return "";
+
+      const digitsOnly = raw.replace(/\D/g, "");
+      if (!digitsOnly) return "";
+
+      if (raw.startsWith("+") && digitsOnly.length >= 10) {
+        return digitsOnly;
+      }
+
+      if (raw.startsWith("00") && digitsOnly.length > 2) {
+        return digitsOnly.slice(2);
+      }
+
+      const cleaned = digitsOnly.replace(/^0+/, "");
+      if (!cleaned) return "";
+
+      if (cleaned.startsWith(defaultCountryCode)) {
+        return cleaned;
+      }
+
+      if (cleaned.length === 10 || cleaned.length === 11) {
+        return defaultCountryCode + cleaned;
+      }
+
+      if (cleaned.length === 8 || cleaned.length === 9) {
+        return defaultCountryCode + defaultAreaCode + cleaned;
+      }
+
+      return defaultCountryCode + defaultAreaCode + cleaned;
+    }
+
+    function refreshMessageField() {
+      if (!messageInput) {
+        return;
+      }
+
+      messageInput.style.height = "auto";
+      const maxHeight = 260;
+      const nextHeight = Math.min(messageInput.scrollHeight, maxHeight);
+      messageInput.style.height = nextHeight + "px";
+      messageInput.style.overflowY = messageInput.scrollHeight > maxHeight ? "auto" : "hidden";
+
+      if (messageCounter) {
+        messageCounter.textContent = messageInput.value.length + "/400";
+      }
+    }
+
+    if (messageInput) {
+      messageInput.addEventListener("input", refreshMessageField);
+      refreshMessageField();
+    }
+
+    function getSelectedValues() {
+      return Array.from(document.querySelectorAll(".checkbox-wrapper")).reduce(function (values, wrapper) {
+        const checkbox = wrapper.querySelector("input[type='checkbox']");
+        const label = wrapper.querySelector("span.font-bold");
+        if (checkbox && checkbox.checked && label) {
+          values.push(label.textContent.trim());
+        }
+        return values;
+      }, []);
+    }
+
+    if (sendWhatsappButton) {
+      sendWhatsappButton.addEventListener("click", async function () {
+        if (sendWhatsappButton.dataset.sending === "1") {
+          return;
+        }
+
+        const collaborator = collaboratorInput ? collaboratorInput.value.trim() : "";
+        const recognizedBy = recognizedByInput ? recognizedByInput.value.trim() : "";
+        const collaboratorNumberRaw = collaboratorNumberInput ? collaboratorNumberInput.value.trim() : "";
+        const senderNumberRaw = senderNumberInput ? senderNumberInput.value.trim() : "";
+        const message = messageInput ? messageInput.value.trim() : "";
+        const selectedValues = getSelectedValues();
+        const dateText = dateDisplayInput ? dateDisplayInput.value : "";
+        const collaboratorNumber = normalizeWhatsappDigits(collaboratorNumberRaw);
+        const senderNumber = normalizeWhatsappDigits(senderNumberRaw);
+        const destinationDigits = collaboratorNumber;
+
+        const missing = [];
+        if (!collaborator) missing.push("Nome do colaborador");
+        if (!collaboratorNumberRaw) missing.push("Numero do colaborador");
+        if (collaboratorNumberRaw && !collaboratorNumber) missing.push("Numero do colaborador invalido");
+        if (!recognizedBy) missing.push("Nome de quem envia");
+        if (!senderNumberRaw) missing.push("Numero de quem envia");
+        if (senderNumberRaw && !senderNumber) missing.push("Numero de quem envia invalido");
+        if (!selectedValues.length) missing.push("Ao menos 1 valor marcado");
+
+        if (missing.length) {
+          alert("Preencha os campos obrigatorios:\n- " + missing.join("\n- "));
+          return;
+        }
+
+        const payload = {
+          colaborador: collaborator,
+          numero_colaborador: collaboratorNumber,
+          reconhecido_por: recognizedBy,
+          numero_reconhecido_por: senderNumber,
+          valores: selectedValues,
+          mensagem: message,
+          data: dateText,
+          to: collaboratorNumber,
+          format: "image"
+        };
+
+        const introText = "Eu " + recognizedBy + " reconhe\u00e7o voc\u00ea: " + collaborator + " pelos seguintes valores: " + selectedValues.join(", ") + ".";
+        const customText = message ? "Mensagem: " + message : "";
+
+        function buildWhatsappUrl(imageUrl) {
+          const whatsappText = [
+            introText,
+            customText,
+            imageUrl ? ("Imagem: " + imageUrl) : ""
+          ].filter(Boolean).join("\n\n");
+
+          const encodedText = encodeURIComponent(whatsappText);
+          return destinationDigits
+            ? "https://wa.me/" + destinationDigits + "?text=" + encodedText
+            : "https://wa.me/?text=" + encodedText;
+        }
+
+        sendWhatsappButton.dataset.sending = "1";
+        sendWhatsappButton.disabled = true;
+        sendWhatsappButton.classList.add("opacity-70");
+        const buttonSequencePromise = playSendButtonSequence();
+
+        if (apiWakeupPromise) {
+          await Promise.race([apiWakeupPromise, waitMs(1400)]);
+        }
+
+        updateSendButtonStep("cloud_sync", "Conectando ao servidor...");
+
+        await wakeUpApi(apiBase, apiWakeupTimeoutMs);
+
+        const registerAttempt = registerCardWithImage(apiBase, payload)
+          .then(function (uploadedImageUrl) {
+            return { ok: true, uploadedImageUrl: uploadedImageUrl, error: "" };
+          })
+          .catch(function (error) {
+            return {
+              ok: false,
+              uploadedImageUrl: "",
+              error: error && error.message ? error.message : "Erro ao gerar imagem."
+            };
+          });
+
+        let uploadedImageUrl = "";
+        let shouldSendWithoutImage = false;
+        let uploadErrorMessage = "";
+        await buttonSequencePromise.catch(function () {});
+        updateSendButtonStep("hourglass_top", "Aguardando servidor Render...");
+        const registerOutcome = await registerAttempt;
+
+        if (registerOutcome.ok) {
+          uploadedImageUrl = registerOutcome.uploadedImageUrl;
+        } else {
+          shouldSendWithoutImage = true;
+          uploadErrorMessage = registerOutcome.error;
+        }
+
+        const whatsappUrl = buildWhatsappUrl(shouldSendWithoutImage ? "" : uploadedImageUrl);
+        await playSendSuccessEffects();
+
+        if (shouldSendWithoutImage) {
+          alert(
+            "Nao foi possivel anexar a imagem automaticamente.\n" +
+            "Abrimos o WhatsApp para enviar a mensagem sem imagem.\n\n" +
+            "Detalhe: " + uploadErrorMessage
+          );
+        }
+
+        window.location.href = whatsappUrl;
+
+        sendWhatsappButton.dataset.sending = "0";
+        sendWhatsappButton.disabled = false;
+        sendWhatsappButton.classList.remove("opacity-70");
+        resetSendButtonVisual();
+      });
+    }
+  });
+</script>
+</body></html>
