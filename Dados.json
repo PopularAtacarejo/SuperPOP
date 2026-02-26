@@ -37,5 +37,44 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "e406e7010ceb4cffb31763471d0877e4",
+    "card_id": "f8b7f3b867",
+    "dia": "26/02/2026",
+    "horario": "14:55:33",
+    "data_hora_iso": "2026-02-26T14:55:33.779461-03:00",
+    "destinatario": {
+      "nome": "Teste",
+      "numero": "5511999999999",
+      "numero_normalizado": "+5511999999999",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Teste",
+      "numero": "5511888888888",
+      "numero_normalizado": "+5511888888888",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Cortesia"
+    ],
+    "mensagem": "registro sem pdf",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5511999999999",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-f8b7f3b867.png",
+      "uploaded_image_url": "https://i.ibb.co/ZR7SQGgj/card-f8b7f3b867.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-f8b7f3b867.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/f8b7f3b867?token=da056c8970bbe64e47e24d7f950300173edfb2f82b2117d5eadc862d93b2c805",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
