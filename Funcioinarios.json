@@ -43,5 +43,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-27T15:19:36.301627-03:00"
+  },
+  {
+    "id": "1087aedc3500429092d5966ecd945a4e",
+    "nome": "Cache Sessao",
+    "funcao": "Teste",
+    "numero_celular": "(11) 9 9999 - 1111",
+    "numero_normalizado": "11999991111",
+    "email": "cache.sessao@example.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "644116f470ae150f81b63c2bc17428ee",
+      "hash": "f44b242d397a43d0730f802570912e1128104f3ee532cc134890ca3fd3e0ed27",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:35:19.575238-03:00"
   }
 ]
