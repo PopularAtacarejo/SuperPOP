@@ -58,5 +58,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-27T15:35:19.575238-03:00"
+  },
+  {
+    "id": "928bb6e9d92b429c871c8d91cd72b82a",
+    "nome": "Perfil Menu",
+    "funcao": "Lider de RH",
+    "numero_celular": "(11) 9 3333 - 4444",
+    "numero_normalizado": "11933334444",
+    "email": "perfil.menu@example.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "3fcde441019333f13204d9b387b0e778",
+      "hash": "c956755b2a2aa5cc2bff70f498747da92788b2e2fc58015c6d25a72051b2509f",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:39:36.333566-03:00"
   }
 ]
