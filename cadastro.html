@@ -363,6 +363,7 @@
         const response = await fetch(apiBase + "/api/funcionarios/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify(payload)
         });
         const result = await response.json().catch(function () { return {}; });
