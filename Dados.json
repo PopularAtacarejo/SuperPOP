@@ -514,5 +514,44 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "1738709bc9a84b9d94e198cf00f1fdec",
+    "card_id": "74e1616fef",
+    "dia": "27/02/2026",
+    "horario": "11:42:06",
+    "data_hora_iso": "2026-02-27T11:42:06.505358-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582987513295",
+      "numero_normalizado": "+5582987513295",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Matheus",
+      "numero": "5582988430631",
+      "numero_normalizado": "+5582988430631",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento"
+    ],
+    "mensagem": "pinta de boi",
+    "whatsapp": {
+      "status": "webjs_error",
+      "to": "+5582987513295",
+      "message_sid": "",
+      "error": "WHATSAPP_WEBJS_API_URL nao configurado.",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-74e1616fef.png",
+      "uploaded_image_url": "https://i.ibb.co/3Ys1KH3B/card-74e1616fef.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-74e1616fef.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/74e1616fef?token=f28f7ad54d337e675c37ba257208d37d0a02f6ef0936366e904f68d8d9b5f10a",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
