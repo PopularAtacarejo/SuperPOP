@@ -13,5 +13,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-27T15:01:59.068617-03:00"
+  },
+  {
+    "id": "8fd50015bd304dcfb590b6df4c93336f",
+    "nome": "Login Teste",
+    "funcao": "Teste",
+    "numero_celular": "(11) 9 2222 - 3333",
+    "numero_normalizado": "11922223333",
+    "email": "login.teste@example.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "0b94009c2dc20757e5d8a433e07dcb37",
+      "hash": "2a542e18818f9b6ae58b9aa0dc54a3de26f22d9f6028717429ce4a9fa933c830",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:08:29.394973-03:00"
   }
 ]
