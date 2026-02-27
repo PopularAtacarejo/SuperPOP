@@ -169,6 +169,7 @@
         const response = await fetch(apiBase + "/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({ numero_celular: numeroCelular, senha: senha, manter_conectado: manterConectado })
         });
         const result = await response.json().catch(function () { return {}; });
@@ -182,7 +183,10 @@
 
         showSuccess("Login realizado com sucesso. Redirecionando...");
         window.setTimeout(function () {
-          window.location.href = "superpop.html";
+          const target = apiBase
+            ? apiBase + "/superpop.html"
+            : "superpop.html";
+          window.location.href = target;
         }, 700);
       } catch (err) {
         showError(String(err && err.message ? err.message : "Erro inesperado ao fazer login."));
