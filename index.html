@@ -92,6 +92,7 @@
     const submitBtn = document.getElementById("submitBtn");
     const submitBtnLabel = document.getElementById("submitBtnLabel");
     const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
 
     if (rememberInput) {
       rememberInput.checked = true;
@@ -165,7 +166,7 @@
 
       setLoading(true);
       try {
-        const response = await fetch("/api/auth/login", {
+        const response = await fetch(apiBase + "/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ numero_celular: numeroCelular, senha: senha, manter_conectado: manterConectado })
