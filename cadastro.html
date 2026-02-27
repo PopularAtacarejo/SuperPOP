@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop | Cadastro</title>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<style>
+  :root {
+    --primary: #e63946;
+    --bg: #ffffff;
+    --surface: #f8f9fa;
+    --text: #1f1a1c;
+    --muted: #6b7280;
+    --danger-bg: #fef2f2;
+    --danger-border: #fecaca;
+    --danger-text: #b91c1c;
+    --ok-bg: #f0fdf4;
+    --ok-border: #bbf7d0;
+    --ok-text: #15803d;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Nunito", Arial, sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+    background-image: radial-gradient(#e6394633 0.7px, transparent 0.7px), radial-gradient(#ffb70333 0.7px, #fff 0.7px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+
+  .card {
+    width: min(720px, 100%);
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #f1f5f9;
+    border-radius: 20px;
+    box-shadow: 0 18px 44px -14px rgba(0, 0, 0, 0.12);
+    padding: 24px;
+  }
+
+  .logo {
+    display: block;
+    width: min(260px, 72vw);
+    height: auto;
+    margin: 0 auto 10px;
+  }
+
+  h1 {
+    margin: 0;
+    text-align: center;
+    color: var(--primary);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    letter-spacing: 0.02em;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 8px 0 22px;
+  }
+
+  form {
+    display: grid;
+    gap: 14px;
+  }
+
+  label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 6px 2px;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid #dbe3ee;
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 12px 14px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    outline: none;
+  }
+
+  input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #e6394630;
+    background: #fff;
+  }
+
+  .status {
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: none;
+  }
+
+  .status.error {
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    color: var(--danger-text);
+  }
+
+  .status.ok {
+    background: var(--ok-bg);
+    border: 1px solid var(--ok-border);
+    color: var(--ok-text);
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  button {
+    border: 0;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .hint {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .login-link {
+    margin-left: auto;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .login-link:hover { text-decoration: underline; }
+
+  @media (max-width: 480px) {
+    .card { padding: 18px; }
+    .actions { align-items: stretch; }
+    button { width: 100%; }
+    .login-link { margin-left: 0; }
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="page">
+  <section class="card">
+    <img alt="SuperPop" class="logo" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+    <h1>Cadastro de Funcionário</h1>
+    <p class="subtitle">Preencha os dados para criar seu acesso.</p>
+
+    <form id="cadastroForm" novalidate>
+      <div>
+        <label for="nome">Nome</label>
+        <input id="nome" maxlength="80" placeholder="Nome completo" required type="text"/>
+      </div>
+
+      <div>
+        <label for="funcao">Função</label>
+        <input id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
+        <datalist id="listaFuncoesSupermercado"></datalist>
+      </div>
+
+      <div>
+        <label for="numeroCelular">Número de celular</label>
+        <input id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(11) 9 1234 - 5678" required type="text"/>
+      </div>
+
+      <div>
+        <label for="email">E-mail (opcional)</label>
+        <input id="email" maxlength="120" placeholder="nome@empresa.com.br" type="email"/>
+      </div>
+
+      <div>
+        <label for="senha">Senha</label>
+        <input id="senha" minlength="6" placeholder="Mínimo 6 caracteres" required type="password"/>
+      </div>
+
+      <div class="status error" id="statusErro"></div>
+      <div class="status ok" id="statusSucesso"></div>
+
+      <div class="actions">
+        <button id="submitBtn" type="submit"><span id="submitBtnLabel">Cadastrar</span></button>
+        <a class="login-link" href="index.html">Já tem conta? Entrar</a>
+      </div>
+
+    </form>
+  </section>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("cadastroForm");
+    const nomeInput = document.getElementById("nome");
+    const funcaoInput = document.getElementById("funcao");
+    const numeroInput = document.getElementById("numeroCelular");
+    const emailInput = document.getElementById("email");
+    const senhaInput = document.getElementById("senha");
+    const listaFuncoesEl = document.getElementById("listaFuncoesSupermercado");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitBtnLabel = document.getElementById("submitBtnLabel");
+    const statusErro = document.getElementById("statusErro");
+    const statusSucesso = document.getElementById("statusSucesso");
+    const FUNCOES_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/FuncoesSupermercado.json";
+    const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
+
+    function formatPhoneMask(value) {
+      const digits = String(value || "").replace(/\D/g, "").slice(0, 11);
+      if (!digits) return "";
+      if (digits.length <= 2) return "(" + digits;
+      if (digits.length <= 3) return "(" + digits.slice(0, 2) + ") " + digits.slice(2);
+      if (digits.length <= 7) return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 3) + " " + digits.slice(3);
+      return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 3) + " " + digits.slice(3, 7) + " - " + digits.slice(7, 11);
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      submitBtnLabel.textContent = isLoading ? "Salvando..." : "Cadastrar";
+    }
+
+    function showError(message) {
+      statusSucesso.style.display = "none";
+      statusErro.textContent = message;
+      statusErro.style.display = "block";
+    }
+
+    function showSuccess(message) {
+      statusErro.style.display = "none";
+      statusSucesso.textContent = message;
+      statusSucesso.style.display = "block";
+    }
+
+    numeroInput.addEventListener("input", function () {
+      const cursorAtEnd = numeroInput.selectionStart === numeroInput.value.length;
+      numeroInput.value = formatPhoneMask(numeroInput.value);
+      if (cursorAtEnd) {
+        numeroInput.setSelectionRange(numeroInput.value.length, numeroInput.value.length);
+      }
+    });
+
+    function normalizeGithubBlobUrl(url) {
+      try {
+        const parsed = new URL(url);
+        if (parsed.hostname === "github.com") {
+          const parts = parsed.pathname.split("/").filter(Boolean);
+          if (parts.length >= 5 && parts[2] === "blob") {
+            const owner = parts[0];
+            const repo = parts[1];
+            const branch = parts[3];
+            const filePath = parts.slice(4).join("/");
+            return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + branch + "/" + filePath;
+          }
+        }
+      } catch (_err) {}
+      return url;
+    }
+
+    async function loadFuncoesAutocomplete() {
+      if (!listaFuncoesEl) return;
+      const sources = [
+        normalizeGithubBlobUrl(FUNCOES_SOURCE_URL),
+        "./FuncoesSupermercado.json"
+      ];
+      try {
+        let payload = null;
+        for (const source of sources) {
+          try {
+            const response = await fetch(source, { cache: "no-store" });
+            if (!response.ok) {
+              continue;
+            }
+            payload = await response.json();
+            if (Array.isArray(payload)) {
+              break;
+            }
+          } catch (_err) {}
+        }
+        if (!Array.isArray(payload)) {
+          throw new Error("Fonte de funcoes indisponivel");
+        }
+        const funcoes = Array.isArray(payload) ? payload : [];
+        const uniqueSorted = Array.from(new Set(funcoes.map(function (item) { return String(item || "").trim(); }).filter(Boolean)))
+          .sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
+        listaFuncoesEl.innerHTML = "";
+        uniqueSorted.forEach(function (funcao) {
+          const option = document.createElement("option");
+          option.value = funcao;
+          listaFuncoesEl.appendChild(option);
+        });
+      } catch (_err) {
+        listaFuncoesEl.innerHTML = "";
+      }
+    }
+
+    loadFuncoesAutocomplete();
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      statusErro.style.display = "none";
+      statusSucesso.style.display = "none";
+
+      const payload = {
+        nome: String(nomeInput.value || "").trim(),
+        funcao: String(funcaoInput.value || "").trim(),
+        numero_celular: String(numeroInput.value || "").trim(),
+        email: String(emailInput.value || "").trim(),
+        senha: String(senhaInput.value || "")
+      };
+
+      if (payload.nome.length < 3) {
+        showError("Informe um nome válido com pelo menos 3 caracteres.");
+        return;
+      }
+      if (payload.funcao.length < 2) {
+        showError("Informe uma função válida.");
+        return;
+      }
+      if (!PHONE_REGEX.test(payload.numero_celular)) {
+        showError("Número de celular inválido. Use o formato (xx) 9 0000 - 0000.");
+        return;
+      }
+      if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+        showError("E-mail inválido.");
+        return;
+      }
+      if (payload.senha.length < 6) {
+        showError("A senha deve ter pelo menos 6 caracteres.");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const response = await fetch("/api/funcionarios/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(function () { return {}; });
+        if (!response.ok || !result.ok) {
+          throw new Error(String(result.error || "Não foi possível concluir o cadastro."));
+        }
+
+        form.reset();
+        showSuccess("Cadastro finalizado com sucesso. Redirecionando para o login...");
+        window.setTimeout(function () {
+          window.location.href = "index.html?registered=1";
+        }, 900);
+      } catch (err) {
+        showError(String(err && err.message ? err.message : "Erro inesperado ao cadastrar."));
+      } finally {
+        setLoading(false);
+      }
+    });
+  });
+</script>
+</body></html>

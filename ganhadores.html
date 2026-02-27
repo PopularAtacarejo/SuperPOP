@@ -1,0 +1,969 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop | Ganhadores do Mês</title>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#E63946", 
+            secondary: "#FFB703", 
+            "secondary-dark": "#F59E0B",
+            "background-light": "#FFFFFF",
+            "background-dark": "#121212",
+            "surface-light": "#F8F9FA",
+            "surface-dark": "#2D282A",
+            "text-light": "#1F1A1C",
+            "text-gray": "#6B7280",
+            "gold-light": "#FFFBEB",
+            "silver-light": "#F8FAFC",
+            "bronze-light": "#FFF7ED",
+          },
+          fontFamily: {
+            display: ["Fredoka One", "cursive"],
+            body: ["Nunito", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "12px",
+            xl: "20px",
+            '2xl': "24px",
+          },
+          boxShadow: {
+            'soft': '0 8px 30px -4px rgba(0, 0, 0, 0.08)',
+            'glow': '0 0 20px -3px rgba(230, 57, 70, 0.5)',
+            'card': '0 15px 40px -10px rgba(0, 0, 0, 0.12)',
+            'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 3s infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        },
+      },
+    };
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="animations">
+    .bg-pattern {
+      background-color: #ffffff;
+      background-image: radial-gradient(#E63946 0.5px, transparent 0.5px), radial-gradient(#FFB703 0.5px, #ffffff 0.5px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+      opacity: 0.4;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .dark .bg-pattern {
+        background-color: #121212;
+        background-image: radial-gradient(#E63946 0.5px, transparent 0.5px), radial-gradient(#FFB703 0.5px, #121212 0.5px);
+        opacity: 0.1;
+    }
+    .floating-icons-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .floating-icon {
+      position: absolute;
+      opacity: 0.14;
+      color: #e63946;
+      animation: floatIcon 7s ease-in-out infinite;
+    }
+    .floating-icon.alt {
+      color: #ffb703;
+      opacity: 0.18;
+    }
+    .dark .floating-icon {
+      opacity: 0.08;
+    }
+    .dark .floating-icon.alt {
+      opacity: 0.11;
+    }
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(8deg); }
+    }
+    .medal-gold { color: #FFB703; text-shadow: 0 2px 4px rgba(255, 183, 3, 0.3); }
+    .medal-silver { color: #94A3B8; text-shadow: 0 2px 4px rgba(148, 163, 184, 0.3); }
+    .medal-bronze { color: #B45309; text-shadow: 0 2px 4px rgba(180, 83, 9, 0.3); }
+    .row-gold { background: linear-gradient(90deg, rgba(255, 251, 235, 0.8) 0%, rgba(255, 255, 255, 0) 100%); }
+    .row-silver { background: linear-gradient(90deg, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 0) 100%); }
+    .row-bronze { background: linear-gradient(90deg, rgba(255, 247, 237, 0.8) 0%, rgba(255, 255, 255, 0) 100%); }
+    .dark .row-gold { background: linear-gradient(90deg, rgba(255, 183, 3, 0.1) 0%, rgba(45, 40, 42, 0) 100%); }
+    .dark .row-silver { background: linear-gradient(90deg, rgba(148, 163, 184, 0.1) 0%, rgba(45, 40, 42, 0) 100%); }
+    .dark .row-bronze { background: linear-gradient(90deg, rgba(180, 83, 9, 0.1) 0%, rgba(45, 40, 42, 0) 100%); }
+    .ranking-table-container {
+      scrollbar-width: thin;
+      scrollbar-color: #E63946 transparent;
+    }
+  </style>
+<style data-purpose="sidebar-menu">
+  .sidebar {
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 72px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar.expanded {
+    width: 250px;
+  }
+  .sidebar.expanded .sidebar-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .sidebar-header {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    transition: padding 0.25s ease;
+  }
+  .sidebar-nav {
+    transition: padding 0.25s ease;
+    padding-top: 0.5rem;
+  }
+  .menu-section-title {
+    font-size: 0.72rem;
+    line-height: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #ef4444;
+  }
+  .menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border-radius: 12px;
+    color: #64748b;
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .menu-item .material-symbols-outlined {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #eef2f7;
+    color: #475569;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 24;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .menu-item-label {
+    font-size: 0.98rem;
+    letter-spacing: 0.01em;
+  }
+  .menu-item:hover {
+    background: #fff1f2;
+    color: #9f1239;
+    transform: translateX(2px);
+  }
+  .menu-item:hover .material-symbols-outlined {
+    transform: scale(1.06);
+    background: #ffe4e6;
+    color: #be123c;
+    border-color: rgba(230, 57, 70, 0.28);
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.16);
+  }
+  .menu-item.active {
+    background: #fee2e2;
+    color: #b91c1c;
+    box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.28), 0 6px 14px rgba(230, 57, 70, 0.1);
+  }
+  .menu-item.active .material-symbols-outlined {
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    border-color: rgba(255, 255, 255, 0.65);
+    color: #ffffff;
+    font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 24;
+    box-shadow: 0 8px 16px rgba(220, 38, 38, 0.34);
+  }
+  .dark .menu-item {
+    color: #94a3b8;
+  }
+  .dark .menu-item .material-symbols-outlined {
+    background: rgba(51, 65, 85, 0.9);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.25);
+  }
+  .dark .menu-item:hover {
+    background: rgba(127, 29, 29, 0.45);
+    color: #fecaca;
+  }
+  .dark .menu-item.active {
+    background: rgba(153, 27, 27, 0.55);
+    color: #fecaca;
+    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
+  }
+  .dark .menu-item.active .material-symbols-outlined {
+    background: linear-gradient(145deg, #f87171, #ef4444);
+    border-color: rgba(254, 202, 202, 0.5);
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(248, 113, 113, 0.32);
+  }
+  .sidebar-content-fade {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+  .sidebar.expanded .sidebar-content-fade {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    position: static;
+    visibility: visible;
+  }
+  .main-content {
+    margin-left: 72px;
+    transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sidebar.expanded ~ .main-content {
+    margin-left: 250px;
+  }
+  .sidebar:not(.expanded) .sidebar-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .sidebar:not(.expanded) .sidebar-nav {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .sidebar:not(.expanded) .menu-item {
+    justify-content: center;
+    width: 44px;
+    min-height: 44px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sidebar:not(.expanded) .menu-item:hover {
+    transform: none;
+  }
+  .sidebar:not(.expanded) .menu-item .material-symbols-outlined {
+    margin: 0;
+    font-size: 22px;
+  }
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 0;
+      overflow: hidden;
+      position: fixed;
+      z-index: 50;
+      height: 100vh;
+    }
+    .sidebar.expanded {
+      width: 250px;
+    }
+    .main-content {
+      margin-left: 0 !important;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      backdrop-filter: blur(2px);
+    }
+    .sidebar.expanded + .sidebar-overlay {
+      display: block;
+    }
+  }
+</style>
+<style data-purpose="auth-user-menu">
+  .auth-user-menu {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 45;
+  }
+  .auth-user-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    border-radius: 999px;
+    padding: 6px 10px;
+    color: #0f172a;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    cursor: pointer;
+  }
+  .auth-user-btn .material-symbols-outlined {
+    font-size: 20px;
+  }
+  .auth-user-btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+    min-width: 0;
+  }
+  .auth-user-btn-text strong {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.77rem;
+  }
+  .auth-user-btn-text small {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #64748b;
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+  .auth-user-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(280px, 88vw);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+    padding: 12px;
+  }
+  .auth-user-dropdown.open {
+    display: block;
+  }
+  .auth-user-dropdown-name {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .auth-user-dropdown-role {
+    margin: 2px 0 10px;
+    font-size: 0.78rem;
+    color: #64748b;
+    font-weight: 700;
+  }
+  .auth-user-logout {
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 9px 10px;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .auth-user-menu {
+      top: 12px;
+      right: 12px;
+    }
+    .auth-user-btn {
+      padding: 5px 8px;
+    }
+    .auth-user-btn-text strong,
+    .auth-user-btn-text small {
+      max-width: 120px;
+    }
+  }
+</style>
+</head>
+<body class="bg-gray-50 dark:bg-background-dark text-text-light dark:text-white font-body antialiased transition-colors duration-300 min-h-screen flex flex-col">
+<div class="bg-pattern"></div>
+<div class="floating-icons-bg" aria-hidden="true">
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 8%; left: 14%; animation-delay: -0.8s;">stars</span>
+<span class="floating-icon alt material-symbols-outlined text-4xl" style="top: 12%; right: 18%; animation-delay: -1.7s;">emoji_events</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 26%; left: 6%; animation-delay: -2.9s;">favorite</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 34%; right: 10%; animation-delay: -3.4s;">celebration</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 55%; left: 10%; animation-delay: -4.1s;">workspace_premium</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="top: 62%; right: 16%; animation-delay: -5.3s;">volunteer_activism</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 20%; left: 30%; animation-delay: -2.2s;">kid_star</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 12%; right: 28%; animation-delay: -4.7s;">auto_awesome</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 18%; left: 32%; animation-delay: -3.9s;">bolt</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 22%; right: 34%; animation-delay: -2.6s;">front_hand</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 44%; left: 24%; animation-delay: -1.5s;">groups</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 48%; right: 22%; animation-delay: -5.1s;">thumb_up</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 71%; left: 12%; animation-delay: -2.8s;">handshake</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="top: 74%; right: 10%; animation-delay: -3.7s;">trending_up</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 7%; left: 45%; animation-delay: -4.4s;">auto_awesome_motion</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 5%; right: 44%; animation-delay: -1.9s;">flare</span>
+</div>
+<aside class="sidebar fixed top-0 left-0 h-screen bg-white dark:bg-surface-dark shadow-xl z-50 border-r border-gray-100 dark:border-gray-800" id="sidebar">
+<div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
+<div class="h-24 flex items-center justify-center overflow-hidden relative">
+<div class="absolute left-0 transition-opacity duration-300 w-12 h-12 flex items-center justify-center">
+<img alt="SP" class="w-10 h-10 object-contain opacity-100 sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/>
+</div>
+<div class="sidebar-content-fade w-full px-1">
+<img alt="SuperPop Logo" class="object-contain w-full h-auto max-h-[84px]" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</div>
+</div>
+<nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6">
+<div class="space-y-1">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Geral</span>
+</div>
+<a class="menu-item group" href="superpop.html">
+<span class="material-symbols-outlined shrink-0">send</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
+</a>
+<a class="menu-item group" href="meus-superpops.html">
+<span class="material-symbols-outlined shrink-0">history</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span>
+</a>
+<a class="menu-item group" href="rank.html">
+<span class="material-symbols-outlined shrink-0">leaderboard</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
+</a>
+<a class="menu-item active group" href="ganhadores.html">
+<span class="material-symbols-outlined shrink-0">workspace_premium</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+</a>
+</div>
+</nav>
+<button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="md:hidden fixed top-4 left-4 z-40 bg-white dark:bg-surface-dark p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="auth-user-menu" id="authUserMenu">
+<button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="auth-user-btn-text">
+<strong id="authUserName">Carregando...</strong>
+<small id="authUserRole">Perfil</small>
+</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="auth-user-dropdown" id="authUserDropdown">
+<p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p>
+<p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p>
+<button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button>
+</div>
+</div>
+<div class="main-content flex-col flex min-h-screen">
+<header class="relative px-6 pb-6 pt-4 text-center">
+<div class="max-w-7xl mx-auto relative z-10">
+<div class="pt-4">
+<div class="w-fit mx-auto">
+<img alt="SuperPop" class="mx-auto w-48 sm:w-72 h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-5 py-8 space-y-10 relative z-10">
+<section class="text-center space-y-3" data-purpose="page-title">
+<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight drop-shadow-sm">Ganhadores do Mês</h1>
+<p class="text-gray-600 dark:text-gray-300 font-semibold text-lg max-w-2xl mx-auto">
+            Destaques de <span class="text-primary" id="currentMonthLabel">--</span> no SuperPOP.
+        </p>
+</section>
+<section class="grid lg:grid-cols-2 gap-8">
+<div class="bg-white/90 backdrop-blur dark:bg-surface-dark rounded-2xl shadow-glass border border-white/60 dark:border-gray-700 overflow-hidden flex flex-col h-full">
+<div class="bg-gradient-to-r from-primary to-red-700 p-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-white">workspace_premium</span>
+</div>
+<h2 class="text-white font-display uppercase text-lg tracking-wide">Quem mais recebeu SuperPOp no Mês</h2>
+</div>
+<span class="text-white/80 text-sm font-bold bg-white/10 px-3 py-1 rounded-full">Top 1</span>
+</div>
+<div class="ranking-table-container overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50 text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-700">
+<th class="px-6 py-4 w-16 text-center">Pos</th>
+<th class="px-6 py-4">Colaborador</th>
+<th class="px-6 py-4 text-center">Qtd</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800 font-semibold text-sm" id="receivedTableBody">
+</tbody>
+</table>
+</div>
+</div>
+<div class="bg-white/90 backdrop-blur dark:bg-surface-dark rounded-2xl shadow-glass border border-white/60 dark:border-gray-700 overflow-hidden flex flex-col h-full">
+<div class="bg-gradient-to-r from-secondary to-orange-500 p-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-gray-900">volunteer_activism</span>
+</div>
+<h2 class="text-gray-900 font-display uppercase text-lg tracking-wide">Top 1 que mais enviou SuperPOP no Mês</h2>
+</div>
+<span class="text-gray-900/80 text-sm font-bold bg-black/5 px-3 py-1 rounded-full">Top 1</span>
+</div>
+<div class="ranking-table-container overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50 text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-700">
+<th class="px-6 py-4 w-16 text-center">Pos</th>
+<th class="px-6 py-4">Colaborador</th>
+<th class="px-6 py-4 text-center">Qtd</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800 font-semibold text-sm" id="sentTableBody">
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="grid lg:grid-cols-2 gap-8">
+<div class="bg-white/90 backdrop-blur dark:bg-surface-dark rounded-2xl shadow-glass border border-white/60 dark:border-gray-700 overflow-hidden flex flex-col h-full">
+<div class="bg-gradient-to-r from-primary to-red-700 p-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-white">history</span>
+</div>
+<h2 class="text-white font-display uppercase text-lg tracking-wide">Top 1 Ganhador de Todos os Meses</h2>
+</div>
+<span class="text-white/80 text-sm font-bold bg-white/10 px-3 py-1 rounded-full">Histórico</span>
+</div>
+<div class="ranking-table-container overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50 text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-700">
+<th class="px-6 py-4">Mês</th>
+<th class="px-6 py-4">Colaborador</th>
+<th class="px-6 py-4 text-center">Qtd</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800 font-semibold text-sm" id="historyReceivedTableBody">
+</tbody>
+</table>
+</div>
+</div>
+<div class="bg-white/90 backdrop-blur dark:bg-surface-dark rounded-2xl shadow-glass border border-white/60 dark:border-gray-700 overflow-hidden flex flex-col h-full">
+<div class="bg-gradient-to-r from-secondary to-orange-500 p-5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+<span class="material-symbols-outlined text-gray-900">history</span>
+</div>
+<h2 class="text-gray-900 font-display uppercase text-lg tracking-wide">Top 1 Enviador de Todos os Meses</h2>
+</div>
+<span class="text-gray-900/80 text-sm font-bold bg-black/5 px-3 py-1 rounded-full">Histórico</span>
+</div>
+<div class="ranking-table-container overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50/50 dark:bg-gray-800/50 text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-700">
+<th class="px-6 py-4">Mês</th>
+<th class="px-6 py-4">Colaborador</th>
+<th class="px-6 py-4 text-center">Qtd</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800 font-semibold text-sm" id="historySentTableBody">
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<footer class="mt-auto py-8">
+<div class="flex items-center justify-center gap-2 text-gray-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<p class="text-xs font-bold uppercase tracking-widest">
+                Última atualização: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
+</p>
+</div>
+<p class="mt-3 text-center text-xs font-bold uppercase tracking-widest text-gray-400">
+Popular Atacarejo - Todos os Direitos Reservados 2026
+</p>
+</footer>
+</main>
+ </div>
+<script data-purpose="sidebar-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const overlay = document.getElementById("sidebarOverlay");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const smallLogo = document.querySelector(".sidebar-collapsed-only");
+    const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar() {
+      sidebar.classList.add("expanded");
+      chevron.textContent = "chevron_left";
+      smallLogo.style.opacity = "0";
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove("expanded");
+      chevron.textContent = "chevron_right";
+      window.setTimeout(function () {
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
+      }, 220);
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    mobileMenuBtn.addEventListener("click", openSidebar);
+    overlay.addEventListener("click", closeSidebar);
+  });
+</script>
+<script data-purpose="ranking-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const receivedTbody = document.getElementById("receivedTableBody");
+    const sentTbody = document.getElementById("sentTableBody");
+    const historyReceivedTbody = document.getElementById("historyReceivedTableBody");
+    const historySentTbody = document.getElementById("historySentTableBody");
+    const currentMonthLabel = document.getElementById("currentMonthLabel");
+    const lastUpdateSpan = document.getElementById("lastUpdate");
+    const RANK_DATA_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/Dados.json";
+    const AUTO_REFRESH_MS = 30000;
+    let isLoading = false;
+    function formatCurrentMonthLabel() {
+      const now = new Date();
+      const text = now.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+    function getMedalHTML(pos) {
+      if (pos === 1) return '<span class="medal-gold material-symbols-outlined text-3xl drop-shadow-sm" title="Ouro">workspace_premium</span>';
+      if (pos === 2) return '<span class="medal-silver material-symbols-outlined text-3xl drop-shadow-sm" title="Prata">workspace_premium</span>';
+      if (pos === 3) return '<span class="medal-bronze material-symbols-outlined text-3xl drop-shadow-sm" title="Bronze">workspace_premium</span>';
+      return '<span class="text-gray-400 font-bold bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">#' + pos + "</span>";
+    }
+    function getRowClass(pos) {
+      if (pos === 1) return "row-gold";
+      if (pos === 2) return "row-silver";
+      if (pos === 3) return "row-bronze";
+      return "";
+    }
+    function getAvatar(name) {
+      const safeName = String(name || "").trim();
+      const initials = safeName.split(" ").map(function (n) { return n ? n[0] : ""; }).join("").substring(0, 2).toUpperCase();
+      const colors = ["bg-blue-100 text-blue-600", "bg-green-100 text-green-600", "bg-purple-100 text-purple-600", "bg-pink-100 text-pink-600"];
+      const colorClass = colors[safeName.length % colors.length];
+      return '<div class="w-8 h-8 rounded-full ' + colorClass + ' flex items-center justify-center text-xs font-bold mr-3 shrink-0 shadow-sm">' + (initials || "--") + "</div>";
+    }
+    function normalizeGithubBlobUrl(url) {
+      try {
+        const parsed = new URL(url);
+        if (parsed.hostname === "github.com") {
+          const parts = parsed.pathname.split("/").filter(Boolean);
+          if (parts.length >= 5 && parts[2] === "blob") {
+            const owner = parts[0];
+            const repo = parts[1];
+            const branch = parts[3];
+            const filePath = parts.slice(4).join("/");
+            return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + branch + "/" + filePath;
+          }
+        }
+      } catch (_err) {}
+      return url;
+    }
+    async function fetchJsonArray(url) {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+      const payload = await response.json();
+      if (!Array.isArray(payload)) {
+        throw new Error("JSON nao eh lista");
+      }
+      return payload;
+    }
+    async function fetchRankingLogs() {
+      const sources = [
+        normalizeGithubBlobUrl(RANK_DATA_SOURCE_URL),
+        "./Dados.json"
+      ];
+      const errors = [];
+      for (const source of sources) {
+        try {
+          return await fetchJsonArray(source);
+        } catch (err) {
+          errors.push(source + ": " + (err && err.message ? err.message : String(err)));
+        }
+      }
+      throw new Error(errors.join(" | "));
+    }
+    function normalizeName(value) {
+      const text = String(value || "").trim();
+      return text && text !== "-" ? text : "";
+    }
+    function getCollaboratorName(log) {
+      return normalizeName(log && log.destinatario && log.destinatario.nome) || normalizeName(log && log.colaborador);
+    }
+    function getSenderName(log) {
+      return normalizeName(log && log.remetente && log.remetente.nome) || normalizeName(log && log.reconhecido_por);
+    }
+    function parseLogDate(log) {
+      if (!log || typeof log !== "object") return null;
+      const isoValue = String(log.data_hora_iso || "").trim();
+      if (isoValue) {
+        const parsedIso = new Date(isoValue);
+        if (!Number.isNaN(parsedIso.getTime())) {
+          return parsedIso;
+        }
+      }
+      const dayValue = String(log.dia || "").trim();
+      const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(dayValue);
+      if (!match) return null;
+      const day = Number(match[1]);
+      const month = Number(match[2]) - 1;
+      const year = Number(match[3]);
+      const parsedDay = new Date(year, month, day);
+      return Number.isNaN(parsedDay.getTime()) ? null : parsedDay;
+    }
+    function filterLogsByCurrentMonth(logs) {
+      const now = new Date();
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+      return logs.filter(function (log) {
+        const logDate = parseLogDate(log);
+        if (!logDate) return false;
+        return logDate.getMonth() === currentMonth && logDate.getFullYear() === currentYear;
+      });
+    }
+    function renderTable(tbody, data, badgeClass, emptyMessage) {
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-gray-400">' + (emptyMessage || "Nenhum registro encontrado") + "</td></tr>";
+        return;
+      }
+      data.forEach(function (item, index) {
+        const pos = index + 1;
+        const row = document.createElement("tr");
+        row.className = "hover:bg-white dark:hover:bg-gray-700/50 transition-colors " + getRowClass(pos);
+        row.innerHTML =
+          '<td class="px-6 py-4 text-center">' + getMedalHTML(pos) + '</td>' +
+          '<td class="px-6 py-4"><div class="flex items-center">' + getAvatar(item.name) + '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + '</span></div></td>' +
+          '<td class="px-6 py-4 text-center"><span class="inline-block px-3 py-1 rounded-full font-bold text-sm ' + badgeClass + ' shadow-sm">' + item.count + '</span></td>';
+        tbody.appendChild(row);
+      });
+    }
+    function formatMonthKey(key) {
+      const match = /^(\d{4})-(\d{2})$/.exec(String(key || ""));
+      if (!match) return String(key || "-");
+      const year = Number(match[1]);
+      const month = Number(match[2]) - 1;
+      const dt = new Date(year, month, 1);
+      const text = dt.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+    function buildRankings(logs) {
+      const receivedMap = new Map();
+      const sentMap = new Map();
+      logs.forEach(function (log) {
+        const options = Array.isArray(log && log.opcoes_marcadas) ? log.opcoes_marcadas : [];
+        const recKey = getCollaboratorName(log);
+        if (recKey) {
+          if (!receivedMap.has(recKey)) {
+            receivedMap.set(recKey, { name: recKey, count: 0, values: 0 });
+          }
+          receivedMap.get(recKey).count += 1;
+          receivedMap.get(recKey).values += options.length;
+        }
+        const sentKey = getSenderName(log);
+        if (sentKey) {
+          if (!sentMap.has(sentKey)) {
+            sentMap.set(sentKey, { name: sentKey, count: 0, values: 0 });
+          }
+          sentMap.get(sentKey).count += 1;
+          sentMap.get(sentKey).values += options.length;
+        }
+      });
+      const receivedArr = Array.from(receivedMap.values()).sort(function (a, b) {
+        return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
+      });
+      const sentArr = Array.from(sentMap.values()).sort(function (a, b) {
+        return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
+      });
+      return {
+        receivedArr: receivedArr,
+        sentArr: sentArr
+      };
+    }
+    function buildMonthlyTopOne(logs) {
+      const logsByMonth = new Map();
+      logs.forEach(function (log) {
+        const logDate = parseLogDate(log);
+        if (!logDate) return;
+        const monthKey = String(logDate.getFullYear()) + "-" + String(logDate.getMonth() + 1).padStart(2, "0");
+        if (!logsByMonth.has(monthKey)) {
+          logsByMonth.set(monthKey, []);
+        }
+        logsByMonth.get(monthKey).push(log);
+      });
+      const sortedMonthKeys = Array.from(logsByMonth.keys()).sort().reverse();
+      const receivedHistory = [];
+      const sentHistory = [];
+      sortedMonthKeys.forEach(function (monthKey) {
+        const monthLogs = logsByMonth.get(monthKey) || [];
+        const monthRank = buildRankings(monthLogs);
+        if (monthRank.receivedArr.length) {
+          const topReceived = monthRank.receivedArr[0];
+          receivedHistory.push({ month: formatMonthKey(monthKey), name: topReceived.name, count: topReceived.count });
+        }
+        if (monthRank.sentArr.length) {
+          const topSent = monthRank.sentArr[0];
+          sentHistory.push({ month: formatMonthKey(monthKey), name: topSent.name, count: topSent.count });
+        }
+      });
+      return {
+        receivedHistory: receivedHistory,
+        sentHistory: sentHistory
+      };
+    }
+    function renderHistoryTable(tbody, data, badgeClass) {
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-gray-400">Nenhum mês com registros</td></tr>';
+        return;
+      }
+      data.forEach(function (item) {
+        const row = document.createElement("tr");
+        row.className = "hover:bg-white dark:hover:bg-gray-700/50 transition-colors";
+        row.innerHTML =
+          '<td class="px-6 py-4 text-gray-700 dark:text-gray-300 font-bold">' + item.month + "</td>" +
+          '<td class="px-6 py-4"><div class="flex items-center">' + getAvatar(item.name) + '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + "</span></div></td>" +
+          '<td class="px-6 py-4 text-center"><span class="inline-block px-3 py-1 rounded-full font-bold text-sm ' + badgeClass + ' shadow-sm">' + item.count + "</span></td>";
+        tbody.appendChild(row);
+      });
+    }
+    function processAndRender(logsCurrentMonth, allLogs) {
+      const currentMonthRank = buildRankings(logsCurrentMonth);
+      const monthlyTopOne = buildMonthlyTopOne(allLogs);
+      renderTable(receivedTbody, currentMonthRank.receivedArr.slice(0, 1), "bg-primary/10 text-primary border border-primary/20", "Sem ganhador no mês atual");
+      renderTable(sentTbody, currentMonthRank.sentArr.slice(0, 1), "bg-secondary/10 text-secondary-dark border border-secondary/20", "Sem enviador no mês atual");
+      renderHistoryTable(historyReceivedTbody, monthlyTopOne.receivedHistory, "bg-primary/10 text-primary border border-primary/20");
+      renderHistoryTable(historySentTbody, monthlyTopOne.sentHistory, "bg-secondary/10 text-secondary-dark border border-secondary/20");
+    }
+    async function loadRankingData() {
+      if (isLoading) return;
+      isLoading = true;
+      try {
+        const logs = await fetchRankingLogs();
+        const logsCurrentMonth = filterLogsByCurrentMonth(logs);
+        processAndRender(logsCurrentMonth, logs);
+      } catch (err) {
+        console.error("Erro ao carregar ranking:", err);
+        if (receivedTbody) {
+          receivedTbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-red-500">Falha ao carregar dados do ranking</td></tr>';
+        }
+        if (sentTbody) {
+          sentTbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-red-500">Falha ao carregar dados do ranking</td></tr>';
+        }
+        if (historyReceivedTbody) {
+          historyReceivedTbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-red-500">Falha ao carregar dados do ranking</td></tr>';
+        }
+        if (historySentTbody) {
+          historySentTbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-red-500">Falha ao carregar dados do ranking</td></tr>';
+        }
+      } finally {
+        isLoading = false;
+        if (currentMonthLabel) {
+          currentMonthLabel.textContent = formatCurrentMonthLabel();
+        }
+        const now = new Date();
+        if (lastUpdateSpan) {
+          lastUpdateSpan.textContent = now.toLocaleDateString("pt-BR") + " " + now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        }
+      }
+    }
+    loadRankingData();
+    window.setInterval(loadRankingData, AUTO_REFRESH_MS);
+  });
+</script>
+<script data-purpose="auth-user-menu-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const authUserBtn = document.getElementById("authUserBtn");
+    const authUserDropdown = document.getElementById("authUserDropdown");
+    const authLogoutBtn = document.getElementById("authLogoutBtn");
+    const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
+    const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
+    if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
+
+    function setUserView(nome, funcao) {
+      const safeNome = String(nome || "").trim() || "Usuario";
+      const safeFuncao = String(funcao || "").trim() || "Sem funcao";
+      nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
+      roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+    }
+
+    async function loadUserFromSession() {
+      const response = await fetch("/api/auth/me", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Nao autenticado");
+      }
+      const payload = await response.json();
+      if (!payload || !payload.ok || !payload.usuario) {
+        throw new Error("Sessao invalida");
+      }
+      setUserView(payload.usuario.nome, payload.usuario.funcao);
+    }
+
+    authUserBtn.addEventListener("click", function () {
+      const isOpen = authUserDropdown.classList.contains("open");
+      authUserDropdown.classList.toggle("open", !isOpen);
+      authUserBtn.setAttribute("aria-expanded", String(!isOpen));
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
+        authUserDropdown.classList.remove("open");
+        authUserBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    authLogoutBtn.addEventListener("click", async function () {
+      try {
+        await fetch("/api/auth/logout", { method: "POST" });
+      } catch (_err) {}
+      try {
+        localStorage.removeItem("superpop_auth_user");
+      } catch (_err) {}
+      window.location.href = "index.html";
+    });
+
+    loadUserFromSession().catch(function () {
+      window.location.href = "index.html";
+    });
+  });
+</script>
+
+</body></html>
+

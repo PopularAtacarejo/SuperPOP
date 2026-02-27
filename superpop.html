@@ -1,0 +1,1647 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop Popular Atacarejo</title>
+<meta content="SuperPop Popular Atacarejo" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://i.ibb.co/99R7YqxF/Icon.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="SuperPop Popular Atacarejo" name="twitter:title"/>
+<meta content="https://i.ibb.co/99R7YqxF/Icon.png" name="twitter:image"/>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="apple-touch-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#E63946", // Vibrant Red
+                        secondary: "#FFB703", // Accent Yellow/Orange
+                        "background-light": "#FFFFFF", // Solid bright white
+                        "background-dark": "#121212", 
+                        "surface-light": "#F8F9FA", // Very subtle gray for inputs
+                        "surface-dark": "#2D282A",
+                        "text-light": "#1F1A1C", // Darker text for contrast
+                        "text-gray": "#6B7280",
+                    },
+                    fontFamily: {
+                        display: ["Fredoka One", "cursive"], 
+                        body: ["Nunito", "sans-serif"], 
+                    },
+                    borderRadius: {
+                        DEFAULT: "12px",
+                        xl: "20px",
+                        '2xl': "24px",
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 15px -3px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 4px 15px -3px rgba(230, 57, 70, 0.3)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.08)',
+                    }
+                },
+            },
+        };
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-rounded { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .checkbox-wrapper input:checked + div {
+            background-color: #E63946;
+            border-color: #E63946;
+            color: white;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+        }
+        .checkbox-wrapper input:checked + div span {
+             color: white;
+        }.paper-lines {
+            background-image: linear-gradient(transparent, transparent 29px, #e5e7eb 29px, #e5e7eb 30px);
+            background-size: 100% 30px;
+            line-height: 30px;
+            background-attachment: local;
+        }
+        .dark .paper-lines {
+            background-image: linear-gradient(transparent, transparent 29px, #374151 29px, #374151 30px);
+        }
+        .header-decor {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            animation: decorPan 18s ease-in-out infinite alternate, decorBreath 9s ease-in-out infinite;
+        }
+        .header-decor::before,
+        .header-decor::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(1px);
+            opacity: 0.2;
+        }
+        .header-decor::before {
+            width: 240px;
+            height: 240px;
+            left: -70px;
+            top: -35px;
+            background: radial-gradient(circle, rgba(255, 183, 3, 0.35) 0%, rgba(255, 183, 3, 0) 70%);
+            animation: blobDriftA 11s ease-in-out infinite;
+        }
+        .header-decor::after {
+            width: 280px;
+            height: 280px;
+            right: -90px;
+            top: -55px;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.28) 0%, rgba(230, 57, 70, 0) 72%);
+            animation: blobDriftB 13s ease-in-out infinite;
+        }
+        .header-decor-item {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            --dur: 6s;
+            --delay: 0s;
+            --glow-dur: 4s;
+            --o1: 0.14;
+            --o2: 0.24;
+            --glow: 230, 57, 70;
+            opacity: var(--o1);
+            will-change: transform, opacity, filter;
+            animation:
+                floatDecor var(--dur) ease-in-out var(--delay) infinite,
+                glowDecor var(--glow-dur) ease-in-out var(--delay) infinite,
+                spinDecor calc(var(--dur) * 2.2) linear var(--delay) infinite;
+        }
+        .header-decor-item.star {
+            color: #FFB703;
+            --o1: 0.22;
+            --o2: 0.38;
+            --glow: 255, 183, 3;
+        }
+        .header-decor-item.value {
+            color: #E63946;
+            --o1: 0.12;
+            --o2: 0.22;
+            --glow: 230, 57, 70;
+        }
+        .header-logo-wrap {
+            position: relative;
+            z-index: 10;
+            display: inline-block;
+        }
+        .header-logo {
+            position: relative;
+            z-index: 2;
+        }
+        @keyframes floatDecor {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+            25% { transform: translate3d(8px, -8px, 0) rotate(-4deg) scale(1.04); }
+            50% { transform: translate3d(-6px, -14px, 0) rotate(3deg) scale(1.1); }
+            75% { transform: translate3d(9px, -6px, 0) rotate(-2deg) scale(1.04); }
+            100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+        }
+        @keyframes glowDecor {
+            0%, 100% {
+                opacity: var(--o1);
+                filter: drop-shadow(0 0 0 rgba(var(--glow), 0));
+            }
+            50% {
+                opacity: var(--o2);
+                filter: drop-shadow(0 0 10px rgba(var(--glow), 0.28));
+            }
+        }
+        @keyframes spinDecor {
+            from { rotate: 0deg; }
+            to { rotate: 360deg; }
+        }
+        @keyframes decorPan {
+            0% { transform: translateX(-4px); }
+            100% { transform: translateX(4px); }
+        }
+        @keyframes decorBreath {
+            0%, 100% { scale: 1; }
+            50% { scale: 1.02; }
+        }
+        @keyframes blobDriftA {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            50% { transform: translate(24px, -10px) scale(1.1); opacity: 0.28; }
+        }
+        @keyframes blobDriftB {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.16; }
+            50% { transform: translate(-26px, 8px) scale(1.08); opacity: 0.24; }
+        }
+        @keyframes logoEnter {
+            from {
+                opacity: 0;
+                transform: translateY(16px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .header-decor,
+            .header-decor-item,
+            .header-logo-wrap,
+            .header-logo {
+                animation: none !important;
+            }
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    .floating-icons-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .floating-icon {
+      position: absolute;
+      opacity: 0.12;
+      color: #e63946;
+      animation: floatIcon 7s ease-in-out infinite;
+    }
+    .floating-icon.alt {
+      color: #ffb703;
+      opacity: 0.16;
+    }
+    .dark .floating-icon {
+      opacity: 0.08;
+    }
+    .dark .floating-icon.alt {
+      opacity: 0.1;
+    }
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(8deg); }
+    }
+  </style>
+<style>
+    .send-whatsapp-btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transform: translateZ(0);
+    }
+    .send-whatsapp-btn-progress {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.35) 42%, rgba(255, 255, 255, 0.12) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.06) 100%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      transition: width 0.28s cubic-bezier(.2,.85,.3,1), opacity 0.2s ease;
+    }
+    .send-whatsapp-btn-content {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .send-whatsapp-btn-label.is-step {
+      animation: sendBtnLabelStep 0.24s ease both;
+    }
+    .send-whatsapp-btn-label.is-super-pop {
+      color: #ff2a2a;
+      text-shadow: 0 0 8px rgba(255, 42, 42, 0.75), 0 0 2px rgba(255, 255, 255, 0.95);
+      animation: sendBtnSuperPopPulseBlink 0.62s ease-in-out infinite;
+    }
+    .send-whatsapp-btn.is-loading .send-whatsapp-btn-progress {
+      opacity: 0.92;
+    }
+    .send-whatsapp-btn.is-loading .send-whatsapp-btn-icon {
+      animation: sendBtnIconPulse 0.85s ease-in-out infinite;
+    }
+    .send-whatsapp-btn.is-success {
+      box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(255, 255, 255, 0.16) inset;
+    }
+    .send-whatsapp-btn.is-success .send-whatsapp-btn-progress {
+      width: 100% !important;
+      opacity: 1;
+      background:
+        linear-gradient(90deg, rgba(255, 214, 10, 0.4) 0%, rgba(255, 246, 174, 0.72) 50%, rgba(255, 214, 10, 0.38) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 100%);
+      animation: sendBtnSuccessFlash 0.55s ease both;
+    }
+    @keyframes sendBtnLabelStep {
+      0% {
+        transform: translateY(5px) scale(0.96);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    @keyframes sendBtnIconPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.16);
+      }
+    }
+    @keyframes sendBtnSuperPopPulseBlink {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      25% {
+        opacity: 0.55;
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      75% {
+        opacity: 0.62;
+      }
+    }
+    @keyframes sendBtnSuccessFlash {
+      0% {
+        filter: saturate(1);
+      }
+      50% {
+        filter: saturate(1.35) brightness(1.08);
+      }
+      100% {
+        filter: saturate(1);
+      }
+    }
+    .send-confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 120;
+      overflow: hidden;
+    }
+    .send-confetti-piece {
+      position: fixed;
+      width: 9px;
+      height: 16px;
+      border-radius: 2px;
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0deg);
+      animation: sendConfettiBurst var(--dur, 980ms) cubic-bezier(.1,.7,.2,1) forwards;
+    }
+    @keyframes sendConfettiBurst {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--tx, 0px), var(--ty, 420px), 0) rotate(var(--rot, 420deg)) scale(0.8);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .send-whatsapp-btn,
+      .send-whatsapp-btn-progress,
+      .send-whatsapp-btn-icon,
+      .send-whatsapp-btn-label,
+      .send-confetti-piece {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <style data-purpose="sidebar-menu">
+    .sidebar {
+      transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 72px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar.expanded {
+      width: 250px;
+    }
+    .sidebar.expanded .sidebar-header {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    .sidebar-header {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      transition: padding 0.25s ease;
+    }
+    .sidebar-nav {
+      transition: padding 0.25s ease;
+      padding-top: 0.5rem;
+    }
+    .menu-section-title {
+      font-size: 0.72rem;
+      line-height: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #ef4444;
+    }
+    .menu-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 0.75rem;
+      border-radius: 12px;
+      color: #64748b;
+      font-weight: 700;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .menu-item .material-symbols-outlined {
+      font-size: 22px;
+      width: 36px;
+      height: 36px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #eef2f7;
+      color: #475569;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 24;
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .menu-item-label {
+      font-size: 0.98rem;
+      letter-spacing: 0.01em;
+    }
+    .menu-item:hover {
+      background: #fff1f2;
+      color: #9f1239;
+      transform: translateX(2px);
+    }
+    .menu-item:hover .material-symbols-outlined {
+      transform: scale(1.06);
+      background: #ffe4e6;
+      color: #be123c;
+      border-color: rgba(230, 57, 70, 0.28);
+      box-shadow: 0 4px 10px rgba(230, 57, 70, 0.16);
+    }
+    .menu-item.active {
+      background: #fee2e2;
+      color: #b91c1c;
+      box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.28), 0 6px 14px rgba(230, 57, 70, 0.1);
+    }
+    .menu-item.active .material-symbols-outlined {
+      background: linear-gradient(145deg, #ef4444, #dc2626);
+      border-color: rgba(255, 255, 255, 0.65);
+      color: #ffffff;
+      font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 24;
+      box-shadow: 0 8px 16px rgba(220, 38, 38, 0.34);
+    }
+    .dark .menu-item {
+      color: #94a3b8;
+    }
+    .dark .menu-item .material-symbols-outlined {
+      background: rgba(51, 65, 85, 0.9);
+      color: #94a3b8;
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+    .dark .menu-item:hover {
+      background: rgba(127, 29, 29, 0.45);
+      color: #fecaca;
+    }
+    .dark .menu-item.active {
+      background: rgba(153, 27, 27, 0.55);
+      color: #fecaca;
+      box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
+    }
+    .dark .menu-item.active .material-symbols-outlined {
+      background: linear-gradient(145deg, #f87171, #ef4444);
+      border-color: rgba(254, 202, 202, 0.5);
+      color: #ffffff;
+      box-shadow: 0 8px 16px rgba(248, 113, 113, 0.32);
+    }
+    .sidebar-content-fade {
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+      position: absolute;
+      visibility: hidden;
+    }
+    .sidebar.expanded .sidebar-content-fade {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      position: static;
+      visibility: visible;
+    }
+    .main-content {
+      margin-left: 72px;
+      transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .sidebar.expanded ~ .main-content {
+      margin-left: 250px;
+    }
+    .sidebar:not(.expanded) .sidebar-header {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    .sidebar:not(.expanded) .sidebar-nav {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .sidebar:not(.expanded) .menu-item {
+      justify-content: center;
+      width: 44px;
+      min-height: 44px;
+      padding: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sidebar:not(.expanded) .menu-item:hover {
+      transform: none;
+    }
+    .sidebar:not(.expanded) .menu-item .material-symbols-outlined {
+      margin: 0;
+      font-size: 22px;
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 0;
+        overflow: hidden;
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+      }
+      .sidebar.expanded {
+        width: 250px;
+      }
+      .main-content {
+        margin-left: 0 !important;
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+        backdrop-filter: blur(2px);
+      }
+      .sidebar.expanded + .sidebar-overlay {
+        display: block;
+      }
+    }
+  </style>
+<style data-purpose="auth-user-menu">
+    .auth-user-menu {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 45;
+    }
+    .auth-user-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #0f172a;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      cursor: pointer;
+    }
+    .auth-user-btn .material-symbols-outlined {
+      font-size: 20px;
+    }
+    .auth-user-btn-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
+      min-width: 0;
+    }
+    .auth-user-btn-text strong {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.77rem;
+    }
+    .auth-user-btn-text small {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #64748b;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+    .auth-user-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: min(280px, 88vw);
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+      padding: 12px;
+    }
+    .auth-user-dropdown.open {
+      display: block;
+    }
+    .auth-user-dropdown-name {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .auth-user-dropdown-role {
+      margin: 2px 0 10px;
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 700;
+    }
+    .auth-user-logout {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 9px 10px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .auth-user-menu {
+        top: 12px;
+        right: 12px;
+      }
+      .auth-user-btn {
+        padding: 5px 8px;
+      }
+      .auth-user-btn-text strong,
+      .auth-user-btn-text small {
+        max-width: 120px;
+      }
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-white font-body antialiased min-h-screen flex flex-col transition-colors duration-300">
+<div class="floating-icons-bg" aria-hidden="true">
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 7%; left: 10%; animation-delay: -0.7s;">stars</span>
+<span class="floating-icon alt material-symbols-outlined text-4xl" style="top: 11%; right: 14%; animation-delay: -1.3s;">emoji_events</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 20%; left: 30%; animation-delay: -2.4s;">favorite</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 24%; right: 28%; animation-delay: -3.2s;">celebration</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 35%; left: 6%; animation-delay: -1.9s;">workspace_premium</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="top: 39%; right: 8%; animation-delay: -4.7s;">volunteer_activism</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 47%; left: 23%; animation-delay: -5.2s;">kid_star</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 49%; right: 22%; animation-delay: -2.7s;">auto_awesome</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 58%; left: 14%; animation-delay: -3.6s;">bolt</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 61%; right: 33%; animation-delay: -1.2s;">thumb_up</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 70%; left: 36%; animation-delay: -4.1s;">groups</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 74%; right: 14%; animation-delay: -5.6s;">front_hand</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 12%; left: 18%; animation-delay: -2.3s;">handshake</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="bottom: 10%; right: 18%; animation-delay: -3.8s;">trending_up</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 6%; left: 45%; animation-delay: -4.9s;">auto_awesome_motion</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 4%; right: 42%; animation-delay: -2.1s;">flare</span>
+</div>
+<aside class="sidebar fixed top-0 left-0 h-screen bg-white dark:bg-surface-dark shadow-xl z-50 border-r border-gray-100 dark:border-gray-800" id="sidebar">
+<div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
+<div class="h-24 flex items-center justify-center overflow-hidden relative">
+<div class="absolute left-0 transition-opacity duration-300 w-12 h-12 flex items-center justify-center">
+<img alt="SP" class="w-10 h-10 object-contain opacity-100 sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/>
+</div>
+<div class="sidebar-content-fade w-full px-1">
+<img alt="SuperPop Logo" class="object-contain w-full h-auto max-h-[84px]" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</div>
+</div>
+<nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6">
+<div class="space-y-1">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Geral</span>
+</div>
+<a class="menu-item active group" href="superpop.html">
+<span class="material-symbols-outlined shrink-0">send</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
+</a>
+<a class="menu-item group" href="meus-superpops.html">
+<span class="material-symbols-outlined shrink-0">history</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span>
+</a>
+<a class="menu-item group" href="rank.html">
+<span class="material-symbols-outlined shrink-0">leaderboard</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
+</a>
+<a class="menu-item group" href="ganhadores.html">
+<span class="material-symbols-outlined shrink-0">workspace_premium</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+</a>
+</div>
+</nav>
+<button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="md:hidden fixed top-4 left-4 z-40 bg-white dark:bg-surface-dark p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="auth-user-menu" id="authUserMenu">
+<button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="auth-user-btn-text">
+<strong id="authUserName">Carregando...</strong>
+<small id="authUserRole">Perfil</small>
+</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="auth-user-dropdown" id="authUserDropdown">
+<p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p>
+<p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p>
+<button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button>
+</div>
+</div>
+<div class="main-content flex-col flex min-h-screen">
+<header class="relative px-6 pb-4 pt-2 text-center">
+<div class="header-logo-wrap">
+<img alt="SuperPop" class="header-logo mx-auto w-full max-w-[420px] h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</header>
+<main class="flex-1 px-5 pb-32 overflow-y-auto">
+<form class="space-y-6 mt-2">
+<div class="bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-700 p-6 rounded-2xl shadow-soft space-y-5">
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="colaborador">Selecione o colaborador que vai receber o Super POP!</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">person</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="colaborador" list="listaColaboradores" placeholder="Digite para pesquisar e selecionar" type="text"/>
+<datalist id="listaColaboradores"></datalist>
+</div>
+</div>
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="reconhecidopor">Enviado por (usuário logado)</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">badge</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="reconhecidopor" placeholder="Carregando usuário logado..." readonly type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_colaborador">Número do colaborador selecionado</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">call</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="numero_colaborador" placeholder="Selecione um colaborador da lista" readonly type="text"/>
+</div>
+</div>
+<div class="relative">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_reconhecidopor">Seu número (usuário logado)</label>
+<div class="relative flex items-center group">
+<span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">smartphone</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="numero_reconhecidopor" placeholder="Carregando usuário logado..." readonly type="text"/>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h2 class="text-sm font-bold text-center text-gray-600 dark:text-gray-300 px-4">
+                    Eu reconhe&ccedil;o voc&ecirc; pela pr&aacute;tica do(s) valor(es):
+                </h2>
+<div class="grid grid-cols-2 gap-3">
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">volunteer_activism</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Acolhimento</span>
+</div>
+</label>
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">bolt</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Efici&ecirc;ncia</span>
+</div>
+</label>
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">front_hand</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Cortesia</span>
+</div>
+</label>
+<label class="cursor-pointer checkbox-wrapper group relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-full py-3 px-2 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-600 hover:border-primary peer-checked:bg-primary peer-checked:border-primary shadow-sm flex items-center justify-center gap-1.5 transition-all duration-200">
+<span class="material-symbols-rounded text-base text-gray-500 dark:text-gray-300">trending_up</span>
+<span class="font-bold text-sm text-gray-700 dark:text-gray-200">Resultado</span>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-4">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="mensagem">Mensagem</label>
+<div class="relative flex items-start group">
+<span class="absolute left-3.5 top-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded pointer-events-none">edit_note</span>
+<textarea aria-describedby="mensagem-contador" class="w-full min-h-[140px] max-h-[260px] pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm resize-none leading-relaxed" id="mensagem" maxlength="400" name="mensagem" placeholder="Escreva sua mensagem personalizada aqui..."></textarea>
+</div>
+<div class="mt-1 flex justify-end pr-1">
+<span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider" id="mensagem-contador">0/400</span>
+</div>
+</div>
+<div class="mt-2 pt-2 relative">
+<div class="w-full">
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1">Data</label>
+<div class="relative group">
+<span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded pointer-events-none">calendar_month</span>
+<input class="pl-11 pr-3 py-3 w-full bg-surface-light dark:bg-surface-dark border-gray-200 dark:border-gray-600 rounded-xl shadow-sm text-sm font-semibold text-gray-800 dark:text-gray-200 cursor-not-allowed" id="dataDisplay" readonly type="text"/>
+<input id="data" name="data" type="hidden"/>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<button class="send-whatsapp-btn w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold shadow-sm transition-all active:scale-[0.99] flex items-center justify-center gap-2" id="enviarWhatsapp" type="button">
+<span aria-hidden="true" class="send-whatsapp-btn-progress" id="sendButtonProgress"></span>
+<span class="send-whatsapp-btn-content">
+<span class="send-whatsapp-btn-icon material-symbols-rounded text-xl" id="sendButtonIcon">chat</span>
+<span class="send-whatsapp-btn-label" id="sendButtonLabel">Enviar pelo WhatsApp</span>
+</span>
+</button>
+</div>
+</form>
+</main>
+<footer class="py-6 text-center">
+<p class="text-xs font-bold uppercase tracking-widest text-gray-400">
+Popular Atacarejo - Todos os Direitos Reservados 2026
+</p>
+</footer>
+ </div>
+ <script data-purpose="sidebar-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const overlay = document.getElementById("sidebarOverlay");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const smallLogo = document.querySelector(".sidebar-collapsed-only");
+    const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar() {
+      sidebar.classList.add("expanded");
+      chevron.textContent = "chevron_left";
+      smallLogo.style.opacity = "0";
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove("expanded");
+      chevron.textContent = "chevron_right";
+      window.setTimeout(function () {
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
+      }, 220);
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    mobileMenuBtn.addEventListener("click", openSidebar);
+    overlay.addEventListener("click", closeSidebar);
+  });
+ </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dateDisplayInput = document.getElementById("dataDisplay");
+    const dateValueInput = document.getElementById("data");
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = String(today.getFullYear());
+
+    if (dateDisplayInput) {
+      dateDisplayInput.value = dd + "/" + mm + "/" + yyyy;
+    }
+
+    if (dateValueInput) {
+      dateValueInput.value = yyyy + "-" + mm + "-" + dd;
+    }
+
+    const messageInput = document.getElementById("mensagem");
+    const messageCounter = document.getElementById("mensagem-contador");
+    const collaboratorInput = document.getElementById("colaborador");
+    const collaboratorListEl = document.getElementById("listaColaboradores");
+    const recognizedByInput = document.getElementById("reconhecidopor");
+    const collaboratorNumberInput = document.getElementById("numero_colaborador");
+    const senderNumberInput = document.getElementById("numero_reconhecidopor");
+    const sendWhatsappButton = document.getElementById("enviarWhatsapp");
+    const sendButtonProgress = document.getElementById("sendButtonProgress");
+    const sendButtonIcon = document.getElementById("sendButtonIcon");
+    const sendButtonLabel = document.getElementById("sendButtonLabel");
+    const defaultSendButtonIcon = sendButtonIcon ? sendButtonIcon.textContent : "chat";
+    const defaultSendButtonLabel = sendButtonLabel ? sendButtonLabel.textContent : "Enviar pelo WhatsApp";
+    const defaultCountryCode = String(window.SUPERPOP_COUNTRY_CODE || "55").replace(/\D/g, "") || "55";
+    const defaultAreaCode = String(window.SUPERPOP_AREA_CODE || "82").replace(/\D/g, "") || "82";
+    const configuredSendMode = String(window.SUPERPOP_SEND_MODE || "wa_me").trim().toLowerCase();
+    const defaultSendMode = configuredSendMode === "webjs" ? "webjs" : "wa_me";
+    const fallbackToWaMeOnWebjsFailure = String(window.SUPERPOP_WEBJS_FALLBACK_WAME || "1").trim() !== "0";
+    const apiRequestTimeoutMs = Number(window.SUPERPOP_REQUEST_TIMEOUT_MS || 75000);
+    const apiWakeupTimeoutMs = Number(window.SUPERPOP_WAKEUP_TIMEOUT_MS || 65000);
+    const REGISTERED_USERS_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/Funcioinarios.json";
+    let registeredCollaborators = [];
+    let selectedCollaborator = null;
+    let loggedSender = { nome: "", funcao: "", numero_celular: "" };
+    let collaboratorsLoaded = false;
+
+    function sanitizeApiBaseUrl(value) {
+      const text = String(value || "").trim();
+      if (!text) return "";
+      return text.replace(/\/+$/, "");
+    }
+
+    function resolveApiBaseUrl() {
+      const fromWindow = sanitizeApiBaseUrl(window.SUPERPOP_API_URL);
+      if (fromWindow) {
+        return fromWindow;
+      }
+
+      let fromQuery = "";
+      try {
+        const params = new URLSearchParams(window.location.search || "");
+        fromQuery = sanitizeApiBaseUrl(params.get("api"));
+      } catch (error) {}
+      if (fromQuery) {
+        try {
+          window.localStorage.setItem("SUPERPOP_API_URL", fromQuery);
+        } catch (error) {}
+        return fromQuery;
+      }
+
+      let fromStorage = "";
+      try {
+        fromStorage = sanitizeApiBaseUrl(window.localStorage.getItem("SUPERPOP_API_URL"));
+      } catch (error) {}
+      if (fromStorage) {
+        return fromStorage;
+      }
+
+      const sameOrigin = sanitizeApiBaseUrl(window.location.origin);
+      if (sameOrigin && /^https?:\/\//i.test(sameOrigin)) {
+        return sameOrigin;
+      }
+      return "https://superpopbackend.onrender.com";
+    }
+
+    const apiBase = resolveApiBaseUrl();
+    let apiWakeupPromise = null;
+
+    function waitMs(duration) {
+      return new Promise(function (resolve) {
+        window.setTimeout(resolve, duration);
+      });
+    }
+
+    async function wakeUpApi(baseUrl, timeoutMs) {
+      const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      let timeoutId = null;
+
+      if (controller && timeoutMs > 0) {
+        timeoutId = window.setTimeout(function () {
+          controller.abort();
+        }, timeoutMs);
+      }
+
+      try {
+        const response = await fetch(baseUrl + "/health", {
+          method: "GET",
+          cache: "no-store",
+          signal: controller ? controller.signal : undefined
+        });
+        return response.ok;
+      } catch (error) {
+        return false;
+      } finally {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+      }
+    }
+
+    async function registerCardWithImage(apiBase, payload) {
+      const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      let timeoutId = null;
+
+      if (controller) {
+        timeoutId = window.setTimeout(function () {
+          controller.abort();
+        }, apiRequestTimeoutMs);
+      }
+
+      try {
+        const response = await fetch(apiBase + "/api/logs/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller ? controller.signal : undefined
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          const error = new Error(result.error || "Falha ao registrar dados e gerar imagem.");
+          error.preventWaRedirect = Boolean(result.duplicate_send);
+          throw error;
+        }
+
+        const uploadedImageUrl = result.uploaded_image_url || "";
+        if (!uploadedImageUrl) {
+          throw new Error("Upload da imagem no ImgBB nao retornou link.");
+        }
+
+        return {
+          uploadedImageUrl: uploadedImageUrl,
+          delivery: result.delivery || {},
+          webjs: result.webjs || {}
+        };
+      } catch (error) {
+        if (error && error.name === "AbortError") {
+          throw new Error("Tempo limite para gerar/upload da imagem (cold start).");
+        }
+        throw error;
+      } finally {
+        if (timeoutId) {
+          window.clearTimeout(timeoutId);
+        }
+      }
+    }
+
+    function updateSendButtonStep(iconName, labelText) {
+      if (sendButtonIcon && iconName) {
+        sendButtonIcon.textContent = iconName;
+      }
+
+      if (sendButtonLabel) {
+        const isSuperPopStep = /super\s*pop/i.test(String(labelText || ""));
+        sendButtonLabel.textContent = labelText;
+        sendButtonLabel.classList.toggle("is-super-pop", isSuperPopStep);
+        sendButtonLabel.classList.remove("is-step");
+        void sendButtonLabel.offsetWidth;
+        sendButtonLabel.classList.add("is-step");
+      }
+    }
+
+    function setSendButtonProgress(value) {
+      if (!sendButtonProgress) {
+        return;
+      }
+      const normalized = Math.max(0, Math.min(100, Number(value) || 0));
+      sendButtonProgress.style.width = normalized + "%";
+    }
+
+    async function playSendButtonSequence() {
+      if (!sendWhatsappButton) {
+        return;
+      }
+
+      const steps = [
+        { icon: "progress_activity", label: "Preparando seu envio...", duration: 820, progress: 18 },
+        { icon: "looks_3", label: "3...", duration: 340, progress: 42 },
+        { icon: "looks_two", label: "2...", duration: 340, progress: 63 },
+        { icon: "looks_one", label: "1...", duration: 340, progress: 82 },
+        { icon: "celebration", label: "Super POP!", duration: 620, progress: 96 }
+      ];
+
+      sendWhatsappButton.classList.add("is-loading");
+      setSendButtonProgress(8);
+
+      for (const step of steps) {
+        updateSendButtonStep(step.icon, step.label);
+        setSendButtonProgress(step.progress);
+        await waitMs(step.duration);
+      }
+    }
+
+    function launchConfettiBurst() {
+      const buttonRef = sendWhatsappButton;
+      if (!buttonRef) {
+        return;
+      }
+
+      const rect = buttonRef.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + Math.max(16, rect.height * 0.35);
+      const colors = ["#ffb703", "#e63946", "#25D366", "#ffffff", "#ffd166"];
+      const layer = document.createElement("div");
+      layer.className = "send-confetti-layer";
+
+      const count = 58;
+      for (let i = 0; i < count; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "send-confetti-piece";
+        const tx = (Math.random() * 2 - 1) * Math.max(150, window.innerWidth * 0.38);
+        const ty = Math.max(180, Math.random() * (window.innerHeight * 0.62));
+        const rot = (Math.random() * 2 - 1) * 920;
+        const dur = 760 + Math.random() * 520;
+        const delay = Math.random() * 140;
+
+        piece.style.left = originX + "px";
+        piece.style.top = originY + "px";
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.setProperty("--tx", tx.toFixed(0) + "px");
+        piece.style.setProperty("--ty", ty.toFixed(0) + "px");
+        piece.style.setProperty("--rot", rot.toFixed(0) + "deg");
+        piece.style.setProperty("--dur", dur.toFixed(0) + "ms");
+        piece.style.animationDelay = delay.toFixed(0) + "ms";
+
+        if (Math.random() > 0.55) {
+          piece.style.width = "7px";
+          piece.style.height = "7px";
+          piece.style.borderRadius = "999px";
+        }
+
+        layer.appendChild(piece);
+      }
+
+      document.body.appendChild(layer);
+      window.setTimeout(function () {
+        if (layer.parentNode) {
+          layer.parentNode.removeChild(layer);
+        }
+      }, 1600);
+    }
+
+    async function playSendSuccessEffects() {
+      if (!sendWhatsappButton) {
+        return;
+      }
+
+      sendWhatsappButton.classList.add("is-success");
+      updateSendButtonStep("celebration", "Super POP! Pronto!");
+      setSendButtonProgress(100);
+      launchConfettiBurst();
+      await waitMs(680);
+    }
+
+    function resetSendButtonVisual() {
+      if (!sendWhatsappButton) {
+        return;
+      }
+
+      sendWhatsappButton.classList.remove("is-loading", "is-success");
+      setSendButtonProgress(0);
+      if (sendButtonIcon) {
+        sendButtonIcon.textContent = defaultSendButtonIcon;
+      }
+      if (sendButtonLabel) {
+        sendButtonLabel.textContent = defaultSendButtonLabel;
+        sendButtonLabel.classList.remove("is-step", "is-super-pop");
+      }
+    }
+
+    apiWakeupPromise = wakeUpApi(apiBase, apiWakeupTimeoutMs);
+
+    function normalizeWhatsappDigits(rawValue) {
+      const raw = String(rawValue || "").trim();
+      if (!raw) return "";
+
+      const digitsOnly = raw.replace(/\D/g, "");
+      if (!digitsOnly) return "";
+
+      if (raw.startsWith("+") && digitsOnly.length >= 10) {
+        return digitsOnly;
+      }
+
+      if (raw.startsWith("00") && digitsOnly.length > 2) {
+        return digitsOnly.slice(2);
+      }
+
+      const cleaned = digitsOnly.replace(/^0+/, "");
+      if (!cleaned) return "";
+
+      if (cleaned.startsWith(defaultCountryCode)) {
+        return cleaned;
+      }
+
+      if (cleaned.length === 10 || cleaned.length === 11) {
+        return defaultCountryCode + cleaned;
+      }
+
+      if (cleaned.length === 8 || cleaned.length === 9) {
+        return defaultCountryCode + defaultAreaCode + cleaned;
+      }
+
+      return defaultCountryCode + defaultAreaCode + cleaned;
+    }
+
+    function normalizeGithubBlobUrl(url) {
+      try {
+        const parsed = new URL(url);
+        if (parsed.hostname === "github.com") {
+          const parts = parsed.pathname.split("/").filter(Boolean);
+          if (parts.length >= 5 && parts[2] === "blob") {
+            const owner = parts[0];
+            const repo = parts[1];
+            const branch = parts[3];
+            const filePath = parts.slice(4).join("/");
+            return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + branch + "/" + filePath;
+          }
+        }
+      } catch (_err) {}
+      return url;
+    }
+
+    function normalizeNameKey(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+    }
+
+    function formatPhoneForDisplay(rawValue) {
+      const digits = normalizeWhatsappDigits(rawValue || "");
+      if (!digits) return "";
+      let localDigits = digits;
+      if (localDigits.startsWith(defaultCountryCode) && localDigits.length >= 12) {
+        localDigits = localDigits.slice(defaultCountryCode.length);
+      }
+      if (localDigits.length === 11) {
+        return "(" + localDigits.slice(0, 2) + ") " + localDigits.slice(2, 3) + " " + localDigits.slice(3, 7) + "-" + localDigits.slice(7);
+      }
+      return rawValue || digits;
+    }
+
+    function setLoggedSenderView(user) {
+      const nome = String(user && user.nome || "").trim();
+      const funcao = String(user && user.funcao || "").trim();
+      const numero = String(user && user.numero_celular || "").trim();
+      loggedSender = { nome: nome, funcao: funcao, numero_celular: numero };
+
+      if (recognizedByInput) {
+        recognizedByInput.value = nome || "";
+        recognizedByInput.placeholder = nome ? "" : "Usuario logado sem nome";
+        recognizedByInput.title = funcao ? ("Funcao: " + funcao) : "";
+      }
+      if (senderNumberInput) {
+        senderNumberInput.value = formatPhoneForDisplay(numero);
+        senderNumberInput.placeholder = numero ? "" : "Usuario logado sem numero";
+      }
+    }
+
+    async function loadLoggedSenderProfile() {
+      const response = await fetch("/api/auth/me", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Nao autenticado");
+      }
+      const payload = await response.json();
+      if (!payload || !payload.ok || !payload.usuario) {
+        throw new Error("Sessao invalida");
+      }
+      setLoggedSenderView(payload.usuario);
+    }
+
+    function setCollaboratorSelection(collaborator) {
+      selectedCollaborator = collaborator || null;
+      if (!selectedCollaborator) {
+        if (collaboratorNumberInput) collaboratorNumberInput.value = "";
+        if (collaboratorInput) collaboratorInput.title = "";
+        return;
+      }
+
+      if (collaboratorInput) {
+        collaboratorInput.value = selectedCollaborator.nome || "";
+        collaboratorInput.title = selectedCollaborator.funcao ? ("Funcao: " + selectedCollaborator.funcao) : "";
+      }
+      if (collaboratorNumberInput) {
+        collaboratorNumberInput.value = formatPhoneForDisplay(selectedCollaborator.numero_celular || "");
+      }
+    }
+
+    function findCollaboratorByTypedName(typedName) {
+      const key = normalizeNameKey(typedName);
+      if (!key) return null;
+
+      const exactMatches = registeredCollaborators.filter(function (item) {
+        return normalizeNameKey(item.nome) === key;
+      });
+      if (exactMatches.length >= 1) {
+        return exactMatches[0];
+      }
+
+      const startsWithMatches = registeredCollaborators.filter(function (item) {
+        return normalizeNameKey(item.nome).startsWith(key);
+      });
+      if (startsWithMatches.length === 1) {
+        return startsWithMatches[0];
+      }
+      return null;
+    }
+
+    async function loadRegisteredCollaborators() {
+      collaboratorsLoaded = false;
+      const sources = [
+        normalizeGithubBlobUrl(REGISTERED_USERS_SOURCE_URL),
+        "./Funcioinarios.json"
+      ];
+
+      let loaded = [];
+      for (const source of sources) {
+        try {
+          const response = await fetch(source, { cache: "no-store" });
+          if (!response.ok) continue;
+          const payload = await response.json();
+          if (Array.isArray(payload)) {
+            loaded = payload;
+            break;
+          }
+          if (payload && Array.isArray(payload.funcionarios)) {
+            loaded = payload.funcionarios;
+            break;
+          }
+        } catch (_err) {}
+      }
+
+      registeredCollaborators = loaded
+        .map(function (item) {
+          const nome = String(item && item.nome || "").trim();
+          const funcao = String(item && item.funcao || "").trim();
+          const numero = String(item && (item.numero_celular || item.numero_normalizado) || "").trim();
+          if (!nome || !numero) return null;
+          return {
+            id: String(item && item.id || "").trim(),
+            nome: nome,
+            funcao: funcao,
+            numero_celular: numero
+          };
+        })
+        .filter(function (item) { return Boolean(item); })
+        .sort(function (a, b) { return a.nome.localeCompare(b.nome, "pt-BR"); });
+
+      if (collaboratorListEl) {
+        collaboratorListEl.innerHTML = "";
+        registeredCollaborators.forEach(function (item) {
+          const option = document.createElement("option");
+          option.value = item.nome;
+          if (item.funcao) {
+            option.label = item.nome + " - " + item.funcao;
+          }
+          collaboratorListEl.appendChild(option);
+        });
+      }
+      collaboratorsLoaded = true;
+      if (collaboratorInput && collaboratorInput.value) {
+        setCollaboratorSelection(findCollaboratorByTypedName(collaboratorInput.value));
+      }
+    }
+
+    function syncCollaboratorFromInput() {
+      if (!collaboratorInput) {
+        return;
+      }
+      const typed = collaboratorInput.value.trim();
+      if (!typed) {
+        setCollaboratorSelection(null);
+        return;
+      }
+      const matched = findCollaboratorByTypedName(typed);
+      setCollaboratorSelection(matched);
+    }
+
+    if (collaboratorInput) {
+      collaboratorInput.addEventListener("input", syncCollaboratorFromInput);
+      collaboratorInput.addEventListener("change", syncCollaboratorFromInput);
+      collaboratorInput.addEventListener("blur", syncCollaboratorFromInput);
+    }
+
+    loadLoggedSenderProfile().catch(function () {
+      window.location.href = "index.html";
+    });
+
+    loadRegisteredCollaborators().catch(function () {
+      registeredCollaborators = [];
+      selectedCollaborator = null;
+      collaboratorsLoaded = true;
+      if (collaboratorListEl) {
+        collaboratorListEl.innerHTML = "";
+      }
+      if (collaboratorNumberInput) {
+        collaboratorNumberInput.value = "";
+      }
+    });
+
+    function refreshMessageField() {
+      if (!messageInput) {
+        return;
+      }
+
+      messageInput.style.height = "auto";
+      const maxHeight = 260;
+      const nextHeight = Math.min(messageInput.scrollHeight, maxHeight);
+      messageInput.style.height = nextHeight + "px";
+      messageInput.style.overflowY = messageInput.scrollHeight > maxHeight ? "auto" : "hidden";
+
+      if (messageCounter) {
+        messageCounter.textContent = messageInput.value.length + "/400";
+      }
+    }
+
+    if (messageInput) {
+      messageInput.addEventListener("input", refreshMessageField);
+      refreshMessageField();
+    }
+
+    function getSelectedValues() {
+      return Array.from(document.querySelectorAll(".checkbox-wrapper")).reduce(function (values, wrapper) {
+        const checkbox = wrapper.querySelector("input[type='checkbox']");
+        const label = wrapper.querySelector("span.font-bold");
+        if (checkbox && checkbox.checked && label) {
+          values.push(label.textContent.trim());
+        }
+        return values;
+      }, []);
+    }
+
+    if (sendWhatsappButton) {
+      sendWhatsappButton.addEventListener("click", async function () {
+        if (sendWhatsappButton.dataset.sending === "1") {
+          return;
+        }
+
+        syncCollaboratorFromInput();
+
+        const collaborator = selectedCollaborator ? String(selectedCollaborator.nome || "").trim() : "";
+        const recognizedBy = String(loggedSender.nome || "").trim() || (recognizedByInput ? recognizedByInput.value.trim() : "");
+        const collaboratorNumberRaw = selectedCollaborator ? String(selectedCollaborator.numero_celular || "").trim() : "";
+        const senderNumberRaw = String(loggedSender.numero_celular || "").trim() || (senderNumberInput ? senderNumberInput.value.trim() : "");
+        const message = messageInput ? messageInput.value.trim() : "";
+        const selectedValues = getSelectedValues();
+        const dateText = dateDisplayInput ? dateDisplayInput.value : "";
+        const collaboratorNumber = normalizeWhatsappDigits(collaboratorNumberRaw);
+        const senderNumber = normalizeWhatsappDigits(senderNumberRaw);
+        const destinationDigits = collaboratorNumber;
+
+        const missing = [];
+        if (!collaboratorsLoaded) missing.push("Carregamento da lista de colaboradores");
+        if (!selectedCollaborator) missing.push("Selecione um colaborador cadastrado na lista");
+        if (!collaborator) missing.push("Nome do colaborador");
+        if (!collaboratorNumberRaw) missing.push("Numero do colaborador");
+        if (collaboratorNumberRaw && !collaboratorNumber) missing.push("Numero do colaborador invalido");
+        if (!recognizedBy) missing.push("Usuario logado");
+        if (!senderNumberRaw) missing.push("Numero do usuario logado");
+        if (senderNumberRaw && !senderNumber) missing.push("Numero do usuario logado invalido");
+        if (!selectedValues.length) missing.push("Ao menos 1 valor marcado");
+
+        if (missing.length) {
+          alert("Preencha os campos obrigatorios:\n- " + missing.join("\n- "));
+          return;
+        }
+
+        const payload = {
+          colaborador: collaborator,
+          numero_colaborador: collaboratorNumber,
+          funcao_colaborador: selectedCollaborator ? (selectedCollaborator.funcao || "") : "",
+          reconhecido_por: recognizedBy,
+          numero_reconhecido_por: senderNumber,
+          funcao_reconhecido_por: loggedSender.funcao || "",
+          valores: selectedValues,
+          mensagem: message,
+          data: dateText,
+          to: collaboratorNumber,
+          format: "image",
+          send_mode: defaultSendMode
+        };
+
+        function buildWhatsappUrl(imageUrl) {
+          const whatsappLines = [
+            "ðŸŽ‰ *SuperPOP - Reconhecimento*",
+            "",
+            "ðŸ‘¤ *Para:* " + collaborator,
+            "ðŸ™Œ *Enviado por:* " + recognizedBy,
+            "â­ *Valores:* " + selectedValues.join(", "),
+            "ðŸ“… *Data:* " + dateText
+          ];
+
+          if (message) {
+            whatsappLines.push("");
+            whatsappLines.push("ðŸ’¬ *Mensagem:*");
+            whatsappLines.push(message);
+          }
+
+          if (imageUrl) {
+            whatsappLines.push("");
+            whatsappLines.push("ðŸ–¼ï¸ *Imagem do cartÃ£o:*");
+            whatsappLines.push(imageUrl);
+          }
+
+          const whatsappText = whatsappLines.join("\n");
+
+          const encodedText = encodeURIComponent(whatsappText);
+          return destinationDigits
+            ? "https://wa.me/" + destinationDigits + "?text=" + encodedText
+            : "https://wa.me/?text=" + encodedText;
+        }
+
+        sendWhatsappButton.dataset.sending = "1";
+        sendWhatsappButton.disabled = true;
+        sendWhatsappButton.classList.add("opacity-70");
+        const buttonSequencePromise = playSendButtonSequence();
+
+        if (apiWakeupPromise) {
+          await Promise.race([apiWakeupPromise, waitMs(1400)]);
+        }
+
+        updateSendButtonStep("cloud_sync", "Conectando ao servidor...");
+
+        await wakeUpApi(apiBase, apiWakeupTimeoutMs);
+
+        const registerAttempt = registerCardWithImage(apiBase, payload)
+          .then(function (result) {
+            return { ok: true, result: result, error: "" };
+          })
+          .catch(function (error) {
+            return {
+              ok: false,
+              result: null,
+              error: error && error.message ? error.message : "Erro ao gerar imagem.",
+              preventWaRedirect: Boolean(error && error.preventWaRedirect)
+            };
+          });
+
+        let uploadedImageUrl = "";
+        let shouldOpenWaMe = true;
+        let statusMessage = "";
+        let delivery = {};
+        let directDeliveryOk = false;
+        await buttonSequencePromise.catch(function () {});
+        updateSendButtonStep("hourglass_top", "Aguardando servidor Render...");
+        const registerOutcome = await registerAttempt;
+
+        if (registerOutcome.ok) {
+          uploadedImageUrl = registerOutcome.result.uploadedImageUrl;
+          delivery = registerOutcome.result.delivery || {};
+          directDeliveryOk = delivery.method === "webjs" && delivery.ok === true;
+          if (delivery.method === "webjs") {
+            shouldOpenWaMe = !directDeliveryOk && fallbackToWaMeOnWebjsFailure;
+            statusMessage = directDeliveryOk
+              ? "Imagem enviada direto para o WhatsApp do colaborador."
+              : ("Falha no envio direto: " + (delivery.error || "erro desconhecido."));
+          } else {
+            shouldOpenWaMe = true;
+          }
+        } else {
+          shouldOpenWaMe = !registerOutcome.preventWaRedirect;
+          statusMessage = registerOutcome.error;
+        }
+
+        await playSendSuccessEffects();
+
+        if (directDeliveryOk) {
+          alert(statusMessage);
+        } else if (shouldOpenWaMe) {
+          const whatsappUrl = buildWhatsappUrl(uploadedImageUrl || "");
+          if (statusMessage) {
+            alert(
+              "Abrindo WhatsApp para envio manual.\n\n" +
+              "Detalhe: " + statusMessage
+            );
+          }
+          window.location.href = whatsappUrl;
+        } else {
+          alert(statusMessage || "Nao foi possivel enviar agora.");
+        }
+
+        sendWhatsappButton.dataset.sending = "0";
+        sendWhatsappButton.disabled = false;
+        sendWhatsappButton.classList.remove("opacity-70");
+        resetSendButtonVisual();
+      });
+    }
+  });
+</script>
+<script data-purpose="auth-user-menu-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const authUserBtn = document.getElementById("authUserBtn");
+    const authUserDropdown = document.getElementById("authUserDropdown");
+    const authLogoutBtn = document.getElementById("authLogoutBtn");
+    const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
+    const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
+    if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
+
+    function setUserView(nome, funcao) {
+      const safeNome = String(nome || "").trim() || "Usuario";
+      const safeFuncao = String(funcao || "").trim() || "Sem funcao";
+      nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
+      roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+    }
+
+    async function loadUserFromSession() {
+      const response = await fetch("/api/auth/me", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Nao autenticado");
+      }
+      const payload = await response.json();
+      if (!payload || !payload.ok || !payload.usuario) {
+        throw new Error("Sessao invalida");
+      }
+      setUserView(payload.usuario.nome, payload.usuario.funcao);
+    }
+
+    authUserBtn.addEventListener("click", function () {
+      const isOpen = authUserDropdown.classList.contains("open");
+      authUserDropdown.classList.toggle("open", !isOpen);
+      authUserBtn.setAttribute("aria-expanded", String(!isOpen));
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
+        authUserDropdown.classList.remove("open");
+        authUserBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    authLogoutBtn.addEventListener("click", async function () {
+      try {
+        await fetch("/api/auth/logout", { method: "POST" });
+      } catch (_err) {}
+      try {
+        localStorage.removeItem("superpop_auth_user");
+      } catch (_err) {}
+      window.location.href = "index.html";
+    });
+
+    loadUserFromSession().catch(function () {
+      window.location.href = "index.html";
+    });
+  });
+</script>
+</body></html>
+
