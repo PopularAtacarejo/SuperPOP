@@ -483,7 +483,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
       if (monthKey) {
         url += "?month=" + encodeURIComponent(monthKey);
       }
-      const response = await fetch(url, { cache: "no-store" });
+      const response = await fetch(url, { cache: "no-store", credentials: "include" });
       const payload = await response.json().catch(function () { return {}; });
       if (!response.ok || !payload.ok) {
         throw new Error(String(payload.error || "Falha ao carregar seus Super POP's."));
@@ -547,7 +547,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     }
 
     async function loadUserFromSession() {
-      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store" });
+      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
       if (!response.ok) throw new Error("Nao autenticado");
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessao invalida");
@@ -568,7 +568,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     });
 
     authLogoutBtn.addEventListener("click", async function () {
-      try { await fetch(apiBase + "/api/auth/logout", { method: "POST" }); } catch (_err) {}
+      try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
       try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
       window.location.href = "index.html";
     });
