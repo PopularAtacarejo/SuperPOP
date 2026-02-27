@@ -73,5 +73,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-27T15:39:36.333566-03:00"
+  },
+  {
+    "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+    "nome": "Jeferson Da Silva Santos",
+    "funcao": "Analista de Marketing",
+    "numero_celular": "(82) 9 9915 - 8412",
+    "numero_normalizado": "82999158412",
+    "email": "djaxelf22@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "06ae4435dd2a8f4f29f7507e6b4f7e0d",
+      "hash": "42026227137c90733c7eae4e94cc8a32d28bca2d5ff8c5cacaea3591c40675b6",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:52:39.639068-03:00"
   }
 ]
