@@ -400,6 +400,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     const receivedListEl = document.getElementById("receivedList");
     const sourceInfoEl = document.getElementById("sourceInfo");
     const lastUpdateEl = document.getElementById("lastUpdate");
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
     let loading = false;
 
     function escapeHtml(value) {
@@ -478,7 +479,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     }
 
     async function fetchData(monthKey) {
-      let url = "/api/me/superpops";
+      let url = apiBase + "/api/me/superpops";
       if (monthKey) {
         url += "?month=" + encodeURIComponent(monthKey);
       }
@@ -535,6 +536,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
     if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
 
     function setUserView(nome, funcao) {
@@ -545,7 +547,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     }
 
     async function loadUserFromSession() {
-      const response = await fetch("/api/auth/me", { cache: "no-store" });
+      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store" });
       if (!response.ok) throw new Error("Nao autenticado");
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessao invalida");
@@ -566,7 +568,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     });
 
     authLogoutBtn.addEventListener("click", async function () {
-      try { await fetch("/api/auth/logout", { method: "POST" }); } catch (_err) {}
+      try { await fetch(apiBase + "/api/auth/logout", { method: "POST" }); } catch (_err) {}
       try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
       window.location.href = "index.html";
     });
