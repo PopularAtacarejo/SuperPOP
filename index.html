@@ -2,7 +2,15 @@
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SuperPop - Popular Atacarejo</title>
+<title>SuperPop Popular Atacarejo</title>
+<meta content="SuperPop Popular Atacarejo" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://i.ibb.co/99R7YqxF/Icon.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="SuperPop Popular Atacarejo" name="twitter:title"/>
+<meta content="https://i.ibb.co/99R7YqxF/Icon.png" name="twitter:image"/>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="apple-touch-icon"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
 <script>
         tailwind.config = {
@@ -39,6 +47,7 @@
     </script>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         .material-symbols-rounded { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         .checkbox-wrapper input:checked + div {
@@ -199,6 +208,35 @@
     }
   </style>
 <style>
+    .floating-icons-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .floating-icon {
+      position: absolute;
+      opacity: 0.12;
+      color: #e63946;
+      animation: floatIcon 7s ease-in-out infinite;
+    }
+    .floating-icon.alt {
+      color: #ffb703;
+      opacity: 0.16;
+    }
+    .dark .floating-icon {
+      opacity: 0.08;
+    }
+    .dark .floating-icon.alt {
+      opacity: 0.1;
+    }
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(8deg); }
+    }
+  </style>
+<style>
     .send-whatsapp-btn {
       position: relative;
       overflow: hidden;
@@ -332,25 +370,241 @@
       }
     }
   </style>
+  <style data-purpose="sidebar-menu">
+    .sidebar {
+      transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 72px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar.expanded {
+      width: 250px;
+    }
+    .sidebar.expanded .sidebar-header {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    .sidebar-header {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      transition: padding 0.25s ease;
+    }
+    .sidebar-nav {
+      transition: padding 0.25s ease;
+      padding-top: 0.5rem;
+    }
+    .menu-section-title {
+      font-size: 0.72rem;
+      line-height: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #ef4444;
+    }
+    .menu-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 0.75rem;
+      border-radius: 12px;
+      color: #64748b;
+      font-weight: 700;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .menu-item .material-symbols-outlined {
+      font-size: 20px;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      font-variation-settings: "FILL" 0, "wght" 650, "GRAD" 0, "opsz" 24;
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .menu-item-label {
+      font-size: 0.98rem;
+      letter-spacing: 0.01em;
+    }
+    .menu-item:hover {
+      background: #fff1f2;
+      color: #9f1239;
+      transform: translateX(2px);
+    }
+    .menu-item:hover .material-symbols-outlined {
+      transform: scale(1.06);
+      background: #ffe4e6;
+      color: #be123c;
+      border-color: rgba(230, 57, 70, 0.28);
+      box-shadow: 0 4px 10px rgba(230, 57, 70, 0.16);
+    }
+    .menu-item.active {
+      background: #fee2e2;
+      color: #b91c1c;
+      box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.28), 0 6px 14px rgba(230, 57, 70, 0.1);
+    }
+    .menu-item.active .material-symbols-outlined {
+      background: linear-gradient(145deg, #ef4444, #dc2626);
+      border-color: rgba(255, 255, 255, 0.65);
+      color: #ffffff;
+      font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 24;
+      box-shadow: 0 8px 16px rgba(220, 38, 38, 0.34);
+    }
+    .dark .menu-item {
+      color: #94a3b8;
+    }
+    .dark .menu-item .material-symbols-outlined {
+      background: rgba(51, 65, 85, 0.9);
+      color: #94a3b8;
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+    .dark .menu-item:hover {
+      background: rgba(127, 29, 29, 0.45);
+      color: #fecaca;
+    }
+    .dark .menu-item.active {
+      background: rgba(153, 27, 27, 0.55);
+      color: #fecaca;
+      box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
+    }
+    .dark .menu-item.active .material-symbols-outlined {
+      background: linear-gradient(145deg, #f87171, #ef4444);
+      border-color: rgba(254, 202, 202, 0.5);
+      color: #ffffff;
+      box-shadow: 0 8px 16px rgba(248, 113, 113, 0.32);
+    }
+    .sidebar-content-fade {
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+      position: absolute;
+      visibility: hidden;
+    }
+    .sidebar.expanded .sidebar-content-fade {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      position: static;
+      visibility: visible;
+    }
+    .main-content {
+      margin-left: 72px;
+      transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .sidebar.expanded ~ .main-content {
+      margin-left: 250px;
+    }
+    .sidebar:not(.expanded) .sidebar-header {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    .sidebar:not(.expanded) .sidebar-nav {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    .sidebar:not(.expanded) .menu-item {
+      justify-content: center;
+      width: 44px;
+      min-height: 44px;
+      padding: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sidebar:not(.expanded) .menu-item:hover {
+      transform: none;
+    }
+    .sidebar:not(.expanded) .menu-item .material-symbols-outlined {
+      margin: 0;
+      font-size: 22px;
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 0;
+        overflow: hidden;
+        position: fixed;
+        z-index: 50;
+        height: 100vh;
+      }
+      .sidebar.expanded {
+        width: 250px;
+      }
+      .main-content {
+        margin-left: 0 !important;
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+        backdrop-filter: blur(2px);
+      }
+      .sidebar.expanded + .sidebar-overlay {
+        display: block;
+      }
+    }
+  </style>
   </head>
 <body class="bg-background-light dark:bg-background-dark text-text-light dark:text-white font-body antialiased min-h-screen flex flex-col transition-colors duration-300">
-<header class="relative px-6 pb-4 pt-2 text-center">
-<div class="header-decor" aria-hidden="true">
-<span class="header-decor-item star material-symbols-rounded text-2xl" style="top: 8%; left: 12%; --dur: 7s; --delay: -1.2s; --glow-dur: 4.6s;">star</span>
-<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 18%; right: 14%; --dur: 6.2s; --delay: -2.4s; --glow-dur: 4.1s;">auto_awesome</span>
-<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 40%; left: 4%; --dur: 5.6s; --delay: -1.8s; --glow-dur: 3.5s;">volunteer_activism</span>
-<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 38%; right: 5%; --dur: 5.2s; --delay: -0.9s; --glow-dur: 3.2s;">front_hand</span>
-<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 2%; left: 32%; --dur: 6.8s; --delay: -3.1s; --glow-dur: 4.4s;">bolt</span>
-<span class="header-decor-item value material-symbols-rounded text-3xl" style="top: 4%; right: 31%; --dur: 7.4s; --delay: -2s; --glow-dur: 4.9s;">trending_up</span>
-<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 52%; left: 14%; --dur: 6.6s; --delay: -2.8s; --glow-dur: 3.9s;">stars</span>
-<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 56%; right: 16%; --dur: 7.1s; --delay: -1.1s; --glow-dur: 4.2s;">kid_star</span>
-<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 62%; left: 28%; --dur: 5.9s; --delay: -2.2s; --glow-dur: 3.6s;">groups</span>
-<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 61%; right: 26%; --dur: 6.4s; --delay: -3.4s; --glow-dur: 4s;">handshake</span>
-<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 22%; left: 22%; --dur: 6.9s; --delay: -0.6s; --glow-dur: 3.7s;">thumb_up</span>
-<span class="header-decor-item value material-symbols-rounded text-2xl" style="top: 24%; right: 22%; --dur: 7.3s; --delay: -2.7s; --glow-dur: 4.3s;">emoji_events</span>
-<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 10%; left: 48%; --dur: 8.1s; --delay: -1.5s; --glow-dur: 4.8s;">flare</span>
-<span class="header-decor-item star material-symbols-rounded text-xl" style="top: 50%; right: 44%; --dur: 7.8s; --delay: -3s; --glow-dur: 4.5s;">auto_awesome_motion</span>
+<div class="floating-icons-bg" aria-hidden="true">
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 7%; left: 10%; animation-delay: -0.7s;">stars</span>
+<span class="floating-icon alt material-symbols-outlined text-4xl" style="top: 11%; right: 14%; animation-delay: -1.3s;">emoji_events</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 20%; left: 30%; animation-delay: -2.4s;">favorite</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 24%; right: 28%; animation-delay: -3.2s;">celebration</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 35%; left: 6%; animation-delay: -1.9s;">workspace_premium</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="top: 39%; right: 8%; animation-delay: -4.7s;">volunteer_activism</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 47%; left: 23%; animation-delay: -5.2s;">kid_star</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 49%; right: 22%; animation-delay: -2.7s;">auto_awesome</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 58%; left: 14%; animation-delay: -3.6s;">bolt</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 61%; right: 33%; animation-delay: -1.2s;">thumb_up</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 70%; left: 36%; animation-delay: -4.1s;">groups</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 74%; right: 14%; animation-delay: -5.6s;">front_hand</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 12%; left: 18%; animation-delay: -2.3s;">handshake</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="bottom: 10%; right: 18%; animation-delay: -3.8s;">trending_up</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 6%; left: 45%; animation-delay: -4.9s;">auto_awesome_motion</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 4%; right: 42%; animation-delay: -2.1s;">flare</span>
 </div>
+<aside class="sidebar fixed top-0 left-0 h-screen bg-white dark:bg-surface-dark shadow-xl z-50 border-r border-gray-100 dark:border-gray-800" id="sidebar">
+<div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
+<div class="h-24 flex items-center justify-center overflow-hidden relative">
+<div class="absolute left-0 transition-opacity duration-300 w-12 h-12 flex items-center justify-center">
+<img alt="SP" class="w-10 h-10 object-contain opacity-100 sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/>
+</div>
+<div class="sidebar-content-fade w-full px-1">
+<img alt="SuperPop Logo" class="object-contain w-full h-auto max-h-[84px]" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</div>
+</div>
+<nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6">
+<div class="space-y-1">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Geral</span>
+</div>
+<a class="menu-item active group" href="superpop.html">
+<span class="material-symbols-outlined shrink-0">send</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
+</a>
+<a class="menu-item group" href="rank.html">
+<span class="material-symbols-outlined shrink-0">emoji_events</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
+</a>
+</div>
+</nav>
+<button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="md:hidden fixed top-4 left-4 z-40 bg-white dark:bg-surface-dark p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="main-content flex-col flex min-h-screen">
+<header class="relative px-6 pb-4 pt-2 text-center">
 <div class="header-logo-wrap">
 <img alt="SuperPop" class="header-logo mx-auto w-full max-w-[420px] h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
 </div>
@@ -455,6 +709,53 @@
 </div>
 </form>
 </main>
+<footer class="py-6 text-center">
+<p class="text-xs font-bold uppercase tracking-widest text-gray-400">
+Popular Atacarejo - Todos os Direitos Reservados 2026
+</p>
+</footer>
+ </div>
+ <script data-purpose="sidebar-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const overlay = document.getElementById("sidebarOverlay");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const smallLogo = document.querySelector(".sidebar-collapsed-only");
+    const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar() {
+      sidebar.classList.add("expanded");
+      chevron.textContent = "chevron_left";
+      smallLogo.style.opacity = "0";
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove("expanded");
+      chevron.textContent = "chevron_right";
+      window.setTimeout(function () {
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
+      }, 220);
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    mobileMenuBtn.addEventListener("click", openSidebar);
+    overlay.addEventListener("click", closeSidebar);
+  });
+ </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const dateDisplayInput = document.getElementById("dataDisplay");
@@ -486,6 +787,8 @@
     const defaultSendButtonLabel = sendButtonLabel ? sendButtonLabel.textContent : "Enviar pelo WhatsApp";
     const defaultCountryCode = String(window.SUPERPOP_COUNTRY_CODE || "55").replace(/\D/g, "") || "55";
     const defaultAreaCode = String(window.SUPERPOP_AREA_CODE || "82").replace(/\D/g, "") || "82";
+    const defaultSendMode = String(window.SUPERPOP_SEND_MODE || "webjs").trim().toLowerCase() === "wa_me" ? "wa_me" : "webjs";
+    const fallbackToWaMeOnWebjsFailure = String(window.SUPERPOP_WEBJS_FALLBACK_WAME || "1").trim() !== "0";
     const apiRequestTimeoutMs = Number(window.SUPERPOP_REQUEST_TIMEOUT_MS || 75000);
     const apiWakeupTimeoutMs = Number(window.SUPERPOP_WAKEUP_TIMEOUT_MS || 65000);
 
@@ -579,7 +882,9 @@
 
         const result = await response.json();
         if (!response.ok || !result.ok) {
-          throw new Error(result.error || "Falha ao registrar dados e gerar imagem.");
+          const error = new Error(result.error || "Falha ao registrar dados e gerar imagem.");
+          error.preventWaRedirect = Boolean(result.duplicate_send);
+          throw error;
         }
 
         const uploadedImageUrl = result.uploaded_image_url || "";
@@ -587,7 +892,11 @@
           throw new Error("Upload da imagem no ImgBB nao retornou link.");
         }
 
-        return uploadedImageUrl;
+        return {
+          uploadedImageUrl: uploadedImageUrl,
+          delivery: result.delivery || {},
+          webjs: result.webjs || {}
+        };
       } catch (error) {
         if (error && error.name === "AbortError") {
           throw new Error("Tempo limite para gerar/upload da imagem (cold start).");
@@ -830,7 +1139,8 @@
           mensagem: message,
           data: dateText,
           to: collaboratorNumber,
-          format: "image"
+          format: "image",
+          send_mode: defaultSendMode
         };
 
         const introText = "Eu " + recognizedBy + " reconhe\u00e7o voc\u00ea: " + collaborator + " pelos seguintes valores: " + selectedValues.join(", ") + ".";
@@ -863,43 +1173,60 @@
         await wakeUpApi(apiBase, apiWakeupTimeoutMs);
 
         const registerAttempt = registerCardWithImage(apiBase, payload)
-          .then(function (uploadedImageUrl) {
-            return { ok: true, uploadedImageUrl: uploadedImageUrl, error: "" };
+          .then(function (result) {
+            return { ok: true, result: result, error: "" };
           })
           .catch(function (error) {
             return {
               ok: false,
-              uploadedImageUrl: "",
-              error: error && error.message ? error.message : "Erro ao gerar imagem."
+              result: null,
+              error: error && error.message ? error.message : "Erro ao gerar imagem.",
+              preventWaRedirect: Boolean(error && error.preventWaRedirect)
             };
           });
 
         let uploadedImageUrl = "";
-        let shouldSendWithoutImage = false;
-        let uploadErrorMessage = "";
+        let shouldOpenWaMe = true;
+        let statusMessage = "";
+        let delivery = {};
+        let directDeliveryOk = false;
         await buttonSequencePromise.catch(function () {});
         updateSendButtonStep("hourglass_top", "Aguardando servidor Render...");
         const registerOutcome = await registerAttempt;
 
         if (registerOutcome.ok) {
-          uploadedImageUrl = registerOutcome.uploadedImageUrl;
+          uploadedImageUrl = registerOutcome.result.uploadedImageUrl;
+          delivery = registerOutcome.result.delivery || {};
+          directDeliveryOk = delivery.method === "webjs" && delivery.ok === true;
+          if (delivery.method === "webjs") {
+            shouldOpenWaMe = !directDeliveryOk && fallbackToWaMeOnWebjsFailure;
+            statusMessage = directDeliveryOk
+              ? "Imagem enviada direto para o WhatsApp do colaborador."
+              : ("Falha no envio direto: " + (delivery.error || "erro desconhecido."));
+          } else {
+            shouldOpenWaMe = true;
+          }
         } else {
-          shouldSendWithoutImage = true;
-          uploadErrorMessage = registerOutcome.error;
+          shouldOpenWaMe = !registerOutcome.preventWaRedirect;
+          statusMessage = registerOutcome.error;
         }
 
-        const whatsappUrl = buildWhatsappUrl(shouldSendWithoutImage ? "" : uploadedImageUrl);
         await playSendSuccessEffects();
 
-        if (shouldSendWithoutImage) {
-          alert(
-            "Nao foi possivel anexar a imagem automaticamente.\n" +
-            "Abrimos o WhatsApp para enviar a mensagem sem imagem.\n\n" +
-            "Detalhe: " + uploadErrorMessage
-          );
+        if (directDeliveryOk) {
+          alert(statusMessage);
+        } else if (shouldOpenWaMe) {
+          const whatsappUrl = buildWhatsappUrl(uploadedImageUrl || "");
+          if (statusMessage) {
+            alert(
+              "Abrindo WhatsApp para envio manual.\n\n" +
+              "Detalhe: " + statusMessage
+            );
+          }
+          window.location.href = whatsappUrl;
+        } else {
+          alert(statusMessage || "Nao foi possivel enviar agora.");
         }
-
-        window.location.href = whatsappUrl;
 
         sendWhatsappButton.dataset.sending = "0";
         sendWhatsappButton.disabled = false;
