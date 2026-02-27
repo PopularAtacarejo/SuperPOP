@@ -985,6 +985,7 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
         const response = await fetch(apiBase + "/api/logs/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify(payload),
           signal: controller ? controller.signal : undefined
         });
@@ -1233,7 +1234,7 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     }
 
     async function loadLoggedSenderProfile() {
-      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store" });
+      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
       if (!response.ok) {
         throw new Error("Nao autenticado");
       }
@@ -1580,7 +1581,7 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     }
 
     async function loadUserFromSession() {
-      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store" });
+      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
       if (!response.ok) {
         throw new Error("Nao autenticado");
       }
@@ -1606,7 +1607,7 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
 
     authLogoutBtn.addEventListener("click", async function () {
       try {
-        await fetch(apiBase + "/api/auth/logout", { method: "POST" });
+        await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" });
       } catch (_err) {}
       try {
         localStorage.removeItem("superpop_auth_user");
@@ -1620,4 +1621,3 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
   });
 </script>
 </body></html>
-
