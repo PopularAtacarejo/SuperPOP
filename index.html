@@ -787,7 +787,8 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     const defaultSendButtonLabel = sendButtonLabel ? sendButtonLabel.textContent : "Enviar pelo WhatsApp";
     const defaultCountryCode = String(window.SUPERPOP_COUNTRY_CODE || "55").replace(/\D/g, "") || "55";
     const defaultAreaCode = String(window.SUPERPOP_AREA_CODE || "82").replace(/\D/g, "") || "82";
-    const defaultSendMode = String(window.SUPERPOP_SEND_MODE || "webjs").trim().toLowerCase() === "wa_me" ? "wa_me" : "webjs";
+    const configuredSendMode = String(window.SUPERPOP_SEND_MODE || "wa_me").trim().toLowerCase();
+    const defaultSendMode = configuredSendMode === "webjs" ? "webjs" : "wa_me";
     const fallbackToWaMeOnWebjsFailure = String(window.SUPERPOP_WEBJS_FALLBACK_WAME || "1").trim() !== "0";
     const apiRequestTimeoutMs = Number(window.SUPERPOP_REQUEST_TIMEOUT_MS || 75000);
     const apiWakeupTimeoutMs = Number(window.SUPERPOP_WAKEUP_TIMEOUT_MS || 65000);
@@ -1143,15 +1144,29 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
           send_mode: defaultSendMode
         };
 
-        const introText = "Eu " + recognizedBy + " reconhe\u00e7o voc\u00ea: " + collaborator + " pelos seguintes valores: " + selectedValues.join(", ") + ".";
-        const customText = message ? "Mensagem: " + message : "";
-
         function buildWhatsappUrl(imageUrl) {
-          const whatsappText = [
-            introText,
-            customText,
-            imageUrl ? ("Imagem: " + imageUrl) : ""
-          ].filter(Boolean).join("\n\n");
+          const whatsappLines = [
+            "🎉 *SuperPOP - Reconhecimento*",
+            "",
+            "👤 *Para:* " + collaborator,
+            "🙌 *Enviado por:* " + recognizedBy,
+            "⭐ *Valores:* " + selectedValues.join(", "),
+            "📅 *Data:* " + dateText
+          ];
+
+          if (message) {
+            whatsappLines.push("");
+            whatsappLines.push("💬 *Mensagem:*");
+            whatsappLines.push(message);
+          }
+
+          if (imageUrl) {
+            whatsappLines.push("");
+            whatsappLines.push("🖼️ *Imagem do cartão:*");
+            whatsappLines.push(imageUrl);
+          }
+
+          const whatsappText = whatsappLines.join("\n");
 
           const encodedText = encodeURIComponent(whatsappText);
           return destinationDigits
