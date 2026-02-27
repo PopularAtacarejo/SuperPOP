@@ -438,5 +438,42 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "c68140b1493c41e8bf32f133a6243a42",
+    "card_id": "4dcfd8db2d",
+    "dia": "27/02/2026",
+    "horario": "11:28:23",
+    "data_hora_iso": "2026-02-27T11:28:23.531859-03:00",
+    "destinatario": {
+      "nome": "-",
+      "numero": "-",
+      "numero_normalizado": "-",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "-",
+      "numero": "-",
+      "numero_normalizado": "-",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [],
+    "mensagem": "Teste backend duplicidade",
+    "whatsapp": {
+      "status": "webjs_error",
+      "to": "-",
+      "message_sid": "",
+      "error": "Numero de destino invalido para envio direto.",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-4dcfd8db2d.png",
+      "uploaded_image_url": "https://i.ibb.co/1JzkHYNL/card-4dcfd8db2d.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-4dcfd8db2d.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/4dcfd8db2d?token=8e8040ac8bb6ba5280600dc3973379024e5db5529aa375cb358e3f7fe60e10c3",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
