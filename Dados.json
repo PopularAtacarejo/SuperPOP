@@ -475,5 +475,44 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "8a373fd2d15049b5b8e64da0318e69bd",
+    "card_id": "668244f2c8",
+    "dia": "27/02/2026",
+    "horario": "11:29:09",
+    "data_hora_iso": "2026-02-27T11:29:09.920417-03:00",
+    "destinatario": {
+      "nome": "Dest Teste",
+      "numero": "5582999777772",
+      "numero_normalizado": "+5582999777772",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Rem Teste",
+      "numero": "5582999777771",
+      "numero_normalizado": "+5582999777771",
+      "funcao": "-"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento"
+    ],
+    "mensagem": "Teste backend duplicidade",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999777772",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-668244f2c8.png",
+      "uploaded_image_url": "https://i.ibb.co/S4TCCrww/card-668244f2c8.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-668244f2c8.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/668244f2c8?token=9c1b8a1d6f204b18499d457a865b6dd2c90b7b4e52642326d0fa640521c4489c",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
