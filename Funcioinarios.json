@@ -28,5 +28,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-27T15:08:29.394973-03:00"
+  },
+  {
+    "id": "67834ea1e6184394894cfeb8988f10cd",
+    "nome": "Sessao Teste",
+    "funcao": "QA",
+    "numero_celular": "(11) 9 9988 - 7766",
+    "numero_normalizado": "11999887766",
+    "email": "sessao.teste@example.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "3cdb0aec23c0f97cc9ada7966f7ff955",
+      "hash": "1f82df4cb5c48c2d70213045f3cc1f3e1320a2e5303ab72ef31c8d8ae107fbbc",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:19:36.301627-03:00"
   }
 ]
