@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "cac98d16cf2248d0a3083b66f3a8bf32",
+    "nome": "Teste Cadastro",
+    "funcao": "Analista",
+    "numero_celular": "(11) 9 1234 - 5678",
+    "numero_normalizado": "11912345678",
+    "email": "teste.cadastro@example.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "e078de5c19b4dc885b4f4d110d51b9d2",
+      "hash": "6c3b31914f01192a19a0be5f89b3666812201223469095ae0a75a3108930b2fc",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:01:59.068617-03:00"
+  }
+]
