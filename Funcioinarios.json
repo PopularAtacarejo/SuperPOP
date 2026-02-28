@@ -28,5 +28,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-28T08:28:56.457392-03:00"
+  },
+  {
+    "id": "c27055d3a93f4802a0323d3215cfbc5f",
+    "nome": "Isabella Teodosio",
+    "funcao": "Assistente Administrativo",
+    "numero_celular": "(82) 9 9435 - 0053",
+    "numero_normalizado": "82994350053",
+    "email": "isabellateodosio159@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "a244348811eae75c379503267542fe72",
+      "hash": "d5719c13a2f237dcbff8fbc0b25a031d58220550b5cf06328d370264719e5a23",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-28T08:51:43.116104-03:00"
   }
 ]
