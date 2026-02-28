@@ -13,5 +13,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-27T15:52:39.639068-03:00"
+  },
+  {
+    "id": "68617794d9404c8bb8db016a5894798e",
+    "nome": "Lazaro gustavo sombra silva",
+    "funcao": "Aux. De T.I",
+    "numero_celular": "(82) 9 9920 - 0947",
+    "numero_normalizado": "82999200947",
+    "email": "gugarox01@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "9e49f2a63b0f1a4194688fc5cba4a16a",
+      "hash": "3815453b78536c72388c34c61bbb87f060d04abab5deaab178dcaf8c40d96e78",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-28T08:28:56.457392-03:00"
   }
 ]
