@@ -68,8 +68,13 @@
     display: flex;
     flex-direction: column;
   }
-  .sidebar.expanded { width: 250px; }
-  .sidebar.expanded .sidebar-header { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .sidebar.expanded {
+    width: 250px;
+  }
+  .sidebar.expanded .sidebar-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
   .sidebar-header {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -113,7 +118,10 @@
     font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 24;
     transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
-  .menu-item-label { font-size: 0.98rem; letter-spacing: 0.01em; }
+  .menu-item-label {
+    font-size: 0.98rem;
+    letter-spacing: 0.01em;
+  }
   .menu-item:hover {
     background: #fff1f2;
     color: #9f1239;
@@ -132,42 +140,71 @@
     box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.28), 0 6px 14px rgba(230, 57, 70, 0.1);
   }
   .menu-item.active .material-symbols-outlined {
-    background: #ef4444;
-    color: #fff;
-    border-color: #ef4444;
-    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.22);
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    border-color: rgba(255, 255, 255, 0.65);
+    color: #ffffff;
     font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 24;
+    box-shadow: 0 8px 16px rgba(220, 38, 38, 0.34);
+  }
+  .dark .menu-item {
+    color: #94a3b8;
+  }
+  .dark .menu-item .material-symbols-outlined {
+    background: rgba(51, 65, 85, 0.9);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.25);
+  }
+  .dark .menu-item:hover {
+    background: rgba(127, 29, 29, 0.45);
+    color: #fecaca;
+  }
+  .dark .menu-item.active {
+    background: rgba(153, 27, 27, 0.55);
+    color: #fecaca;
+    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
+  }
+  .dark .menu-item.active .material-symbols-outlined {
+    background: linear-gradient(145deg, #f87171, #ef4444);
+    border-color: rgba(254, 202, 202, 0.5);
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(248, 113, 113, 0.32);
   }
   .sidebar-content-fade {
-    transition: opacity 0.2s ease, max-width 0.35s ease, transform 0.25s ease;
-    transform-origin: left center;
-    white-space: nowrap;
-  }
-  .sidebar:not(.expanded) .sidebar-content-fade {
     opacity: 0;
-    max-width: 0;
-    overflow: hidden;
-    transform: translateX(-8px);
+    transform: translateX(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
     pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+  .sidebar.expanded .sidebar-content-fade {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    position: static;
+    visibility: visible;
   }
   .sidebar:not(.expanded) .sidebar-header {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
-  .sidebar:not(.expanded) .sidebar-nav { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .sidebar:not(.expanded) .sidebar-nav {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
   .sidebar:not(.expanded) .menu-item {
     justify-content: center;
-    padding-left: 0;
-    padding-right: 0;
     width: 44px;
-    height: 44px;
     min-height: 44px;
+    padding: 0;
     margin-left: auto;
     margin-right: auto;
   }
-  .sidebar:not(.expanded) .menu-item:hover { transform: translateX(0) scale(1.04); }
+  .sidebar:not(.expanded) .menu-item:hover {
+    transform: none;
+  }
   .sidebar:not(.expanded) .menu-item .material-symbols-outlined {
-    margin-right: 0;
+    margin: 0;
     font-size: 22px;
   }
   .sidebar-overlay {
@@ -181,23 +218,34 @@
     margin-left: 72px;
     transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
-  .sidebar.expanded ~ .main-content { margin-left: 250px; }
-  @media (max-width: 767px) {
+  .sidebar.expanded ~ .main-content {
+    margin-left: 250px;
+  }
+  @media (max-width: 768px) {
     .sidebar {
-      transform: translateX(-100%);
-      transition: transform 0.3s ease, width 0.3s ease;
+      width: 0;
+      overflow: hidden;
+      position: fixed;
+      z-index: 50;
+      height: 100vh;
+    }
+    .sidebar.expanded {
       width: 250px;
     }
-    .sidebar.expanded { transform: translateX(0); }
-    .sidebar.expanded .sidebar-content-fade {
-      opacity: 1;
-      max-width: 220px;
-      transform: translateX(0);
-      pointer-events: auto;
+    .main-content {
+      margin-left: 0 !important;
     }
-    .main-content,
-    .sidebar.expanded ~ .main-content { margin-left: 0; }
-    .sidebar.expanded ~ .sidebar-overlay { display: block; }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      backdrop-filter: blur(2px);
+    }
+    .sidebar.expanded + .sidebar-overlay {
+      display: block;
+    }
   }
   .auth-user-menu {
     position: fixed;
@@ -267,7 +315,7 @@
 <aside class="sidebar fixed top-0 left-0 h-screen bg-white shadow-xl z-50 border-r border-gray-100" id="sidebar">
 <div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
 <div class="h-24 flex items-center justify-center overflow-hidden relative">
-<div class="absolute left-1/2 -translate-x-1/2 transition-opacity duration-300 w-12 h-12 flex items-center justify-center">
+<div class="absolute left-0 transition-opacity duration-300 w-12 h-12 flex items-center justify-center">
 <img alt="SP" class="w-10 h-10 object-contain opacity-100 sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/>
 </div>
 <div class="sidebar-content-fade w-full px-1">
