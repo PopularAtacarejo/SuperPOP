@@ -24,6 +24,8 @@
   body {
     margin: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: "Nunito", Arial, sans-serif;
     color: var(--text);
     background-color: var(--bg);
@@ -33,10 +35,45 @@
   }
 
   .page {
-    min-height: 100vh;
+    flex: 1;
+    min-height: 0;
     display: grid;
     place-items: center;
     padding: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .site-footer {
+    padding: 12px 16px 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  .floating-icons-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .floating-icon {
+    position: absolute;
+    opacity: 0.14;
+    color: #e63946;
+    animation: floatIcon 7s ease-in-out infinite;
+    user-select: none;
+  }
+  .floating-icon.alt {
+    color: #ffb703;
+    opacity: 0.18;
+  }
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
   }
 
   .card {
@@ -96,11 +133,41 @@
     font-weight: 700;
     outline: none;
   }
+  select {
+    width: 100%;
+    border: 1px solid #dbe3ee;
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 12px 14px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #2d2d2d 50%),
+      linear-gradient(135deg, #2d2d2d 50%, transparent 50%);
+    background-position:
+      calc(100% - 22px) calc(50% - 4px),
+      calc(100% - 14px) calc(50% - 4px);
+    background-size: 8px 8px, 8px 8px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+  }
 
   input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px #e6394630;
     background: #fff;
+  }
+  select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #e6394630;
+    background-color: #fff;
+  }
+  .funcao-select-mobile {
+    display: none;
   }
 
   .status {
@@ -168,10 +235,29 @@
     button { width: 100%; }
     .login-link { margin-left: 0; }
   }
+  @media (max-width: 768px) {
+    .funcao-input-desktop {
+      display: none;
+    }
+    .funcao-select-mobile {
+      display: block;
+    }
+  }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 </head>
 <body>
+<div class="floating-icons-bg" aria-hidden="true">
+  <span class="floating-icon material-symbols-outlined" style="top: 8%; left: 14%; font-size: 30px; animation-delay: -0.8s;">stars</span>
+  <span class="floating-icon alt material-symbols-outlined" style="top: 12%; right: 18%; font-size: 34px; animation-delay: -1.7s;">emoji_events</span>
+  <span class="floating-icon material-symbols-outlined" style="top: 26%; left: 8%; font-size: 24px; animation-delay: -2.9s;">favorite</span>
+  <span class="floating-icon alt material-symbols-outlined" style="top: 34%; right: 11%; font-size: 24px; animation-delay: -3.4s;">celebration</span>
+  <span class="floating-icon material-symbols-outlined" style="top: 56%; left: 10%; font-size: 28px; animation-delay: -4.1s;">workspace_premium</span>
+  <span class="floating-icon alt material-symbols-outlined" style="top: 63%; right: 16%; font-size: 30px; animation-delay: -5.3s;">volunteer_activism</span>
+  <span class="floating-icon material-symbols-outlined" style="bottom: 18%; left: 28%; font-size: 24px; animation-delay: -2.2s;">kid_star</span>
+  <span class="floating-icon alt material-symbols-outlined" style="bottom: 11%; right: 27%; font-size: 24px; animation-delay: -4.7s;">auto_awesome</span>
+</div>
 <div class="page">
   <section class="card">
     <img alt="SuperPop" class="logo" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
@@ -181,18 +267,21 @@
     <form id="cadastroForm" novalidate>
       <div>
         <label for="nome">Nome</label>
-        <input id="nome" maxlength="80" placeholder="Nome completo" required type="text"/>
+        <input id="nome" maxlength="80" placeholder="Insira seu nome" required type="text"/>
       </div>
 
       <div>
         <label for="funcao">Função</label>
-        <input id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
+        <input class="funcao-input-desktop" id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
+        <select class="funcao-select-mobile" id="funcaoSelectMobile">
+          <option value="">Selecione uma função</option>
+        </select>
         <datalist id="listaFuncoesSupermercado"></datalist>
       </div>
 
       <div>
         <label for="numeroCelular">Número de celular</label>
-        <input id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(11) 9 1234 - 5678" required type="text"/>
+        <input id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000-0000" required type="text"/>
       </div>
 
       <div>
@@ -202,7 +291,7 @@
 
       <div>
         <label for="senha">Senha</label>
-        <input id="senha" minlength="6" placeholder="Mínimo 6 caracteres" required type="password"/>
+        <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
       </div>
 
       <div class="status error" id="statusErro"></div>
@@ -216,12 +305,14 @@
     </form>
   </section>
 </div>
+<footer class="site-footer">Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0</footer>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("cadastroForm");
     const nomeInput = document.getElementById("nome");
     const funcaoInput = document.getElementById("funcao");
+    const funcaoSelectMobile = document.getElementById("funcaoSelectMobile");
     const numeroInput = document.getElementById("numeroCelular");
     const emailInput = document.getElementById("email");
     const senhaInput = document.getElementById("senha");
@@ -233,6 +324,25 @@
     const FUNCOES_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/FuncoesSupermercado.json";
     const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
 
     function formatPhoneMask(value) {
       const digits = String(value || "").replace(/\D/g, "").slice(0, 11);
@@ -258,6 +368,16 @@
       statusErro.style.display = "none";
       statusSucesso.textContent = message;
       statusSucesso.style.display = "block";
+    }
+
+    function isMobileViewport() {
+      return window.matchMedia("(max-width: 768px)").matches;
+    }
+
+    function getFuncaoValue() {
+      const inputValue = String((funcaoInput && funcaoInput.value) || "").trim();
+      const selectValue = String((funcaoSelectMobile && funcaoSelectMobile.value) || "").trim();
+      return isMobileViewport() ? (selectValue || inputValue) : (inputValue || selectValue);
     }
 
     numeroInput.addEventListener("input", function () {
@@ -312,14 +432,44 @@
         const uniqueSorted = Array.from(new Set(funcoes.map(function (item) { return String(item || "").trim(); }).filter(Boolean)))
           .sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
         listaFuncoesEl.innerHTML = "";
+        if (funcaoSelectMobile) {
+          funcaoSelectMobile.innerHTML = "";
+          const placeholderOption = document.createElement("option");
+          placeholderOption.value = "";
+          placeholderOption.textContent = "Selecione uma função";
+          funcaoSelectMobile.appendChild(placeholderOption);
+        }
         uniqueSorted.forEach(function (funcao) {
           const option = document.createElement("option");
           option.value = funcao;
           listaFuncoesEl.appendChild(option);
+          if (funcaoSelectMobile) {
+            const selectOption = document.createElement("option");
+            selectOption.value = funcao;
+            selectOption.textContent = funcao;
+            funcaoSelectMobile.appendChild(selectOption);
+          }
         });
       } catch (_err) {
         listaFuncoesEl.innerHTML = "";
+        if (funcaoSelectMobile) {
+          funcaoSelectMobile.innerHTML = '<option value="">Selecione uma função</option>';
+        }
       }
+    }
+
+    if (funcaoSelectMobile && funcaoInput) {
+      funcaoSelectMobile.addEventListener("change", function () {
+        funcaoInput.value = String(funcaoSelectMobile.value || "").trim();
+      });
+      funcaoInput.addEventListener("input", function () {
+        const normalized = String(funcaoInput.value || "").trim();
+        if (!normalized) {
+          funcaoSelectMobile.value = "";
+        } else if (Array.from(funcaoSelectMobile.options).some(function (option) { return option.value === normalized; })) {
+          funcaoSelectMobile.value = normalized;
+        }
+      });
     }
 
     loadFuncoesAutocomplete();
@@ -331,7 +481,7 @@
 
       const payload = {
         nome: String(nomeInput.value || "").trim(),
-        funcao: String(funcaoInput.value || "").trim(),
+        funcao: getFuncaoValue(),
         numero_celular: String(numeroInput.value || "").trim(),
         email: String(emailInput.value || "").trim(),
         senha: String(senhaInput.value || "")
@@ -372,9 +522,12 @@
         }
 
         form.reset();
+        if (funcaoSelectMobile) {
+          funcaoSelectMobile.value = "";
+        }
         showSuccess("Cadastro finalizado com sucesso. Redirecionando para o login...");
         window.setTimeout(function () {
-          window.location.href = "index.html?registered=1";
+          window.location.href = buildFrontendUrl("index.html?registered=1");
         }, 900);
       } catch (err) {
         showError(String(err && err.message ? err.message : "Erro inesperado ao cadastrar."));
