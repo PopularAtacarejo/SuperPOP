@@ -700,6 +700,10 @@
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
+<a class="menu-item group" href="sobre.html">
+<span class="material-symbols-outlined shrink-0">info</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
 </div>
 </nav>
 <button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
@@ -833,8 +837,8 @@
 </form>
 </main>
 <footer class="py-6 text-center">
-<p class="text-xs font-bold uppercase tracking-widest text-gray-400">
-Popular Atacarejo - Todos os Direitos Reservados 2026
+<p class="text-xs font-bold tracking-wide text-gray-400">
+Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 </p>
 </footer>
  </div>
@@ -937,7 +941,26 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     }
 
     const apiBase = resolveApiBaseUrl();
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
     let apiWakeupPromise = null;
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
 
     function waitMs(duration) {
       return new Promise(function (resolve) {
@@ -1233,16 +1256,68 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
       }
     }
 
+    function waitMs(ms) {
+      return new Promise(function (resolve) { window.setTimeout(resolve, ms); });
+    }
+
+    function readCachedAuthUser() {
+      try {
+        const raw = localStorage.getItem("superpop_auth_user");
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return null;
+        const nome = String(parsed.nome || "").trim();
+        const numero = String(parsed.numero_celular || "").trim();
+        if (!nome && !numero) return null;
+        return parsed;
+      } catch (_err) {
+        return null;
+      }
+    }
+
+    function isUnauthorizedAuthError(error) {
+      return Boolean(error && error.authReason === "unauthorized");
+    }
+
+    async function fetchAuthenticatedUserWithRetry() {
+      const maxAttempts = 5;
+      let lastError = "Nao foi possivel validar a sessao.";
+      let unauthorizedAttempts = 0;
+
+      for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+        try {
+          const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
+          const payload = await response.json().catch(function () { return {}; });
+          if (response.ok && payload && payload.ok && payload.usuario) {
+            return payload.usuario;
+          }
+          if (response.status === 401) {
+            unauthorizedAttempts += 1;
+            lastError = "Nao autenticado";
+          } else {
+            lastError = "Falha ao validar sessao (HTTP " + response.status + ").";
+          }
+        } catch (err) {
+          lastError = String(err && err.message ? err.message : "Falha de rede ao validar sessao.");
+        }
+
+        if (attempt < maxAttempts) {
+          await waitMs(500 * attempt);
+        }
+      }
+
+      const error = new Error(lastError);
+      error.authReason = unauthorizedAttempts === maxAttempts ? "unauthorized" : "temporary";
+      throw error;
+    }
+
+    window.__superpopFetchAuthenticatedUser = fetchAuthenticatedUserWithRetry;
+    window.__superpopGetCachedAuthUser = readCachedAuthUser;
+    window.__superpopIsUnauthorizedAuthError = isUnauthorizedAuthError;
+
     async function loadLoggedSenderProfile() {
-      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
-      if (!response.ok) {
-        throw new Error("Nao autenticado");
-      }
-      const payload = await response.json();
-      if (!payload || !payload.ok || !payload.usuario) {
-        throw new Error("Sessao invalida");
-      }
-      setLoggedSenderView(payload.usuario);
+      const user = await fetchAuthenticatedUserWithRetry();
+      setLoggedSenderView(user);
     }
 
     function setCollaboratorSelection(collaborator) {
@@ -1358,8 +1433,17 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
       collaboratorInput.addEventListener("blur", syncCollaboratorFromInput);
     }
 
-    loadLoggedSenderProfile().catch(function () {
-      window.location.href = "index.html";
+    loadLoggedSenderProfile().catch(function (error) {
+      const cachedUser = readCachedAuthUser();
+      if (cachedUser) {
+        setLoggedSenderView(cachedUser);
+        return;
+      }
+      if (isUnauthorizedAuthError(error)) {
+        window.location.href = buildFrontendUrl("index.html");
+        return;
+      }
+      console.warn("Falha temporaria ao validar sessao no carregamento do perfil.", error);
     });
 
     loadRegisteredCollaborators().catch(function () {
@@ -1571,7 +1655,26 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
     if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
 
     function setUserView(nome, funcao) {
       const safeNome = String(nome || "").trim() || "Usuario";
@@ -1581,13 +1684,16 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     }
 
     async function loadUserFromSession() {
-      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
-      if (!response.ok) {
-        throw new Error("Nao autenticado");
+      if (typeof window.__superpopFetchAuthenticatedUser === "function") {
+        const user = await window.__superpopFetchAuthenticatedUser();
+        setUserView(user.nome, user.funcao);
+        return;
       }
-      const payload = await response.json();
-      if (!payload || !payload.ok || !payload.usuario) {
-        throw new Error("Sessao invalida");
+
+      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
+      const payload = await response.json().catch(function () { return {}; });
+      if (!response.ok || !payload || !payload.ok || !payload.usuario) {
+        throw new Error("Nao autenticado");
       }
       setUserView(payload.usuario.nome, payload.usuario.funcao);
     }
@@ -1612,11 +1718,25 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
       try {
         localStorage.removeItem("superpop_auth_user");
       } catch (_err) {}
-      window.location.href = "index.html";
+      window.location.href = buildFrontendUrl("index.html");
     });
 
-    loadUserFromSession().catch(function () {
-      window.location.href = "index.html";
+    loadUserFromSession().catch(function (error) {
+      const cachedReader = window.__superpopGetCachedAuthUser;
+      const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
+      if (cachedUser) {
+        setUserView(cachedUser.nome, cachedUser.funcao);
+        return;
+      }
+      const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+      const isUnauthorized = typeof unauthorizedCheck === "function"
+        ? unauthorizedCheck(error)
+        : Boolean(error && error.message === "Nao autenticado");
+      if (isUnauthorized) {
+        window.location.href = buildFrontendUrl("index.html");
+        return;
+      }
+      console.warn("Falha temporaria ao validar sessao no menu do usuario.", error);
     });
   });
 </script>
