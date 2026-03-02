@@ -73,5 +73,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-03-02T11:21:58.477181-03:00"
+  },
+  {
+    "id": "75259daf721c4f709b6012fe7f192a23",
+    "nome": "Matheus Ataide",
+    "funcao": "Copeiro",
+    "numero_celular": "(82) 9 8751 - 3295",
+    "numero_normalizado": "82987513295",
+    "email": "matheusantonio96@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "8a13826bb17310886165298f08f51f14",
+      "hash": "fedb487290cf01918ec16faee26328e2b49ae76bbc8130bebfccdc8405e329a7",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T11:53:00.605436-03:00"
   }
 ]
