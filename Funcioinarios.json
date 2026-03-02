@@ -58,5 +58,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-03-02T10:13:37.331409-03:00"
+  },
+  {
+    "id": "8fccdfeb248f4e2996debcd65f325fc6",
+    "nome": "Natallia Katiane Alves da Silva",
+    "funcao": "Líder de RH",
+    "numero_celular": "(82) 9 8173 - 5783",
+    "numero_normalizado": "82981735783",
+    "email": "rh1@popularhomecenter.com.br",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "5414d0c382548bf90e32834487dd692a",
+      "hash": "cdd21c8c7595734afaeb7e8983b214a8f7c445cda1befa37bf962aec64dfb7b3",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T11:21:58.477181-03:00"
   }
 ]
