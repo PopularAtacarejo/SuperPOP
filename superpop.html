@@ -64,12 +64,23 @@
             line-height: 30px;
             background-attachment: local;
         }
-        .dark .paper-lines {
-            background-image: linear-gradient(transparent, transparent 29px, #374151 29px, #374151 30px);
-        }
-        .header-decor {
-            position: absolute;
-            inset: 0;
+  .dark .paper-lines {
+    background-image: linear-gradient(transparent, transparent 29px, #374151 29px, #374151 30px);
+  }
+  .collaborator-mobile-picker {
+    display: none;
+  }
+  @media (max-width: 1024px) {
+    .collaborator-desktop-picker {
+      display: none !important;
+    }
+    .collaborator-mobile-picker {
+      display: flex !important;
+    }
+  }
+  .header-decor {
+    position: absolute;
+    inset: 0;
             pointer-events: none;
             overflow: hidden;
             animation: decorPan 18s ease-in-out infinite alternate, decorBreath 9s ease-in-out infinite;
@@ -740,10 +751,16 @@
 <div class="bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-700 p-6 rounded-2xl shadow-soft space-y-5">
 <div class="relative">
 <label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="colaborador">Selecione o colaborador que vai receber o Super POP!</label>
-<div class="relative flex items-center group">
+<div class="relative flex items-center group collaborator-desktop-picker">
 <span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">person</span>
 <input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="colaborador" list="listaColaboradores" placeholder="Digite para pesquisar e selecionar" type="text"/>
 <datalist id="listaColaboradores"></datalist>
+</div>
+<div class="relative flex items-center group collaborator-mobile-picker">
+<span class="absolute left-3.5 text-gray-400 transition-colors material-symbols-rounded">person</span>
+<select class="w-full pl-11 pr-10 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold text-gray-800 dark:text-gray-100 shadow-sm" id="colaboradorSelectMobile">
+<option value="">Selecione um colaborador</option>
+</select>
 </div>
 </div>
 <div class="relative">
@@ -903,6 +920,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const messageInput = document.getElementById("mensagem");
     const messageCounter = document.getElementById("mensagem-contador");
     const collaboratorInput = document.getElementById("colaborador");
+    const collaboratorSelectMobile = document.getElementById("colaboradorSelectMobile");
     const collaboratorListEl = document.getElementById("listaColaboradores");
     const recognizedByInput = document.getElementById("reconhecidopor");
     const collaboratorNumberInput = document.getElementById("numero_colaborador");
@@ -1324,7 +1342,12 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       selectedCollaborator = collaborator || null;
       if (!selectedCollaborator) {
         if (collaboratorNumberInput) collaboratorNumberInput.value = "";
-        if (collaboratorInput) collaboratorInput.title = "";
+        if (collaboratorInput) {
+          collaboratorInput.title = "";
+        }
+        if (collaboratorSelectMobile) {
+          collaboratorSelectMobile.value = "";
+        }
         return;
       }
 
@@ -1332,9 +1355,39 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         collaboratorInput.value = selectedCollaborator.nome || "";
         collaboratorInput.title = selectedCollaborator.funcao ? ("Funcao: " + selectedCollaborator.funcao) : "";
       }
+      if (collaboratorSelectMobile) {
+        const selectedIndex = registeredCollaborators.findIndex(function (item) {
+          if (!item) return false;
+          if (item === selectedCollaborator) return true;
+          if (item.id && selectedCollaborator.id && item.id === selectedCollaborator.id) return true;
+          const itemNumber = normalizeWhatsappDigits(item.numero_celular || "");
+          const selectedNumber = normalizeWhatsappDigits(selectedCollaborator.numero_celular || "");
+          return Boolean(itemNumber && selectedNumber && itemNumber === selectedNumber);
+        });
+        collaboratorSelectMobile.value = selectedIndex >= 0 ? String(selectedIndex) : "";
+      }
       if (collaboratorNumberInput) {
         collaboratorNumberInput.value = formatPhoneForDisplay(selectedCollaborator.numero_celular || "");
       }
+    }
+
+    function shouldUseMobileCollaboratorPicker() {
+      return window.matchMedia("(max-width: 1024px)").matches;
+    }
+
+    function getCollaboratorFromCurrentPicker() {
+      if (shouldUseMobileCollaboratorPicker() && collaboratorSelectMobile) {
+        const selectedIndex = Number.parseInt(String(collaboratorSelectMobile.value || "").trim(), 10);
+        if (Number.isInteger(selectedIndex) && selectedIndex >= 0 && selectedIndex < registeredCollaborators.length) {
+          return registeredCollaborators[selectedIndex];
+        }
+        return null;
+      }
+
+      if (!collaboratorInput) return null;
+      const typedName = String(collaboratorInput.value || "").trim();
+      if (!typedName) return null;
+      return findCollaboratorByTypedName(typedName);
     }
 
     function findCollaboratorByTypedName(typedName) {
@@ -1399,38 +1452,55 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
       if (collaboratorListEl) {
         collaboratorListEl.innerHTML = "";
-        registeredCollaborators.forEach(function (item) {
+        if (collaboratorSelectMobile) {
+          collaboratorSelectMobile.innerHTML = "";
+          const placeholderOption = document.createElement("option");
+          placeholderOption.value = "";
+          placeholderOption.textContent = "Selecione um colaborador";
+          collaboratorSelectMobile.appendChild(placeholderOption);
+        }
+        registeredCollaborators.forEach(function (item, index) {
           const option = document.createElement("option");
           option.value = item.nome;
           if (item.funcao) {
             option.label = item.nome + " - " + item.funcao;
           }
           collaboratorListEl.appendChild(option);
+
+          if (collaboratorSelectMobile) {
+            const selectOption = document.createElement("option");
+            selectOption.value = String(index);
+            selectOption.textContent = item.funcao ? (item.nome + " - " + item.funcao) : item.nome;
+            collaboratorSelectMobile.appendChild(selectOption);
+          }
         });
       }
       collaboratorsLoaded = true;
-      if (collaboratorInput && collaboratorInput.value) {
-        setCollaboratorSelection(findCollaboratorByTypedName(collaboratorInput.value));
+      const pickedCollaborator = getCollaboratorFromCurrentPicker();
+      if (pickedCollaborator) {
+        setCollaboratorSelection(pickedCollaborator);
       }
     }
 
     function syncCollaboratorFromInput() {
-      if (!collaboratorInput) {
+      if (!collaboratorInput && !collaboratorSelectMobile) {
         return;
       }
-      const typed = collaboratorInput.value.trim();
-      if (!typed) {
+      const pickedCollaborator = getCollaboratorFromCurrentPicker();
+      if (!pickedCollaborator) {
         setCollaboratorSelection(null);
         return;
       }
-      const matched = findCollaboratorByTypedName(typed);
-      setCollaboratorSelection(matched);
+      setCollaboratorSelection(pickedCollaborator);
     }
 
     if (collaboratorInput) {
       collaboratorInput.addEventListener("input", syncCollaboratorFromInput);
       collaboratorInput.addEventListener("change", syncCollaboratorFromInput);
       collaboratorInput.addEventListener("blur", syncCollaboratorFromInput);
+    }
+    if (collaboratorSelectMobile) {
+      collaboratorSelectMobile.addEventListener("change", syncCollaboratorFromInput);
     }
 
     loadLoggedSenderProfile().catch(function (error) {
