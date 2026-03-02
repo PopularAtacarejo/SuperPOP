@@ -445,6 +445,10 @@
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
+<a class="menu-item group" href="sobre.html">
+<span class="material-symbols-outlined shrink-0">info</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
 </div>
 </nav>
 <button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
@@ -594,8 +598,8 @@
                 Última atualização: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
 </p>
 </div>
-<p class="mt-3 text-center text-xs font-bold uppercase tracking-widest text-gray-400">
-Popular Atacarejo - Todos os Direitos Reservados 2026
+<p class="mt-3 text-center text-xs font-bold tracking-wide text-gray-400">
+Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 </p>
 </footer>
 </main>
@@ -916,7 +920,26 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
     if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
 
     function setUserView(nome, funcao) {
       const safeNome = String(nome || "").trim() || "Usuario";
@@ -957,11 +980,11 @@ Popular Atacarejo - Todos os Direitos Reservados 2026
       try {
         localStorage.removeItem("superpop_auth_user");
       } catch (_err) {}
-      window.location.href = "index.html";
+      window.location.href = buildFrontendUrl("index.html");
     });
 
     loadUserFromSession().catch(function () {
-      window.location.href = "index.html";
+      window.location.href = buildFrontendUrl("index.html");
     });
   });
 </script>
