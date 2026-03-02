@@ -67,6 +67,13 @@
   .dark .paper-lines {
     background-image: linear-gradient(transparent, transparent 29px, #374151 29px, #374151 30px);
   }
+  .collaborator-desktop-picker,
+  .collaborator-mobile-picker {
+    align-items: center;
+  }
+  .collaborator-desktop-picker {
+    display: flex;
+  }
   .collaborator-mobile-picker {
     display: none;
   }
@@ -751,12 +758,12 @@
 <div class="bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-700 p-6 rounded-2xl shadow-soft space-y-5">
 <div class="relative">
 <label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="colaborador">Selecione o colaborador que vai receber o Super POP!</label>
-<div class="relative flex items-center group collaborator-desktop-picker">
+<div class="relative group collaborator-desktop-picker">
 <span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">person</span>
 <input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="colaborador" list="listaColaboradores" placeholder="Digite para pesquisar e selecionar" type="text"/>
 <datalist id="listaColaboradores"></datalist>
 </div>
-<div class="relative flex items-center group collaborator-mobile-picker">
+<div class="relative group collaborator-mobile-picker">
 <span class="absolute left-3.5 text-gray-400 transition-colors material-symbols-rounded">person</span>
 <select class="w-full pl-11 pr-10 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold text-gray-800 dark:text-gray-100 shadow-sm" id="colaboradorSelectMobile">
 <option value="">Selecione um colaborador</option>
