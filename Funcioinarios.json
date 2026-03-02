@@ -43,5 +43,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-28T08:51:43.116104-03:00"
+  },
+  {
+    "id": "256932dc70a9455c80ab5e9ee46357bd",
+    "nome": "Cecília Paulino",
+    "funcao": "Assistente de RH",
+    "numero_celular": "(82) 9 8734 - 7139",
+    "numero_normalizado": "82987347139",
+    "email": "ceciliarhpopular@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "c9d198b1c35b46c9246ad853ada6eeb4",
+      "hash": "813a93d57ab2b49d4f41ab4a34314662bd2ddf99c73c6c38f6c660041603910e",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T10:13:37.331409-03:00"
   }
 ]
