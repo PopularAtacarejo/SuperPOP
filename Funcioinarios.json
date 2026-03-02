@@ -88,5 +88,20 @@
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-03-02T11:53:00.605436-03:00"
+  },
+  {
+    "id": "7ece14b2f81b4e2bb6394bc416ca25b8",
+    "nome": "Gabriel Levi Santos",
+    "funcao": "Analista de TI",
+    "numero_celular": "(82) 9 8119 - 0340",
+    "numero_normalizado": "82981190340",
+    "email": "ti@popularhomecenter.com.br",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "0bb842ca2cdc35ef88cb4e2562777d50",
+      "hash": "c1f57aeada8f9004885e67e5e28428080fc753054caa8c85f56972eb169665b2",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T17:32:00.415107-03:00"
   }
 ]
