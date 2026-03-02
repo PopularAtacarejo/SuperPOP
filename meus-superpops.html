@@ -41,6 +41,27 @@
     z-index: -1;
     pointer-events: none;
   }
+  .floating-icons-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .floating-icon {
+    position: absolute;
+    opacity: 0.12;
+    color: #e63946;
+    animation: floatIcon 7s ease-in-out infinite;
+  }
+  .floating-icon.alt {
+    color: #ffb703;
+    opacity: 0.16;
+  }
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
+  }
   .sidebar {
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     width: 72px;
@@ -251,6 +272,16 @@
 </head>
 <body class="bg-gray-50 text-gray-900 font-body antialiased min-h-screen flex flex-col">
 <div class="bg-pattern"></div>
+<div class="floating-icons-bg" aria-hidden="true">
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 8%; left: 14%; animation-delay: -0.8s;">stars</span>
+<span class="floating-icon alt material-symbols-outlined text-4xl" style="top: 12%; right: 18%; animation-delay: -1.7s;">emoji_events</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 26%; left: 6%; animation-delay: -2.9s;">favorite</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 34%; right: 10%; animation-delay: -3.4s;">celebration</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 55%; left: 10%; animation-delay: -4.1s;">workspace_premium</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="top: 62%; right: 16%; animation-delay: -5.3s;">volunteer_activism</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 20%; left: 30%; animation-delay: -2.2s;">kid_star</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 12%; right: 28%; animation-delay: -4.7s;">auto_awesome</span>
+</div>
 <aside class="sidebar fixed top-0 left-0 h-screen bg-white shadow-xl z-50 border-r border-gray-100" id="sidebar">
 <div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
 <div class="h-24 flex items-center justify-center overflow-hidden relative">
@@ -281,7 +312,11 @@
 </a>
 <a class="menu-item group" href="ganhadores.html">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
+</a>
+<a class="menu-item group" href="sobre.html">
+<span class="material-symbols-outlined shrink-0">info</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
 </a>
 </div>
 </nav>
@@ -364,6 +399,9 @@
 Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
 </p>
 <p class="text-center text-[11px] font-semibold text-gray-400 mt-1" id="sourceInfo"></p>
+<p class="text-center text-xs font-bold tracking-wide text-gray-400 mt-2">
+Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
+</p>
 </footer>
 </main>
 </div>
@@ -401,7 +439,26 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     const sourceInfoEl = document.getElementById("sourceInfo");
     const lastUpdateEl = document.getElementById("lastUpdate");
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
     let loading = false;
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
 
     function escapeHtml(value) {
       return String(value || "")
@@ -509,7 +566,7 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
         sentListEl.innerHTML = '<div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-bold text-red-700">' + escapeHtml(message) + "</div>";
         receivedListEl.innerHTML = sentListEl.innerHTML;
         if (/nao autenticado|sessao invalida/i.test(message)) {
-          window.location.href = "index.html";
+          window.location.href = buildFrontendUrl("index.html");
           return;
         }
       } finally {
@@ -537,7 +594,26 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
     if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
 
     function setUserView(nome, funcao) {
       const safeNome = String(nome || "").trim() || "Usuario";
@@ -570,11 +646,11 @@ Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
     authLogoutBtn.addEventListener("click", async function () {
       try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
       try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
-      window.location.href = "index.html";
+      window.location.href = buildFrontendUrl("index.html");
     });
 
     loadUserFromSession().catch(function () {
-      window.location.href = "index.html";
+      window.location.href = buildFrontendUrl("index.html");
     });
   });
 </script>
