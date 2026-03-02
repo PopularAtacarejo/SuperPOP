@@ -1619,23 +1619,23 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
         function buildWhatsappUrl(imageUrl) {
           const whatsappLines = [
-            "ðŸŽ‰ *SuperPOP - Reconhecimento*",
+            "\uD83C\uDF89 *SuperPOP - Reconhecimento*",
             "",
-            "ðŸ‘¤ *Para:* " + collaborator,
-            "ðŸ™Œ *Enviado por:* " + recognizedBy,
-            "â­ *Valores:* " + selectedValues.join(", "),
-            "ðŸ“… *Data:* " + dateText
+            "\uD83D\uDC64 *Para:* " + collaborator,
+            "\uD83D\uDE4C *Enviado por:* " + recognizedBy,
+            "\u2B50 *Valores:* " + selectedValues.join(", "),
+            "\uD83D\uDCC5 *Data:* " + dateText
           ];
 
           if (message) {
             whatsappLines.push("");
-            whatsappLines.push("ðŸ’¬ *Mensagem:*");
+            whatsappLines.push("\uD83D\uDCAC *Mensagem:*");
             whatsappLines.push(message);
           }
 
           if (imageUrl) {
             whatsappLines.push("");
-            whatsappLines.push("ðŸ–¼ï¸ *Imagem do cartÃ£o:*");
+            whatsappLines.push("\uD83D\uDDBC\uFE0F *Imagem do cartao:*");
             whatsappLines.push(imageUrl);
           }
 
