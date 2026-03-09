@@ -86,8 +86,8 @@
     "email": "matheusantonio96@gmail.com",
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "8a13826bb17310886165298f08f51f14",
-      "hash": "fedb487290cf01918ec16faee26328e2b49ae76bbc8130bebfccdc8405e329a7",
+      "salt": "bb5c8b3f451385a347ccb16c17335ccb",
+      "hash": "fa5633cc050bee2d8f0682a51510b8a7ce924839d05d89912d9515b9e9b74f58",
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-03-02T11:53:00.605436-03:00"
