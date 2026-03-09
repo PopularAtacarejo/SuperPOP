@@ -303,8 +303,8 @@
       }
 
       function setUserView(nome, funcao) {
-        const safeNome = String(nome || "").trim() || "Usuario";
-        const safeFuncao = String(funcao || "").trim() || "Sem funcao";
+        const safeNome = String(nome || "").trim() || "Usuário";
+        const safeFuncao = String(funcao || "").trim() || "Sem função";
         nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
         roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
       }
@@ -353,7 +353,7 @@
         return new Promise(function (resolve, reject) {
           const reader = new FileReader();
           reader.onload = function () { resolve(String(reader.result || "")); };
-          reader.onerror = function () { reject(new Error("Nao foi possivel ler a imagem.")); };
+          reader.onerror = function () { reject(new Error("Não foi possível ler a imagem.")); };
           reader.readAsDataURL(file);
         });
       }
@@ -361,7 +361,7 @@
       async function loadProfile() {
         const response = await fetch(apiBase + "/api/me/profile", { cache: "no-store", credentials: "include" });
         const payload = await response.json().catch(function () { return {}; });
-        if (!response.ok || !payload.ok || !payload.usuario) throw new Error("Nao autenticado");
+        if (!response.ok || !payload.ok || !payload.usuario) throw new Error("Não autenticado");
         applyUser(payload.usuario);
       }
 

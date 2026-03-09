@@ -57,7 +57,7 @@
       color: #ffb703;
       opacity: 0.16;
     }
-    @keyframes floatIcon {
+    @keyframês floatIcon {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-14px) rotate(8deg); }
     }
@@ -188,7 +188,7 @@ Desenvolvido por: Jeferson
 
     async function ensureSessionReady() {
       const maxAttempts = 5;
-      let lastError = "Nao foi possivel confirmar a sessao.";
+      let lastError = "Não foi possível confirmar a sessão.";
 
       for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
         try {
@@ -198,12 +198,12 @@ Desenvolvido por: Jeferson
             return payload.usuario;
           }
           if (response.status === 401) {
-            lastError = "Sessao nao confirmada pelo navegador.";
+            lastError = "Sessão não confirmada pelo navegador.";
           } else {
-            lastError = "Falha ao validar sessao (HTTP " + response.status + ").";
+            lastError = "Falha ao validar sessão (HTTP " + response.status + ").";
           }
         } catch (err) {
-          lastError = String(err && err.message ? err.message : "Falha de rede ao validar sessao.");
+          lastError = String(err && err.message ? err.message : "Falha de rede ao validar sessão.");
         }
 
         if (attempt < maxAttempts) {
@@ -246,7 +246,7 @@ Desenvolvido por: Jeferson
       const senha = String(passwordInput.value || "");
       const manterConectado = Boolean(rememberInput && rememberInput.checked);
       if (!PHONE_REGEX.test(numeroCelular)) {
-        showError("Numero de celular invalido. Use o formato (xx) 9 0000 - 0000.");
+        showError("Número de celular inválido. Use o formato (xx) 9 0000 - 0000.");
         return;
       }
       if (!senha) {
@@ -271,16 +271,16 @@ Desenvolvido por: Jeferson
           localStorage.setItem("superpop_auth_user", JSON.stringify(result.funcionario || {}));
         } catch (_err) {}
 
-        showSuccess("Login realizado. Confirmando sessao...");
+        showSuccess("Login realizado. Confirmando sessão...");
         await ensureSessionReady();
-        showSuccess("Sessao ativa. Redirecionando...");
+        showSuccess("Sessão ativa. Redirecionando...");
         window.setTimeout(function () {
           const target = buildFrontendUrl("superpop.html");
           window.location.href = target;
         }, 350);
       } catch (err) {
         const message = String(err && err.message ? err.message : "Erro inesperado ao fazer login.");
-        if (message.toLowerCase().indexOf("sessao") >= 0) {
+        if (message.toLowerCase().indexOf("sessão") >= 0) {
           showError(message + " Verifique cookies de terceiros para superpopbackend.onrender.com.");
         } else {
           showError(message);

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -58,7 +58,7 @@
     color: #ffb703;
     opacity: 0.16;
   }
-  @keyframes floatIcon {
+  @keyframês floatIcon {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-14px) rotate(8deg); }
   }
@@ -310,9 +310,9 @@
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mes">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃƒÂªs</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
 <a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
@@ -321,11 +321,11 @@
 </div>
 <div class="space-y-1 pt-2 border-t border-slate-100">
 <div class="px-3 mb-2 sidebar-content-fade">
-<span class="menu-section-title">Gestao</span>
+<span class="menu-section-title">Gestão</span>
 </div>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Analise de Dados">
+<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
 <span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
 </a>
 </div>
 </nav>
@@ -362,13 +362,13 @@
 <main class="flex-1 max-w-7xl mx-auto w-full px-5 py-6 space-y-6">
 <section class="text-center space-y-2">
 <h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Meus Super POP's</h1>
-<p class="text-gray-600 font-semibold text-base sm:text-lg">Veja os Super POP's que vocÃª enviou e recebeu no mÃªs atual, com histÃ³rico de meses anteriores.</p>
+<p class="text-gray-600 font-semibold text-base sm:text-lg">Veja os Super POP's que você enviou e recebeu no mês atual, com histórico de meses anteriores.</p>
 </section>
 
 <section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-4 sm:p-5">
 <div class="flex flex-col sm:flex-row gap-3 sm:items-end sm:justify-between">
 <div class="w-full sm:max-w-sm">
-<label class="block text-xs font-bold uppercase tracking-wide text-primary mb-1.5" for="monthSelect">MÃªs</label>
+<label class="block text-xs font-bold uppercase tracking-wide text-primary mb-1.5" for="monthSelect">Mês</label>
 <select class="w-full rounded-xl border-gray-200 bg-gray-50 focus:ring-primary focus:border-primary font-semibold text-gray-800" id="monthSelect"></select>
 </div>
 <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white font-bold px-4 py-2.5 hover:bg-red-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed" id="refreshBtn" type="button">
@@ -380,7 +380,7 @@
 
 <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 <article class="bg-white/95 border border-white/70 rounded-2xl shadow-soft p-4">
-<p class="text-xs font-bold uppercase tracking-wide text-primary">Total no mÃªs</p>
+<p class="text-xs font-bold uppercase tracking-wide text-primary">Total no mês</p>
 <p class="mt-2 text-3xl font-display text-gray-900" id="totalMes">0</p>
 </article>
 <article class="bg-white/95 border border-white/70 rounded-2xl shadow-soft p-4">
@@ -560,7 +560,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function itemHtml(item, typeLabel) {
       const other = (item && item.outra_pessoa) || {};
       const files = (item && item.arquivos) || {};
-      const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" Ã s ");
+      const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" às ");
       const mediaUrl = String(files.uploaded_image_url || files.image_url || "").trim();
       const mensagem = String(item.mensagem || "").trim();
       return '' +
@@ -609,8 +609,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const payload = await fetchData(monthKey);
         renderMonthOptions(payload.meses_disponiveis, payload.mes_selecionado);
         renderSummary(payload.resumo_mes);
-        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mÃªs.", "Enviado para");
-        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mÃªs.", "Recebido de");
+        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mês.", "Enviado para");
+        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mês.", "Recebido de");
         const source = payload.fonte || {};
         sourceInfoEl.textContent = source.tipo === "remoto"
           ? "Fonte: remoto"
@@ -619,7 +619,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const message = String(error && error.message ? error.message : "Erro ao carregar dados.");
         sentListEl.innerHTML = '<div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-bold text-red-700">' + escapeHtml(message) + "</div>";
         receivedListEl.innerHTML = sentListEl.innerHTML;
-        if (/nao autenticado|sessao invalida/i.test(message)) {
+        if (/não autenticado|sessão inválida/i.test(message)) {
           window.location.href = buildFrontendUrl("index.html");
           return;
         }
@@ -671,17 +671,17 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
 
     function setUserView(nome, funcao) {
-      const safeNome = String(nome || "").trim() || "Usuario";
-      const safeFuncao = String(funcao || "").trim() || "Sem funcao";
+      const safeNome = String(nome || "").trim() || "Usuário";
+      const safeFuncao = String(funcao || "").trim() || "Sem função";
       nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
       roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
     }
 
     async function loadUserFromSession() {
       const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
-      if (!response.ok) throw new Error("Nao autenticado");
+      if (!response.ok) throw new Error("Não autenticado");
       const payload = await response.json();
-      if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessao invalida");
+      if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessão inválida");
       setUserView(payload.usuario.nome, payload.usuario.funcao);
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");

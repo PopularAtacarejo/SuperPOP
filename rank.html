@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -44,7 +44,7 @@
             'float': 'float 6s ease-in-out infinite',
             'float-delayed': 'float 6s ease-in-out 3s infinite',
           },
-          keyframes: {
+          keyframês: {
             float: {
               '0%, 100%': { transform: 'translateY(0)' },
               '50%': { transform: 'translateY(-10px)' },
@@ -96,7 +96,7 @@
     .dark .floating-icon.alt {
       opacity: 0.11;
     }
-    @keyframes floatIcon {
+    @keyframês floatIcon {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-14px) rotate(8deg); }
     }
@@ -441,9 +441,9 @@
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mes">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
 <a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
@@ -452,11 +452,11 @@
 </div>
 <div class="space-y-1 pt-2 border-t border-slate-100">
 <div class="px-3 mb-2 sidebar-content-fade">
-<span class="menu-section-title">Gestao</span>
+<span class="menu-section-title">Gestão</span>
 </div>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Analise de Dados">
+<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
 <span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
 </a>
 </div>
 </nav>
@@ -555,7 +555,7 @@
 <div class="flex items-center justify-center gap-2 text-gray-400">
 <span class="material-symbols-outlined text-sm">schedule</span>
 <p class="text-xs font-bold uppercase tracking-widest">
-                Ãšltima atualizaÃ§Ã£o: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
+                Última atualização: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
 </p>
 </div>
 <p class="mt-3 text-center text-xs font-bold tracking-wide text-gray-400">
@@ -678,7 +678,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       const payload = await response.json();
       if (!Array.isArray(payload)) {
-        throw new Error("JSON nao eh lista");
+        throw new Error("JSON não eh lista");
       }
       return payload;
     }
@@ -832,8 +832,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
 
     function setUserView(nome, funcao) {
-      const safeNome = String(nome || "").trim() || "Usuario";
-      const safeFuncao = String(funcao || "").trim() || "Sem funcao";
+      const safeNome = String(nome || "").trim() || "Usuário";
+      const safeFuncao = String(funcao || "").trim() || "Sem função";
       nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
       roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
     }
@@ -841,11 +841,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     async function loadUserFromSession() {
       const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
       if (!response.ok) {
-        throw new Error("Nao autenticado");
+        throw new Error("Não autenticado");
       }
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) {
-        throw new Error("Sessao invalida");
+        throw new Error("Sessão inválida");
       }
       setUserView(payload.usuario.nome, payload.usuario.funcao);
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
