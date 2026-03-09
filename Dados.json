@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "b782591353c842bab9ccc0f541d3c886",
+    "card_id": "83edeb32c8",
+    "dia": "09/03/2026",
+    "horario": "15:35:27",
+    "data_hora_iso": "2026-03-09T15:35:27.144028-03:00",
+    "destinatario": {
+      "nome": "Matheus Ataide",
+      "numero": "5582987513295",
+      "numero_normalizado": "+5582987513295",
+      "funcao": "Copeiro"
+    },
+    "remetente": {
+      "nome": "Jeferson",
+      "numero": "5582999158412",
+      "numero_normalizado": "+5582999158412",
+      "funcao": "Analista de Marketing"
+    },
+    "opcoes_marcadas": [
+      "Eficiência",
+      "Resultado"
+    ],
+    "mensagem": "-",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582987513295",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://SEU-ENDERECO-PUBLICO/media/card-83edeb32c8.png",
+      "uploaded_image_url": "https://i.ibb.co/j9ZQymGd/card-83edeb32c8.png",
+      "pdf_url": "",
+      "enviado_url": "https://SEU-ENDERECO-PUBLICO/media/card-83edeb32c8.png",
+      "auth_qr_url": "https://SEU-ENDERECO-PUBLICO/api/cards/verify/83edeb32c8?token=e23774f1fd7fe46d72e9f6242c38359044dfafd1eacc0f48c14168fca4bc3a69",
+      "upload_status": "success",
+      "upload_error": ""
+    }
+  }
+]
