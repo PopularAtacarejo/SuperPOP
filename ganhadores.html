@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SuperPop | Ganhadores do Mês</title>
+<title>SuperPop | Ganhadores do MÃªs</title>
 <link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -429,29 +429,34 @@
 <div class="px-3 mb-2 sidebar-content-fade">
 <span class="menu-section-title">Geral</span>
 </div>
-<a class="menu-item group" href="superpop.html">
+<a class="menu-item group" href="superpop.html" title="Enviar Super POP">
 <span class="material-symbols-outlined shrink-0">send</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
 </a>
-<a class="menu-item group" href="meus-superpops.html">
+<a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs">
 <span class="material-symbols-outlined shrink-0">history</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span>
 </a>
-<a class="menu-item group" href="rank.html">
+<a class="menu-item group" href="rank.html" title="Ranking">
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem">
-<span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
-</a>
-<a class="menu-item active group" href="ganhadores.html">
+<a class="menu-item active group" href="ganhadores.html" title="Ganhadores do Mes">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
 </a>
-<a class="menu-item group" href="sobre.html">
+<a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
+</div>
+<div class="space-y-1 pt-2 border-t border-slate-100">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Gestao</span>
+</div>
+<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Analise de Dados">
+<span class="material-symbols-outlined shrink-0">monitoring</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span>
 </a>
 </div>
 </nav>
@@ -491,7 +496,7 @@
 </header>
 <main class="flex-1 max-w-7xl mx-auto w-full px-5 py-8 space-y-10 relative z-10">
 <section class="text-center space-y-3" data-purpose="page-title">
-<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight drop-shadow-sm">Ganhadores do Mês</h1>
+<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight drop-shadow-sm">Ganhadores do MÃªs</h1>
 <p class="text-gray-600 dark:text-gray-300 font-semibold text-lg max-w-2xl mx-auto">
             Destaques de <span class="text-primary" id="currentMonthLabel">--</span> no SuperPOP.
         </p>
@@ -503,7 +508,7 @@
 <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
 <span class="material-symbols-outlined text-white">workspace_premium</span>
 </div>
-<h2 class="text-white font-display uppercase text-lg tracking-wide">Quem mais recebeu SuperPOp no Mês</h2>
+<h2 class="text-white font-display uppercase text-lg tracking-wide">Quem mais recebeu SuperPOp no MÃªs</h2>
 </div>
 <span class="text-white/80 text-sm font-bold bg-white/10 px-3 py-1 rounded-full">Top 1</span>
 </div>
@@ -527,7 +532,7 @@
 <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
 <span class="material-symbols-outlined text-gray-900">volunteer_activism</span>
 </div>
-<h2 class="text-gray-900 font-display uppercase text-lg tracking-wide">Top 1 que mais enviou SuperPOP no Mês</h2>
+<h2 class="text-gray-900 font-display uppercase text-lg tracking-wide">Top 1 que mais enviou SuperPOP no MÃªs</h2>
 </div>
 <span class="text-gray-900/80 text-sm font-bold bg-black/5 px-3 py-1 rounded-full">Top 1</span>
 </div>
@@ -555,13 +560,13 @@
 </div>
 <h2 class="text-white font-display uppercase text-lg tracking-wide">Top 1 Ganhador de Todos os Meses</h2>
 </div>
-<span class="text-white/80 text-sm font-bold bg-white/10 px-3 py-1 rounded-full">Histórico</span>
+<span class="text-white/80 text-sm font-bold bg-white/10 px-3 py-1 rounded-full">HistÃ³rico</span>
 </div>
 <div class="ranking-table-container overflow-x-auto flex-1">
 <table class="w-full text-left border-collapse">
 <thead>
 <tr class="bg-gray-50/50 dark:bg-gray-800/50 text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-700">
-<th class="px-6 py-4">Mês</th>
+<th class="px-6 py-4">MÃªs</th>
 <th class="px-6 py-4">Colaborador</th>
 <th class="px-6 py-4 text-center">Qtd</th>
 </tr>
@@ -579,13 +584,13 @@
 </div>
 <h2 class="text-gray-900 font-display uppercase text-lg tracking-wide">Top 1 Enviador de Todos os Meses</h2>
 </div>
-<span class="text-gray-900/80 text-sm font-bold bg-black/5 px-3 py-1 rounded-full">Histórico</span>
+<span class="text-gray-900/80 text-sm font-bold bg-black/5 px-3 py-1 rounded-full">HistÃ³rico</span>
 </div>
 <div class="ranking-table-container overflow-x-auto flex-1">
 <table class="w-full text-left border-collapse">
 <thead>
 <tr class="bg-gray-50/50 dark:bg-gray-800/50 text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-700">
-<th class="px-6 py-4">Mês</th>
+<th class="px-6 py-4">MÃªs</th>
 <th class="px-6 py-4">Colaborador</th>
 <th class="px-6 py-4 text-center">Qtd</th>
 </tr>
@@ -600,7 +605,7 @@
 <div class="flex items-center justify-center gap-2 text-gray-400">
 <span class="material-symbols-outlined text-sm">schedule</span>
 <p class="text-xs font-bold uppercase tracking-widest">
-                Última atualização: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
+                Ãšltima atualizaÃ§Ã£o: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
 </p>
 </div>
 <p class="mt-3 text-center text-xs font-bold tracking-wide text-gray-400">
@@ -617,18 +622,22 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const smallLogo = document.querySelector(".sidebar-collapsed-only");
     const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+    const sidebarStorageKey = "superpop_sidebar_expanded";
 
     if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
       return;
     }
 
-    function openSidebar() {
+    function openSidebar(shouldPersist = true) {
       sidebar.classList.add("expanded");
       chevron.textContent = "chevron_left";
       smallLogo.style.opacity = "0";
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
+      }
     }
 
-    function closeSidebar() {
+    function closeSidebar(shouldPersist = true) {
       sidebar.classList.remove("expanded");
       chevron.textContent = "chevron_right";
       window.setTimeout(function () {
@@ -636,6 +645,23 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           smallLogo.style.opacity = "1";
         }
       }, 220);
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
+      }
+    }
+
+    function syncSidebarState() {
+      if (window.innerWidth < 768) {
+        closeSidebar(false);
+        return;
+      }
+      let storedState = "";
+      try { storedState = localStorage.getItem(sidebarStorageKey) || ""; } catch (_err) {}
+      if (storedState === "0") {
+        closeSidebar(false);
+      } else {
+        openSidebar(false);
+      }
     }
 
     toggleBtn.addEventListener("click", function () {
@@ -646,8 +672,10 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
     });
 
-    mobileMenuBtn.addEventListener("click", openSidebar);
-    overlay.addEventListener("click", closeSidebar);
+    mobileMenuBtn.addEventListener("click", function () { openSidebar(false); });
+    overlay.addEventListener("click", function () { closeSidebar(false); });
+    window.addEventListener("resize", syncSidebarState);
+    syncSidebarState();
   });
 </script>
 <script data-purpose="ranking-logic">
@@ -860,7 +888,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       if (!tbody) return;
       tbody.innerHTML = "";
       if (!data.length) {
-        tbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-gray-400">Nenhum mês com registros</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-gray-400">Nenhum mÃªs com registros</td></tr>';
         return;
       }
       data.forEach(function (item) {
@@ -876,8 +904,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function processAndRender(logsCurrentMonth, allLogs) {
       const currentMonthRank = buildRankings(logsCurrentMonth);
       const monthlyTopOne = buildMonthlyTopOne(allLogs);
-      renderTable(receivedTbody, currentMonthRank.receivedArr.slice(0, 1), "bg-primary/10 text-primary border border-primary/20", "Sem ganhador no mês atual");
-      renderTable(sentTbody, currentMonthRank.sentArr.slice(0, 1), "bg-secondary/10 text-secondary-dark border border-secondary/20", "Sem enviador no mês atual");
+      renderTable(receivedTbody, currentMonthRank.receivedArr.slice(0, 1), "bg-primary/10 text-primary border border-primary/20", "Sem ganhador no mÃªs atual");
+      renderTable(sentTbody, currentMonthRank.sentArr.slice(0, 1), "bg-secondary/10 text-secondary-dark border border-secondary/20", "Sem enviador no mÃªs atual");
       renderHistoryTable(historyReceivedTbody, monthlyTopOne.receivedHistory, "bg-primary/10 text-primary border border-primary/20");
       renderHistoryTable(historySentTbody, monthlyTopOne.sentHistory, "bg-secondary/10 text-secondary-dark border border-secondary/20");
     }

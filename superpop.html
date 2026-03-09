@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -702,29 +702,34 @@
 <div class="px-3 mb-2 sidebar-content-fade">
 <span class="menu-section-title">Geral</span>
 </div>
-<a class="menu-item active group" href="superpop.html">
+<a class="menu-item active group" href="superpop.html" title="Enviar Super POP">
 <span class="material-symbols-outlined shrink-0">send</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
 </a>
-<a class="menu-item group" href="meus-superpops.html">
+<a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs">
 <span class="material-symbols-outlined shrink-0">history</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span>
 </a>
-<a class="menu-item group" href="rank.html">
+<a class="menu-item group" href="rank.html" title="Ranking">
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem">
-<span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
-</a>
-<a class="menu-item group" href="ganhadores.html">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mes">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
 </a>
-<a class="menu-item group" href="sobre.html">
+<a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
+</div>
+<div class="space-y-1 pt-2 border-t border-slate-100">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Gestao</span>
+</div>
+<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Analise de Dados">
+<span class="material-symbols-outlined shrink-0">monitoring</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span>
 </a>
 </div>
 </nav>
@@ -776,25 +781,25 @@
 </div>
 </div>
 <div class="relative">
-<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="reconhecidopor">Enviado por (usuário logado)</label>
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="reconhecidopor">Enviado por (usuÃ¡rio logado)</label>
 <div class="relative flex items-center group">
 <span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">badge</span>
-<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="reconhecidopor" placeholder="Carregando usuário logado..." readonly type="text"/>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="reconhecidopor" placeholder="Carregando usuÃ¡rio logado..." readonly type="text"/>
 </div>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 <div class="relative">
-<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_colaborador">Número do colaborador selecionado</label>
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_colaborador">NÃºmero do colaborador selecionado</label>
 <div class="relative flex items-center group">
 <span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">call</span>
 <input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="numero_colaborador" placeholder="Selecione um colaborador da lista" readonly type="text"/>
 </div>
 </div>
 <div class="relative">
-<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_reconhecidopor">Seu número (usuário logado)</label>
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numero_reconhecidopor">Seu nÃºmero (usuÃ¡rio logado)</label>
 <div class="relative flex items-center group">
 <span class="absolute left-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded">smartphone</span>
-<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="numero_reconhecidopor" placeholder="Carregando usuário logado..." readonly type="text"/>
+<input class="w-full pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm cursor-not-allowed" id="numero_reconhecidopor" placeholder="Carregando usuÃ¡rio logado..." readonly type="text"/>
 </div>
 </div>
 </div>
@@ -879,18 +884,22 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const smallLogo = document.querySelector(".sidebar-collapsed-only");
     const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+    const sidebarStorageKey = "superpop_sidebar_expanded";
 
     if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
       return;
     }
 
-    function openSidebar() {
+    function openSidebar(shouldPersist = true) {
       sidebar.classList.add("expanded");
       chevron.textContent = "chevron_left";
       smallLogo.style.opacity = "0";
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
+      }
     }
 
-    function closeSidebar() {
+    function closeSidebar(shouldPersist = true) {
       sidebar.classList.remove("expanded");
       chevron.textContent = "chevron_right";
       window.setTimeout(function () {
@@ -898,6 +907,23 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           smallLogo.style.opacity = "1";
         }
       }, 220);
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
+      }
+    }
+
+    function syncSidebarState() {
+      if (window.innerWidth < 768) {
+        closeSidebar(false);
+        return;
+      }
+      let storedState = "";
+      try { storedState = localStorage.getItem(sidebarStorageKey) || ""; } catch (_err) {}
+      if (storedState === "0") {
+        closeSidebar(false);
+      } else {
+        openSidebar(false);
+      }
     }
 
     toggleBtn.addEventListener("click", function () {
@@ -908,10 +934,12 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
     });
 
-    mobileMenuBtn.addEventListener("click", openSidebar);
-    overlay.addEventListener("click", closeSidebar);
+    mobileMenuBtn.addEventListener("click", function () { openSidebar(false); });
+    overlay.addEventListener("click", function () { closeSidebar(false); });
+    window.addEventListener("resize", syncSidebarState);
+    syncSidebarState();
   });
- </script>
+</script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const dateDisplayInput = document.getElementById("dataDisplay");

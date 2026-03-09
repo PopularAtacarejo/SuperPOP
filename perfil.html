@@ -19,8 +19,107 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <style>
+    .auth-user-menu {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 45;
+    }
+
+    .auth-user-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #0f172a;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      cursor: pointer;
+    }
+
+    .auth-user-btn .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    .auth-user-btn-text strong,
+    .auth-user-btn-text small {
+      display: block;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .auth-user-btn-text small {
+      color: #64748b;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .auth-user-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: min(280px, 88vw);
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+      padding: 12px;
+    }
+
+    .auth-user-dropdown.open {
+      display: block;
+    }
+
+    .auth-user-dropdown-name {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .auth-user-dropdown-role {
+      margin: 2px 0 10px;
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 700;
+    }
+
+    .auth-user-logout {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 9px 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-amber-50 font-body text-slate-900">
+  <div class="auth-user-menu" id="authUserMenu">
+    <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
+      <span class="material-symbols-outlined">account_circle</span>
+      <span class="auth-user-btn-text">
+        <strong id="authUserName">Carregando...</strong>
+        <small id="authUserRole">Perfil</small>
+      </span>
+      <span class="material-symbols-outlined">expand_more</span>
+    </button>
+    <div class="auth-user-dropdown" id="authUserDropdown">
+      <p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p>
+      <p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p>
+      <a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="superpop.html">Voltar ao painel</a>
+      <button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button>
+    </div>
+  </div>
   <main class="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
     <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
@@ -28,15 +127,11 @@
         <h1 class="mt-2 font-display text-4xl text-primary">Meu Perfil</h1>
         <p class="mt-2 text-sm sm:text-base font-semibold text-slate-600">Atualize sua foto, nome, e-mail e senha.</p>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 pt-14 sm:pt-0">
         <a class="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-card" href="superpop.html">
           <span class="material-symbols-outlined text-base">arrow_back</span>
           Voltar
         </a>
-        <button class="inline-flex items-center gap-2 rounded-xl bg-red-100 px-4 py-2.5 text-sm font-bold text-red-700" id="logoutBtn" type="button">
-          <span class="material-symbols-outlined text-base">logout</span>
-          Sair
-        </button>
       </div>
     </header>
 
@@ -163,7 +258,11 @@
       const profileSuccess = document.getElementById("profileSuccess");
       const passwordError = document.getElementById("passwordError");
       const passwordSuccess = document.getElementById("passwordSuccess");
-      const logoutBtn = document.getElementById("logoutBtn");
+      const authUserBtn = document.getElementById("authUserBtn");
+      const authUserDropdown = document.getElementById("authUserDropdown");
+      const authLogoutBtn = document.getElementById("authLogoutBtn");
+      const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
+      const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
       const saveProfileBtn = document.getElementById("saveProfileBtn");
       const saveProfileLabel = document.getElementById("saveProfileLabel");
       const savePasswordBtn = document.getElementById("savePasswordBtn");
@@ -203,6 +302,13 @@
         labelEl.textContent = isLoading ? loadingText : labelEl.dataset.defaultLabel;
       }
 
+      function setUserView(nome, funcao) {
+        const safeNome = String(nome || "").trim() || "Usuario";
+        const safeFuncao = String(funcao || "").trim() || "Sem funcao";
+        nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
+        roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+      }
+
       function renderTags(tags) {
         const safeTags = Array.isArray(tags) ? tags.filter(Boolean) : [];
         if (!safeTags.length) {
@@ -230,6 +336,7 @@
 
       function applyUser(user) {
         currentUser = user || {};
+        setUserView(currentUser.nome, currentUser.funcao);
         summaryName.textContent = String(currentUser.nome || "Usuário");
         summaryRole.textContent = String(currentUser.funcao || "Sem função");
         summaryPhone.textContent = String(currentUser.numero_celular || "");
@@ -362,7 +469,20 @@
         }
       });
 
-      logoutBtn.addEventListener("click", async function () {
+      authUserBtn.addEventListener("click", function () {
+        const isOpen = authUserDropdown.classList.contains("open");
+        authUserDropdown.classList.toggle("open", !isOpen);
+        authUserBtn.setAttribute("aria-expanded", String(!isOpen));
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
+          authUserDropdown.classList.remove("open");
+          authUserBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      authLogoutBtn.addEventListener("click", async function () {
         try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
         try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
         window.location.href = buildFrontendUrl("index.html");

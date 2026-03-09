@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -298,29 +298,34 @@
 <div class="px-3 mb-2 sidebar-content-fade">
 <span class="menu-section-title">Geral</span>
 </div>
-<a class="menu-item group" href="superpop.html">
+<a class="menu-item group" href="superpop.html" title="Enviar Super POP">
 <span class="material-symbols-outlined shrink-0">send</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
 </a>
-<a class="menu-item active group" href="meus-superpops.html">
+<a class="menu-item active group" href="meus-superpops.html" title="Meus Super POPs">
 <span class="material-symbols-outlined shrink-0">history</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span>
 </a>
-<a class="menu-item group" href="rank.html">
+<a class="menu-item group" href="rank.html" title="Ranking">
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem">
-<span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
-</a>
-<a class="menu-item group" href="ganhadores.html">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mes">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃƒÂªs</span>
 </a>
-<a class="menu-item group" href="sobre.html">
+<a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
+</div>
+<div class="space-y-1 pt-2 border-t border-slate-100">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Gestao</span>
+</div>
+<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Analise de Dados">
+<span class="material-symbols-outlined shrink-0">monitoring</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span>
 </a>
 </div>
 </nav>
@@ -357,13 +362,13 @@
 <main class="flex-1 max-w-7xl mx-auto w-full px-5 py-6 space-y-6">
 <section class="text-center space-y-2">
 <h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Meus Super POP's</h1>
-<p class="text-gray-600 font-semibold text-base sm:text-lg">Veja os Super POP's que você enviou e recebeu no mês atual, com histórico de meses anteriores.</p>
+<p class="text-gray-600 font-semibold text-base sm:text-lg">Veja os Super POP's que vocÃª enviou e recebeu no mÃªs atual, com histÃ³rico de meses anteriores.</p>
 </section>
 
 <section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-4 sm:p-5">
 <div class="flex flex-col sm:flex-row gap-3 sm:items-end sm:justify-between">
 <div class="w-full sm:max-w-sm">
-<label class="block text-xs font-bold uppercase tracking-wide text-primary mb-1.5" for="monthSelect">Mês</label>
+<label class="block text-xs font-bold uppercase tracking-wide text-primary mb-1.5" for="monthSelect">MÃªs</label>
 <select class="w-full rounded-xl border-gray-200 bg-gray-50 focus:ring-primary focus:border-primary font-semibold text-gray-800" id="monthSelect"></select>
 </div>
 <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white font-bold px-4 py-2.5 hover:bg-red-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed" id="refreshBtn" type="button">
@@ -375,7 +380,7 @@
 
 <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 <article class="bg-white/95 border border-white/70 rounded-2xl shadow-soft p-4">
-<p class="text-xs font-bold uppercase tracking-wide text-primary">Total no mês</p>
+<p class="text-xs font-bold uppercase tracking-wide text-primary">Total no mÃªs</p>
 <p class="mt-2 text-3xl font-display text-gray-900" id="totalMes">0</p>
 </article>
 <article class="bg-white/95 border border-white/70 rounded-2xl shadow-soft p-4">
@@ -411,7 +416,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 </main>
 </div>
 
-<script>
+<script data-purpose="sidebar-logic">
   document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const toggleBtn = document.getElementById("sidebarToggle");
@@ -419,16 +424,60 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const smallLogo = document.querySelector(".sidebar-collapsed-only");
     const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
-    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) return;
-    function openSidebar() { sidebar.classList.add("expanded"); chevron.textContent = "chevron_left"; smallLogo.style.opacity = "0"; }
-    function closeSidebar() {
+    const sidebarStorageKey = "superpop_sidebar_expanded";
+
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar(shouldPersist = true) {
+      sidebar.classList.add("expanded");
+      chevron.textContent = "chevron_left";
+      smallLogo.style.opacity = "0";
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
+      }
+    }
+
+    function closeSidebar(shouldPersist = true) {
       sidebar.classList.remove("expanded");
       chevron.textContent = "chevron_right";
-      window.setTimeout(function () { if (!sidebar.classList.contains("expanded")) smallLogo.style.opacity = "1"; }, 220);
+      window.setTimeout(function () {
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
+      }, 220);
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
+      }
     }
-    toggleBtn.addEventListener("click", function () { sidebar.classList.contains("expanded") ? closeSidebar() : openSidebar(); });
-    mobileMenuBtn.addEventListener("click", openSidebar);
-    overlay.addEventListener("click", closeSidebar);
+
+    function syncSidebarState() {
+      if (window.innerWidth < 768) {
+        closeSidebar(false);
+        return;
+      }
+      let storedState = "";
+      try { storedState = localStorage.getItem(sidebarStorageKey) || ""; } catch (_err) {}
+      if (storedState === "0") {
+        closeSidebar(false);
+      } else {
+        openSidebar(false);
+      }
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    mobileMenuBtn.addEventListener("click", function () { openSidebar(false); });
+    overlay.addEventListener("click", function () { closeSidebar(false); });
+    window.addEventListener("resize", syncSidebarState);
+    syncSidebarState();
   });
 </script>
 <script>
@@ -511,7 +560,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function itemHtml(item, typeLabel) {
       const other = (item && item.outra_pessoa) || {};
       const files = (item && item.arquivos) || {};
-      const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" às ");
+      const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" Ã s ");
       const mediaUrl = String(files.uploaded_image_url || files.image_url || "").trim();
       const mensagem = String(item.mensagem || "").trim();
       return '' +
@@ -560,8 +609,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const payload = await fetchData(monthKey);
         renderMonthOptions(payload.meses_disponiveis, payload.mes_selecionado);
         renderSummary(payload.resumo_mes);
-        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mês.", "Enviado para");
-        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mês.", "Recebido de");
+        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mÃªs.", "Enviado para");
+        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mÃªs.", "Recebido de");
         const source = payload.fonte || {};
         sourceInfoEl.textContent = source.tipo === "remoto"
           ? "Fonte: remoto"

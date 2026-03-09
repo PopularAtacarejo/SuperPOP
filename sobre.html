@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -328,29 +328,34 @@
 <div class="px-3 mb-2 sidebar-content-fade">
 <span class="menu-section-title">Geral</span>
 </div>
-<a class="menu-item group" href="superpop.html">
+<a class="menu-item group" href="superpop.html" title="Enviar Super POP">
 <span class="material-symbols-outlined shrink-0">send</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
 </a>
-<a class="menu-item group" href="meus-superpops.html">
+<a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs">
 <span class="material-symbols-outlined shrink-0">history</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span>
 </a>
-<a class="menu-item group" href="rank.html">
+<a class="menu-item group" href="rank.html" title="Ranking">
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="ganhadores.html">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mes">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
 </a>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem">
-<span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
-</a>
-<a class="menu-item active group" href="sobre.html">
+<a class="menu-item active group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
+</div>
+<div class="space-y-1 pt-2 border-t border-slate-100">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Gestao</span>
+</div>
+<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Analise de Dados">
+<span class="material-symbols-outlined shrink-0">monitoring</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span>
 </a>
 </div>
 </nav>
@@ -396,12 +401,12 @@
 
 <section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-5 sm:p-8">
 <div class="space-y-5 text-[17px] leading-relaxed text-gray-800">
-<p>Na nossa empresa, reconhecer o bom trabalho dos colegas é algo muito importante. Pensando nisso, criamos o SUPERPOP, um programa interno feito para valorizar atitudes que representam as Chaves da Excelência que seguimos no dia a dia.</p>
-<p><strong>Como funciona?</strong><br/>Sempre que você perceber que um colega demonstrou uma ou mais das nossas Chaves da Excelência, você pode preencher um cartão SUPERPOP reconhecendo essa atitude.</p>
-<p><strong>O cartão tem duas vias:</strong><br/>Via branca: entregue diretamente para o colega que você está reconhecendo.<br/>Via verde: coloque na urna do SUPERPOP.</p>
-<p>No final de cada mês, todos os cartões da urna serão contabilizados. O colaborador que mais reconhecer e o que mais receber reconhecimentos SUPERPOP irão ganhar um prêmio especial, escolhido pela diretoria.</p>
-<p>Todos podem participar. O importante é observar e valorizar quem faz a diferença no nosso dia a dia com atitudes positivas, comprometidas e alinhadas com os valores da empresa.</p>
-<p class="font-bold text-primary">Vamos juntos espalhar reconhecimento e fortalecer nosso time com respeito, gratidão e alegria!</p>
+<p>Na nossa empresa, reconhecer o bom trabalho dos colegas Ã© algo muito importante. Pensando nisso, criamos o SUPERPOP, um programa interno feito para valorizar atitudes que representam as Chaves da ExcelÃªncia que seguimos no dia a dia.</p>
+<p><strong>Como funciona?</strong><br/>Sempre que vocÃª perceber que um colega demonstrou uma ou mais das nossas Chaves da ExcelÃªncia, vocÃª pode preencher um cartÃ£o SUPERPOP reconhecendo essa atitude.</p>
+<p><strong>O cartÃ£o tem duas vias:</strong><br/>Via branca: entregue diretamente para o colega que vocÃª estÃ¡ reconhecendo.<br/>Via verde: coloque na urna do SUPERPOP.</p>
+<p>No final de cada mÃªs, todos os cartÃµes da urna serÃ£o contabilizados. O colaborador que mais reconhecer e o que mais receber reconhecimentos SUPERPOP irÃ£o ganhar um prÃªmio especial, escolhido pela diretoria.</p>
+<p>Todos podem participar. O importante Ã© observar e valorizar quem faz a diferenÃ§a no nosso dia a dia com atitudes positivas, comprometidas e alinhadas com os valores da empresa.</p>
+<p class="font-bold text-primary">Vamos juntos espalhar reconhecimento e fortalecer nosso time com respeito, gratidÃ£o e alegria!</p>
 </div>
 </section>
 
@@ -411,7 +416,7 @@
 </main>
 </div>
 
-<script>
+<script data-purpose="sidebar-logic">
   document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const toggleBtn = document.getElementById("sidebarToggle");
@@ -419,26 +424,60 @@
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const smallLogo = document.querySelector(".sidebar-collapsed-only");
     const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
-    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) return;
+    const sidebarStorageKey = "superpop_sidebar_expanded";
 
-    function openSidebar() {
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar(shouldPersist = true) {
       sidebar.classList.add("expanded");
       chevron.textContent = "chevron_left";
       smallLogo.style.opacity = "0";
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
+      }
     }
-    function closeSidebar() {
+
+    function closeSidebar(shouldPersist = true) {
       sidebar.classList.remove("expanded");
       chevron.textContent = "chevron_right";
       window.setTimeout(function () {
-        if (!sidebar.classList.contains("expanded")) smallLogo.style.opacity = "1";
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
       }, 220);
+      if (shouldPersist && window.innerWidth >= 768) {
+        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
+      }
+    }
+
+    function syncSidebarState() {
+      if (window.innerWidth < 768) {
+        closeSidebar(false);
+        return;
+      }
+      let storedState = "";
+      try { storedState = localStorage.getItem(sidebarStorageKey) || ""; } catch (_err) {}
+      if (storedState === "0") {
+        closeSidebar(false);
+      } else {
+        openSidebar(false);
+      }
     }
 
     toggleBtn.addEventListener("click", function () {
-      sidebar.classList.contains("expanded") ? closeSidebar() : openSidebar();
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
     });
-    mobileMenuBtn.addEventListener("click", openSidebar);
-    overlay.addEventListener("click", closeSidebar);
+
+    mobileMenuBtn.addEventListener("click", function () { openSidebar(false); });
+    overlay.addEventListener("click", function () { closeSidebar(false); });
+    window.addEventListener("resize", syncSidebarState);
+    syncSidebarState();
   });
 </script>
 
