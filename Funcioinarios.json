@@ -1,18 +1,110 @@
 [
   {
-    "id": "e8383b508af04c4688beef4f46f9c849",
+    "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+    "nome": "Jeferson",
+    "funcao": "Analista de Marketing",
+    "tags_acesso": [
+      "admin"
+    ],
+    "numero_celular": "(82) 9 9915 - 8412",
+    "numero_normalizado": "82999158412",
+    "email": "djaxelf22@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "06ae4435dd2a8f4f29f7507e6b4f7e0d",
+      "hash": "42026227137c90733c7eae4e94cc8a32d28bca2d5ff8c5cacaea3591c40675b6",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-27T15:52:39.639068-03:00"
+  },
+  {
+    "id": "68617794d9404c8bb8db016a5894798e",
+    "nome": "Lazaro Gustavo",
+    "funcao": "Aux. De T.I",
+    "numero_celular": "(82) 9 9920 - 0947",
+    "numero_normalizado": "82999200947",
+    "email": "gugarox01@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "9e49f2a63b0f1a4194688fc5cba4a16a",
+      "hash": "3815453b78536c72388c34c61bbb87f060d04abab5deaab178dcaf8c40d96e78",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-28T08:28:56.457392-03:00"
+  },
+  {
+    "id": "c27055d3a93f4802a0323d3215cfbc5f",
+    "nome": "Isabella Teodosio",
+    "funcao": "Assistente Administrativo",
+    "numero_celular": "(82) 9 9435 - 0053",
+    "numero_normalizado": "82994350053",
+    "email": "isabellateodosio159@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "a244348811eae75c379503267542fe72",
+      "hash": "d5719c13a2f237dcbff8fbc0b25a031d58220550b5cf06328d370264719e5a23",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-02-28T08:51:43.116104-03:00"
+  },
+  {
+    "id": "256932dc70a9455c80ab5e9ee46357bd",
+    "nome": "Cecília Paulino",
+    "funcao": "Assistente de RH",
+    "numero_celular": "(82) 9 8734 - 7139",
+    "numero_normalizado": "82987347139",
+    "email": "ceciliarhpopular@gmail.com",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "c9d198b1c35b46c9246ad853ada6eeb4",
+      "hash": "813a93d57ab2b49d4f41ab4a34314662bd2ddf99c73c6c38f6c660041603910e",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T10:13:37.331409-03:00"
+  },
+  {
+    "id": "8fccdfeb248f4e2996debcd65f325fc6",
+    "nome": "Natallia Katiane Alves da Silva",
+    "funcao": "Líder de RH",
+    "numero_celular": "(82) 9 8173 - 5783",
+    "numero_normalizado": "82981735783",
+    "email": "rh1@popularhomecenter.com.br",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "5414d0c382548bf90e32834487dd692a",
+      "hash": "cdd21c8c7595734afaeb7e8983b214a8f7c445cda1befa37bf962aec64dfb7b3",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T11:21:58.477181-03:00"
+  },
+  {
+    "id": "75259daf721c4f709b6012fe7f192a23",
     "nome": "Matheus Ataide",
-    "funcao": "Marketing",
+    "funcao": "Copeiro",
     "numero_celular": "(82) 9 8751 - 3295",
     "numero_normalizado": "82987513295",
     "email": "matheusantonio96@gmail.com",
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "3dadf37050b3fd9bb6797ef83c755b45",
-      "hash": "a8ec9f8f02abc402064eb9237422bac12f66bc8a2eba114d731ea39a58d70097",
+      "salt": "8a13826bb17310886165298f08f51f14",
+      "hash": "fedb487290cf01918ec16faee26328e2b49ae76bbc8130bebfccdc8405e329a7",
       "iteracoes": 180000
     },
-    "foto_perfil_data_url": "",
-    "data_cadastro_iso": "2026-03-09T10:17:37.095265-03:00"
+    "data_cadastro_iso": "2026-03-02T11:53:00.605436-03:00"
+  },
+  {
+    "id": "7ece14b2f81b4e2bb6394bc416ca25b8",
+    "nome": "Gabriel Levi Santos",
+    "funcao": "Analista de TI",
+    "numero_celular": "(82) 9 8119 - 0340",
+    "numero_normalizado": "82981190340",
+    "email": "ti@popularhomecenter.com.br",
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "0bb842ca2cdc35ef88cb4e2562777d50",
+      "hash": "c1f57aeada8f9004885e67e5e28428080fc753054caa8c85f56972eb169665b2",
+      "iteracoes": 180000
+    },
+    "data_cadastro_iso": "2026-03-02T17:32:00.415107-03:00"
   }
 ]
