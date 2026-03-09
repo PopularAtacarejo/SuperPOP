@@ -112,6 +112,7 @@ function showError(message){statusSucesso.classList.add("hidden");statusErro.tex
 function showSuccess(message){statusErro.classList.add("hidden");statusSucesso.textContent=message;statusSucesso.classList.remove("hidden")}
 function showPanel(mode){form.classList.toggle("hidden",mode!=="login");forgotPasswordForm.classList.toggle("hidden",mode!=="forgot");resetPasswordForm.classList.toggle("hidden",mode!=="reset");clearMessages()}
 function formatPhoneMask(value){const digits=String(value||"").replace(/\D/g,"").slice(0,11);if(!digits)return"";if(digits.length<=2)return"("+digits;if(digits.length<=3)return"("+digits.slice(0,2)+") "+digits.slice(2);if(digits.length<=7)return"("+digits.slice(0,2)+") "+digits.slice(2,3)+" "+digits.slice(3);return"("+digits.slice(0,2)+") "+digits.slice(2,3)+" "+digits.slice(3,7)+" - "+digits.slice(7,11)}
+function shouldFormatAsPhone(value){return /^[\d()\s-]*$/.test(String(value||""))}
 function setLoading(isLoading){submitBtn.disabled=isLoading;submitBtnLabel.textContent=isLoading?"Entrando...":"Entrar"}
 function setForgotLoading(isLoading){forgotSubmitBtn.disabled=isLoading;forgotSubmitLabel.textContent=isLoading?"Enviando...":"Enviar link"}
 function setResetLoading(isLoading){resetSubmitBtn.disabled=isLoading;resetSubmitLabel.textContent=isLoading?"Salvando...":"Redefinir senha"}
@@ -121,7 +122,7 @@ if(rememberInput)rememberInput.checked=true;
 if(query.get("registered")==="1")showSuccess("Cadastro finalizado com sucesso. Faca login para continuar.");
 if(query.get("reset")==="1")showSuccess("Senha redefinida com sucesso. Faca login para continuar.");
 if(resetToken)showPanel("reset");
-phoneInput.addEventListener("input",function(){if(String(phoneInput.value||"").indexOf("@")>=0)return;const cursorAtEnd=phoneInput.selectionStart===phoneInput.value.length;phoneInput.value=formatPhoneMask(phoneInput.value);if(cursorAtEnd)phoneInput.setSelectionRange(phoneInput.value.length,phoneInput.value.length)});
+phoneInput.addEventListener("input",function(){const currentValue=String(phoneInput.value||"");if(currentValue.indexOf("@")>=0||!shouldFormatAsPhone(currentValue))return;const cursorAtEnd=phoneInput.selectionStart===phoneInput.value.length;phoneInput.value=formatPhoneMask(currentValue);if(cursorAtEnd)phoneInput.setSelectionRange(phoneInput.value.length,phoneInput.value.length)});
 toggleSenhaBtn.addEventListener("click",function(){const isPassword=passwordInput.type==="password";passwordInput.type=isPassword?"text":"password";toggleSenhaIcon.textContent=isPassword?"visibility_off":"visibility";toggleSenhaBtn.setAttribute("aria-label",isPassword?"Ocultar senha":"Mostrar senha")});
 forgotPasswordBtn.addEventListener("click",function(){showPanel("forgot");recoveryEmailInput.focus()});
 backToLoginBtn.addEventListener("click",function(){showPanel("login")});
