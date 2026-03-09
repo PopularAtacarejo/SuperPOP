@@ -33,7 +33,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <a class="menu-item group" href="rank.html" title="Ranking"><span class="material-symbols-outlined shrink-0">leaderboard</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span></a>
 <a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês"><span class="material-symbols-outlined shrink-0">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span></a>
 <a class="menu-item group" href="sobre.html" title="Sobre"><span class="material-symbols-outlined shrink-0">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
-</div><div class="space-y-1 pt-2 border-t border-slate-100"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>
+</div><div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>
 <a class="menu-item active group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados"><span class="material-symbols-outlined shrink-0">monitoring</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span></a>
 </div></nav>
 <button class="absolute -right-3 top-12 bg-white text-gray-400 hover:text-primary border border-gray-200 rounded-full p-1 shadow-md hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     authUserDropdown = document.getElementById("authUserDropdown"),
     authLogoutBtn = document.getElementById("authLogoutBtn"),
     analyticsNavItem = document.getElementById("analyticsNavItem"),
+    analyticsSection = document.getElementById("analyticsSection"),
     authUserAvatarImage = document.getElementById("authUserAvatarImage"),
     authUserAvatarFallback = document.getElementById("authUserAvatarFallback"),
     nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")],
@@ -118,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
       permissionError.code = "forbidden";
       throw permissionError;
     }
+    if (analyticsSection) analyticsSection.classList.remove("hidden");
     if (analyticsNavItem) analyticsNavItem.classList.remove("hidden");
     setUserView(payload.usuario);
   }

@@ -478,11 +478,11 @@
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
 </a>
 </div>
-<div class="space-y-1 pt-2 border-t border-slate-100">
+<div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
 <div class="px-3 mb-2 sidebar-content-fade">
 <span class="menu-section-title">Gestão</span>
 </div>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
 <span class="material-symbols-outlined shrink-0">monitoring</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
 </a>
@@ -662,6 +662,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const sentTbody = document.getElementById("sentTableBody");
     const lastUpdateSpan = document.getElementById("lastUpdate");
     const RANK_DATA_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/Dados.json";
+    const EMPLOYEES_DATA_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/Funcioinarios.json";
     const AUTO_REFRESH_MS = 30000;
     let isLoading = false;
     function getMedalHTML(pos) {
@@ -676,11 +677,15 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       if (pos === 3) return "row-bronze";
       return "";
     }
-    function getAvatar(name) {
-      const safeName = String(name || "").trim();
+    function getAvatar(entry) {
+      const safeName = String(entry && entry.name || "").trim();
+      const safePhoto = String(entry && entry.photoDataUrl || "").trim();
       const initials = safeName.split(" ").map(function (n) { return n ? n[0] : ""; }).join("").substring(0, 2).toUpperCase();
       const colors = ["bg-blue-100 text-blue-600", "bg-green-100 text-green-600", "bg-purple-100 text-purple-600", "bg-pink-100 text-pink-600"];
       const colorClass = colors[safeName.length % colors.length];
+      if (safePhoto) {
+        return '<div class="w-8 h-8 rounded-full overflow-hidden border border-white/80 bg-white mr-3 shrink-0 shadow-sm"><img src="' + safePhoto + '" alt="Foto de ' + safeName + '" class="w-full h-full object-cover"/></div>';
+      }
       return '<div class="w-8 h-8 rounded-full ' + colorClass + ' flex items-center justify-center text-xs font-bold mr-3 shrink-0 shadow-sm">' + (initials || "--") + "</div>";
     }
     function normalizeGithubBlobUrl(url) {
@@ -725,6 +730,51 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       throw new Error(errors.join(" | "));
     }
+    function normalizeNameKey(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+    }
+    function normalizePhone(value) {
+      return String(value || "").replace(/\D+/g, "");
+    }
+    function buildEmployeeDirectory(records) {
+      const byName = new Map();
+      const byPhone = new Map();
+      (Array.isArray(records) ? records : []).forEach(function (item) {
+        if (!item || typeof item !== "object") return;
+        const photoDataUrl = String(item.foto_perfil_data_url || "").trim();
+        if (!photoDataUrl) return;
+        const nameKey = normalizeNameKey(item.nome);
+        const phoneKey = normalizePhone(item.numero_normalizado || item.numero_celular);
+        if (nameKey && !byName.has(nameKey)) {
+          byName.set(nameKey, photoDataUrl);
+        }
+        if (phoneKey && !byPhone.has(phoneKey)) {
+          byPhone.set(phoneKey, photoDataUrl);
+        }
+      });
+      return { byName: byName, byPhone: byPhone };
+    }
+    async function fetchEmployees() {
+      const sources = [
+        normalizeGithubBlobUrl(EMPLOYEES_DATA_SOURCE_URL),
+        "./Funcioinarios.json"
+      ];
+      const errors = [];
+      for (const source of sources) {
+        try {
+          return buildEmployeeDirectory(await fetchJsonArray(source));
+        } catch (err) {
+          errors.push(source + ": " + (err && err.message ? err.message : String(err)));
+        }
+      }
+      console.warn("Nao foi possivel carregar a base de funcionarios para fotos:", errors.join(" | "));
+      return { byName: new Map(), byPhone: new Map() };
+    }
     function normalizeName(value) {
       const text = String(value || "").trim();
       return text && text !== "-" ? text : "";
@@ -734,6 +784,17 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
     function getSenderName(log) {
       return normalizeName(log && log.remetente && log.remetente.nome) || normalizeName(log && log.reconhecido_por);
+    }
+    function getPhotoForActor(actor, employeeDirectory, fallbackName) {
+      const actorPhone = normalizePhone(actor && (actor.numero_normalizado || actor.numero));
+      if (actorPhone && employeeDirectory.byPhone.has(actorPhone)) {
+        return employeeDirectory.byPhone.get(actorPhone) || "";
+      }
+      const actorNameKey = normalizeNameKey(actor && actor.nome || fallbackName);
+      if (actorNameKey && employeeDirectory.byName.has(actorNameKey)) {
+        return employeeDirectory.byName.get(actorNameKey) || "";
+      }
+      return "";
     }
     function parseLogDate(log) {
       if (!log || typeof log !== "object") return null;
@@ -775,7 +836,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         row.className = "hover:bg-white dark:hover:bg-gray-700/50 transition-colors " + getRowClass(pos);
         row.innerHTML =
           '<td class="px-6 py-4 text-center">' + getMedalHTML(pos) + '</td>' +
-          '<td class="px-6 py-4"><div class="flex items-center">' + getAvatar(item.name) + '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + '</span></div></td>' +
+          '<td class="px-6 py-4"><div class="flex items-center">' + getAvatar(item) + '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + '</span></div></td>' +
           '<td class="px-6 py-4 text-center"><span class="inline-block px-3 py-1 rounded-full font-bold text-sm ' + badgeClass + ' shadow-sm">' + item.count + '</span></td>';
         tbody.appendChild(row);
       });
@@ -783,23 +844,31 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function compareRankEntries(a, b) {
       return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
     }
-    function processAndRender(logs) {
+    function processAndRender(logs, employeeDirectory) {
       const receivedMap = new Map();
       const sentMap = new Map();
       logs.forEach(function (log) {
         const options = Array.isArray(log && log.opcoes_marcadas) ? log.opcoes_marcadas : [];
         const recKey = getCollaboratorName(log);
+        const recipient = log && log.destinatario && typeof log.destinatario === "object" ? log.destinatario : null;
+        const recPhoto = getPhotoForActor(recipient, employeeDirectory, recKey);
         if (recKey) {
           if (!receivedMap.has(recKey)) {
-            receivedMap.set(recKey, { name: recKey, count: 0, values: 0 });
+            receivedMap.set(recKey, { name: recKey, count: 0, values: 0, photoDataUrl: recPhoto });
+          } else if (!receivedMap.get(recKey).photoDataUrl && recPhoto) {
+            receivedMap.get(recKey).photoDataUrl = recPhoto;
           }
           receivedMap.get(recKey).count += 1;
           receivedMap.get(recKey).values += options.length;
         }
         const sentKey = getSenderName(log);
+        const sender = log && log.remetente && typeof log.remetente === "object" ? log.remetente : null;
+        const sentPhoto = getPhotoForActor(sender, employeeDirectory, sentKey);
         if (sentKey) {
           if (!sentMap.has(sentKey)) {
-            sentMap.set(sentKey, { name: sentKey, count: 0, values: 0 });
+            sentMap.set(sentKey, { name: sentKey, count: 0, values: 0, photoDataUrl: sentPhoto });
+          } else if (!sentMap.get(sentKey).photoDataUrl && sentPhoto) {
+            sentMap.get(sentKey).photoDataUrl = sentPhoto;
           }
           sentMap.get(sentKey).count += 1;
           sentMap.get(sentKey).values += options.length;
@@ -814,9 +883,12 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       if (isLoading) return;
       isLoading = true;
       try {
-        const logs = await fetchRankingLogs();
+        const [logs, employeeDirectory] = await Promise.all([
+          fetchRankingLogs(),
+          fetchEmployees()
+        ]);
         const logsCurrentMonth = filterLogsByCurrentMonth(logs);
-        processAndRender(logsCurrentMonth);
+        processAndRender(logsCurrentMonth, employeeDirectory);
       } catch (err) {
         console.error("Erro ao carregar ranking:", err);
         receivedTbody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-red-500">Falha ao carregar dados do ranking</td></tr>';
@@ -837,6 +909,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
+    const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
@@ -912,6 +985,9 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         throw new Error("Sessão inválida");
       }
       setUserView(payload.usuario);
+      if (analyticsSection && payload.permissoes && payload.permissoes.analytics) {
+        analyticsSection.classList.remove("hidden");
+      }
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");
       }

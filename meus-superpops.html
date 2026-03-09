@@ -347,11 +347,11 @@
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
 </a>
 </div>
-<div class="space-y-1 pt-2 border-t border-slate-100">
+<div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
 <div class="px-3 mb-2 sidebar-content-fade">
 <span class="menu-section-title">Gestão</span>
 </div>
-<a class="menu-item group" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
 <span class="material-symbols-outlined shrink-0">monitoring</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
 </a>
@@ -674,6 +674,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
+    const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
@@ -738,6 +739,9 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessão inválida");
       setUserView(payload.usuario);
+      if (analyticsSection && payload.permissoes && payload.permissoes.analytics) {
+        analyticsSection.classList.remove("hidden");
+      }
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");
       }
