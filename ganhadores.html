@@ -267,7 +267,7 @@
     margin: 0;
     font-size: 22px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     .sidebar {
       width: 0;
       overflow: hidden;
@@ -291,6 +291,12 @@
     }
     .sidebar.expanded + .sidebar-overlay {
       display: block;
+    }
+    #mobileMenuBtn {
+      display: flex !important;
+    }
+    #sidebarToggle {
+      display: none !important;
     }
   }
 </style>
@@ -378,7 +384,7 @@
     padding: 9px 10px;
     cursor: pointer;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     .auth-user-menu {
       top: 12px;
       right: 12px;
@@ -632,7 +638,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       sidebar.classList.add("expanded");
       chevron.textContent = "chevron_left";
       smallLogo.style.opacity = "0";
-      if (shouldPersist && window.innerWidth >= 768) {
+      if (shouldPersist && window.innerWidth >= 1100) {
         try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
       }
     }
@@ -645,13 +651,13 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           smallLogo.style.opacity = "1";
         }
       }, 220);
-      if (shouldPersist && window.innerWidth >= 768) {
+      if (shouldPersist && window.innerWidth >= 1100) {
         try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
       }
     }
 
     function syncSidebarState() {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1100) {
         closeSidebar(false);
         return;
       }
@@ -820,6 +826,9 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const text = dt.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
       return text.charAt(0).toUpperCase() + text.slice(1);
     }
+    function compareRankEntries(a, b) {
+      return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
+    }
     function buildRankings(logs) {
       const receivedMap = new Map();
       const sentMap = new Map();
@@ -842,12 +851,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           sentMap.get(sentKey).values += options.length;
         }
       });
-      const receivedArr = Array.from(receivedMap.values()).sort(function (a, b) {
-        return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
-      });
-      const sentArr = Array.from(sentMap.values()).sort(function (a, b) {
-        return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
-      });
+      const receivedArr = Array.from(receivedMap.values()).sort(compareRankEntries);
+      const sentArr = Array.from(sentMap.values()).sort(compareRankEntries);
       return {
         receivedArr: receivedArr,
         sentArr: sentArr
@@ -1027,4 +1032,3 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 </script>
 
 </body></html>
-

@@ -187,7 +187,7 @@
   .sidebar:not(.expanded) .menu-item:hover {
     transform: none;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     .sidebar {
       width: 0;
       overflow: hidden;
@@ -211,6 +211,12 @@
     }
     .sidebar.expanded + .sidebar-overlay {
       display: block;
+    }
+    #mobileMenuBtn {
+      display: flex !important;
+    }
+    #sidebarToggle {
+      display: none !important;
     }
   }
   .auth-user-menu {
@@ -434,7 +440,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       sidebar.classList.add("expanded");
       chevron.textContent = "chevron_left";
       smallLogo.style.opacity = "0";
-      if (shouldPersist && window.innerWidth >= 768) {
+      if (shouldPersist && window.innerWidth >= 1100) {
         try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
       }
     }
@@ -447,13 +453,13 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           smallLogo.style.opacity = "1";
         }
       }, 220);
-      if (shouldPersist && window.innerWidth >= 768) {
+      if (shouldPersist && window.innerWidth >= 1100) {
         try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
       }
     }
 
     function syncSidebarState() {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1100) {
         closeSidebar(false);
         return;
       }
