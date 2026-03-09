@@ -1319,7 +1319,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
           const payload = await response.json().catch(function () { return {}; });
           if (response.ok && payload && payload.ok && payload.usuario) {
-            return payload.usuario;
+            return payload;
           }
           if (response.status === 401) {
             unauthorizedAttempts += 1;
@@ -1346,8 +1346,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     window.__superpopIsUnauthorizedAuthError = isUnauthorizedAuthError;
 
     async function loadLoggedSenderProfile() {
-      const user = await fetchAuthenticatedUserWithRetry();
-      setLoggedSenderView(user);
+      const authPayload = await fetchAuthenticatedUserWithRetry();
+      setLoggedSenderView(authPayload && authPayload.usuario ? authPayload.usuario : authPayload);
     }
 
     function setCollaboratorSelection(collaborator) {
@@ -1768,8 +1768,12 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
     async function loadUserFromSession() {
       if (typeof window.__superpopFetchAuthenticatedUser === "function") {
-        const user = await window.__superpopFetchAuthenticatedUser();
+        const authPayload = await window.__superpopFetchAuthenticatedUser();
+        const user = authPayload && authPayload.usuario ? authPayload.usuario : authPayload;
         setUserView(user.nome, user.funcao);
+        if (analyticsNavItem && authPayload && authPayload.permissoes && authPayload.permissoes.analytics) {
+          analyticsNavItem.classList.remove("hidden");
+        }
         return;
       }
 

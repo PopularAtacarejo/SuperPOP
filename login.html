@@ -84,8 +84,8 @@
 </div>
 <form class="space-y-4" id="loginForm" novalidate>
 <div>
-<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numeroCelular">Telefone</label>
-<input class="w-full px-4 py-3.5 bg-surface-light border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-semibold placeholder-gray-400 text-gray-800 shadow-sm" id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000 - 0000" required type="text"/>
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="numeroCelular">Telefone ou e-mail</label>
+<input class="w-full px-4 py-3.5 bg-surface-light border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-semibold placeholder-gray-400 text-gray-800 shadow-sm" id="numeroCelular" inputmode="text" maxlength="120" placeholder="(82) 9 0000 - 0000 ou nome@empresa.com" required type="text"/>
 </div>
 <div>
 <label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="senha">Senha</label>
@@ -221,6 +221,9 @@ Desenvolvido por: Jeferson
     }
 
     phoneInput.addEventListener("input", function () {
+      if (String(phoneInput.value || "").indexOf("@") >= 0) {
+        return;
+      }
       const cursorAtEnd = phoneInput.selectionStart === phoneInput.value.length;
       phoneInput.value = formatPhoneMask(phoneInput.value);
       if (cursorAtEnd) {
@@ -242,10 +245,16 @@ Desenvolvido por: Jeferson
       statusErro.classList.add("hidden");
       statusSucesso.classList.add("hidden");
 
-      const numeroCelular = String(phoneInput.value || "").trim();
+      const loginValue = String(phoneInput.value || "").trim();
       const senha = String(passwordInput.value || "");
       const manterConectado = Boolean(rememberInput && rememberInput.checked);
-      if (!PHONE_REGEX.test(numeroCelular)) {
+      const isEmailLogin = loginValue.indexOf("@") >= 0;
+      if (isEmailLogin) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginValue)) {
+          showError("E-mail invalido.");
+          return;
+        }
+      } else if (!PHONE_REGEX.test(loginValue)) {
         showError("Numero de celular invalido. Use o formato (xx) 9 0000 - 0000.");
         return;
       }
@@ -260,7 +269,7 @@ Desenvolvido por: Jeferson
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ numero_celular: numeroCelular, senha: senha, manter_conectado: manterConectado })
+          body: JSON.stringify({ numero_celular: loginValue, login: loginValue, senha: senha, manter_conectado: manterConectado })
         });
         const result = await response.json().catch(function () { return {}; });
         if (!response.ok || !result.ok) {

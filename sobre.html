@@ -344,6 +344,10 @@
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem">
+<span class="material-symbols-outlined shrink-0">monitoring</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
+</a>
 <a class="menu-item active group" href="sobre.html">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
@@ -443,6 +447,7 @@
     const authUserBtn = document.getElementById("authUserBtn");
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
+    const analyticsNavItem = document.getElementById("analyticsNavItem");
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
@@ -480,6 +485,9 @@
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessao invalida");
       setUserView(payload.usuario.nome, payload.usuario.funcao);
+      if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
+        analyticsNavItem.classList.remove("hidden");
+      }
     }
 
     authUserBtn.addEventListener("click", function () {
