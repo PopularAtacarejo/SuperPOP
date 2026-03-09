@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SuperPop | Meu Perfil</title>
+  <link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#E63946", secondary: "#FFB703" },
+          fontFamily: { display: ["Fredoka One", "cursive"], body: ["Nunito", "sans-serif"] },
+          boxShadow: { card: "0 18px 45px -15px rgba(15, 23, 42, 0.18)" }
+        }
+      }
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-amber-50 font-body text-slate-900">
+  <main class="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+    <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Área do usuário</p>
+        <h1 class="mt-2 font-display text-4xl text-primary">Meu Perfil</h1>
+        <p class="mt-2 text-sm sm:text-base font-semibold text-slate-600">Atualize sua foto, nome, e-mail e senha.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a class="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-card" href="superpop.html">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Voltar
+        </a>
+        <button class="inline-flex items-center gap-2 rounded-xl bg-red-100 px-4 py-2.5 text-sm font-bold text-red-700" id="logoutBtn" type="button">
+          <span class="material-symbols-outlined text-base">logout</span>
+          Sair
+        </button>
+      </div>
+    </header>
+
+    <section class="mt-6 grid gap-5 lg:grid-cols-[340px,minmax(0,1fr)]">
+      <article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+        <div class="flex flex-col items-center text-center">
+          <div class="flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-red-100 to-amber-100 ring-4 ring-white shadow-lg">
+            <img alt="Foto de perfil" class="hidden h-full w-full object-cover" id="avatarImage"/>
+            <span class="font-display text-5xl text-primary" id="avatarFallback">SP</span>
+          </div>
+          <h2 class="mt-4 text-2xl font-bold text-slate-900" id="summaryName">Carregando...</h2>
+          <p class="mt-1 text-sm font-semibold text-slate-500" id="summaryRole">Perfil</p>
+          <p class="mt-1 text-xs font-semibold text-slate-400" id="summaryPhone"></p>
+        </div>
+        <div class="mt-6 space-y-3 rounded-2xl bg-slate-50 p-4">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-500">E-mail atual</p>
+            <p class="mt-1 text-sm font-semibold text-slate-700 break-all" id="summaryEmail">-</p>
+          </div>
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-500">Acesso</p>
+            <div class="mt-2 flex flex-wrap gap-2" id="summaryTags"></div>
+          </div>
+        </div>
+      </article>
+
+      <div class="space-y-5">
+        <article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+          <div class="mb-5">
+            <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Dados pessoais</p>
+            <h2 class="mt-2 text-2xl font-display text-slate-900">Editar perfil</h2>
+          </div>
+          <form class="space-y-4" id="profileForm" novalidate>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="md:col-span-2">
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="nomeInput">Nome</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="nomeInput" maxlength="80" type="text"/>
+              </div>
+              <div class="md:col-span-2">
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="emailInput">E-mail</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="emailInput" maxlength="120" type="email"/>
+              </div>
+              <div>
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary">Função</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-100 px-4 py-3 font-semibold text-slate-500" id="funcaoInput" readonly type="text"/>
+              </div>
+              <div>
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary">Telefone</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-100 px-4 py-3 font-semibold text-slate-500" id="telefoneInput" readonly type="text"/>
+              </div>
+              <div class="md:col-span-2">
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="fotoInput">Foto de perfil</label>
+                <input accept="image/png,image/jpeg,image/webp" class="block w-full rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-red-100 file:px-4 file:py-2 file:font-bold file:text-red-700 hover:file:bg-red-200" id="fotoInput" type="file"/>
+                <div class="mt-3 flex flex-wrap items-center gap-3">
+                  <button class="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700" id="removePhotoBtn" type="button">
+                    <span class="material-symbols-outlined text-base">delete</span>
+                    Remover foto
+                  </button>
+                  <span class="text-xs font-semibold text-slate-400">PNG, JPG ou WEBP. A imagem será ajustada automaticamente.</span>
+                </div>
+              </div>
+            </div>
+            <div class="hidden rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700" id="profileError"></div>
+            <div class="hidden rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700" id="profileSuccess"></div>
+            <button class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white" id="saveProfileBtn" type="submit">
+              <span class="material-symbols-outlined text-base">save</span>
+              <span id="saveProfileLabel">Salvar perfil</span>
+            </button>
+          </form>
+        </article>
+
+        <article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+          <div class="mb-5">
+            <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Segurança</p>
+            <h2 class="mt-2 text-2xl font-display text-slate-900">Alterar senha</h2>
+          </div>
+          <form class="space-y-4" id="passwordForm" novalidate>
+            <div>
+              <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="senhaAtualInput">Senha atual</label>
+              <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="senhaAtualInput" type="password"/>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div>
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="novaSenhaInput">Nova senha</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="novaSenhaInput" minlength="6" type="password"/>
+              </div>
+              <div>
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="confirmarSenhaInput">Confirmar nova senha</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="confirmarSenhaInput" minlength="6" type="password"/>
+              </div>
+            </div>
+            <div class="hidden rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700" id="passwordError"></div>
+            <div class="hidden rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700" id="passwordSuccess"></div>
+            <button class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white" id="savePasswordBtn" type="submit">
+              <span class="material-symbols-outlined text-base">lock_reset</span>
+              <span id="savePasswordLabel">Atualizar senha</span>
+            </button>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+      const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+      const avatarImage = document.getElementById("avatarImage");
+      const avatarFallback = document.getElementById("avatarFallback");
+      const summaryName = document.getElementById("summaryName");
+      const summaryRole = document.getElementById("summaryRole");
+      const summaryPhone = document.getElementById("summaryPhone");
+      const summaryEmail = document.getElementById("summaryEmail");
+      const summaryTags = document.getElementById("summaryTags");
+      const nomeInput = document.getElementById("nomeInput");
+      const emailInput = document.getElementById("emailInput");
+      const funcaoInput = document.getElementById("funcaoInput");
+      const telefoneInput = document.getElementById("telefoneInput");
+      const fotoInput = document.getElementById("fotoInput");
+      const removePhotoBtn = document.getElementById("removePhotoBtn");
+      const profileForm = document.getElementById("profileForm");
+      const passwordForm = document.getElementById("passwordForm");
+      const profileError = document.getElementById("profileError");
+      const profileSuccess = document.getElementById("profileSuccess");
+      const passwordError = document.getElementById("passwordError");
+      const passwordSuccess = document.getElementById("passwordSuccess");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const saveProfileBtn = document.getElementById("saveProfileBtn");
+      const saveProfileLabel = document.getElementById("saveProfileLabel");
+      const savePasswordBtn = document.getElementById("savePasswordBtn");
+      const savePasswordLabel = document.getElementById("savePasswordLabel");
+      const senhaAtualInput = document.getElementById("senhaAtualInput");
+      const novaSenhaInput = document.getElementById("novaSenhaInput");
+      const confirmarSenhaInput = document.getElementById("confirmarSenhaInput");
+      let currentUser = null;
+      let pendingPhotoDataUrl = "";
+      let removePhoto = false;
+
+      function resolveOrigin(urlValue) {
+        try { return new URL(String(urlValue || "")).origin.toLowerCase(); } catch (_err) { return ""; }
+      }
+
+      function buildFrontendUrl(path) {
+        const cleanPath = String(path || "").replace(/^\/+/, "");
+        const currentOrigin = String(window.location.origin || "").toLowerCase();
+        const apiOrigin = resolveOrigin(apiBase);
+        if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) return cleanPath ? ("/" + cleanPath) : "/";
+        return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+      }
+
+      function initialsFromName(name) {
+        const parts = String(name || "").trim().split(/\s+/).filter(Boolean).slice(0, 2);
+        if (!parts.length) return "SP";
+        return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+      }
+
+      function setMessage(element, message, isVisible) {
+        element.textContent = message || "";
+        element.classList.toggle("hidden", !isVisible);
+      }
+
+      function setButtonLoading(button, labelEl, loadingText, isLoading) {
+        button.disabled = isLoading;
+        labelEl.textContent = isLoading ? loadingText : labelEl.dataset.defaultLabel;
+      }
+
+      function renderTags(tags) {
+        const safeTags = Array.isArray(tags) ? tags.filter(Boolean) : [];
+        if (!safeTags.length) {
+          summaryTags.innerHTML = '<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">sem tag</span>';
+          return;
+        }
+        summaryTags.innerHTML = safeTags.map(function (tag) {
+          return '<span class="rounded-full bg-red-100 px-3 py-1 text-xs font-bold text-red-700">' + String(tag) + "</span>";
+        }).join("");
+      }
+
+      function renderAvatar(photoDataUrl, name) {
+        const safePhoto = String(photoDataUrl || "").trim();
+        if (safePhoto) {
+          avatarImage.src = safePhoto;
+          avatarImage.classList.remove("hidden");
+          avatarFallback.classList.add("hidden");
+        } else {
+          avatarImage.removeAttribute("src");
+          avatarImage.classList.add("hidden");
+          avatarFallback.textContent = initialsFromName(name);
+          avatarFallback.classList.remove("hidden");
+        }
+      }
+
+      function applyUser(user) {
+        currentUser = user || {};
+        summaryName.textContent = String(currentUser.nome || "Usuário");
+        summaryRole.textContent = String(currentUser.funcao || "Sem função");
+        summaryPhone.textContent = String(currentUser.numero_celular || "");
+        summaryEmail.textContent = String(currentUser.email || "sem e-mail");
+        nomeInput.value = String(currentUser.nome || "");
+        emailInput.value = String(currentUser.email || "");
+        funcaoInput.value = String(currentUser.funcao || "");
+        telefoneInput.value = String(currentUser.numero_celular || "");
+        renderTags(currentUser.tags_acesso);
+        renderAvatar(currentUser.foto_perfil_data_url, currentUser.nome);
+      }
+
+      function readFileAsDataUrl(file) {
+        return new Promise(function (resolve, reject) {
+          const reader = new FileReader();
+          reader.onload = function () { resolve(String(reader.result || "")); };
+          reader.onerror = function () { reject(new Error("Nao foi possivel ler a imagem.")); };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function loadProfile() {
+        const response = await fetch(apiBase + "/api/me/profile", { cache: "no-store", credentials: "include" });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok || !payload.ok || !payload.usuario) throw new Error("Nao autenticado");
+        applyUser(payload.usuario);
+      }
+
+      fotoInput.addEventListener("change", async function () {
+        setMessage(profileError, "", false);
+        const file = fotoInput.files && fotoInput.files[0];
+        if (!file) return;
+        try {
+          pendingPhotoDataUrl = await readFileAsDataUrl(file);
+          removePhoto = false;
+          renderAvatar(pendingPhotoDataUrl, nomeInput.value || (currentUser && currentUser.nome));
+        } catch (error) {
+          setMessage(profileError, String(error && error.message || "Falha ao ler a imagem."), true);
+        }
+      });
+
+      removePhotoBtn.addEventListener("click", function () {
+        removePhoto = true;
+        pendingPhotoDataUrl = "";
+        fotoInput.value = "";
+        renderAvatar("", nomeInput.value || (currentUser && currentUser.nome));
+      });
+
+      profileForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        setMessage(profileError, "", false);
+        setMessage(profileSuccess, "", false);
+        const nome = String(nomeInput.value || "").trim();
+        const email = String(emailInput.value || "").trim();
+        if (nome.length < 3) {
+          setMessage(profileError, "Informe um nome válido com pelo menos 3 caracteres.", true);
+          return;
+        }
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          setMessage(profileError, "Informe um e-mail válido.", true);
+          return;
+        }
+        setButtonLoading(saveProfileBtn, saveProfileLabel, "Salvando...", true);
+        try {
+          const response = await fetch(apiBase + "/api/me/profile", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              nome: nome,
+              email: email,
+              foto_perfil_data_url: pendingPhotoDataUrl,
+              remover_foto: removePhoto
+            })
+          });
+          const payload = await response.json().catch(function () { return {}; });
+          if (!response.ok || !payload.ok || !payload.usuario) throw new Error(String(payload.error || "Falha ao salvar o perfil."));
+          pendingPhotoDataUrl = "";
+          removePhoto = false;
+          fotoInput.value = "";
+          applyUser(payload.usuario);
+          try { localStorage.setItem("superpop_auth_user", JSON.stringify(payload.usuario || {})); } catch (_err) {}
+          setMessage(profileSuccess, "Perfil atualizado com sucesso.", true);
+        } catch (error) {
+          setMessage(profileError, String(error && error.message || "Erro ao atualizar perfil."), true);
+        } finally {
+          setButtonLoading(saveProfileBtn, saveProfileLabel, "Salvando...", false);
+        }
+      });
+
+      passwordForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        setMessage(passwordError, "", false);
+        setMessage(passwordSuccess, "", false);
+        const senhaAtual = String(senhaAtualInput.value || "");
+        const novaSenha = String(novaSenhaInput.value || "");
+        const confirmarSenha = String(confirmarSenhaInput.value || "");
+        if (!senhaAtual) {
+          setMessage(passwordError, "Informe a senha atual.", true);
+          return;
+        }
+        if (novaSenha.length < 6) {
+          setMessage(passwordError, "A nova senha deve ter pelo menos 6 caracteres.", true);
+          return;
+        }
+        if (novaSenha !== confirmarSenha) {
+          setMessage(passwordError, "A confirmação da nova senha não confere.", true);
+          return;
+        }
+        setButtonLoading(savePasswordBtn, savePasswordLabel, "Atualizando...", true);
+        try {
+          const response = await fetch(apiBase + "/api/me/password", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              senha_atual: senhaAtual,
+              nova_senha: novaSenha,
+              confirmar_senha: confirmarSenha
+            })
+          });
+          const payload = await response.json().catch(function () { return {}; });
+          if (!response.ok || !payload.ok) throw new Error(String(payload.error || "Falha ao atualizar a senha."));
+          passwordForm.reset();
+          setMessage(passwordSuccess, "Senha atualizada com sucesso.", true);
+        } catch (error) {
+          setMessage(passwordError, String(error && error.message || "Erro ao atualizar senha."), true);
+        } finally {
+          setButtonLoading(savePasswordBtn, savePasswordLabel, "Atualizando...", false);
+        }
+      });
+
+      logoutBtn.addEventListener("click", async function () {
+        try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
+        try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
+        window.location.href = buildFrontendUrl("index.html");
+      });
+
+      saveProfileLabel.dataset.defaultLabel = saveProfileLabel.textContent;
+      savePasswordLabel.dataset.defaultLabel = savePasswordLabel.textContent;
+
+      loadProfile().catch(function () {
+        window.location.href = buildFrontendUrl("index.html");
+      });
+    });
+  </script>
+</body>
+</html>
