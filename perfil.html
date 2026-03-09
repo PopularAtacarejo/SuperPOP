@@ -40,6 +40,28 @@
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
       cursor: pointer;
     }
+    .auth-user-avatar {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: linear-gradient(135deg, #fee2e2, #fde68a);
+      color: #b91c1c;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .auth-user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .auth-user-btn .material-symbols-outlined {
       font-size: 20px;
@@ -106,7 +128,7 @@
 <body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-amber-50 font-body text-slate-900">
   <div class="auth-user-menu" id="authUserMenu">
     <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
-      <span class="material-symbols-outlined">account_circle</span>
+      <span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
       <span class="auth-user-btn-text">
         <strong id="authUserName">Carregando...</strong>
         <small id="authUserRole">Perfil</small>
@@ -261,6 +283,8 @@
       const authUserBtn = document.getElementById("authUserBtn");
       const authUserDropdown = document.getElementById("authUserDropdown");
       const authLogoutBtn = document.getElementById("authLogoutBtn");
+      const authUserAvatarImage = document.getElementById("authUserAvatarImage");
+      const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
       const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
       const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
       const saveProfileBtn = document.getElementById("saveProfileBtn");
@@ -302,11 +326,30 @@
         labelEl.textContent = isLoading ? loadingText : labelEl.dataset.defaultLabel;
       }
 
-      function setUserView(nome, funcao) {
-        const safeNome = String(nome || "").trim() || "Usuário";
-        const safeFuncao = String(funcao || "").trim() || "Sem função";
+      function renderAuthUserAvatar(photoDataUrl, name) {
+        if (!authUserAvatarImage || !authUserAvatarFallback) return;
+        const safePhoto = String(photoDataUrl || "").trim();
+        if (safePhoto) {
+          authUserAvatarImage.src = safePhoto;
+          authUserAvatarImage.classList.remove("hidden");
+          authUserAvatarFallback.classList.add("hidden");
+          return;
+        }
+        authUserAvatarImage.removeAttribute("src");
+        authUserAvatarImage.classList.add("hidden");
+        authUserAvatarFallback.textContent = initialsFromName(name);
+        authUserAvatarFallback.classList.remove("hidden");
+      }
+
+      function setUserView(userOrNome, funcao) {
+        const user = userOrNome && typeof userOrNome === "object"
+          ? userOrNome
+          : { nome: userOrNome, funcao: funcao };
+        const safeNome = String(user && user.nome || "").trim() || "Usuário";
+        const safeFuncao = String(user && user.funcao || "").trim() || "Sem função";
         nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
         roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+        renderAuthUserAvatar(user && user.foto_perfil_data_url, safeNome);
       }
 
       function renderTags(tags) {
@@ -336,7 +379,7 @@
 
       function applyUser(user) {
         currentUser = user || {};
-        setUserView(currentUser.nome, currentUser.funcao);
+        setUserView(currentUser);
         summaryName.textContent = String(currentUser.nome || "Usuário");
         summaryRole.textContent = String(currentUser.funcao || "Sem função");
         summaryPhone.textContent = String(currentUser.numero_celular || "");

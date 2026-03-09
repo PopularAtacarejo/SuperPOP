@@ -271,6 +271,28 @@
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
     cursor: pointer;
   }
+  .auth-user-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: linear-gradient(135deg, #fee2e2, #fde68a);
+    color: #b91c1c;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+  .auth-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .auth-user-btn-text {
     text-align: left;
     line-height: 1.05;
@@ -377,7 +399,7 @@
 
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
-<span class="material-symbols-outlined">account_circle</span>
+<span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
 <span class="auth-user-btn-text">
 <strong id="authUserName">Carregando...</strong>
 <small id="authUserRole">Perfil</small>
@@ -493,6 +515,8 @@
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
+    const authUserAvatarImage = document.getElementById("authUserAvatarImage");
+    const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
     const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
@@ -524,12 +548,44 @@
       roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
     }
 
+    function initialsFromName(name) {
+      const parts = String(name || "").trim().split(/\s+/).filter(Boolean).slice(0, 2);
+      if (!parts.length) return "SP";
+      return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+    }
+
+    function renderUserAvatar(photoDataUrl, name) {
+      if (!authUserAvatarImage || !authUserAvatarFallback) return;
+      const safePhoto = String(photoDataUrl || "").trim();
+      if (safePhoto) {
+        authUserAvatarImage.src = safePhoto;
+        authUserAvatarImage.classList.remove("hidden");
+        authUserAvatarFallback.classList.add("hidden");
+        return;
+      }
+      authUserAvatarImage.removeAttribute("src");
+      authUserAvatarImage.classList.add("hidden");
+      authUserAvatarFallback.textContent = initialsFromName(name);
+      authUserAvatarFallback.classList.remove("hidden");
+    }
+
+    function setUserView(userOrNome, funcao) {
+      const user = userOrNome && typeof userOrNome === "object"
+        ? userOrNome
+        : { nome: userOrNome, funcao: funcao };
+      const safeNome = String(user && user.nome || "").trim() || "Usuario";
+      const safeFuncao = String(user && user.funcao || "").trim() || "Sem funcao";
+      nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
+      roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+      renderUserAvatar(user && user.foto_perfil_data_url, safeNome);
+    }
+
     async function loadUserFromSession() {
       const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
       if (!response.ok) throw new Error("Não autenticado");
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessão inválida");
-      setUserView(payload.usuario.nome, payload.usuario.funcao);
+      setUserView(payload.usuario);
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");
       }
