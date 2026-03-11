@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -44,7 +44,7 @@
             'float': 'float 6s ease-in-out infinite',
             'float-delayed': 'float 6s ease-in-out 3s infinite',
           },
-          keyframês: {
+          keyframÃªs: {
             float: {
               '0%, 100%': { transform: 'translateY(0)' },
               '50%': { transform: 'translateY(-10px)' },
@@ -96,7 +96,7 @@
     .dark .floating-icon.alt {
       opacity: 0.11;
     }
-    @keyframês floatIcon {
+    @keyframÃªs floatIcon {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-14px) rotate(8deg); }
     }
@@ -469,9 +469,9 @@
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do MÃªs">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
 </a>
 <a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
@@ -480,11 +480,19 @@
 </div>
 <div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
 <div class="px-3 mb-2 sidebar-content-fade">
-<span class="menu-section-title">Gestão</span>
+<span class="menu-section-title">GestÃ£o</span>
 </div>
-<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="AnÃ¡lise de Dados">
 <span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">AnÃ¡lise de Dados</span>
+</a>
+<a class="menu-item group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuarios cadastrados">
+<span class="material-symbols-outlined shrink-0">groups</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuarios cadastrados</span>
+</a>
+<a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuarios">
+<span class="material-symbols-outlined shrink-0">edit_square</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuarios</span>
 </a>
 </div>
 </nav>
@@ -498,7 +506,7 @@
 </button>
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
-<span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
+<span class="auth-user-avatar"><img alt="Avatar do usuÃ¡rio" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
 <span class="auth-user-btn-text">
 <strong id="authUserName">Carregando...</strong>
 <small id="authUserRole">Perfil</small>
@@ -583,7 +591,7 @@
 <div class="flex items-center justify-center gap-2 text-gray-400">
 <span class="material-symbols-outlined text-sm">schedule</span>
 <p class="text-xs font-bold uppercase tracking-widest">
-                Última atualização: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
+                Ãšltima atualizaÃ§Ã£o: <span class="text-primary dark:text-secondary" id="lastUpdate">--/--/---- --:--</span>
 </p>
 </div>
 <p class="mt-3 text-center text-xs font-bold tracking-wide text-gray-400">
@@ -711,7 +719,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       const payload = await response.json();
       if (!Array.isArray(payload)) {
-        throw new Error("JSON não eh lista");
+        throw new Error("JSON nÃ£o eh lista");
       }
       return payload;
     }
@@ -909,6 +917,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
+    const manageUsersNavItem = document.getElementById("manageUsersNavItem");
+    const editUsersNavItem = document.getElementById("editUsersNavItem");
     const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
@@ -937,8 +947,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
 
     function setUserView(nome, funcao) {
-      const safeNome = String(nome || "").trim() || "Usuário";
-      const safeFuncao = String(funcao || "").trim() || "Sem função";
+      const safeNome = String(nome || "").trim() || "UsuÃ¡rio";
+      const safeFuncao = String(funcao || "").trim() || "Sem funÃ§Ã£o";
       nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
       roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
     }
@@ -978,11 +988,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     async function loadUserFromSession() {
       const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
       if (!response.ok) {
-        throw new Error("Não autenticado");
+        throw new Error("NÃ£o autenticado");
       }
       const payload = await response.json();
       if (!payload || !payload.ok || !payload.usuario) {
-        throw new Error("Sessão inválida");
+        throw new Error("SessÃ£o invÃ¡lida");
       }
       setUserView(payload.usuario);
       if (analyticsSection && payload.permissoes && payload.permissoes.analytics) {
@@ -990,6 +1000,12 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");
+      }
+      if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) {
+        manageUsersNavItem.classList.remove("hidden");
+      }
+      if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
+        editUsersNavItem.classList.remove("hidden");
       }
     }
 
@@ -1023,3 +1039,6 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 </script>
 
 </body></html>
+
+
+

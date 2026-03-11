@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -58,7 +58,7 @@
     color: #ffb703;
     opacity: 0.16;
   }
-  @keyframês floatIcon {
+  @keyframÃªs floatIcon {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-14px) rotate(8deg); }
   }
@@ -338,9 +338,9 @@
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
 </a>
-<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês">
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do MÃªs">
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span>
 </a>
 <a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
@@ -349,11 +349,19 @@
 </div>
 <div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
 <div class="px-3 mb-2 sidebar-content-fade">
-<span class="menu-section-title">Gestão</span>
+<span class="menu-section-title">GestÃ£o</span>
 </div>
-<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="AnÃ¡lise de Dados">
 <span class="material-symbols-outlined shrink-0">monitoring</span>
-<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">AnÃ¡lise de Dados</span>
+</a>
+<a class="menu-item group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuarios cadastrados">
+<span class="material-symbols-outlined shrink-0">groups</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuarios cadastrados</span>
+</a>
+<a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuarios">
+<span class="material-symbols-outlined shrink-0">edit_square</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuarios</span>
 </a>
 </div>
 </nav>
@@ -367,7 +375,7 @@
 </button>
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
-<span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
+<span class="auth-user-avatar"><img alt="Avatar do usuÃ¡rio" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
 <span class="auth-user-btn-text">
 <strong id="authUserName">Carregando...</strong>
 <small id="authUserRole">Perfil</small>
@@ -390,13 +398,13 @@
 <main class="flex-1 max-w-7xl mx-auto w-full px-5 py-6 space-y-6">
 <section class="text-center space-y-2">
 <h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Meus Super POP's</h1>
-<p class="text-gray-600 font-semibold text-base sm:text-lg">Veja os Super POP's que você enviou e recebeu no mês atual, com histórico de meses anteriores.</p>
+<p class="text-gray-600 font-semibold text-base sm:text-lg">Veja os Super POP's que vocÃª enviou e recebeu no mÃªs atual, com histÃ³rico de meses anteriores.</p>
 </section>
 
 <section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-4 sm:p-5">
 <div class="flex flex-col sm:flex-row gap-3 sm:items-end sm:justify-between">
 <div class="w-full sm:max-w-sm">
-<label class="block text-xs font-bold uppercase tracking-wide text-primary mb-1.5" for="monthSelect">Mês</label>
+<label class="block text-xs font-bold uppercase tracking-wide text-primary mb-1.5" for="monthSelect">MÃªs</label>
 <select class="w-full rounded-xl border-gray-200 bg-gray-50 focus:ring-primary focus:border-primary font-semibold text-gray-800" id="monthSelect"></select>
 </div>
 <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white font-bold px-4 py-2.5 hover:bg-red-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed" id="refreshBtn" type="button">
@@ -408,7 +416,7 @@
 
 <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 <article class="bg-white/95 border border-white/70 rounded-2xl shadow-soft p-4">
-<p class="text-xs font-bold uppercase tracking-wide text-primary">Total no mês</p>
+<p class="text-xs font-bold uppercase tracking-wide text-primary">Total no mÃªs</p>
 <p class="mt-2 text-3xl font-display text-gray-900" id="totalMes">0</p>
 </article>
 <article class="bg-white/95 border border-white/70 rounded-2xl shadow-soft p-4">
@@ -588,7 +596,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function itemHtml(item, typeLabel) {
       const other = (item && item.outra_pessoa) || {};
       const files = (item && item.arquivos) || {};
-      const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" às ");
+      const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" Ã s ");
       const mediaUrl = String(files.uploaded_image_url || files.image_url || "").trim();
       const mensagem = String(item.mensagem || "").trim();
       return '' +
@@ -637,8 +645,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const payload = await fetchData(monthKey);
         renderMonthOptions(payload.meses_disponiveis, payload.mes_selecionado);
         renderSummary(payload.resumo_mes);
-        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mês.", "Enviado para");
-        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mês.", "Recebido de");
+        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mÃªs.", "Enviado para");
+        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mÃªs.", "Recebido de");
         const source = payload.fonte || {};
         sourceInfoEl.textContent = source.tipo === "remoto"
           ? "Fonte: remoto"
@@ -647,7 +655,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const message = String(error && error.message ? error.message : "Erro ao carregar dados.");
         sentListEl.innerHTML = '<div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-bold text-red-700">' + escapeHtml(message) + "</div>";
         receivedListEl.innerHTML = sentListEl.innerHTML;
-        if (/não autenticado|sessão inválida/i.test(message)) {
+        if (/nÃ£o autenticado|sessÃ£o invÃ¡lida/i.test(message)) {
           window.location.href = buildFrontendUrl("index.html");
           return;
         }
@@ -674,6 +682,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
+    const manageUsersNavItem = document.getElementById("manageUsersNavItem");
+    const editUsersNavItem = document.getElementById("editUsersNavItem");
     const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
@@ -726,8 +736,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const user = userOrNome && typeof userOrNome === "object"
         ? userOrNome
         : { nome: userOrNome, funcao: funcao };
-      const safeNome = String(user && user.nome || "").trim() || "Usuário";
-      const safeFuncao = String(user && user.funcao || "").trim() || "Sem função";
+      const safeNome = String(user && user.nome || "").trim() || "UsuÃ¡rio";
+      const safeFuncao = String(user && user.funcao || "").trim() || "Sem funÃ§Ã£o";
       nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
       roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
       renderUserAvatar(user && user.foto_perfil_data_url, safeNome);
@@ -735,15 +745,21 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
     async function loadUserFromSession() {
       const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
-      if (!response.ok) throw new Error("Não autenticado");
+      if (!response.ok) throw new Error("NÃ£o autenticado");
       const payload = await response.json();
-      if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessão inválida");
+      if (!payload || !payload.ok || !payload.usuario) throw new Error("SessÃ£o invÃ¡lida");
       setUserView(payload.usuario);
       if (analyticsSection && payload.permissoes && payload.permissoes.analytics) {
         analyticsSection.classList.remove("hidden");
       }
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");
+      }
+      if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) {
+        manageUsersNavItem.classList.remove("hidden");
+      }
+      if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
+        editUsersNavItem.classList.remove("hidden");
       }
     }
 
@@ -772,3 +788,6 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
   });
 </script>
 </body></html>
+
+
+
