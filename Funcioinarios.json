@@ -31,7 +31,8 @@
       "hash": "3815453b78536c72388c34c61bbb87f060d04abab5deaab178dcaf8c40d96e78",
       "iteracoes": 180000
     },
-    "data_cadastro_iso": "2026-02-28T08:28:56.457392-03:00"
+    "data_cadastro_iso": "2026-02-28T08:28:56.457392-03:00",
+    "tags_acesso": []
   },
   {
     "id": "c27055d3a93f4802a0323d3215cfbc5f",
@@ -67,7 +68,7 @@
     "id": "8fccdfeb248f4e2996debcd65f325fc6",
     "nome": "Natallia Katiane Alves da Silva",
     "funcao": "Líder de RH",
-     "tags_acesso": [
+    "tags_acesso": [
       "admin"
     ],
     "numero_celular": "(82) 9 8173 - 5783",
