@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function e(v) { return String(v || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
   function dt(v) { if (!v) return "-"; const d = new Date(v); return Number.isNaN(d.getTime()) ? "-" : d.toLocaleString("pt-BR"); }
   function tagsHtml(tags) { const a = Array.isArray(tags) ? tags.filter(Boolean) : []; if (!a.length) return '<span class="mini">sem tag</span>'; return a.map(function (tag) { return '<span class="mini">' + e(tag) + "</span>"; }).join(" "); }
-  function hasAdminTag(user) { const tags = Array.isArray(user && user.tags_acesso) ? user.tags_acesso : []; return tags.some(function (tag) { return String(tag || "").trim().toLowerCase() === "admin"; }); }
   function setLoading(b) { refreshBtn.disabled = b; refreshBtnLabel.textContent = b ? "Atualizando..." : "Atualizar"; }
   function initialsFromName(name) { const parts = String(name || "").trim().split(/\s+/).filter(Boolean).slice(0, 2); if (!parts.length) return "SP"; return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join(""); }
   function renderUserAvatar(photoDataUrl, name) { if (!authUserAvatarImage || !authUserAvatarFallback) return; const safePhoto = String(photoDataUrl || "").trim(); if (safePhoto) { authUserAvatarImage.src = safePhoto; authUserAvatarImage.classList.remove("hidden"); authUserAvatarFallback.classList.add("hidden"); return; } authUserAvatarImage.removeAttribute("src"); authUserAvatarImage.classList.add("hidden"); authUserAvatarFallback.textContent = initialsFromName(name); authUserAvatarFallback.classList.remove("hidden"); }
@@ -118,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
       authError.code = "unauthenticated";
       throw authError;
     }
-    if (!hasAdminTag(payload.usuario) || !payload.permissoes || !payload.permissoes.analytics) {
+    if (!payload.permissoes || !payload.permissoes.analytics) {
       const permissionError = new Error("Sem permissÃ£o");
       permissionError.code = "forbidden";
       throw permissionError;
