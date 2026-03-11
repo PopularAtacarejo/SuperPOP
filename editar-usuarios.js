@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const statusSuccess = document.getElementById("statusSuccess");
   const saveBtn = document.getElementById("saveBtn");
   const saveBtnLabel = document.getElementById("saveBtnLabel");
+  const deleteBtn = document.getElementById("deleteBtn");
+  const deleteBtnLabel = document.getElementById("deleteBtnLabel");
   const clearBtn = document.getElementById("clearBtn");
 
   let allUsers = [];
@@ -121,7 +123,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setSaving(isSaving) {
     saveBtn.disabled = isSaving || !selectedUserId;
+    if (deleteBtn) deleteBtn.disabled = isSaving || !selectedUserId;
     saveBtnLabel.textContent = isSaving ? "Salvando..." : "Salvar altera\u00e7\u00f5es";
+    if (deleteBtnLabel && !isSaving) deleteBtnLabel.textContent = "Excluir conta";
+  }
+
+  function setDeleting(isDeleting) {
+    saveBtn.disabled = isDeleting || !selectedUserId;
+    if (deleteBtn) deleteBtn.disabled = isDeleting || !selectedUserId;
+    saveBtnLabel.textContent = "Salvar altera\u00e7\u00f5es";
+    if (deleteBtnLabel) deleteBtnLabel.textContent = isDeleting ? "Excluindo..." : "Excluir conta";
   }
 
   function formatPhoneMask(value) {
@@ -352,6 +363,52 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  async function deleteSelectedUser() {
+    clearMessages();
+    if (!selectedUserId) {
+      showError("Selecione um usu\u00e1rio para excluir.");
+      return;
+    }
+
+    const selected = allUsers.find(function (user) {
+      return String(user.id || "") === selectedUserId;
+    });
+    const selectedName = String((selected && selected.nome) || "este usu\u00e1rio");
+    const confirmed = window.confirm('Tem certeza que deseja excluir a conta de "' + selectedName + '"? Essa a\u00e7\u00e3o n\u00e3o pode ser desfeita.');
+    if (!confirmed) return;
+
+    setDeleting(true);
+    try {
+      const response = await fetch(apiBase + "/api/dev/users/" + encodeURIComponent(selectedUserId), {
+        method: "DELETE",
+        credentials: "include"
+      });
+      const payload = await response.json().catch(function () { return {}; });
+      if (response.status === 403) {
+        window.location.href = buildFrontendUrl("superpop.html");
+        return;
+      }
+      if (!response.ok || !payload.ok) throw new Error(String(payload.error || "Falha ao excluir usu\u00e1rio."));
+
+      allUsers = allUsers.filter(function (user) {
+        return String(user.id || "") !== selectedUserId;
+      });
+      allUsers.sort(function (a, b) {
+        return String(a.nome || "").localeCompare(String(b.nome || ""), "pt-BR", { sensitivity: "base" });
+      });
+
+      const warning = String(payload.warning || "").trim();
+      clearForm();
+      renderUsers(currentFilteredUsers());
+      showSuccess(warning || ("Conta de " + selectedName + " exclu\u00edda com sucesso."));
+      lastUpdate.textContent = new Date().toLocaleString("pt-BR");
+    } catch (err) {
+      showError(String((err && err.message) || "Erro ao excluir usu\u00e1rio."));
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   authUserBtn.addEventListener("click", function () {
     const isOpen = authUserDropdown.classList.contains("open");
     authUserDropdown.classList.toggle("open", !isOpen);
@@ -403,6 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   clearBtn.addEventListener("click", clearForm);
+  if (deleteBtn) deleteBtn.addEventListener("click", deleteSelectedUser);
   refreshBtn.addEventListener("click", loadUsers);
 
   setSaving(false);
