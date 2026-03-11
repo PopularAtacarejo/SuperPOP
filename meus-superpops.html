@@ -385,7 +385,7 @@
 <div class="auth-user-dropdown" id="authUserDropdown">
 <p class="text-sm font-bold text-gray-900" id="authUserNameDetail">Carregando...</p>
 <p class="text-xs font-semibold text-gray-500 mb-3" id="authUserRoleDetail">Perfil</p>
-<a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a>
+<a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a>
 <button class="w-full rounded-xl bg-red-100 text-red-700 text-sm font-bold py-2 hover:bg-red-200 transition-colors" id="authLogoutBtn" type="button">Sair</button>
 </div>
 </div>
@@ -681,6 +681,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const authUserBtn = document.getElementById("authUserBtn");
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
+    const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
+    const editUsersQuickLink = document.getElementById("editUsersQuickLink");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
     const manageUsersNavItem = document.getElementById("manageUsersNavItem");
     const editUsersNavItem = document.getElementById("editUsersNavItem");
@@ -788,6 +790,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
   });
 </script>
 </body></html>
+
 
 
 

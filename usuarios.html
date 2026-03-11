@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -45,25 +45,210 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar do usuario" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button>
-<div class="auth-user-dropdown" id="authUserDropdown"><p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p><p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button></div>
+<div class="auth-user-dropdown" id="authUserDropdown"><p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p><p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a><button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button></div>
 </div>
 
 <div class="main-content flex flex-col min-h-screen">
 <header class="relative px-6 pb-2 pt-4 text-center"><div class="max-w-7xl mx-auto relative z-10 pt-4"><img alt="SuperPop" class="mx-auto w-48 sm:w-72 h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/></div></header>
 <main class="flex-1 max-w-7xl mx-auto w-full px-5 py-6 space-y-6">
-<section class="text-center space-y-3"><span class="pill inline-flex items-center gap-2 bg-red-100 text-red-700"><span class="material-symbols-outlined text-sm">admin_panel_settings</span>Administradores e desenvolvedores</span><h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Usuarios cadastrados</h1><p class="text-gray-600 font-semibold text-base sm:text-lg max-w-3xl mx-auto">Visualize todos os usuarios cadastrados com nome, telefone, funcao e e-mail.</p></section>
+<section class="text-center space-y-3"><span class="pill inline-flex items-center gap-2 bg-red-100 text-red-700"><span class="material-symbols-outlined text-sm">admin_panel_settings</span>Administradores e desenvolvedores</span><h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Usuários cadastrados</h1><p class="text-gray-600 font-semibold text-base sm:text-lg max-w-3xl mx-auto">Visualize todos os usuários cadastrados com nome, telefone, função e e-mail.</p></section>
 <section class="grid gap-4 md:grid-cols-[minmax(0,1fr),220px]">
-<article class="metric rounded-3xl border border-white/70 p-5 shadow-soft"><p class="text-xs font-bold uppercase tracking-widest text-primary">Busca rapida</p><label class="mt-3 block"><span class="sr-only">Buscar usuario</span><input class="w-full rounded-2xl border-slate-200 bg-white px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="searchInput" placeholder="Buscar por nome, telefone, funcao ou email" type="search"/></label></article>
+<article class="metric rounded-3xl border border-white/70 p-5 shadow-soft"><p class="text-xs font-bold uppercase tracking-widest text-primary">Busca rápida</p><label class="mt-3 block"><span class="sr-only">Buscar usuário</span><input class="w-full rounded-2xl border-slate-200 bg-white px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="searchInput" placeholder="Buscar por nome, telefone, função ou e-mail" type="search"/></label></article>
 <article class="metric rounded-3xl border border-white/70 p-5 shadow-soft"><p class="text-xs font-bold uppercase tracking-widest text-primary">Total</p><p class="mt-3 text-4xl font-display text-slate-900" id="usersCount">0</p><p class="mt-2 text-sm font-semibold text-slate-500" id="sourceInfo">Carregando fonte...</p></article>
 </section>
-<section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Base de usuarios</p><h2 class="font-display text-3xl">Lista completa</h2></div><div class="flex items-center gap-3"><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Atualizado em <span class="text-primary" id="lastUpdate">--/--/----</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white" id="refreshBtn" type="button"><span class="material-symbols-outlined text-base">refresh</span><span id="refreshBtnLabel">Atualizar</span></button></div></div><div class="table-wrap mt-4"><table class="min-w-full text-sm"><thead><tr class="border-b border-slate-100 text-left text-[11px] uppercase tracking-wider text-slate-500"><th class="py-3 pr-4">Nome</th><th class="py-3 pr-4">Telefone</th><th class="py-3 pr-4">Funcao</th><th class="py-3">Email</th></tr></thead><tbody class="divide-y divide-slate-100" id="usersTableBody"><tr><td class="py-10 text-center text-slate-400" colspan="4">Carregando usuarios...</td></tr></tbody></table></div></section>
+<section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Base de usuários</p><h2 class="font-display text-3xl">Lista completa</h2></div><div class="flex flex-wrap items-center gap-3"><a class="hidden inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white" href="editar-usuarios.html" id="editUsersHeaderLink"><span class="material-symbols-outlined text-base">edit_square</span>Editar usuários</a><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Atualizado em <span class="text-primary" id="lastUpdate">--/--/----</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white" id="refreshBtn" type="button"><span class="material-symbols-outlined text-base">refresh</span><span id="refreshBtnLabel">Atualizar</span></button></div></div><div class="table-wrap mt-4"><table class="min-w-full text-sm"><thead><tr class="border-b border-slate-100 text-left text-[11px] uppercase tracking-wider text-slate-500"><th class="py-3 pr-4">Nome</th><th class="py-3 pr-4">Telefone</th><th class="py-3 pr-4">Função</th><th class="py-3">E-mail</th></tr></thead><tbody class="divide-y divide-slate-100" id="usersTableBody"><tr><td class="py-10 text-center text-slate-400" colspan="4">Carregando usuários...</td></tr></tbody></table></div></section>
 </main></div>
 
 <script>
 document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("sidebar"),t=document.getElementById("sidebarToggle"),o=document.getElementById("sidebarOverlay"),m=document.getElementById("mobileMenuBtn"),l=document.querySelector(".sidebar-collapsed-only"),c=t?t.querySelector("span"):null;if(!s||!t||!o||!m||!l||!c)return;function openS(){s.classList.add("expanded");c.textContent="chevron_left";l.style.opacity="0"}function closeS(){s.classList.remove("expanded");c.textContent="chevron_right";window.setTimeout(function(){if(!s.classList.contains("expanded"))l.style.opacity="1"},220)}function syncS(){if(window.innerWidth<1100){closeS();return}openS()}t.addEventListener("click",function(){s.classList.contains("expanded")?closeS():openS()});m.addEventListener("click",openS);o.addEventListener("click",closeS);window.addEventListener("resize",syncS);syncS()});
 </script>
 <script>
-document.addEventListener("DOMContentLoaded",function(){const apiBase=String(window.SUPERPOP_API_URL||"https://superpopbackend.onrender.com").replace(/\/+$/,""),frontendBase=String(window.SUPERPOP_FRONTEND_URL||"https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/,""),authUserBtn=document.getElementById("authUserBtn"),authUserDropdown=document.getElementById("authUserDropdown"),authLogoutBtn=document.getElementById("authLogoutBtn"),analyticsSection=document.getElementById("analyticsSection"),analyticsNavItem=document.getElementById("analyticsNavItem"),manageUsersNavItem=document.getElementById("manageUsersNavItem"),editUsersNavItem=document.getElementById("editUsersNavItem"),authUserAvatarImage=document.getElementById("authUserAvatarImage"),authUserAvatarFallback=document.getElementById("authUserAvatarFallback"),nameTargets=[document.getElementById("authUserName"),document.getElementById("authUserNameDetail")],roleTargets=[document.getElementById("authUserRole"),document.getElementById("authUserRoleDetail")],usersTableBody=document.getElementById("usersTableBody"),usersCount=document.getElementById("usersCount"),sourceInfo=document.getElementById("sourceInfo"),searchInput=document.getElementById("searchInput"),lastUpdate=document.getElementById("lastUpdate"),refreshBtn=document.getElementById("refreshBtn"),refreshBtnLabel=document.getElementById("refreshBtnLabel");let allUsers=[];function resolveOrigin(v){try{return new URL(String(v||"")).origin.toLowerCase()}catch(_){return""}}function buildFrontendUrl(p){const c=String(p||"").replace(/^\/+/,""),co=String(window.location.origin||"").toLowerCase(),ao=resolveOrigin(apiBase);if(ao&&co&&ao===co)return c?"/"+c:"/";return frontendBase?frontendBase+"/"+c:(c||".")}function e(v){return String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#39;")}function initialsFromName(name){const parts=String(name||"").trim().split(/\s+/).filter(Boolean).slice(0,2);if(!parts.length)return"SP";return parts.map(function(part){return part.charAt(0).toUpperCase()}).join("")}function renderUserAvatar(photoDataUrl,name){if(!authUserAvatarImage||!authUserAvatarFallback)return;const safePhoto=String(photoDataUrl||"").trim();if(safePhoto){authUserAvatarImage.src=safePhoto;authUserAvatarImage.classList.remove("hidden");authUserAvatarFallback.classList.add("hidden");return}authUserAvatarImage.removeAttribute("src");authUserAvatarImage.classList.add("hidden");authUserAvatarFallback.textContent=initialsFromName(name);authUserAvatarFallback.classList.remove("hidden")}function setUserView(user){const n=String(user&&user.nome||"").trim()||"Usuario",r=String(user&&user.funcao||"").trim()||"Sem funcao";nameTargets.forEach(function(el){if(el)el.textContent=n});roleTargets.forEach(function(el){if(el)el.textContent=r});renderUserAvatar(user&&user.foto_perfil_data_url,n)}function normalizeText(value){return String(value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}function setLoading(isLoading){refreshBtn.disabled=isLoading;refreshBtnLabel.textContent=isLoading?"Atualizando...":"Atualizar"}function renderUsers(items){const a=Array.isArray(items)?items:[];usersCount.textContent=String(a.length);if(!a.length){usersTableBody.innerHTML='<tr><td class="py-10 text-center text-slate-400" colspan="4">Nenhum usuario encontrado.</td></tr>';return}usersTableBody.innerHTML=a.map(function(user){return"<tr>"+'<td class="py-4 pr-4 align-top"><div class="font-bold text-slate-900">'+e(user.nome||"-")+'</div></td>'+'<td class="py-4 pr-4 align-top font-semibold text-slate-500">'+e(user.telefone||"-")+'</td>'+'<td class="py-4 pr-4 align-top font-semibold text-slate-500">'+e(user.funcao||"-")+'</td>'+'<td class="py-4 align-top font-semibold text-slate-500">'+e(user.email||"-")+"</td></tr>"}).join("")}function applyFilter(){const term=normalizeText(searchInput.value||"").trim();if(!term){renderUsers(allUsers);return}renderUsers(allUsers.filter(function(user){return[user.nome,user.telefone,user.funcao,user.email].some(function(value){return normalizeText(value).indexOf(term)>=0})}))}async function loadSession(){const response=await fetch(apiBase+"/api/auth/me",{cache:"no-store",credentials:"include"}),payload=await response.json().catch(function(){return{}});if(!response.ok||!payload.ok||!payload.usuario){const authError=new Error("Nao autenticado");authError.code="unauthenticated";throw authError}if(!payload.permissoes||!payload.permissoes.manage_users){const permissionError=new Error("Sem permissao");permissionError.code="forbidden";throw permissionError}if(analyticsSection&&(payload.permissoes.analytics||payload.permissoes.manage_users||payload.permissoes.edit_users))analyticsSection.classList.remove("hidden");if(analyticsNavItem&&payload.permissoes.analytics)analyticsNavItem.classList.remove("hidden");if(manageUsersNavItem&&payload.permissoes.manage_users)manageUsersNavItem.classList.remove("hidden");if(editUsersNavItem&&payload.permissoes.edit_users)editUsersNavItem.classList.remove("hidden");setUserView(payload.usuario)}async function loadUsers(){setLoading(true);try{const response=await fetch(apiBase+"/api/admin/users",{cache:"no-store",credentials:"include"}),payload=await response.json().catch(function(){return{}});if(response.status===403){window.location.href=buildFrontendUrl("superpop.html");return}if(!response.ok||!payload.ok)throw new Error(String(payload.error||"Falha ao carregar usuarios."));allUsers=Array.isArray(payload.usuarios)?payload.usuarios:[];sourceInfo.textContent="Fonte: "+String(((payload.fonte||{}).usuarios||{}).tipo||"-");lastUpdate.textContent=new Date().toLocaleString("pt-BR");applyFilter()}catch(err){const message=String(err&&err.message||"Erro inesperado.");usersCount.textContent="0";usersTableBody.innerHTML='<tr><td class="py-10 text-center text-red-500" colspan="4">'+e(message)+"</td></tr>";sourceInfo.textContent=message}finally{setLoading(false)}}authUserBtn.addEventListener("click",function(){const isOpen=authUserDropdown.classList.contains("open");authUserDropdown.classList.toggle("open",!isOpen);authUserBtn.setAttribute("aria-expanded",String(!isOpen))});document.addEventListener("click",function(event){if(!authUserDropdown.contains(event.target)&&!authUserBtn.contains(event.target)){authUserDropdown.classList.remove("open");authUserBtn.setAttribute("aria-expanded","false")}});authLogoutBtn.addEventListener("click",async function(){try{await fetch(apiBase+"/api/auth/logout",{method:"POST",credentials:"include"})}catch(_){ }try{localStorage.removeItem("superpop_auth_user")}catch(_){ }window.location.href=buildFrontendUrl("index.html")});searchInput.addEventListener("input",applyFilter);refreshBtn.addEventListener("click",loadUsers);loadSession().then(loadUsers).catch(function(err){window.location.href=buildFrontendUrl(err&&err.code==="forbidden"?"superpop.html":"index.html")})});
+document.addEventListener("DOMContentLoaded", function () {
+  const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+  const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+  const authUserBtn = document.getElementById("authUserBtn");
+  const authUserDropdown = document.getElementById("authUserDropdown");
+  const authLogoutBtn = document.getElementById("authLogoutBtn");
+  const analyticsSection = document.getElementById("analyticsSection");
+  const analyticsNavItem = document.getElementById("analyticsNavItem");
+  const manageUsersNavItem = document.getElementById("manageUsersNavItem");
+  const editUsersNavItem = document.getElementById("editUsersNavItem");
+  const authUserAvatarImage = document.getElementById("authUserAvatarImage");
+  const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
+  const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
+  const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
+  const usersTableBody = document.getElementById("usersTableBody");
+  const usersCount = document.getElementById("usersCount");
+  const sourceInfo = document.getElementById("sourceInfo");
+  const searchInput = document.getElementById("searchInput");
+  const lastUpdate = document.getElementById("lastUpdate");
+  const refreshBtn = document.getElementById("refreshBtn");
+  const refreshBtnLabel = document.getElementById("refreshBtnLabel");
+  const editUsersHeaderLink = document.getElementById("editUsersHeaderLink");
+  let allUsers = [];
+
+  function resolveOrigin(value) {
+    try { return new URL(String(value || "")).origin.toLowerCase(); } catch (_err) { return ""; }
+  }
+
+  function buildFrontendUrl(path) {
+    const cleanPath = String(path || "").replace(/^\/+/, "");
+    const currentOrigin = String(window.location.origin || "").toLowerCase();
+    const apiOrigin = resolveOrigin(apiBase);
+    if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) return cleanPath ? ("/" + cleanPath) : "/";
+    return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function initialsFromName(name) {
+    const parts = String(name || "").trim().split(/\s+/).filter(Boolean).slice(0, 2);
+    if (!parts.length) return "SP";
+    return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+  }
+
+  function renderUserAvatar(photoDataUrl, name) {
+    if (!authUserAvatarImage || !authUserAvatarFallback) return;
+    const safePhoto = String(photoDataUrl || "").trim();
+    if (safePhoto) {
+      authUserAvatarImage.src = safePhoto;
+      authUserAvatarImage.classList.remove("hidden");
+      authUserAvatarFallback.classList.add("hidden");
+      return;
+    }
+    authUserAvatarImage.removeAttribute("src");
+    authUserAvatarImage.classList.add("hidden");
+    authUserAvatarFallback.textContent = initialsFromName(name);
+    authUserAvatarFallback.classList.remove("hidden");
+  }
+
+  function setUserView(user) {
+    const safeName = String(user && user.nome || "").trim() || "Usuário";
+    const safeRole = String(user && user.funcao || "").trim() || "Sem função";
+    nameTargets.forEach(function (el) { if (el) el.textContent = safeName; });
+    roleTargets.forEach(function (el) { if (el) el.textContent = safeRole; });
+    renderUserAvatar(user && user.foto_perfil_data_url, safeName);
+  }
+
+  function normalizeText(value) {
+    return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function setLoading(isLoading) {
+    refreshBtn.disabled = isLoading;
+    refreshBtnLabel.textContent = isLoading ? "Atualizando..." : "Atualizar";
+  }
+
+  function renderUsers(items) {
+    const safeItems = Array.isArray(items) ? items : [];
+    usersCount.textContent = String(safeItems.length);
+    if (!safeItems.length) {
+      usersTableBody.innerHTML = '<tr><td class="py-10 text-center text-slate-400" colspan="4">Nenhum usuário encontrado.</td></tr>';
+      return;
+    }
+    usersTableBody.innerHTML = safeItems.map(function (user) {
+      return "<tr>"
+        + '<td class="py-4 pr-4 align-top"><div class="font-bold text-slate-900">' + escapeHtml(user.nome || "-") + "</div></td>"
+        + '<td class="py-4 pr-4 align-top font-semibold text-slate-500">' + escapeHtml(user.telefone || "-") + "</td>"
+        + '<td class="py-4 pr-4 align-top font-semibold text-slate-500">' + escapeHtml(user.funcao || "-") + "</td>"
+        + '<td class="py-4 align-top font-semibold text-slate-500">' + escapeHtml(user.email || "-") + "</td>"
+        + "</tr>";
+    }).join("");
+  }
+
+  function applyFilter() {
+    const term = normalizeText(searchInput.value || "").trim();
+    if (!term) {
+      renderUsers(allUsers);
+      return;
+    }
+    renderUsers(allUsers.filter(function (user) {
+      return [user.nome, user.telefone, user.funcao, user.email].some(function (value) {
+        return normalizeText(value).indexOf(term) >= 0;
+      });
+    }));
+  }
+
+  async function loadSession() {
+    const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
+    const payload = await response.json().catch(function () { return {}; });
+    if (!response.ok || !payload.ok || !payload.usuario) {
+      const authError = new Error("Não autenticado");
+      authError.code = "unauthenticated";
+      throw authError;
+    }
+    if (!payload.permissoes || !payload.permissoes.manage_users) {
+      const permissionError = new Error("Sem permissão");
+      permissionError.code = "forbidden";
+      throw permissionError;
+    }
+    if (analyticsSection && (payload.permissoes.analytics || payload.permissoes.manage_users || payload.permissoes.edit_users)) {
+      analyticsSection.classList.remove("hidden");
+    }
+    if (analyticsNavItem && payload.permissoes.analytics) analyticsNavItem.classList.remove("hidden");
+    if (manageUsersNavItem && payload.permissoes.manage_users) manageUsersNavItem.classList.remove("hidden");
+    if (editUsersNavItem && payload.permissoes.edit_users) editUsersNavItem.classList.remove("hidden");
+    if (editUsersHeaderLink && payload.permissoes.edit_users) editUsersHeaderLink.classList.remove("hidden");
+    setUserView(payload.usuario);
+  }
+
+  async function loadUsers() {
+    setLoading(true);
+    try {
+      const response = await fetch(apiBase + "/api/admin/users", { cache: "no-store", credentials: "include" });
+      const payload = await response.json().catch(function () { return {}; });
+      if (response.status === 403) {
+        window.location.href = buildFrontendUrl("superpop.html");
+        return;
+      }
+      if (!response.ok || !payload.ok) throw new Error(String(payload.error || "Falha ao carregar usuários."));
+      allUsers = Array.isArray(payload.usuarios) ? payload.usuarios : [];
+      sourceInfo.textContent = "Fonte: " + String(((payload.fonte || {}).usuarios || {}).tipo || "-");
+      lastUpdate.textContent = new Date().toLocaleString("pt-BR");
+      applyFilter();
+    } catch (err) {
+      const message = String(err && err.message || "Erro inesperado.");
+      usersCount.textContent = "0";
+      usersTableBody.innerHTML = '<tr><td class="py-10 text-center text-red-500" colspan="4">' + escapeHtml(message) + "</td></tr>";
+      sourceInfo.textContent = message;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  authUserBtn.addEventListener("click", function () {
+    const isOpen = authUserDropdown.classList.contains("open");
+    authUserDropdown.classList.toggle("open", !isOpen);
+    authUserBtn.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
+      authUserDropdown.classList.remove("open");
+      authUserBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  authLogoutBtn.addEventListener("click", async function () {
+    try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
+    try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
+    window.location.href = buildFrontendUrl("index.html");
+  });
+
+  searchInput.addEventListener("input", applyFilter);
+  refreshBtn.addEventListener("click", loadUsers);
+  loadSession().then(loadUsers).catch(function (err) {
+    window.location.href = buildFrontendUrl(err && err.code === "forbidden" ? "superpop.html" : "index.html");
+  });
+});
 </script>
 </body>
 </html>
+

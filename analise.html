@@ -43,7 +43,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar do usuÃ¡rio" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button>
-<div class="auth-user-dropdown" id="authUserDropdown"><p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p><p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button></div>
+<div class="auth-user-dropdown" id="authUserDropdown"><p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p><p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a><button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button></div>
 </div>
 
 <div class="main-content flex flex-col min-h-screen">
@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
     authUserBtn = document.getElementById("authUserBtn"),
     authUserDropdown = document.getElementById("authUserDropdown"),
     authLogoutBtn = document.getElementById("authLogoutBtn"),
+    manageUsersQuickLink = document.getElementById("manageUsersQuickLink"),
+    editUsersQuickLink = document.getElementById("editUsersQuickLink"),
     analyticsNavItem = document.getElementById("analyticsNavItem"),
     manageUsersNavItem = document.getElementById("manageUsersNavItem"),
     editUsersNavItem = document.getElementById("editUsersNavItem"),
@@ -161,5 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 </body>
 </html>
+
 
 
