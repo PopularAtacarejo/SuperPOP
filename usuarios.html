@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SuperPop | Usuarios Cadastrados</title>
+<title>SuperPop | Usuários Cadastrados</title>
 <link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -29,14 +29,14 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4"><div class="h-24 flex items-center justify-center overflow-hidden relative"><div class="absolute left-0 transition-opacity duration-300 w-12 h-12 flex items-center justify-center"><img alt="SP" class="w-10 h-10 object-contain opacity-100 sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/></div><div class="sidebar-content-fade w-full px-1"><img alt="SuperPop Logo" class="object-contain w-full h-auto max-h-[84px]" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/></div></div></div>
 <nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6"><div class="space-y-1"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Geral</span></div>
 <a class="menu-item group" href="superpop.html" title="Enviar Super POP"><span class="material-symbols-outlined shrink-0">send</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span></a>
-<a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs"><span class="material-symbols-outlined shrink-0">history</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POP's</span></a>
+<a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs"><span class="material-symbols-outlined shrink-0">history</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POPs</span></a>
 <a class="menu-item group" href="rank.html" title="Ranking"><span class="material-symbols-outlined shrink-0">leaderboard</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span></a>
-<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mes"><span class="material-symbols-outlined shrink-0">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mes</span></a>
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês"><span class="material-symbols-outlined shrink-0">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span></a>
 <a class="menu-item group" href="sobre.html" title="Sobre"><span class="material-symbols-outlined shrink-0">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
-</div><div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestao</span></div>
-<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Analise de Dados"><span class="material-symbols-outlined shrink-0">monitoring</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Analise de Dados</span></a>
-<a class="menu-item active group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuarios cadastrados"><span class="material-symbols-outlined shrink-0">groups</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuarios cadastrados</span></a>
-<a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuarios"><span class="material-symbols-outlined shrink-0">edit_square</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuarios</span></a>
+</div><div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados"><span class="material-symbols-outlined shrink-0">monitoring</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span></a>
+<a class="menu-item active group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuários cadastrados"><span class="material-symbols-outlined shrink-0">groups</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuários cadastrados</span></a>
+<a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuários"><span class="material-symbols-outlined shrink-0">edit_square</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span></a>
 </div></nav>
 <button class="absolute -right-3 top-12 bg-white text-gray-400 hover:text-primary border border-gray-200 rounded-full p-1 shadow-md hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
 </aside>
@@ -44,7 +44,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <button class="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button"><span class="material-symbols-outlined">menu</span></button>
 
 <div class="auth-user-menu" id="authUserMenu">
-<button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar do usuario" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button>
+<button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button>
 <div class="auth-user-dropdown" id="authUserDropdown"><p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p><p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a><button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button></div>
 </div>
 
@@ -251,4 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 </body>
 </html>
+
+
+
 
