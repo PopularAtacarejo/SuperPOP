@@ -27,8 +27,8 @@
     "email": "gugarox01@gmail.com",
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "9e49f2a63b0f1a4194688fc5cba4a16a",
-      "hash": "3815453b78536c72388c34c61bbb87f060d04abab5deaab178dcaf8c40d96e78",
+      "salt": "2b141794da0089acf9ba8c2e9945fb35",
+      "hash": "d0c4aceb59e64d3ec4cb484684bfc36e0600ed4953665eb6add2ec55e8d345e4",
       "iteracoes": 180000
     },
     "data_cadastro_iso": "2026-02-28T08:28:56.457392-03:00",
