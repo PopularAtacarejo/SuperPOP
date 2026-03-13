@@ -202,5 +202,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T17:51:25.719527-03:00"
+  },
+  {
+    "id": "2bbad22ab6ff4785b54b1c79d8c3ab3d",
+    "nome": "Maria Sabrina Leandro da Silva",
+    "funcao": "Fiscal de Caixa",
+    "numero_celular": "(82) 9 9639 - 4586",
+    "numero_normalizado": "82996394586",
+    "email": "mariasabrinaa05@icloud.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "49527abbcea8f510054d841086ff6f8b",
+      "hash": "520e4208b6636077f82e34e1e1d74fd94d2a2094e0e863306a77c8a2f87bc567",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T18:42:13.502383-03:00"
   }
 ]
