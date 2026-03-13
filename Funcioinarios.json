@@ -185,5 +185,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T17:42:15.895768-03:00"
+  },
+  {
+    "id": "5eda1e6cc9e94c14989e862195d7cd5d",
+    "nome": "Carlos eduardo ferreira da silva",
+    "funcao": "Auxiliar de Padaria",
+    "numero_celular": "(82) 9 9945 - 0976",
+    "numero_normalizado": "82999450976",
+    "email": "ce68868@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "53e2fad00f6b78eab198203271074335",
+      "hash": "cf3ddf7bcca85deafb85806628afe3b79086394e015e0ed4d5f1c0efd72843e3",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T17:51:25.719527-03:00"
   }
 ]
