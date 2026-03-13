@@ -134,5 +134,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T17:25:14.997337-03:00"
+  },
+  {
+    "id": "65d17d1d77664e08bcd6ba914cadba0d",
+    "nome": "Jane Cleide",
+    "funcao": "Lider de Acougue",
+    "numero_celular": "(82) 9 9928 - 6264",
+    "numero_normalizado": "82999286264",
+    "email": "jane.cleide1279@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "7633594cafe4cf6782bba311e2cf08d0",
+      "hash": "b3dda71d2dc63a62cf56de04e987c5ac57f2624480fc18e74dccf204df4710f1",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T17:25:36.029948-03:00"
   }
 ]
