@@ -62,7 +62,10 @@
       "hash": "813a93d57ab2b49d4f41ab4a34314662bd2ddf99c73c6c38f6c660041603910e",
       "iteracoes": 180000
     },
-    "data_cadastro_iso": "2026-03-02T10:13:37.331409-03:00"
+    "data_cadastro_iso": "2026-03-02T10:13:37.331409-03:00",
+    "tags_acesso": [
+      "admin"
+    ]
   },
   {
     "id": "8fccdfeb248f4e2996debcd65f325fc6",
