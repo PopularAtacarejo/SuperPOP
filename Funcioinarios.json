@@ -168,5 +168,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T17:29:00.473533-03:00"
+  },
+  {
+    "id": "d71989e570944585a5780942df79b7b2",
+    "nome": "Elany de Melo Rodrigues",
+    "funcao": "Balconista",
+    "numero_celular": "(82) 9 9688 - 1363",
+    "numero_normalizado": "82996881363",
+    "email": "rodrigueselany@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "afaca824efea426d02a479ff56d15b3c",
+      "hash": "6d2688fb1e98fa803d12e71aea2f7358524226c4fa9ef7555cfbb9529efc3dca",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T17:42:15.895768-03:00"
   }
 ]
