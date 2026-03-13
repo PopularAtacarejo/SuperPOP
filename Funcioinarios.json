@@ -117,5 +117,22 @@
     },
     "data_cadastro_iso": "2026-03-02T17:32:00.415107-03:00",
     "tags_acesso": []
+  },
+  {
+    "id": "b17842e5d764443fb5d804694b9927fe",
+    "nome": "JORDANA BIANK DOS SANTOS SILVA",
+    "funcao": "Auxiliar Administrativo",
+    "numero_celular": "(82) 9 9610 - 8506",
+    "numero_normalizado": "82996108506",
+    "email": "jordanabiank@icloud.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "e847e7c3054ed14fc0ccd322f143779f",
+      "hash": "0c81c96b7a957211160c3b74dc1484ae42778729a5e60d287decb211f2822d0a",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T17:25:14.997337-03:00"
   }
 ]
