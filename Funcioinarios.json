@@ -4,10 +4,10 @@
     "nome": "Jeferson",
     "funcao": "Analista de Marketing",
     "tags_acesso": [
-      "Dev"
+      "developer"
     ],
-    "numero_celular": "(82) 9 9915 - 8412",
-    "numero_normalizado": "82999158412",
+    "numero_celular": "(82) 9 9122 - 6467",
+    "numero_normalizado": "82991226467",
     "email": "djaxelf22@gmail.com",
     "senha": {
       "algoritmo": "pbkdf2_sha256",
