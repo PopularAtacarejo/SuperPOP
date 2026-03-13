@@ -219,5 +219,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T18:42:13.502383-03:00"
+  },
+  {
+    "id": "02e74586bd05442ab2b2eb2762726040",
+    "nome": "Ivete Francisca",
+    "funcao": "Fiscal de Caixa",
+    "numero_celular": "(82) 9 9309 - 1656",
+    "numero_normalizado": "82993091656",
+    "email": "ivetefcvs@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "0ca23e0d66ff5a1a00a9a92d5fa367f7",
+      "hash": "4c265f4e7057d7e176ebfbc05eb60b9c79b75298fc37ad8ca3e8e8b5d95eeb77",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T20:17:29.001459-03:00"
   }
 ]
