@@ -151,5 +151,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T17:25:36.029948-03:00"
+  },
+  {
+    "id": "5c9dbd9cfd8246638cf5dec0a7efde5c",
+    "nome": "Luanderson da silva barros",
+    "funcao": "Auxiliar Administrativo",
+    "numero_celular": "(82) 9 8135 - 1746",
+    "numero_normalizado": "82981351746",
+    "email": "luan3-01@hotmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "014c07664168ce3e53fc72576c9c80b9",
+      "hash": "fcc574d812ec5f4fb0e22c8b6f8f0ccb0ced0054782b77b3c7c67e4147041331",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-13T17:29:00.473533-03:00"
   }
 ]
