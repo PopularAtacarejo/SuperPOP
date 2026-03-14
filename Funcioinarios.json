@@ -270,5 +270,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-14T08:38:40.336233-03:00"
+  },
+  {
+    "id": "c383c35fcd6e4660bdd14682884496f7",
+    "nome": "José Wellington dos Santos",
+    "funcao": "Repositor de Hortifruti",
+    "numero_celular": "(82) 9 8172 - 8464",
+    "numero_normalizado": "82981728464",
+    "email": "ws217691@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "5bab8fb8f08fbc00f4c54399dab1f373",
+      "hash": "59b4d2ffa70c341c9a12c958f513de7a31379b88b25e82db805c12b4c9949afc",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-14T08:48:44.074605-03:00"
   }
 ]
