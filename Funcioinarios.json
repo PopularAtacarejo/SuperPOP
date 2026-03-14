@@ -236,5 +236,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T20:17:29.001459-03:00"
+  },
+  {
+    "id": "17691f67026c4f8a8b922ba507cc123c",
+    "nome": "Rhuann Lima",
+    "funcao": "Assistente de Logistica",
+    "numero_celular": "(82) 9 8136 - 0271",
+    "numero_normalizado": "82981360271",
+    "email": "rhuannlima1992@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "bbab64e1d715e58786e67b35e263181b",
+      "hash": "db9153478b99b9744746c8dbca3a2ab178671849235a039bf68ffd4d2fe7d8f2",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-14T08:31:11.349476-03:00"
   }
 ]
