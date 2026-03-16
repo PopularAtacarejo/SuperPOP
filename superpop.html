@@ -1802,8 +1802,40 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       return url;
     }
 
+    function mojibakeScore(text) {
+      const source = String(text || "");
+      if (!source) return 0;
+      let score = 0;
+      const markers = ["Ã", "Â", "â€", "\uFFFD"];
+      markers.forEach(function (marker) {
+        const pieces = source.split(marker);
+        if (pieces.length > 1) score += (pieces.length - 1);
+      });
+      return score;
+    }
+
+    function repairMojibakeText(value) {
+      let candidate = String(value || "");
+      if (!candidate) return "";
+
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        if (mojibakeScore(candidate) <= 0) break;
+        try {
+          const bytes = Uint8Array.from(Array.from(candidate), function (char) {
+            return char.charCodeAt(0) & 255;
+          });
+          const repaired = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+          if (mojibakeScore(repaired) > mojibakeScore(candidate)) break;
+          candidate = repaired;
+        } catch (_err) {
+          break;
+        }
+      }
+      return candidate;
+    }
+
     function normalizeNameKey(value) {
-      return String(value || "")
+      return repairMojibakeText(value)
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/\s+/g, " ")
@@ -1825,8 +1857,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
 
     function setLoggedSenderView(user) {
-      const nome = String(user && user.nome || "").trim();
-      const funcao = String(user && user.funcao || "").trim();
+      const nome = repairMojibakeText(user && user.nome || "").trim();
+      const funcao = repairMojibakeText(user && user.funcao || "").trim();
       const numero = String(user && user.numero_celular || "").trim();
       loggedSender = { nome: nome, funcao: funcao, numero_celular: numero };
 
@@ -1851,9 +1883,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         if (!raw) return null;
         const parsed = JSON.parse(raw);
         if (!parsed || typeof parsed !== "object") return null;
-        const nome = String(parsed.nome || "").trim();
+        const nome = repairMojibakeText(parsed.nome || "").trim();
         const numero = String(parsed.numero_celular || "").trim();
         if (!nome && !numero) return null;
+        parsed.nome = nome;
+        parsed.funcao = repairMojibakeText(parsed.funcao || "").trim();
         return parsed;
       } catch (_err) {
         return null;
@@ -1997,8 +2031,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
       registeredCollaborators = loaded
         .map(function (item) {
-          const nome = String(item && item.nome || "").trim();
-          const funcao = String(item && item.funcao || "").trim();
+          const nome = repairMojibakeText(item && item.nome || "").trim();
+          const funcao = repairMojibakeText(item && item.funcao || "").trim();
           const numero = String(item && (item.numero_celular || item.numero_normalizado) || "").trim();
           if (!nome || !numero) return null;
           return {
@@ -2168,10 +2202,10 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const missing = [];
         if (!collaboratorsLoaded) missing.push("Carregamento da lista de colaboradores");
         if (!resolvedCollaborator) missing.push("Selecione um colaborador cadastrado na lista");
-        if (!collaborator) missing.push("Nome do colaborador");
+        if (!collaborator || collaborator === "-") missing.push("Nome do colaborador");
         if (!collaboratorNumberRaw) missing.push("Número do colaborador");
         if (collaboratorNumberRaw && !collaboratorNumber) missing.push("Número do colaborador inválido");
-        if (!recognizedBy) missing.push("Usuário logado");
+        if (!recognizedBy || recognizedBy === "-") missing.push("Usuário logado");
         if (!senderNumberRaw) missing.push("Número do usuário logado");
         if (senderNumberRaw && !senderNumber) missing.push("Número do usuário logado inválido");
         if (!selectedValues.length) missing.push("Ao menos 1 valor marcado");
@@ -2202,6 +2236,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
         function buildWhatsappUrl(imageUrl) {
           const useEmojis = senderDeviceType === "mobile";
+          const superPopCta = "Envie voc\u00ea tamb\u00e9m um Super POP! - https://popularatacarejo.github.io/SuperPOP/";
           const whatsappLines = useEmojis
             ? [
               "\uD83C\uDF89 *SuperPOP - Reconhecimento*",
@@ -2231,6 +2266,9 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             whatsappLines.push(useEmojis ? "\uD83D\uDDBC\uFE0F *Imagem do cartao:*" : "*Imagem do cartao:*");
             whatsappLines.push(imageUrl);
           }
+
+          whatsappLines.push("");
+          whatsappLines.push(superPopCta);
 
           const whatsappText = whatsappLines.join("\n");
 

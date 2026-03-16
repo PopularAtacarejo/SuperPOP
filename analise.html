@@ -60,7 +60,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <article class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex items-center justify-between gap-3 mb-4"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Chaves</p><h2 class="font-display text-2xl">Colaboradores com mais chaves</h2></div><span class="mini">Recebidas</span></div><div class="space-y-3" id="rankCollaborators"></div></article>
 </section>
 <section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Histórico</p><h2 class="font-display text-3xl">Resumo mensal</h2></div><p class="text-sm font-semibold text-slate-500" id="sourceInfo">Carregando fonte...</p></div><div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3" id="monthlyHistory"></div></section>
-<section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Detalhes</p><h2 class="font-display text-3xl">Super POPs enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Veja chaves, mensagem e imagem de cada Super POP.</p></div><div class="flex items-center gap-3"><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Registros filtrados: <span class="text-primary" id="logsFilteredCount">0</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-60" disabled id="exportLogsBtn" type="button"><span class="material-symbols-outlined text-base">download</span>Exportar CSV</button></div></div><div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4"><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top enviador</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopSent"><option value="">Todos</option></select></label><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top chaves marcadas</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopKeys"><option value="">Todos</option></select></label><label class="block md:col-span-2"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Busca por nome</span><input class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterLogsSearch" placeholder="Digite remetente ou destinatário" type="text"/></label></div><div class="mt-4 space-y-3 max-h-[680px] overflow-y-auto pr-1" id="analyticsLogsList"><p class="text-sm font-semibold text-slate-400">Carregando registros...</p></div></section>
+<section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Detalhes</p><h2 class="font-display text-3xl">Super POPs enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Veja chaves, mensagem e imagem de cada Super POP.</p></div><div class="flex items-center gap-3"><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Registros filtrados: <span class="text-primary" id="logsFilteredCount">0</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-60" disabled id="exportLogsBtn" type="button"><span class="material-symbols-outlined text-base">download</span>Exportar CSV</button></div></div><div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5"><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top enviador</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopSent"><option value="">Todos</option></select></label><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top chaves marcadas</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopKeys"><option value="">Todos</option></select></label><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Mês</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterMonth"><option value="">Todos</option></select></label><label class="block md:col-span-2 xl:col-span-2"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Busca por nome</span><input class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterLogsSearch" placeholder="Digite remetente ou destinatário" type="text"/></label></div><div class="mt-4 space-y-3 max-h-[680px] overflow-y-auto pr-1" id="analyticsLogsList"><p class="text-sm font-semibold text-slate-400">Carregando registros...</p></div></section>
 <section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Usuários</p><h2 class="font-display text-3xl">Todos os cadastrados</h2></div><div class="flex items-center gap-3"><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Atualizado em <span class="text-primary" id="lastUpdate">--/--/----</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white" id="refreshBtn" type="button"><span class="material-symbols-outlined text-base">refresh</span><span id="refreshBtnLabel">Atualizar</span></button></div></div><div class="table-wrap mt-4"><table class="min-w-full text-sm"><thead><tr class="border-b border-slate-100 text-left text-[11px] uppercase tracking-wider text-slate-500"><th class="py-3 pr-4">Usuário</th><th class="py-3 pr-4">Cadastro</th><th class="py-3 pr-4">Dia</th><th class="py-3 pr-4">Semana</th><th class="py-3 pr-4">Mês</th><th class="py-3 pr-4">Totais</th><th class="py-3">Último movimento</th></tr></thead><tbody class="divide-y divide-slate-100" id="usersTableBody"><tr><td class="py-10 text-center text-slate-400" colspan="7">Carregando usuários...</td></tr></tbody></table></div></section>
 </main></div>
 
@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const logsFilteredCount = document.getElementById("logsFilteredCount");
   const filterTopSent = document.getElementById("filterTopSent");
   const filterTopKeys = document.getElementById("filterTopKeys");
+  const filterMonth = document.getElementById("filterMonth");
   const filterLogsSearch = document.getElementById("filterLogsSearch");
   const exportLogsBtn = document.getElementById("exportLogsBtn");
   const usersTableBody = document.getElementById("usersTableBody");
@@ -110,6 +111,41 @@ document.addEventListener("DOMContentLoaded", function () {
   function buildFrontendUrl(p) { const c = String(p || "").replace(/^\/+/, ""); const co = String(window.location.origin || "").toLowerCase(); const ao = resolveOrigin(apiBase); if (ao && co && ao === co) return c ? "/" + c : "/"; return frontendBase ? frontendBase + "/" + c : (c || "."); }
   function e(v) { return String(v || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;"); }
   function dt(v) { if (!v) return "-"; const d = new Date(v); return Number.isNaN(d.getTime()) ? "-" : d.toLocaleString("pt-BR"); }
+  function getLogDateObject(item) {
+    const isoValue = String(item && item.data_hora_iso || "").trim();
+    if (isoValue) {
+      const parsedIso = new Date(isoValue);
+      if (!Number.isNaN(parsedIso.getTime())) return parsedIso;
+    }
+    const diaValue = String(item && item.dia || "").trim();
+    const horaValue = String(item && item.horario || "").trim() || "00:00:00";
+    const dayMatch = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(diaValue);
+    const hourMatch = /^(\d{2}):(\d{2})(?::(\d{2}))?$/.exec(horaValue);
+    if (!dayMatch) return null;
+    const day = Number(dayMatch[1]);
+    const month = Number(dayMatch[2]);
+    const year = Number(dayMatch[3]);
+    const hour = hourMatch ? Number(hourMatch[1]) : 0;
+    const minute = hourMatch ? Number(hourMatch[2]) : 0;
+    const second = hourMatch ? Number(hourMatch[3] || 0) : 0;
+    const parsedLocal = new Date(year, month - 1, day, hour, minute, second);
+    return Number.isNaN(parsedLocal.getTime()) ? null : parsedLocal;
+  }
+  function getLogMonthKey(item) {
+    const logDate = getLogDateObject(item);
+    if (!logDate) return "";
+    const month = String(logDate.getMonth() + 1).padStart(2, "0");
+    return String(logDate.getFullYear()) + "-" + month;
+  }
+  function monthKeyLabel(monthKey) {
+    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const match = /^(\d{4})-(\d{2})$/.exec(String(monthKey || "").trim());
+    if (!match) return String(monthKey || "");
+    const year = Number(match[1]);
+    const monthIndex = Number(match[2]) - 1;
+    if (monthIndex < 0 || monthIndex > 11) return String(monthKey || "");
+    return monthNames[monthIndex] + "/" + year;
+  }
   function normalizeNameKey(v) { return String(v || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toLowerCase(); }
   function tagsHtml(tags) { const a = Array.isArray(tags) ? tags.filter(Boolean) : []; if (!a.length) return '<span class="mini">sem tag</span>'; return a.map(function (tag) { return '<span class="mini">' + e(tag) + '</span>'; }).join(" "); }
   function setLoading(b) { refreshBtn.disabled = b; refreshBtnLabel.textContent = b ? "Atualizando..." : "Atualizar"; }
@@ -253,20 +289,45 @@ document.addEventListener("DOMContentLoaded", function () {
       selectEl.value = currentValue;
     }
   }
+  function fillMonthFilter(selectEl, logs) {
+    if (!selectEl) return;
+    const currentValue = String(selectEl.value || '');
+    const logList = Array.isArray(logs) ? logs : [];
+    const months = [];
+    const monthsSeen = new Set();
+    logList.forEach(function (item) {
+      const monthKey = getLogMonthKey(item);
+      if (!monthKey || monthsSeen.has(monthKey)) return;
+      monthsSeen.add(monthKey);
+      months.push(monthKey);
+    });
+    months.sort(function (a, b) { return a < b ? 1 : (a > b ? -1 : 0); });
+    const options = ['<option value="">Todos</option>'];
+    months.forEach(function (monthKey) {
+      options.push('<option value="' + e(monthKey) + '">' + e(monthKeyLabel(monthKey)) + '</option>');
+    });
+    selectEl.innerHTML = options.join('');
+    if (currentValue && monthsSeen.has(currentValue)) {
+      selectEl.value = currentValue;
+    }
+  }
   function applyLogFilters() {
     if (!analyticsPayload || !analyticsLogsList) return;
     const allLogs = Array.isArray(analyticsPayload.registros) ? analyticsPayload.registros : [];
     const sentNameFilter = normalizeNameKey(filterTopSent ? filterTopSent.value : '');
     const keysNameFilter = normalizeNameKey(filterTopKeys ? filterTopKeys.value : '');
+    const monthFilter = String(filterMonth ? filterMonth.value : '').trim();
     const searchFilter = normalizeNameKey(filterLogsSearch ? filterLogsSearch.value : '');
 
     const filtered = allLogs.filter(function (item) {
       const senderName = getLogSenderName(item);
       const receiverName = getLogReceiverName(item);
       const senderKey = normalizeNameKey(senderName);
+      const logMonthKey = getLogMonthKey(item);
 
       if (sentNameFilter && senderKey !== sentNameFilter) return false;
       if (keysNameFilter && senderKey !== keysNameFilter) return false;
+      if (monthFilter && logMonthKey !== monthFilter) return false;
       if (searchFilter) {
         const text = normalizeNameKey(senderName + ' ' + receiverName);
         if (!text.includes(searchFilter)) return false;
@@ -284,6 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderDetailedFilters(payload) {
     fillFilterSelect(filterTopSent, payload && payload.ranking && payload.ranking.mais_enviaram, 'envios');
     fillFilterSelect(filterTopKeys, payload && payload.ranking && payload.ranking.mais_chaves_marcadas, 'chaves');
+    fillMonthFilter(filterMonth, payload && payload.registros);
   }
   async function loadSession() {
     const response = await fetch(apiBase + '/api/auth/me', { cache: 'no-store', credentials: 'include' });
@@ -364,6 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   if (filterTopSent) filterTopSent.addEventListener('change', applyLogFilters);
   if (filterTopKeys) filterTopKeys.addEventListener('change', applyLogFilters);
+  if (filterMonth) filterMonth.addEventListener('change', applyLogFilters);
   if (filterLogsSearch) filterLogsSearch.addEventListener('input', applyLogFilters);
   if (exportLogsBtn) exportLogsBtn.addEventListener('click', exportFilteredLogsCsv);
   refreshBtn.addEventListener('click', loadAnalytics);
