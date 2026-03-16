@@ -287,5 +287,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-14T08:48:44.074605-03:00"
+  },
+  {
+    "id": "36300ca1c7cb43f1943a13db3c047f75",
+    "nome": "Suzana Vitoria Feitosa Pereira",
+    "funcao": "Fiscal de Caixa",
+    "numero_celular": "(82) 9 8211 - 8775",
+    "numero_normalizado": "82982118775",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "407ebad08b3e93c5fee4a86832a2ab9f",
+      "hash": "8326471a3e9f6886539017c7ca46714649da160109f29c95c5918d5dbca5525d",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-16T10:34:09.131821-03:00"
   }
 ]
