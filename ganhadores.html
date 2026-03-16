@@ -498,6 +498,10 @@
 <span class="material-symbols-outlined shrink-0">edit_square</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span>
 </a>
+<a class="menu-item group hidden" href="atualizacoes-editor.html" id="updatesEditorNavItem" title="Gerenciar atualizacoes">
+<span class="material-symbols-outlined shrink-0">edit_note</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Gerenciar atualizacoes</span>
+</a>
 </div>
 </nav>
 <button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
@@ -726,6 +730,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const historySentTbody = document.getElementById("historySentTableBody");
     const currentMonthLabel = document.getElementById("currentMonthLabel");
     const lastUpdateSpan = document.getElementById("lastUpdate");
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
     const RANK_DATA_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/Dados.json";
     const EMPLOYEES_DATA_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/Funcioinarios.json";
     const AUTO_REFRESH_MS = 30000;
@@ -788,6 +793,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     async function fetchRankingLogs() {
       const sources = [
         normalizeGithubBlobUrl(RANK_DATA_SOURCE_URL),
+        apiBase + "/Dados.json",
         "./Dados.json"
       ];
       const errors = [];
@@ -832,6 +838,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     async function fetchEmployees() {
       const sources = [
         normalizeGithubBlobUrl(EMPLOYEES_DATA_SOURCE_URL),
+        apiBase + "/Funcioinarios.json",
         "./Funcioinarios.json"
       ];
       const errors = [];
@@ -893,6 +900,27 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         if (!logDate) return false;
         return logDate.getMonth() === currentMonth && logDate.getFullYear() === currentYear;
       });
+    }
+    function dedupeMonthlyLogsByPair(logs) {
+      const ordered = (Array.isArray(logs) ? logs.slice() : []).sort(function (a, b) {
+        const dateA = parseLogDate(a);
+        const dateB = parseLogDate(b);
+        const timeA = dateA ? dateA.getTime() : Number.MAX_SAFE_INTEGER;
+        const timeB = dateB ? dateB.getTime() : Number.MAX_SAFE_INTEGER;
+        return timeA - timeB;
+      });
+      const seen = new Set();
+      const unique = [];
+      ordered.forEach(function (log) {
+        const senderKey = normalizeNameKey(getSenderName(log));
+        const receiverKey = normalizeNameKey(getCollaboratorName(log));
+        if (!senderKey || !receiverKey) return;
+        const key = senderKey + "|" + receiverKey;
+        if (seen.has(key)) return;
+        seen.add(key);
+        unique.push(log);
+      });
+      return unique;
     }
     function renderTable(tbody, data, badgeClass, emptyMessage) {
       if (!tbody) return;
@@ -977,7 +1005,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const sentHistory = [];
       sortedMonthKeys.forEach(function (monthKey) {
         const monthLogs = logsByMonth.get(monthKey) || [];
-        const monthRank = buildRankings(monthLogs, employeeDirectory);
+        const uniqueMonthLogs = dedupeMonthlyLogsByPair(monthLogs);
+        const monthRank = buildRankings(uniqueMonthLogs, employeeDirectory);
         if (monthRank.receivedArr.length) {
           const topReceived = monthRank.receivedArr[0];
           receivedHistory.push({ month: formatMonthKey(monthKey), name: topReceived.name, count: topReceived.count, photoDataUrl: topReceived.photoDataUrl || "" });
@@ -1026,7 +1055,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           fetchEmployees()
         ]);
         const logsCurrentMonth = filterLogsByCurrentMonth(logs);
-        processAndRender(logsCurrentMonth, logs, employeeDirectory);
+        const logsCurrentMonthUnique = dedupeMonthlyLogsByPair(logsCurrentMonth);
+        processAndRender(logsCurrentMonthUnique, logs, employeeDirectory);
       } catch (err) {
         console.error("Erro ao carregar ranking:", err);
         if (receivedTbody) {
@@ -1066,6 +1096,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const analyticsNavItem = document.getElementById("analyticsNavItem");
     const manageUsersNavItem = document.getElementById("manageUsersNavItem");
     const editUsersNavItem = document.getElementById("editUsersNavItem");
+    const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
     const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
@@ -1153,6 +1184,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
         editUsersNavItem.classList.remove("hidden");
+        if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
       }
     }
 

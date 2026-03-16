@@ -617,6 +617,10 @@
 <span class="material-symbols-outlined shrink-0">edit_square</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span>
 </a>
+<a class="menu-item group hidden" href="atualizacoes-editor.html" id="updatesEditorNavItem" title="Gerenciar atualizacoes">
+<span class="material-symbols-outlined shrink-0">edit_note</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Gerenciar atualizacoes</span>
+</a>
 </div>
 </nav>
 <button class="absolute -right-3 top-12 bg-white dark:bg-surface-dark text-gray-400 hover:text-primary border border-gray-200 dark:border-gray-700 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
@@ -1325,6 +1329,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const analyticsNavItem = document.getElementById("analyticsNavItem");
     const manageUsersNavItem = document.getElementById("manageUsersNavItem");
     const editUsersNavItem = document.getElementById("editUsersNavItem");
+    const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
     const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
@@ -1412,6 +1417,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
         editUsersNavItem.classList.remove("hidden");
+        if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
       }
     }
 

@@ -35,7 +35,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <a class="menu-item group" href="sobre.html" title="Sobre"><span class="material-symbols-outlined shrink-0">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
 <a class="menu-item group" href="atualizacoes.html" title="Atualizacoes do Sistema"><span class="material-symbols-outlined shrink-0">campaign</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Atualizacoes</span></a>
 </div><div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>
-<a class="menu-item active group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados"><span class="material-symbols-outlined shrink-0">monitoring</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span></a><a class="menu-item group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuários cadastrados"><span class="material-symbols-outlined shrink-0">groups</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuários cadastrados</span></a><a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuários"><span class="material-symbols-outlined shrink-0">edit_square</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span></a>
+<a class="menu-item active group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados"><span class="material-symbols-outlined shrink-0">monitoring</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span></a><a class="menu-item group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuários cadastrados"><span class="material-symbols-outlined shrink-0">groups</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuários cadastrados</span></a><a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuários"><span class="material-symbols-outlined shrink-0">edit_square</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span></a><a class="menu-item group hidden" href="atualizacoes-editor.html" id="updatesEditorNavItem" title="Gerenciar atualizacoes"><span class="material-symbols-outlined shrink-0">edit_note</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Gerenciar atualizacoes</span></a>
 </div></nav>
 <button class="absolute -right-3 top-12 bg-white text-gray-400 hover:text-primary border border-gray-200 rounded-full p-1 shadow-md hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
 </aside>
@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     analyticsNavItem = document.getElementById("analyticsNavItem"),
     manageUsersNavItem = document.getElementById("manageUsersNavItem"),
     editUsersNavItem = document.getElementById("editUsersNavItem"),
+    updatesEditorNavItem = document.getElementById("updatesEditorNavItem"),
     analyticsSection = document.getElementById("analyticsSection"),
     authUserAvatarImage = document.getElementById("authUserAvatarImage"),
     authUserAvatarFallback = document.getElementById("authUserAvatarFallback"),
@@ -126,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (analyticsSection) analyticsSection.classList.remove("hidden");
     if (analyticsNavItem) analyticsNavItem.classList.remove("hidden");
     if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) manageUsersNavItem.classList.remove("hidden");
-    if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) editUsersNavItem.classList.remove("hidden");
+    if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) { editUsersNavItem.classList.remove("hidden"); if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden"); }
     setUserView(payload.usuario);
   }
   async function loadAnalytics() {
