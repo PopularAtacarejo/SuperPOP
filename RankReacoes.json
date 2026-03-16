@@ -50,5 +50,18 @@
       "nome": "Rhuann Lima"
     },
     "reacted_at_iso": "2026-03-16T11:54:50.687218-03:00"
+  },
+  {
+    "id": "72e366dce1a54ab4b58d0872e45f2c03",
+    "month_key": "2026-03",
+    "rank_kind": "sent",
+    "target_name": "Cecília Paulino",
+    "target_name_key": "cecilia paulino",
+    "emoji": "👏",
+    "reactor": {
+      "id": "75259daf721c4f709b6012fe7f192a23",
+      "nome": "Matheus Ataide"
+    },
+    "reacted_at_iso": "2026-03-16T16:09:01.701962-03:00"
   }
 ]
