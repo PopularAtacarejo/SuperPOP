@@ -37,6 +37,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/da58a21dc4?token=ac57dbed048789265f1de2e6bc2f280ebf768ca69c700218392590efe5b98f21",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "🎉",
+      "updated_at_iso": "2026-03-16T14:47:21.447728-03:00",
+      "reactor": {
+        "id": "75259daf721c4f709b6012fe7f192a23",
+        "nome": "Matheus Ataide"
+      }
     }
   },
   {
