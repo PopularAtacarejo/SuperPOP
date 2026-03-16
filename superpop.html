@@ -1111,10 +1111,10 @@
 </div>
 </div>
 <div class="mt-4">
-<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="mensagem">Mensagem</label>
+<label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="mensagem">Mensagem *</label>
 <div class="relative flex items-start group">
 <span class="absolute left-3.5 top-3.5 text-gray-400 group-focus-within:text-primary transition-colors material-symbols-rounded pointer-events-none">edit_note</span>
-<textarea aria-describedby="mensagem-contador" class="w-full min-h-[140px] max-h-[260px] pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm resize-none leading-relaxed" id="mensagem" maxlength="400" name="mensagem" placeholder="Escreva sua mensagem personalizada aqui..."></textarea>
+<textarea aria-describedby="mensagem-contador" aria-required="true" class="w-full min-h-[140px] max-h-[260px] pl-11 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm resize-none leading-relaxed" id="mensagem" maxlength="400" name="mensagem" placeholder="Escreva sua mensagem personalizada aqui..." required></textarea>
 </div>
 <div class="mt-1 flex justify-end pr-1">
 <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider" id="mensagem-contador">0/400</span>
@@ -2147,9 +2147,15 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
         syncCollaboratorFromInput();
 
-        const collaborator = selectedCollaborator ? String(selectedCollaborator.nome || "").trim() : "";
+        const typedCollaboratorName = collaboratorInput ? collaboratorInput.value.trim() : "";
+        const resolvedCollaborator = selectedCollaborator || findCollaboratorByTypedName(typedCollaboratorName);
+        const collaborator = resolvedCollaborator
+          ? String(resolvedCollaborator.nome || "").trim()
+          : typedCollaboratorName;
         const recognizedBy = String(loggedSender.nome || "").trim() || (recognizedByInput ? recognizedByInput.value.trim() : "");
-        const collaboratorNumberRaw = selectedCollaborator ? String(selectedCollaborator.numero_celular || "").trim() : "";
+        const collaboratorNumberRaw = resolvedCollaborator
+          ? String(resolvedCollaborator.numero_celular || "").trim()
+          : (collaboratorNumberInput ? collaboratorNumberInput.value.trim() : "");
         const senderNumberRaw = String(loggedSender.numero_celular || "").trim() || (senderNumberInput ? senderNumberInput.value.trim() : "");
         const message = messageInput ? messageInput.value.trim() : "";
         const selectedValues = getSelectedValues();
@@ -2161,7 +2167,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
         const missing = [];
         if (!collaboratorsLoaded) missing.push("Carregamento da lista de colaboradores");
-        if (!selectedCollaborator) missing.push("Selecione um colaborador cadastrado na lista");
+        if (!resolvedCollaborator) missing.push("Selecione um colaborador cadastrado na lista");
         if (!collaborator) missing.push("Nome do colaborador");
         if (!collaboratorNumberRaw) missing.push("Número do colaborador");
         if (collaboratorNumberRaw && !collaboratorNumber) missing.push("Número do colaborador inválido");
@@ -2169,6 +2175,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         if (!senderNumberRaw) missing.push("Número do usuário logado");
         if (senderNumberRaw && !senderNumber) missing.push("Número do usuário logado inválido");
         if (!selectedValues.length) missing.push("Ao menos 1 valor marcado");
+        if (!message) missing.push("Mensagem");
 
         if (missing.length) {
           alert("Preencha os campos obrigatórios:\n- " + missing.join("\n- "));
@@ -2180,7 +2187,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const payload = {
           colaborador: collaborator,
           numero_colaborador: collaboratorNumber,
-          funcao_colaborador: selectedCollaborator ? (selectedCollaborator.funcao || "") : "",
+          funcao_colaborador: resolvedCollaborator ? (resolvedCollaborator.funcao || "") : "",
           reconhecido_por: recognizedBy,
           numero_reconhecido_por: senderNumber,
           funcao_reconhecido_por: loggedSender.funcao || "",
