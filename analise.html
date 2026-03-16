@@ -60,7 +60,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <article class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex items-center justify-between gap-3 mb-4"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Chaves</p><h2 class="font-display text-2xl">Colaboradores com mais chaves</h2></div><span class="mini">Recebidas</span></div><div class="space-y-3" id="rankCollaborators"></div></article>
 </section>
 <section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Histórico</p><h2 class="font-display text-3xl">Resumo mensal</h2></div><p class="text-sm font-semibold text-slate-500" id="sourceInfo">Carregando fonte...</p></div><div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3" id="monthlyHistory"></div></section>
-<section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Detalhes</p><h2 class="font-display text-3xl">Super POPs enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Veja chaves, mensagem e imagem de cada Super POP.</p></div><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Registros filtrados: <span class="text-primary" id="logsFilteredCount">0</span></p></div><div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4"><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top enviador</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopSent"><option value="">Todos</option></select></label><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top chaves marcadas</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopKeys"><option value="">Todos</option></select></label><label class="block md:col-span-2"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Busca por nome</span><input class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterLogsSearch" placeholder="Digite remetente ou destinatário" type="text"/></label></div><div class="mt-4 space-y-3 max-h-[680px] overflow-y-auto pr-1" id="analyticsLogsList"><p class="text-sm font-semibold text-slate-400">Carregando registros...</p></div></section>
+<section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Detalhes</p><h2 class="font-display text-3xl">Super POPs enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Veja chaves, mensagem e imagem de cada Super POP.</p></div><div class="flex items-center gap-3"><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Registros filtrados: <span class="text-primary" id="logsFilteredCount">0</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-60" disabled id="exportLogsBtn" type="button"><span class="material-symbols-outlined text-base">download</span>Exportar CSV</button></div></div><div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4"><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top enviador</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopSent"><option value="">Todos</option></select></label><label class="block"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Top chaves marcadas</span><select class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterTopKeys"><option value="">Todos</option></select></label><label class="block md:col-span-2"><span class="mb-1 block text-[11px] font-bold uppercase tracking-widest text-slate-500">Busca por nome</span><input class="w-full rounded-xl border-slate-200 text-sm font-semibold" id="filterLogsSearch" placeholder="Digite remetente ou destinatário" type="text"/></label></div><div class="mt-4 space-y-3 max-h-[680px] overflow-y-auto pr-1" id="analyticsLogsList"><p class="text-sm font-semibold text-slate-400">Carregando registros...</p></div></section>
 <section class="rounded-3xl border border-white/70 bg-white/95 p-5 shadow-soft"><div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Usuários</p><h2 class="font-display text-3xl">Todos os cadastrados</h2></div><div class="flex items-center gap-3"><p class="text-xs font-bold uppercase tracking-widest text-slate-400">Atualizado em <span class="text-primary" id="lastUpdate">--/--/----</span></p><button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white" id="refreshBtn" type="button"><span class="material-symbols-outlined text-base">refresh</span><span id="refreshBtnLabel">Atualizar</span></button></div></div><div class="table-wrap mt-4"><table class="min-w-full text-sm"><thead><tr class="border-b border-slate-100 text-left text-[11px] uppercase tracking-wider text-slate-500"><th class="py-3 pr-4">Usuário</th><th class="py-3 pr-4">Cadastro</th><th class="py-3 pr-4">Dia</th><th class="py-3 pr-4">Semana</th><th class="py-3 pr-4">Mês</th><th class="py-3 pr-4">Totais</th><th class="py-3">Último movimento</th></tr></thead><tbody class="divide-y divide-slate-100" id="usersTableBody"><tr><td class="py-10 text-center text-slate-400" colspan="7">Carregando usuários...</td></tr></tbody></table></div></section>
 </main></div>
 
@@ -97,12 +97,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const filterTopSent = document.getElementById("filterTopSent");
   const filterTopKeys = document.getElementById("filterTopKeys");
   const filterLogsSearch = document.getElementById("filterLogsSearch");
+  const exportLogsBtn = document.getElementById("exportLogsBtn");
   const usersTableBody = document.getElementById("usersTableBody");
   const sourceInfo = document.getElementById("sourceInfo");
   const lastUpdate = document.getElementById("lastUpdate");
   const refreshBtn = document.getElementById("refreshBtn");
   const refreshBtnLabel = document.getElementById("refreshBtnLabel");
   let analyticsPayload = null;
+  let filteredLogsCache = [];
 
   function resolveOrigin(v) { try { return new URL(String(v || "")).origin.toLowerCase(); } catch (_) { return ""; } }
   function buildFrontendUrl(p) { const c = String(p || "").replace(/^\/+/, ""); const co = String(window.location.origin || "").toLowerCase(); const ao = resolveOrigin(apiBase); if (ao && co && ao === co) return c ? "/" + c : "/"; return frontendBase ? frontendBase + "/" + c : (c || "."); }
@@ -124,6 +126,73 @@ document.addEventListener("DOMContentLoaded", function () {
   function getLogSenderName(log) { return String((log && log.remetente && log.remetente.nome) || '').trim(); }
   function getLogReceiverName(log) { return String((log && log.destinatario && log.destinatario.nome) || '').trim(); }
   function getLogImageUrl(log) { const files = log && log.arquivos ? log.arquivos : {}; return safeUrl(files.best_image_url || files.uploaded_image_url || files.image_url || ''); }
+  function getLogDateText(item) {
+    if (item && item.data_hora_iso) {
+      return dt(item.data_hora_iso);
+    }
+    const day = String(item && item.dia || '').trim();
+    const hour = String(item && item.horario || '').trim();
+    return (day || '-') + (hour ? (' ' + hour) : '');
+  }
+  function csvCell(value) {
+    const clean = String(value || '').replace(/\r?\n|\r/g, ' ').trim();
+    return '"' + clean.replace(/"/g, '""') + '"';
+  }
+  function setExportButtonState(total) {
+    if (!exportLogsBtn) return;
+    const hasData = Number(total || 0) > 0;
+    exportLogsBtn.disabled = !hasData;
+    exportLogsBtn.title = hasData ? 'Exportar os registros filtrados em CSV' : 'Nenhum registro disponível para exportar';
+  }
+  function exportFilteredLogsCsv() {
+    const logs = Array.isArray(filteredLogsCache) ? filteredLogsCache : [];
+    if (!logs.length) {
+      alert('Nenhum registro disponível para exportar.');
+      return;
+    }
+
+    const headers = [
+      'Nome (quem enviou)',
+      'Funcao (quem enviou)',
+      'Chaves usadas',
+      'Total de chaves',
+      'Enviado para',
+      'Funcao destinatario',
+      'Quando (data/hora)',
+    ];
+    const rows = [headers.map(csvCell).join(';')];
+
+    logs.forEach(function (item) {
+      const senderName = getLogSenderName(item) || '-';
+      const senderRole = String(item && item.remetente && item.remetente.funcao || '').trim() || '-';
+      const receiverName = getLogReceiverName(item) || '-';
+      const receiverRole = String(item && item.destinatario && item.destinatario.funcao || '').trim() || '-';
+      const keys = Array.isArray(item && item.valores) ? item.valores.filter(Boolean).join(', ') : '';
+      const keysCount = Number(item && item.total_chaves || 0);
+      const dateText = getLogDateText(item);
+      rows.push([
+        senderName,
+        senderRole,
+        keys || '-',
+        String(keysCount),
+        receiverName,
+        receiverRole,
+        dateText,
+      ].map(csvCell).join(';'));
+    });
+
+    const csvContent = '\uFEFF' + rows.join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+    anchor.href = url;
+    anchor.download = 'analise-superpop-' + stamp + '.csv';
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
+  }
   function renderLogs(items) {
     const logs = Array.isArray(items) ? items : [];
     if (!logs.length) {
@@ -208,6 +277,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (logsFilteredCount) {
       logsFilteredCount.textContent = String(filtered.length);
     }
+    filteredLogsCache = filtered;
+    setExportButtonState(filtered.length);
     renderLogs(filtered);
   }
   function renderDetailedFilters(payload) {
@@ -268,6 +339,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (logsFilteredCount) {
         logsFilteredCount.textContent = '0';
       }
+      filteredLogsCache = [];
+      setExportButtonState(0);
     } finally {
       setLoading(false);
     }
@@ -292,6 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (filterTopSent) filterTopSent.addEventListener('change', applyLogFilters);
   if (filterTopKeys) filterTopKeys.addEventListener('change', applyLogFilters);
   if (filterLogsSearch) filterLogsSearch.addEventListener('input', applyLogFilters);
+  if (exportLogsBtn) exportLogsBtn.addEventListener('click', exportFilteredLogsCsv);
   refreshBtn.addEventListener('click', loadAnalytics);
   loadSession().then(loadAnalytics).catch(function (err) { window.location.href = buildFrontendUrl(err && err.code === 'forbidden' ? 'superpop.html' : 'index.html'); });
 });
