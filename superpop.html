@@ -575,13 +575,21 @@
     }
   </style>
 <style data-purpose="auth-user-menu">
-    .auth-user-menu {
+    .auth-top-actions {
       position: fixed;
       top: 14px;
       right: 14px;
       z-index: 45;
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 10px;
     }
-    .auth-user-btn {
+    .auth-user-menu,
+    .online-users-menu {
+      position: relative;
+    }
+    .auth-user-btn,
+    .online-users-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -594,7 +602,8 @@
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
       cursor: pointer;
     }
-    .auth-user-avatar {
+    .auth-user-avatar,
+    .online-user-avatar {
       width: 38px;
       height: 38px;
       flex-shrink: 0;
@@ -610,13 +619,15 @@
       font-weight: 800;
       letter-spacing: 0.02em;
     }
-    .auth-user-avatar img {
+    .auth-user-avatar img,
+    .online-user-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-    .auth-user-btn .material-symbols-outlined {
+    .auth-user-btn .material-symbols-outlined,
+    .online-users-btn .material-symbols-outlined {
       font-size: 20px;
     }
     .auth-user-btn-text {
@@ -642,19 +653,39 @@
       font-size: 0.68rem;
       font-weight: 700;
     }
-    .auth-user-dropdown {
+    .online-users-btn-text {
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+    .online-users-count {
+      min-width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      padding: 0 7px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 900;
+      border: 1px solid #86efac;
+    }
+    .auth-user-dropdown,
+    .online-users-dropdown {
       display: none;
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      width: min(280px, 88vw);
+      width: min(300px, 90vw);
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
       box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
       padding: 12px;
     }
-    .auth-user-dropdown.open {
+    .auth-user-dropdown.open,
+    .online-users-dropdown.open {
       display: block;
     }
     .auth-user-dropdown-name {
@@ -666,6 +697,76 @@
     .auth-user-dropdown-role {
       margin: 2px 0 10px;
       font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 700;
+    }
+    .online-users-dropdown-title {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #0f172a;
+      font-weight: 900;
+    }
+    .online-users-dropdown-subtitle {
+      margin: 2px 0 10px;
+      color: #64748b;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+    .online-users-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      max-height: 280px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .online-user-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: #f8fafc;
+      padding: 8px 9px;
+    }
+    .online-user-item.empty {
+      border-style: dashed;
+      justify-content: center;
+      color: #64748b;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #fff;
+      padding: 12px;
+    }
+    .online-user-avatar {
+      width: 34px;
+      height: 34px;
+      font-size: 0.74rem;
+    }
+    .online-user-meta {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      line-height: 1.15;
+    }
+    .online-user-meta strong {
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.8rem;
+      color: #0f172a;
+      font-weight: 800;
+    }
+    .online-user-meta small {
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.72rem;
       color: #64748b;
       font-weight: 700;
     }
@@ -681,16 +782,21 @@
       cursor: pointer;
     }
     @media (max-width: 1100px) {
-      .auth-user-menu {
+      .auth-top-actions {
         top: 12px;
         right: 12px;
+        gap: 8px;
       }
-      .auth-user-btn {
+      .auth-user-btn,
+      .online-users-btn {
         padding: 5px 8px;
       }
       .auth-user-btn-text strong,
       .auth-user-btn-text small {
         max-width: 120px;
+      }
+      .online-users-btn-text {
+        display: none;
       }
     }
   </style>
@@ -750,6 +856,10 @@
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
 </a>
+<a class="menu-item group" href="atualizacoes.html" title="Atualizacoes do Sistema">
+<span class="material-symbols-outlined shrink-0">campaign</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Atualizacoes</span>
+</a>
 </div>
 <div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
 <div class="px-3 mb-2 sidebar-content-fade">
@@ -777,6 +887,19 @@
 <button class="md:hidden fixed top-4 left-4 z-40 bg-white dark:bg-surface-dark p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button">
 <span class="material-symbols-outlined">menu</span>
 </button>
+<div class="auth-top-actions" id="authTopActions">
+<div class="online-users-menu" id="onlineUsersMenu">
+<button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button">
+<span class="material-symbols-outlined">groups</span>
+<span class="online-users-btn-text">Online</span>
+<span class="online-users-count" id="onlineUsersCount">0</span>
+</button>
+<div class="online-users-dropdown" id="onlineUsersDropdown">
+<p class="online-users-dropdown-title">Usuarios online</p>
+<p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando status...</p>
+<ul class="online-users-list" id="onlineUsersList"></ul>
+</div>
+</div>
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
 <span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
@@ -791,6 +914,7 @@
 <p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p>
 <a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a>
 <button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button>
+</div>
 </div>
 </div>
 <div class="main-content flex-col flex min-h-screen">
@@ -1110,7 +1234,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const result = await response.json();
         if (!response.ok || !result.ok) {
           const error = new Error(result.error || "Falha ao registrar dados e gerar imagem.");
-          error.preventWaRedirect = Boolean(result.duplicate_send);
+          error.preventWaRedirect = Boolean(result.duplicate_send || result.prevent_manual_send);
           throw error;
         }
 
@@ -1476,13 +1600,6 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       if (exactMatches.length >= 1) {
         return exactMatches[0];
       }
-
-      const startsWithMatches = registeredCollaborators.filter(function (item) {
-        return normalizeNameKey(item.nome).startsWith(key);
-      });
-      if (startsWithMatches.length === 1) {
-        return startsWithMatches[0];
-      }
       return null;
     }
 
@@ -1490,6 +1607,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       collaboratorsLoaded = false;
       const sources = [
         normalizeGithubBlobUrl(REGISTERED_USERS_SOURCE_URL),
+        apiBase + "/Funcioinarios.json",
         "./Funcioinarios.json"
       ];
 
@@ -1571,6 +1689,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
 
     if (collaboratorInput) {
+      collaboratorInput.addEventListener("focus", function () {
+        if (selectedCollaborator && String(collaboratorInput.value || "").trim()) {
+          collaboratorInput.select();
+        }
+      });
       collaboratorInput.addEventListener("input", syncCollaboratorFromInput);
       collaboratorInput.addEventListener("change", syncCollaboratorFromInput);
       collaboratorInput.addEventListener("blur", syncCollaboratorFromInput);
@@ -1636,6 +1759,19 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }, []);
     }
 
+    function detectSenderDeviceType() {
+      try {
+        if (navigator.userAgentData && typeof navigator.userAgentData.mobile === "boolean") {
+          return navigator.userAgentData.mobile ? "mobile" : "desktop";
+        }
+      } catch (_err) {}
+      const ua = String(navigator.userAgent || "").toLowerCase();
+      if (/(android|iphone|ipad|ipod|mobile|windows phone|opera mini|blackberry)/i.test(ua)) {
+        return "mobile";
+      }
+      return "desktop";
+    }
+
     if (sendWhatsappButton) {
       sendWhatsappButton.addEventListener("click", async function () {
         if (sendWhatsappButton.dataset.sending === "1") {
@@ -1651,6 +1787,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const message = messageInput ? messageInput.value.trim() : "";
         const selectedValues = getSelectedValues();
         const dateText = dateDisplayInput ? dateDisplayInput.value : "";
+        const senderDeviceType = detectSenderDeviceType();
         const collaboratorNumber = normalizeWhatsappDigits(collaboratorNumberRaw);
         const senderNumber = normalizeWhatsappDigits(senderNumberRaw);
         const destinationDigits = collaboratorNumber;
@@ -1683,28 +1820,39 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           data: dateText,
           to: collaboratorNumber,
           format: "image",
-          send_mode: defaultSendMode
+          send_mode: defaultSendMode,
+          sender_device_type: senderDeviceType
         };
 
         function buildWhatsappUrl(imageUrl) {
-          const whatsappLines = [
-            "\uD83C\uDF89 *SuperPOP - Reconhecimento*",
-            "",
-            "\uD83D\uDC64 *Para:* " + collaborator,
-            "\uD83D\uDE4C *Enviado por:* " + recognizedBy,
-            "\u2B50 *Valores:* " + selectedValues.join(", "),
-            "\uD83D\uDCC5 *Data:* " + dateText
-          ];
+          const useEmojis = senderDeviceType === "mobile";
+          const whatsappLines = useEmojis
+            ? [
+              "\uD83C\uDF89 *SuperPOP - Reconhecimento*",
+              "",
+              "\uD83D\uDC64 *Para:* " + collaborator,
+              "\uD83D\uDE4C *Enviado por:* " + recognizedBy,
+              "\u2B50 *Valores:* " + selectedValues.join(", "),
+              "\uD83D\uDCC5 *Data:* " + dateText
+            ]
+            : [
+              "*SuperPOP - Reconhecimento*",
+              "",
+              "*Para:* " + collaborator,
+              "*Enviado por:* " + recognizedBy,
+              "*Valores:* " + selectedValues.join(", "),
+              "*Data:* " + dateText
+            ];
 
           if (message) {
             whatsappLines.push("");
-            whatsappLines.push("\uD83D\uDCAC *Mensagem:*");
+            whatsappLines.push(useEmojis ? "\uD83D\uDCAC *Mensagem:*" : "*Mensagem:*");
             whatsappLines.push(message);
           }
 
           if (imageUrl) {
             whatsappLines.push("");
-            whatsappLines.push("\uD83D\uDDBC\uFE0F *Imagem do cartão:*");
+            whatsappLines.push(useEmojis ? "\uD83D\uDDBC\uFE0F *Imagem do cartao:*" : "*Imagem do cartao:*");
             whatsappLines.push(imageUrl);
           }
 
@@ -1798,6 +1946,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const authUserBtn = document.getElementById("authUserBtn");
     const authUserDropdown = document.getElementById("authUserDropdown");
     const authLogoutBtn = document.getElementById("authLogoutBtn");
+    const onlineUsersBtn = document.getElementById("onlineUsersBtn");
+    const onlineUsersDropdown = document.getElementById("onlineUsersDropdown");
+    const onlineUsersCount = document.getElementById("onlineUsersCount");
+    const onlineUsersStatus = document.getElementById("onlineUsersStatus");
+    const onlineUsersList = document.getElementById("onlineUsersList");
     const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
     const editUsersQuickLink = document.getElementById("editUsersQuickLink");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
@@ -1810,6 +1963,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
     const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+    let currentAuthenticatedUserId = "";
+    let presenceHeartbeatTimer = 0;
+    let presenceRefreshTimer = 0;
+    const presenceHeartbeatIntervalMs = 25000;
+    const presenceRefreshIntervalMs = 30000;
     if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
 
     function resolveOrigin(urlValue) {
@@ -1857,9 +2015,211 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         : { nome: userOrNome, funcao: funcao };
       const safeNome = String(user && user.nome || "").trim() || "Usuário";
       const safeFuncao = String(user && user.funcao || "").trim() || "Sem função";
+      currentAuthenticatedUserId = String(user && user.id || "").trim();
       nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
       roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
       renderUserAvatar(user && user.foto_perfil_data_url, safeNome);
+    }
+
+    function closeAuthDropdown() {
+      authUserDropdown.classList.remove("open");
+      authUserBtn.setAttribute("aria-expanded", "false");
+    }
+
+    function closeOnlineDropdown() {
+      if (!onlineUsersDropdown || !onlineUsersBtn) return;
+      onlineUsersDropdown.classList.remove("open");
+      onlineUsersBtn.setAttribute("aria-expanded", "false");
+    }
+
+    function setOnlineUsersCount(value) {
+      if (!onlineUsersCount) return;
+      const numericValue = Number(value);
+      const safeCount = Number.isFinite(numericValue) && numericValue >= 0
+        ? Math.floor(numericValue)
+        : 0;
+      onlineUsersCount.textContent = String(safeCount);
+      if (onlineUsersBtn) {
+        onlineUsersBtn.title = safeCount === 1
+          ? "1 usuario online"
+          : (safeCount + " usuarios online");
+      }
+    }
+
+    function setOnlineUsersStatus(text) {
+      if (onlineUsersStatus) {
+        onlineUsersStatus.textContent = String(text || "");
+      }
+    }
+
+    function appendEmptyOnlineRow(text) {
+      if (!onlineUsersList) return;
+      const row = document.createElement("li");
+      row.className = "online-user-item empty";
+      row.textContent = String(text || "Sem usuarios online agora.");
+      onlineUsersList.appendChild(row);
+    }
+
+    function formatOnlineLastSeen(lastSeenIso) {
+      const parsedTime = Date.parse(String(lastSeenIso || ""));
+      if (!Number.isFinite(parsedTime)) {
+        return "ativo recentemente";
+      }
+      const elapsedSeconds = Math.max(0, Math.floor((Date.now() - parsedTime) / 1000));
+      if (elapsedSeconds < 45) {
+        return "ativo agora";
+      }
+      if (elapsedSeconds < 90) {
+        return "ativo ha 1 min";
+      }
+      const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+      if (elapsedMinutes < 60) {
+        return "ativo ha " + elapsedMinutes + " min";
+      }
+      const elapsedHours = Math.floor(elapsedMinutes / 60);
+      if (elapsedHours < 24) {
+        return elapsedHours === 1 ? "ativo ha 1 hora" : ("ativo ha " + elapsedHours + " horas");
+      }
+      const elapsedDays = Math.floor(elapsedHours / 24);
+      return elapsedDays === 1 ? "ativo ha 1 dia" : ("ativo ha " + elapsedDays + " dias");
+    }
+
+    function buildOnlineAvatarNode(photoDataUrl, name) {
+      const avatarNode = document.createElement("span");
+      avatarNode.className = "online-user-avatar";
+      const safePhoto = String(photoDataUrl || "").trim();
+      if (safePhoto) {
+        const imageNode = document.createElement("img");
+        imageNode.alt = "Avatar";
+        imageNode.src = safePhoto;
+        avatarNode.appendChild(imageNode);
+      } else {
+        avatarNode.textContent = initialsFromName(name);
+      }
+      return avatarNode;
+    }
+
+    function renderOnlineUsers(users) {
+      if (!onlineUsersList) return;
+      onlineUsersList.innerHTML = "";
+
+      const safeUsers = Array.isArray(users)
+        ? users.filter(function (item) { return item && typeof item === "object"; })
+        : [];
+      setOnlineUsersCount(safeUsers.length);
+
+      if (!safeUsers.length) {
+        setOnlineUsersStatus("Nenhum usuario online agora.");
+        appendEmptyOnlineRow("Nenhum usuario online agora.");
+        return;
+      }
+
+      setOnlineUsersStatus(
+        safeUsers.length === 1
+          ? "1 usuario ativo agora."
+          : (safeUsers.length + " usuarios ativos agora.")
+      );
+
+      safeUsers.forEach(function (item) {
+        const userId = String(item.id || "").trim();
+        const userName = String(item.nome || "").trim() || "Usuario";
+        const userRole = String(item.funcao || "").trim() || "Sem funcao";
+        const userPresence = formatOnlineLastSeen(item.last_seen_iso);
+        const userIsCurrent = Boolean(userId && currentAuthenticatedUserId && userId === currentAuthenticatedUserId);
+        const row = document.createElement("li");
+        row.className = "online-user-item";
+        row.appendChild(buildOnlineAvatarNode(item.foto_perfil_data_url, userName));
+
+        const meta = document.createElement("div");
+        meta.className = "online-user-meta";
+        const title = document.createElement("strong");
+        title.textContent = userName + (userIsCurrent ? " (voce)" : "");
+        const subtitle = document.createElement("small");
+        subtitle.textContent = userRole + " | " + userPresence;
+        meta.appendChild(title);
+        meta.appendChild(subtitle);
+        row.appendChild(meta);
+        onlineUsersList.appendChild(row);
+      });
+    }
+
+    async function callPresenceEndpoint(path, options) {
+      const requestOptions = Object.assign(
+        { cache: "no-store", credentials: "include" },
+        options && typeof options === "object" ? options : {}
+      );
+      const response = await fetch(apiBase + path, requestOptions);
+      const payload = await response.json().catch(function () { return {}; });
+      if (!response.ok || !payload || !payload.ok) {
+        const message = payload && payload.error
+          ? String(payload.error)
+          : ("Falha ao consultar presencia (HTTP " + response.status + ").");
+        const error = new Error(message);
+        if (response.status === 401) {
+          error.authReason = "unauthorized";
+        }
+        throw error;
+      }
+      return payload;
+    }
+
+    function handlePresenceError(error) {
+      const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+      const isUnauthorized = typeof unauthorizedCheck === "function"
+        ? unauthorizedCheck(error) || Boolean(error && error.authReason === "unauthorized")
+        : Boolean(error && error.authReason === "unauthorized");
+      if (isUnauthorized) {
+        window.location.href = buildFrontendUrl("index.html");
+        return true;
+      }
+      return false;
+    }
+
+    async function sendPresenceHeartbeat() {
+      if (!onlineUsersBtn || document.visibilityState === "hidden") return;
+      try {
+        const payload = await callPresenceEndpoint("/api/presence/heartbeat", { method: "POST" });
+        if (payload && typeof payload.online_count !== "undefined") {
+          setOnlineUsersCount(payload.online_count);
+        }
+      } catch (error) {
+        handlePresenceError(error);
+      }
+    }
+
+    async function refreshOnlineUsers() {
+      if (!onlineUsersList || document.visibilityState === "hidden") return;
+      try {
+        const payload = await callPresenceEndpoint("/api/presence/online");
+        const onlineUsers = Array.isArray(payload && payload.online_users) ? payload.online_users : [];
+        renderOnlineUsers(onlineUsers);
+        if (payload && typeof payload.online_count !== "undefined") {
+          setOnlineUsersCount(payload.online_count);
+        }
+      } catch (error) {
+        if (handlePresenceError(error)) return;
+        setOnlineUsersStatus("Nao foi possivel atualizar agora.");
+      }
+    }
+
+    function stopPresenceRefreshLoop() {
+      if (presenceHeartbeatTimer) {
+        window.clearInterval(presenceHeartbeatTimer);
+        presenceHeartbeatTimer = 0;
+      }
+      if (presenceRefreshTimer) {
+        window.clearInterval(presenceRefreshTimer);
+        presenceRefreshTimer = 0;
+      }
+    }
+
+    function startPresenceRefreshLoop() {
+      if (!onlineUsersBtn || !onlineUsersDropdown || document.visibilityState === "hidden") return;
+      stopPresenceRefreshLoop();
+      sendPresenceHeartbeat();
+      refreshOnlineUsers();
+      presenceHeartbeatTimer = window.setInterval(sendPresenceHeartbeat, presenceHeartbeatIntervalMs);
+      presenceRefreshTimer = window.setInterval(refreshOnlineUsers, presenceRefreshIntervalMs);
     }
 
     async function loadUserFromSession() {
@@ -1873,13 +2233,19 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         if (analyticsNavItem && authPayload && authPayload.permissoes && authPayload.permissoes.analytics) {
           analyticsNavItem.classList.remove("hidden");
         }
+        if (manageUsersQuickLink && authPayload && authPayload.permissoes && authPayload.permissoes.manage_users) {
+          manageUsersQuickLink.classList.remove("hidden");
+        }
         if (manageUsersNavItem && authPayload && authPayload.permissoes && authPayload.permissoes.manage_users) {
           manageUsersNavItem.classList.remove("hidden");
+        }
+        if (editUsersQuickLink && authPayload && authPayload.permissoes && authPayload.permissoes.edit_users) {
+          editUsersQuickLink.classList.remove("hidden");
         }
         if (editUsersNavItem && authPayload && authPayload.permissoes && authPayload.permissoes.edit_users) {
           editUsersNavItem.classList.remove("hidden");
         }
-        return;
+        return authPayload;
       }
 
       const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
@@ -1894,28 +2260,66 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
         analyticsNavItem.classList.remove("hidden");
       }
+      if (manageUsersQuickLink && payload.permissoes && payload.permissoes.manage_users) {
+        manageUsersQuickLink.classList.remove("hidden");
+      }
       if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) {
         manageUsersNavItem.classList.remove("hidden");
+      }
+      if (editUsersQuickLink && payload.permissoes && payload.permissoes.edit_users) {
+        editUsersQuickLink.classList.remove("hidden");
       }
       if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
         editUsersNavItem.classList.remove("hidden");
       }
+      return payload;
     }
 
     authUserBtn.addEventListener("click", function () {
       const isOpen = authUserDropdown.classList.contains("open");
       authUserDropdown.classList.toggle("open", !isOpen);
       authUserBtn.setAttribute("aria-expanded", String(!isOpen));
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
-        authUserDropdown.classList.remove("open");
-        authUserBtn.setAttribute("aria-expanded", "false");
+      if (!isOpen) {
+        closeOnlineDropdown();
       }
     });
 
+    if (onlineUsersBtn && onlineUsersDropdown) {
+      onlineUsersBtn.addEventListener("click", function () {
+        const isOpen = onlineUsersDropdown.classList.contains("open");
+        onlineUsersDropdown.classList.toggle("open", !isOpen);
+        onlineUsersBtn.setAttribute("aria-expanded", String(!isOpen));
+        if (!isOpen) {
+          closeAuthDropdown();
+          refreshOnlineUsers();
+        }
+      });
+    }
+
+    document.addEventListener("click", function (event) {
+      if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
+        closeAuthDropdown();
+      }
+      if (
+        onlineUsersDropdown
+        && onlineUsersBtn
+        && !onlineUsersDropdown.contains(event.target)
+        && !onlineUsersBtn.contains(event.target)
+      ) {
+        closeOnlineDropdown();
+      }
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") {
+        stopPresenceRefreshLoop();
+        return;
+      }
+      startPresenceRefreshLoop();
+    });
+
     authLogoutBtn.addEventListener("click", async function () {
+      stopPresenceRefreshLoop();
       try {
         await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" });
       } catch (_err) {}
@@ -1925,23 +2329,32 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       window.location.href = buildFrontendUrl("index.html");
     });
 
-    loadUserFromSession().catch(function (error) {
-      const cachedReader = window.__superpopGetCachedAuthUser;
-      const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
-      if (cachedUser) {
-        setUserView(cachedUser);
-        return;
-      }
-      const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
-      const isUnauthorized = typeof unauthorizedCheck === "function"
-        ? unauthorizedCheck(error)
-        : Boolean(error && error.message === "Não autenticado");
-      if (isUnauthorized) {
-        window.location.href = buildFrontendUrl("index.html");
-        return;
-      }
-      console.warn("Falha temporária ao validar sessão no menu do usuário.", error);
-    });
+    loadUserFromSession()
+      .then(function () {
+        startPresenceRefreshLoop();
+      })
+      .catch(function (error) {
+        const cachedReader = window.__superpopGetCachedAuthUser;
+        const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
+        if (cachedUser) {
+          setUserView(cachedUser);
+          startPresenceRefreshLoop();
+          return;
+        }
+        const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+        const isUnauthorized = typeof unauthorizedCheck === "function"
+          ? unauthorizedCheck(error)
+          : Boolean(error && error.message === "Não autenticado");
+        if (isUnauthorized) {
+          window.location.href = buildFrontendUrl("index.html");
+          return;
+        }
+        console.warn("Falha temporária ao validar sessão no menu do usuário.", error);
+      });
+
+    setOnlineUsersCount(0);
+    setOnlineUsersStatus("Carregando usuarios online...");
+    appendEmptyOnlineRow("Carregando lista...");
   });
 </script>
 </body></html>

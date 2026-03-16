@@ -2,7 +2,7 @@
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SuperPop | Sobre</title>
+<title>SuperPop | Gerenciar Atualizacoes</title>
 <link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -372,7 +372,7 @@
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
-<a class="menu-item active group" href="sobre.html" title="Sobre">
+<a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
 </a>
@@ -396,6 +396,10 @@
 <a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuários">
 <span class="material-symbols-outlined shrink-0">edit_square</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span>
+</a>
+<a class="menu-item active group" href="atualizacoes-editor.html" id="updatesEditorNavItem" title="Gerenciar atualizacoes">
+<span class="material-symbols-outlined shrink-0">edit_note</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Gerenciar atualizacoes</span>
 </a>
 </div>
 </nav>
@@ -421,7 +425,7 @@
 <div class="auth-user-dropdown" id="authUserDropdown">
 <p class="text-sm font-bold text-gray-900" id="authUserNameDetail">Carregando...</p>
 <p class="text-xs font-semibold text-gray-500 mb-3" id="authUserRoleDetail">Perfil</p>
-<a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a>
+<a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="atualizacoes-editor.html" id="updatesEditorQuickLink">Gerenciar atualizacoes</a>
 <button class="w-full rounded-xl bg-red-100 text-red-700 text-sm font-bold py-2 hover:bg-red-200 transition-colors" id="authLogoutBtn" type="button">Sair</button>
 </div>
 </div>
@@ -435,19 +439,47 @@
 
 <main class="flex-1 max-w-5xl mx-auto w-full px-5 py-6 space-y-6">
 <section class="text-center space-y-2">
-<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Sobre o SuperPOP</h1>
-<p class="text-gray-600 font-semibold text-base sm:text-lg">Entenda como funciona o programa interno de reconhecimento.</p>
+<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Gerenciar Atualizacoes</h1>
+<p class="text-gray-600 font-semibold text-base sm:text-lg">Cadastro de novas atualizacoes do sistema (acesso Desenvolvedor).</p>
 </section>
 
-<section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-5 sm:p-8">
-<div class="space-y-5 text-[17px] leading-relaxed text-gray-800">
-<p>Na nossa empresa, reconhecer o bom trabalho dos colegas é algo muito importante. Pensando nisso, criamos o SUPERPOP, um programa interno feito para valorizar atitudes que representam as Chaves da Excelência que seguimos no dia a dia.</p>
-<p><strong>Como funciona?</strong><br/>Sempre que você perceber que um colega demonstrou uma ou mais das nossas Chaves da Excelência, você pode preencher um cartão SUPERPOP reconhecendo essa atitude.</p>
-<p><strong>O cartão tem duas vias:</strong><br/>Via branca: entregue diretamente para o colega que você está reconhecendo.<br/>Via verde: coloque na urna do SUPERPOP.</p>
-<p>No final de cada mês, todos os cartões da urna serão contabilizados. O colaborador que mais reconhecer e o que mais receber reconhecimentos SUPERPOP irão ganhar um prêmio especial, escolhido pela diretoria.</p>
-<p>Todos podem participar. O importante é observar e valorizar quem faz a diferença no nosso dia a dia com atitudes positivas, comprometidas e alinhadas com os valores da empresa.</p>
-<p class="font-bold text-primary">Vamos juntos espalhar reconhecimento e fortalecer nosso time com respeito, gratidão e alegria!</p>
+<section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-5 sm:p-8 space-y-5">
+<div class="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 flex flex-col gap-2">
+<p class="text-sm sm:text-base font-semibold text-red-800">Somente usuarios com perfil Desenvolvedor podem salvar novas atualizacoes.</p>
+<a class="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-primary hover:underline" href="atualizacoes.html"><span class="material-symbols-outlined text-base">arrow_back</span>Voltar para pagina de atualizacoes</a>
 </div>
+
+<form class="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft" id="updateForm">
+<div class="grid gap-3 sm:grid-cols-2">
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1" for="updateDate">Data de referencia</label>
+<input class="w-full rounded-xl border-slate-200 bg-slate-50 font-semibold" id="updateDate" type="date"/>
+</div>
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1" for="updateStatus">Status</label>
+<input class="w-full rounded-xl border-slate-200 bg-slate-50 font-semibold" id="updateStatus" maxlength="60" placeholder="Concluido" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1" for="updateCategory">Categoria</label>
+<input class="w-full rounded-xl border-slate-200 bg-slate-50 font-semibold" id="updateCategory" maxlength="60" placeholder="Atualizacao" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1" for="updateTitle">Titulo</label>
+<input class="w-full rounded-xl border-slate-200 bg-slate-50 font-semibold" id="updateTitle" maxlength="140" placeholder="Ex.: Ajuste na regra de rank" required type="text"/>
+</div>
+<div>
+<label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1" for="updateDescription">Descricao</label>
+<textarea class="w-full min-h-[130px] rounded-xl border-slate-200 bg-slate-50 font-semibold resize-y" id="updateDescription" maxlength="4000" placeholder="Descreva claramente o que foi alterado no sistema." required></textarea>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-soft hover:brightness-105 transition" id="saveUpdateBtn" type="submit"><span class="material-symbols-outlined text-base">save</span>Salvar atualizacao</button>
+<p class="text-xs sm:text-sm font-bold text-slate-500" id="updateFormStatus">Preencha os dados e clique em salvar.</p>
+</div>
+</form>
+
+<p class="text-xs sm:text-sm font-bold text-slate-500" id="updatesSourceInfo">Carregando atualizacoes...</p>
+<div class="space-y-4" id="updatesList"></div>
 </section>
 
 <footer class="pb-8">
@@ -528,9 +560,12 @@
     const authLogoutBtn = document.getElementById("authLogoutBtn");
     const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
     const editUsersQuickLink = document.getElementById("editUsersQuickLink");
+    const updatesEditorQuickLink = document.getElementById("updatesEditorQuickLink");
+    const updatesEditorCta = document.getElementById("updatesEditorCta");
     const analyticsNavItem = document.getElementById("analyticsNavItem");
     const manageUsersNavItem = document.getElementById("manageUsersNavItem");
     const editUsersNavItem = document.getElementById("editUsersNavItem");
+    const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
     const analyticsSection = document.getElementById("analyticsSection");
     const authUserAvatarImage = document.getElementById("authUserAvatarImage");
     const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
@@ -615,6 +650,15 @@
       if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
         editUsersNavItem.classList.remove("hidden");
       }
+      if (updatesEditorNavItem && payload.permissoes && payload.permissoes.edit_users) {
+        updatesEditorNavItem.classList.remove("hidden");
+      }
+      if (updatesEditorQuickLink && payload.permissoes && payload.permissoes.edit_users) {
+        updatesEditorQuickLink.classList.remove("hidden");
+      }
+      if (updatesEditorCta && payload.permissoes && payload.permissoes.edit_users) {
+        updatesEditorCta.classList.remove("hidden");
+      }
     }
 
     authUserBtn.addEventListener("click", function () {
@@ -639,6 +683,180 @@
     loadUserFromSession().catch(function () {
       window.location.href = buildFrontendUrl("index.html");
     });
+  });
+</script>
+<script data-purpose="system-updates-editor">
+  document.addEventListener("DOMContentLoaded", function () {
+    const formEl = document.getElementById("updateForm");
+    const dateEl = document.getElementById("updateDate");
+    const titleEl = document.getElementById("updateTitle");
+    const descriptionEl = document.getElementById("updateDescription");
+    const categoryEl = document.getElementById("updateCategory");
+    const statusEl = document.getElementById("updateStatus");
+    const formStatusEl = document.getElementById("updateFormStatus");
+    const saveBtn = document.getElementById("saveUpdateBtn");
+    const listEl = document.getElementById("updatesList");
+    const sourceInfoEl = document.getElementById("updatesSourceInfo");
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    if (!formEl || !listEl || !sourceInfoEl || !saveBtn) return;
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function statusClass(statusValue) {
+      const value = String(statusValue || "").toLowerCase();
+      if (value.includes("nova")) return "bg-sky-100 text-sky-800";
+      if (value.includes("regra")) return "bg-amber-100 text-amber-800";
+      if (value.includes("prote")) return "bg-orange-100 text-orange-800";
+      if (value.includes("confi")) return "bg-violet-100 text-violet-800";
+      if (value.includes("uso")) return "bg-fuchsia-100 text-fuchsia-800";
+      return "bg-emerald-100 text-emerald-800";
+    }
+
+    function setFormStatus(text, isError) {
+      if (!formStatusEl) return;
+      formStatusEl.textContent = String(text || "");
+      formStatusEl.classList.remove("text-red-600", "text-slate-500");
+      formStatusEl.classList.add(isError ? "text-red-600" : "text-slate-500");
+    }
+
+    function brDateFromInput(value) {
+      const raw = String(value || "").trim();
+      if (!raw || !/^\d{4}-\d{2}-\d{2}$/.test(raw)) return "";
+      const parts = raw.split("-");
+      return parts[2] + "/" + parts[1] + "/" + parts[0];
+    }
+
+    function setDefaultDate() {
+      if (!dateEl || dateEl.value) return;
+      const now = new Date();
+      const year = String(now.getFullYear()).padStart(4, "0");
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      dateEl.value = year + "-" + month + "-" + day;
+    }
+
+    function renderItems(items) {
+      const safeItems = Array.isArray(items) ? items : [];
+      if (!safeItems.length) {
+        listEl.innerHTML = [
+          '<article class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft">',
+          '<p class="text-sm font-bold text-slate-500">Nenhuma atualizacao registrada ainda.</p>',
+          '</article>'
+        ].join("");
+        return;
+      }
+
+      listEl.innerHTML = safeItems.map(function (item) {
+        const title = escapeHtml(item.data_referencia || "--/--/----") + " - " + escapeHtml(item.titulo || "Atualizacao");
+        const description = escapeHtml(item.descricao || "");
+        const author = escapeHtml((item.autor && item.autor.nome) || "Desenvolvedor");
+        const category = escapeHtml(item.categoria || "Atualizacao");
+        const status = escapeHtml(item.status || "Concluido");
+        const statusTone = statusClass(status);
+        return [
+          '<article class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft">',
+          '<div class="flex flex-wrap items-center justify-between gap-2">',
+          '<h2 class="text-lg sm:text-xl font-extrabold text-slate-900">' + title + '</h2>',
+          '<span class="inline-flex rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wide ' + statusTone + '">' + status + '</span>',
+          '</div>',
+          '<p class="mt-3 text-sm sm:text-base text-slate-700 font-semibold">' + description + '</p>',
+          '<div class="mt-3 flex flex-wrap items-center gap-2 text-xs sm:text-sm font-bold text-slate-500">',
+          '<span>Categoria: ' + category + '</span>',
+          '<span>|</span>',
+          '<span>Responsavel: ' + author + '</span>',
+          '</div>',
+          '</article>'
+        ].join("");
+      }).join("");
+    }
+
+    async function loadUpdates() {
+      try {
+        const response = await fetch(apiBase + "/api/system-updates", { cache: "no-store", credentials: "include" });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok || !payload || !payload.ok) {
+          throw new Error(payload && payload.error ? payload.error : "Falha ao carregar atualizacoes.");
+        }
+        renderItems(payload.items);
+        const source = payload.source || {};
+        const sourceType = String(source.tipo || "local").toLowerCase() === "remoto" ? "GitHub" : "Local";
+        sourceInfoEl.textContent = "Fonte: " + sourceType + " | Total: " + String(payload.total || 0);
+      } catch (error) {
+        listEl.innerHTML = [
+          '<article class="rounded-2xl border border-red-200 bg-red-50 p-4 sm:p-5 shadow-soft">',
+          '<p class="text-sm font-bold text-red-700">Nao foi possivel carregar atualizacoes agora.</p>',
+          '</article>'
+        ].join("");
+        sourceInfoEl.textContent = "Falha ao carregar atualizacoes.";
+      }
+    }
+
+    async function saveUpdate(event) {
+      event.preventDefault();
+      const title = String(titleEl && titleEl.value || "").trim();
+      const description = String(descriptionEl && descriptionEl.value || "").trim();
+      const category = String(categoryEl && categoryEl.value || "").trim();
+      const status = String(statusEl && statusEl.value || "").trim();
+      const dateValue = brDateFromInput(dateEl ? dateEl.value : "");
+
+      if (title.length < 4) {
+        setFormStatus("Informe um titulo com pelo menos 4 caracteres.", true);
+        return;
+      }
+      if (description.length < 8) {
+        setFormStatus("Informe uma descricao com pelo menos 8 caracteres.", true);
+        return;
+      }
+
+      setFormStatus("Salvando atualizacao...", false);
+      saveBtn.disabled = true;
+
+      try {
+        const response = await fetch(apiBase + "/api/system-updates", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            titulo: title,
+            descricao: description,
+            categoria: category,
+            status: status,
+            data_referencia: dateValue
+          })
+        });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok || !payload || !payload.ok) {
+          throw new Error(payload && payload.error ? payload.error : "Falha ao salvar atualizacao.");
+        }
+
+        if (titleEl) titleEl.value = "";
+        if (descriptionEl) descriptionEl.value = "";
+        if (categoryEl) categoryEl.value = "";
+        if (statusEl) statusEl.value = "";
+        setDefaultDate();
+        setFormStatus("Atualizacao salva com sucesso.", false);
+
+        renderItems(payload.items || []);
+        const source = payload.source || {};
+        const sourceType = String(source.tipo || "local").toLowerCase() === "remoto" ? "GitHub" : "Local";
+        sourceInfoEl.textContent = "Fonte: " + sourceType + " | Total: " + String(payload.total || 0);
+      } catch (error) {
+        setFormStatus(error && error.message ? error.message : "Nao foi possivel salvar agora.", true);
+      } finally {
+        saveBtn.disabled = false;
+      }
+    }
+
+    formEl.addEventListener("submit", saveUpdate);
+    setDefaultDate();
+    loadUpdates();
   });
 </script>
 </body></html>
