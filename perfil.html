@@ -147,7 +147,7 @@
       <div>
         <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Área do usuário</p>
         <h1 class="mt-2 font-display text-4xl text-primary">Meu Perfil</h1>
-        <p class="mt-2 text-sm sm:text-base font-semibold text-slate-600">Atualize sua foto, nome, e-mail e senha.</p>
+        <p class="mt-2 text-sm sm:text-base font-semibold text-slate-600">Atualize sua foto, nome, telefone, e-mail e senha.</p>
       </div>
       <div class="flex flex-wrap items-center gap-3 pt-14 sm:pt-0">
         <a class="hidden inline-flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-bold text-slate-700 shadow-card" href="usuarios.html" id="manageUsersHeaderLink">
@@ -209,8 +209,8 @@
                 <input class="w-full rounded-2xl border-slate-200 bg-slate-100 px-4 py-3 font-semibold text-slate-500" id="funcaoInput" readonly type="text"/>
               </div>
               <div>
-                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary">Telefone</label>
-                <input class="w-full rounded-2xl border-slate-200 bg-slate-100 px-4 py-3 font-semibold text-slate-500" id="telefoneInput" readonly type="text"/>
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="telefoneInput">Telefone</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="telefoneInput" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000 - 0000" type="text"/>
               </div>
               <div class="md:col-span-2">
                 <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="fotoInput">Foto de perfil</label>
@@ -306,6 +306,7 @@
       const senhaAtualInput = document.getElementById("senhaAtualInput");
       const novaSenhaInput = document.getElementById("novaSenhaInput");
       const confirmarSenhaInput = document.getElementById("confirmarSenhaInput");
+      const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
       let currentUser = null;
       let pendingPhotoDataUrl = "";
       let removePhoto = false;
@@ -336,6 +337,15 @@
       function setButtonLoading(button, labelEl, loadingText, isLoading) {
         button.disabled = isLoading;
         labelEl.textContent = isLoading ? loadingText : labelEl.dataset.defaultLabel;
+      }
+
+      function formatPhoneMask(value) {
+        const digits = String(value || "").replace(/\D/g, "").slice(0, 11);
+        if (!digits) return "";
+        if (digits.length <= 2) return "(" + digits;
+        if (digits.length <= 3) return "(" + digits.slice(0, 2) + ") " + digits.slice(2);
+        if (digits.length <= 7) return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 3) + " " + digits.slice(3);
+        return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 3) + " " + digits.slice(3, 7) + " - " + digits.slice(7, 11);
       }
 
       function renderAuthUserAvatar(photoDataUrl, name) {
@@ -392,14 +402,16 @@
       function applyUser(user) {
         currentUser = user || {};
         setUserView(currentUser);
+        const rawPhone = String(currentUser.numero_celular || "");
+        const formattedPhone = formatPhoneMask(rawPhone);
         summaryName.textContent = String(currentUser.nome || "Usuário");
         summaryRole.textContent = String(currentUser.funcao || "Sem função");
-        summaryPhone.textContent = String(currentUser.numero_celular || "");
+        summaryPhone.textContent = formattedPhone || rawPhone;
         summaryEmail.textContent = String(currentUser.email || "sem e-mail");
         nomeInput.value = String(currentUser.nome || "");
         emailInput.value = String(currentUser.email || "");
         funcaoInput.value = String(currentUser.funcao || "");
-        telefoneInput.value = String(currentUser.numero_celular || "");
+        telefoneInput.value = formattedPhone || rawPhone;
         renderTags(currentUser.tags_acesso);
         const currentPermissions = currentUser && currentUser.permissoes ? currentUser.permissoes : {};
         if (manageUsersQuickLink && currentPermissions.manage_users) manageUsersQuickLink.classList.remove("hidden");
@@ -424,6 +436,14 @@
         if (!response.ok || !payload.ok || !payload.usuario) throw new Error("Não autenticado");
         applyUser(payload.usuario);
       }
+
+      telefoneInput.addEventListener("input", function () {
+        const cursorAtEnd = telefoneInput.selectionStart === telefoneInput.value.length;
+        telefoneInput.value = formatPhoneMask(telefoneInput.value);
+        if (cursorAtEnd) {
+          telefoneInput.setSelectionRange(telefoneInput.value.length, telefoneInput.value.length);
+        }
+      });
 
       fotoInput.addEventListener("change", async function () {
         setMessage(profileError, "", false);
@@ -451,12 +471,17 @@
         setMessage(profileSuccess, "", false);
         const nome = String(nomeInput.value || "").trim();
         const email = String(emailInput.value || "").trim();
+        const telefone = String(telefoneInput.value || "").trim();
         if (nome.length < 3) {
           setMessage(profileError, "Informe um nome válido com pelo menos 3 caracteres.", true);
           return;
         }
         if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
           setMessage(profileError, "Informe um e-mail válido.", true);
+          return;
+        }
+        if (!PHONE_REGEX.test(telefone)) {
+          setMessage(profileError, "Informe um telefone válido no formato (xx) 9 0000 - 0000.", true);
           return;
         }
         setButtonLoading(saveProfileBtn, saveProfileLabel, "Salvando...", true);
@@ -468,6 +493,7 @@
             body: JSON.stringify({
               nome: nome,
               email: email,
+              numero_celular: telefone,
               foto_perfil_data_url: pendingPhotoDataUrl,
               remover_foto: removePhoto
             })

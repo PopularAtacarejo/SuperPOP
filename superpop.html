@@ -377,6 +377,113 @@
         transform: translate3d(var(--tx, 0px), var(--ty, 420px), 0) rotate(var(--rot, 420deg)) scale(0.8);
       }
     }
+    .wa-send-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 130;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.54);
+      padding: 1rem;
+      backdrop-filter: blur(2px);
+    }
+    .wa-send-modal.open {
+      display: flex;
+    }
+    .wa-send-modal-card {
+      width: min(560px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: #ffffff;
+      box-shadow: 0 22px 48px rgba(15, 23, 42, 0.24);
+      overflow: hidden;
+    }
+    .dark .wa-send-modal-card {
+      background: #1f2937;
+      border-color: rgba(100, 116, 139, 0.45);
+    }
+    .wa-send-modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 1rem 1rem 0.75rem;
+    }
+    .wa-send-modal-close {
+      border: 0;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      padding: 0.2rem;
+      border-radius: 8px;
+    }
+    .wa-send-modal-close:hover {
+      background: rgba(226, 232, 240, 0.75);
+      color: #0f172a;
+    }
+    .wa-send-modal-body {
+      padding: 0 1rem 1rem;
+    }
+    .wa-send-modal-textarea {
+      width: 100%;
+      min-height: 130px;
+      max-height: 220px;
+      resize: vertical;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      padding: 0.75rem;
+      color: #1e293b;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.3rem;
+    }
+    .dark .wa-send-modal-textarea {
+      background: #0f172a;
+      border-color: #334155;
+      color: #e2e8f0;
+    }
+    .wa-send-modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+    .wa-send-modal-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      border-radius: 10px;
+      padding: 0.62rem 0.92rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: filter 0.16s ease;
+    }
+    .wa-send-modal-btn:hover {
+      filter: brightness(0.98);
+    }
+    .wa-send-modal-btn-primary {
+      background: #25D366;
+      color: #ffffff;
+    }
+    .wa-send-modal-btn-outline {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    .dark .wa-send-modal-btn-outline {
+      background: #111827;
+      border-color: #334155;
+      color: #e2e8f0;
+    }
+    .wa-send-modal-btn-muted {
+      background: #eef2f7;
+      color: #475569;
+    }
     @media (prefers-reduced-motion: reduce) {
       .send-whatsapp-btn,
       .send-whatsapp-btn-progress,
@@ -1034,6 +1141,38 @@
 </div>
 </form>
 </main>
+<div aria-hidden="true" class="wa-send-modal" id="waSendModal" role="dialog">
+<div class="wa-send-modal-card">
+<div class="wa-send-modal-head">
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.2em] text-[#25D366]">Envio Manual</p>
+<h3 class="mt-1 text-lg font-extrabold text-slate-900 dark:text-slate-100">Enviar no WhatsApp</h3>
+<p class="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-300" id="waSendModalStatus">Abra o WhatsApp para concluir o envio.</p>
+</div>
+<button aria-label="Fechar modal" class="wa-send-modal-close" id="waSendModalClose" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="wa-send-modal-body">
+<p class="text-xs font-bold text-slate-600 dark:text-slate-200" id="waSendModalRecipient"></p>
+<textarea class="wa-send-modal-textarea mt-2" id="waSendModalMessage" readonly></textarea>
+<div class="wa-send-modal-actions">
+<button class="wa-send-modal-btn wa-send-modal-btn-primary" id="waSendModalOpenBtn" type="button">
+<span class="material-symbols-outlined text-base">open_in_new</span>
+Abrir WhatsApp
+</button>
+<button class="wa-send-modal-btn wa-send-modal-btn-outline" id="waSendModalCopyBtn" type="button">
+<span class="material-symbols-outlined text-base">content_copy</span>
+Copiar texto
+</button>
+<button class="wa-send-modal-btn wa-send-modal-btn-muted" id="waSendModalDoneBtn" type="button">
+<span class="material-symbols-outlined text-base">check_circle</span>
+Envio concluido
+</button>
+</div>
+</div>
+</div>
+</div>
 <footer class="py-6 text-center">
 <p class="text-xs font-bold tracking-wide text-gray-400">
 Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
@@ -1133,6 +1272,14 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const sendButtonProgress = document.getElementById("sendButtonProgress");
     const sendButtonIcon = document.getElementById("sendButtonIcon");
     const sendButtonLabel = document.getElementById("sendButtonLabel");
+    const waSendModal = document.getElementById("waSendModal");
+    const waSendModalStatus = document.getElementById("waSendModalStatus");
+    const waSendModalRecipient = document.getElementById("waSendModalRecipient");
+    const waSendModalMessage = document.getElementById("waSendModalMessage");
+    const waSendModalOpenBtn = document.getElementById("waSendModalOpenBtn");
+    const waSendModalCopyBtn = document.getElementById("waSendModalCopyBtn");
+    const waSendModalDoneBtn = document.getElementById("waSendModalDoneBtn");
+    const waSendModalCloseBtn = document.getElementById("waSendModalClose");
     const defaultSendButtonIcon = sendButtonIcon ? sendButtonIcon.textContent : "chat";
     const defaultSendButtonLabel = sendButtonLabel ? sendButtonLabel.textContent : "Enviar pelo WhatsApp";
     const defaultCountryCode = String(window.SUPERPOP_COUNTRY_CODE || "55").replace(/\D/g, "") || "55";
@@ -1147,6 +1294,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     let selectedCollaborator = null;
     let loggedSender = { nome: "", funcao: "", numero_celular: "" };
     let collaboratorsLoaded = false;
+    let waSendModalResolver = null;
+    let waSendModalUrl = "";
 
     function sanitizeApiBaseUrl(value) {
       const text = String(value || "").trim();
@@ -1386,6 +1535,151 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         sendButtonLabel.classList.remove("is-step", "is-super-pop");
       }
     }
+
+    function closeWhatsappManualModal(reason) {
+      if (!waSendModal) {
+        if (waSendModalResolver) {
+          const resolve = waSendModalResolver;
+          waSendModalResolver = null;
+          resolve(String(reason || "closed"));
+        }
+        return;
+      }
+      waSendModal.classList.remove("open");
+      waSendModal.setAttribute("aria-hidden", "true");
+      document.body.style.removeProperty("overflow");
+      if (waSendModalResolver) {
+        const resolve = waSendModalResolver;
+        waSendModalResolver = null;
+        resolve(String(reason || "closed"));
+      }
+    }
+
+    async function copyTextToClipboard(value) {
+      const text = String(value || "");
+      if (!text) return false;
+      try {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch (_err) {}
+
+      try {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        helper.style.pointerEvents = "none";
+        document.body.appendChild(helper);
+        helper.select();
+        helper.setSelectionRange(0, helper.value.length);
+        const copied = document.execCommand("copy");
+        document.body.removeChild(helper);
+        return Boolean(copied);
+      } catch (_err) {
+        return false;
+      }
+    }
+
+    function openWhatsappManualModal(payload) {
+      const safePayload = payload && typeof payload === "object" ? payload : {};
+      const whatsappUrl = String(safePayload.whatsappUrl || "").trim();
+      const whatsappText = String(safePayload.whatsappText || "").trim();
+      const recipient = String(safePayload.recipient || "").trim();
+      const status = String(safePayload.status || "").trim();
+      if (waSendModalResolver) {
+        closeWhatsappManualModal("replace");
+      }
+      waSendModalUrl = whatsappUrl;
+
+      if (!waSendModal || !waSendModalMessage) {
+        if (whatsappUrl) {
+          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+        }
+        return Promise.resolve("fallback");
+      }
+
+      waSendModalMessage.value = whatsappText;
+      if (waSendModalRecipient) {
+        waSendModalRecipient.textContent = recipient ? ("Destinatario: " + recipient) : "";
+      }
+      if (waSendModalStatus) {
+        waSendModalStatus.textContent = status || "Abra o WhatsApp e confirme o envio.";
+      }
+      if (waSendModalOpenBtn) {
+        waSendModalOpenBtn.disabled = !whatsappUrl;
+      }
+      if (waSendModalCopyBtn) {
+        waSendModalCopyBtn.disabled = !whatsappText;
+        waSendModalCopyBtn.innerHTML = '<span class="material-symbols-outlined text-base">content_copy</span>Copiar texto';
+      }
+
+      waSendModal.classList.add("open");
+      waSendModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      window.setTimeout(function () {
+        if (waSendModalOpenBtn && !waSendModalOpenBtn.disabled) {
+          waSendModalOpenBtn.focus();
+        } else if (waSendModalDoneBtn) {
+          waSendModalDoneBtn.focus();
+        }
+      }, 30);
+
+      return new Promise(function (resolve) {
+        waSendModalResolver = resolve;
+      });
+    }
+
+    if (waSendModalOpenBtn) {
+      waSendModalOpenBtn.addEventListener("click", function () {
+        if (!waSendModalUrl) return;
+        const popup = window.open(waSendModalUrl, "_blank", "noopener,noreferrer");
+        if (!popup) {
+          window.location.href = waSendModalUrl;
+          return;
+        }
+        if (waSendModalStatus) {
+          waSendModalStatus.textContent = "WhatsApp aberto. Apos enviar, clique em \"Envio concluido\".";
+        }
+      });
+    }
+
+    if (waSendModalCopyBtn) {
+      waSendModalCopyBtn.addEventListener("click", async function () {
+        const copied = await copyTextToClipboard(waSendModalMessage ? waSendModalMessage.value : "");
+        waSendModalCopyBtn.innerHTML = copied
+          ? '<span class="material-symbols-outlined text-base">check</span>Texto copiado'
+          : '<span class="material-symbols-outlined text-base">error</span>Falha ao copiar';
+      });
+    }
+
+    if (waSendModalDoneBtn) {
+      waSendModalDoneBtn.addEventListener("click", function () {
+        closeWhatsappManualModal("done");
+      });
+    }
+
+    if (waSendModalCloseBtn) {
+      waSendModalCloseBtn.addEventListener("click", function () {
+        closeWhatsappManualModal("close");
+      });
+    }
+
+    if (waSendModal) {
+      waSendModal.addEventListener("click", function (event) {
+        if (event.target === waSendModal) {
+          closeWhatsappManualModal("backdrop");
+        }
+      });
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && waSendModal && waSendModal.classList.contains("open")) {
+        closeWhatsappManualModal("escape");
+      }
+    });
 
     apiWakeupPromise = wakeUpApi(apiBase, apiWakeupTimeoutMs);
 
@@ -1863,9 +2157,13 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           const whatsappText = whatsappLines.join("\n");
 
           const encodedText = encodeURIComponent(whatsappText);
-          return destinationDigits
+          const whatsappUrl = destinationDigits
             ? "https://wa.me/" + destinationDigits + "?text=" + encodedText
             : "https://wa.me/?text=" + encodedText;
+          return {
+            url: whatsappUrl,
+            text: whatsappText
+          };
         }
 
         sendWhatsappButton.dataset.sending = "1";
@@ -1925,14 +2223,14 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         if (directDeliveryOk) {
           alert(statusMessage);
         } else if (shouldOpenWaMe) {
-          const whatsappUrl = buildWhatsappUrl(uploadedImageUrl || "");
-          if (statusMessage) {
-            alert(
-              "Abrindo WhatsApp para envio manual.\n\n" +
-              "Detalhe: " + statusMessage
-            );
-          }
-          window.location.href = whatsappUrl;
+          const whatsappPayload = buildWhatsappUrl(uploadedImageUrl || "");
+          const recipientSummary = collaborator + (collaboratorNumberRaw ? (" | " + collaboratorNumberRaw) : "");
+          await openWhatsappManualModal({
+            whatsappUrl: whatsappPayload.url,
+            whatsappText: whatsappPayload.text,
+            recipient: recipientSummary,
+            status: statusMessage || "Abra o WhatsApp para concluir o envio manual."
+          });
         } else {
           alert(statusMessage || "Não foi possível enviar agora.");
         }

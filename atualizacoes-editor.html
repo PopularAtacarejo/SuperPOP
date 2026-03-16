@@ -450,6 +450,7 @@
 </div>
 
 <form class="space-y-3 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft" id="updateForm">
+<p class="text-xs sm:text-sm font-bold text-slate-500" id="editingStatus">Modo: criando nova atualizacao.</p>
 <div class="grid gap-3 sm:grid-cols-2">
 <div>
 <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1" for="updateDate">Data de referencia</label>
@@ -473,7 +474,8 @@
 <textarea class="w-full min-h-[130px] rounded-xl border-slate-200 bg-slate-50 font-semibold resize-y" id="updateDescription" maxlength="4000" placeholder="Descreva claramente o que foi alterado no sistema." required></textarea>
 </div>
 <div class="flex flex-wrap items-center gap-3">
-<button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-soft hover:brightness-105 transition" id="saveUpdateBtn" type="submit"><span class="material-symbols-outlined text-base">save</span>Salvar atualizacao</button>
+<button class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-extrabold text-white shadow-soft hover:brightness-105 transition" id="saveUpdateBtn" type="submit"><span class="material-symbols-outlined text-base">save</span><span id="saveUpdateBtnLabel">Salvar atualizacao</span></button>
+<button class="hidden inline-flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-extrabold text-slate-700 shadow-soft hover:bg-slate-200 transition" id="cancelEditBtn" type="button"><span class="material-symbols-outlined text-base">close</span>Cancelar edicao</button>
 <p class="text-xs sm:text-sm font-bold text-slate-500" id="updateFormStatus">Preencha os dados e clique em salvar.</p>
 </div>
 </form>
@@ -695,10 +697,17 @@
     const statusEl = document.getElementById("updateStatus");
     const formStatusEl = document.getElementById("updateFormStatus");
     const saveBtn = document.getElementById("saveUpdateBtn");
+    const saveBtnLabel = document.getElementById("saveUpdateBtnLabel");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const editingStatusEl = document.getElementById("editingStatus");
     const listEl = document.getElementById("updatesList");
     const sourceInfoEl = document.getElementById("updatesSourceInfo");
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
-    if (!formEl || !listEl || !sourceInfoEl || !saveBtn) return;
+    if (!formEl || !listEl || !sourceInfoEl || !saveBtn || !saveBtnLabel || !cancelEditBtn || !editingStatusEl) return;
+
+    let updatesItems = [];
+    let editingUpdateId = "";
+    let formBusy = false;
 
     function escapeHtml(value) {
       return String(value || "")
@@ -726,6 +735,12 @@
       formStatusEl.classList.add(isError ? "text-red-600" : "text-slate-500");
     }
 
+    function setFormBusy(isBusy) {
+      formBusy = Boolean(isBusy);
+      saveBtn.disabled = formBusy;
+      cancelEditBtn.disabled = formBusy;
+    }
+
     function brDateFromInput(value) {
       const raw = String(value || "").trim();
       if (!raw || !/^\d{4}-\d{2}-\d{2}$/.test(raw)) return "";
@@ -733,13 +748,58 @@
       return parts[2] + "/" + parts[1] + "/" + parts[0];
     }
 
-    function setDefaultDate() {
-      if (!dateEl || dateEl.value) return;
+    function inputDateFromBr(value) {
+      const raw = String(value || "").trim();
+      if (!/^\d{2}\/\d{2}\/\d{4}$/.test(raw)) return "";
+      const parts = raw.split("/");
+      return parts[2] + "-" + parts[1] + "-" + parts[0];
+    }
+
+    function setDefaultDate(force) {
+      if (!dateEl || (!force && dateEl.value)) return;
       const now = new Date();
       const year = String(now.getFullYear()).padStart(4, "0");
       const month = String(now.getMonth() + 1).padStart(2, "0");
       const day = String(now.getDate()).padStart(2, "0");
       dateEl.value = year + "-" + month + "-" + day;
+    }
+
+    function setCreateMode() {
+      editingUpdateId = "";
+      if (editingStatusEl) editingStatusEl.textContent = "Modo: criando nova atualizacao.";
+      saveBtnLabel.textContent = "Salvar atualizacao";
+      cancelEditBtn.classList.add("hidden");
+      if (titleEl) titleEl.value = "";
+      if (descriptionEl) descriptionEl.value = "";
+      if (categoryEl) categoryEl.value = "";
+      if (statusEl) statusEl.value = "";
+      setDefaultDate(true);
+    }
+
+    function setEditMode(item) {
+      const safeItem = item && typeof item === "object" ? item : null;
+      if (!safeItem || !safeItem.id) {
+        setCreateMode();
+        return;
+      }
+      editingUpdateId = String(safeItem.id);
+      if (editingStatusEl) editingStatusEl.textContent = "Modo: editando atualizacao selecionada.";
+      saveBtnLabel.textContent = "Atualizar atualizacao";
+      cancelEditBtn.classList.remove("hidden");
+      if (dateEl) dateEl.value = inputDateFromBr(safeItem.data_referencia) || dateEl.value;
+      if (titleEl) titleEl.value = String(safeItem.titulo || "");
+      if (descriptionEl) descriptionEl.value = String(safeItem.descricao || "");
+      if (categoryEl) categoryEl.value = String(safeItem.categoria || "");
+      if (statusEl) statusEl.value = String(safeItem.status || "");
+      if (titleEl) titleEl.focus();
+      setFormStatus("Edite os campos e clique em atualizar.", false);
+    }
+
+    function updateSourceInfo(payload) {
+      const safePayload = payload && typeof payload === "object" ? payload : {};
+      const source = safePayload.source || {};
+      const sourceType = String(source.tipo || "local").toLowerCase() === "remoto" ? "GitHub" : "Local";
+      sourceInfoEl.textContent = "Fonte: " + sourceType + " | Total: " + String(safePayload.total || 0);
     }
 
     function renderItems(items) {
@@ -760,8 +820,10 @@
         const category = escapeHtml(item.categoria || "Atualizacao");
         const status = escapeHtml(item.status || "Concluido");
         const statusTone = statusClass(status);
+        const id = escapeHtml(item.id || "");
+        const isEditing = Boolean(editingUpdateId && String(item.id || "") === editingUpdateId);
         return [
-          '<article class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft">',
+          '<article class="rounded-2xl border ' + (isEditing ? "border-primary" : "border-slate-200") + ' bg-white p-4 sm:p-5 shadow-soft">',
           '<div class="flex flex-wrap items-center justify-between gap-2">',
           '<h2 class="text-lg sm:text-xl font-extrabold text-slate-900">' + title + '</h2>',
           '<span class="inline-flex rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wide ' + statusTone + '">' + status + '</span>',
@@ -772,34 +834,50 @@
           '<span>|</span>',
           '<span>Responsavel: ' + author + '</span>',
           '</div>',
+          '<div class="mt-4 flex flex-wrap gap-2">',
+          '<button class="inline-flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-200 transition" data-update-action="edit" data-update-id="' + id + '" type="button"><span class="material-symbols-outlined text-base">edit</span>Editar</button>',
+          '<button class="inline-flex items-center gap-1.5 rounded-xl bg-red-100 px-3 py-2 text-xs font-extrabold text-red-700 hover:bg-red-200 transition" data-update-action="delete" data-update-id="' + id + '" type="button"><span class="material-symbols-outlined text-base">delete</span>Excluir</button>',
+          '</div>',
           '</article>'
         ].join("");
       }).join("");
     }
 
+    async function requestJson(url, options) {
+      const response = await fetch(url, options || {});
+      const payload = await response.json().catch(function () { return {}; });
+      if (!response.ok || !payload || !payload.ok) {
+        const error = new Error(payload && payload.error ? payload.error : "Operacao nao concluida.");
+        error.httpStatus = response.status;
+        throw error;
+      }
+      return payload;
+    }
+
     async function loadUpdates() {
       try {
-        const response = await fetch(apiBase + "/api/system-updates", { cache: "no-store", credentials: "include" });
-        const payload = await response.json().catch(function () { return {}; });
-        if (!response.ok || !payload || !payload.ok) {
-          throw new Error(payload && payload.error ? payload.error : "Falha ao carregar atualizacoes.");
-        }
-        renderItems(payload.items);
-        const source = payload.source || {};
-        const sourceType = String(source.tipo || "local").toLowerCase() === "remoto" ? "GitHub" : "Local";
-        sourceInfoEl.textContent = "Fonte: " + sourceType + " | Total: " + String(payload.total || 0);
+        const payload = await requestJson(apiBase + "/api/system-updates", { cache: "no-store", credentials: "include" });
+        updatesItems = Array.isArray(payload.items) ? payload.items : [];
+        renderItems(updatesItems);
+        updateSourceInfo(payload);
       } catch (error) {
         listEl.innerHTML = [
           '<article class="rounded-2xl border border-red-200 bg-red-50 p-4 sm:p-5 shadow-soft">',
           '<p class="text-sm font-bold text-red-700">Nao foi possivel carregar atualizacoes agora.</p>',
           '</article>'
         ].join("");
+        if (error && error.httpStatus === 401) {
+          window.location.href = "index.html";
+          return;
+        }
         sourceInfoEl.textContent = "Falha ao carregar atualizacoes.";
       }
     }
 
-    async function saveUpdate(event) {
+    async function saveOrUpdate(event) {
       event.preventDefault();
+      if (formBusy) return;
+
       const title = String(titleEl && titleEl.value || "").trim();
       const description = String(descriptionEl && descriptionEl.value || "").trim();
       const category = String(categoryEl && categoryEl.value || "").trim();
@@ -815,47 +893,112 @@
         return;
       }
 
-      setFormStatus("Salvando atualizacao...", false);
-      saveBtn.disabled = true;
+      const isEditing = Boolean(editingUpdateId);
+      setFormStatus(isEditing ? "Atualizando atualizacao..." : "Salvando atualizacao...", false);
+      setFormBusy(true);
 
       try {
-        const response = await fetch(apiBase + "/api/system-updates", {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            titulo: title,
-            descricao: description,
-            categoria: category,
-            status: status,
-            data_referencia: dateValue
-          })
-        });
-        const payload = await response.json().catch(function () { return {}; });
-        if (!response.ok || !payload || !payload.ok) {
-          throw new Error(payload && payload.error ? payload.error : "Falha ao salvar atualizacao.");
+        const payload = await requestJson(
+          isEditing
+            ? (apiBase + "/api/system-updates/" + encodeURIComponent(editingUpdateId))
+            : (apiBase + "/api/system-updates"),
+          {
+            method: isEditing ? "PUT" : "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              titulo: title,
+              descricao: description,
+              categoria: category,
+              status: status,
+              data_referencia: dateValue
+            })
+          }
+        );
+
+        updatesItems = Array.isArray(payload.items) ? payload.items : [];
+        renderItems(updatesItems);
+        updateSourceInfo(payload);
+
+        if (isEditing) {
+          setFormStatus("Atualizacao atualizada com sucesso.", false);
+        } else {
+          setFormStatus("Atualizacao salva com sucesso.", false);
         }
-
-        if (titleEl) titleEl.value = "";
-        if (descriptionEl) descriptionEl.value = "";
-        if (categoryEl) categoryEl.value = "";
-        if (statusEl) statusEl.value = "";
-        setDefaultDate();
-        setFormStatus("Atualizacao salva com sucesso.", false);
-
-        renderItems(payload.items || []);
-        const source = payload.source || {};
-        const sourceType = String(source.tipo || "local").toLowerCase() === "remoto" ? "GitHub" : "Local";
-        sourceInfoEl.textContent = "Fonte: " + sourceType + " | Total: " + String(payload.total || 0);
+        setCreateMode();
       } catch (error) {
         setFormStatus(error && error.message ? error.message : "Nao foi possivel salvar agora.", true);
       } finally {
-        saveBtn.disabled = false;
+        setFormBusy(false);
       }
     }
 
-    formEl.addEventListener("submit", saveUpdate);
-    setDefaultDate();
+    async function deleteUpdateById(updateId) {
+      const wantedId = String(updateId || "").trim();
+      if (!wantedId || formBusy) return;
+      const target = updatesItems.find(function (item) { return String(item && item.id || "") === wantedId; }) || null;
+      const title = String(target && target.titulo || "esta atualizacao");
+      const shouldDelete = window.confirm("Deseja excluir \"" + title + "\"?");
+      if (!shouldDelete) return;
+
+      setFormStatus("Excluindo atualizacao...", false);
+      setFormBusy(true);
+
+      try {
+        const payload = await requestJson(
+          apiBase + "/api/system-updates/" + encodeURIComponent(wantedId),
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+        updatesItems = Array.isArray(payload.items) ? payload.items : [];
+        renderItems(updatesItems);
+        updateSourceInfo(payload);
+        if (editingUpdateId && editingUpdateId === wantedId) {
+          setCreateMode();
+        }
+        setFormStatus("Atualizacao excluida com sucesso.", false);
+      } catch (error) {
+        setFormStatus(error && error.message ? error.message : "Nao foi possivel excluir agora.", true);
+      } finally {
+        setFormBusy(false);
+      }
+    }
+
+    function handleListActionClick(event) {
+      const actionBtn = event.target.closest("button[data-update-action]");
+      if (!actionBtn) return;
+      const action = String(actionBtn.getAttribute("data-update-action") || "").trim();
+      const updateId = String(actionBtn.getAttribute("data-update-id") || "").trim();
+      if (!updateId) return;
+
+      if (action === "edit") {
+        const wanted = updatesItems.find(function (item) { return String(item && item.id || "") === updateId; }) || null;
+        if (!wanted) {
+          setFormStatus("Atualizacao nao encontrada para edicao.", true);
+          return;
+        }
+        setEditMode(wanted);
+        renderItems(updatesItems);
+        return;
+      }
+
+      if (action === "delete") {
+        deleteUpdateById(updateId);
+      }
+    }
+
+    cancelEditBtn.addEventListener("click", function () {
+      if (formBusy) return;
+      setCreateMode();
+      renderItems(updatesItems);
+      setFormStatus("Edicao cancelada.", false);
+    });
+
+    listEl.addEventListener("click", handleListActionClick);
+    formEl.addEventListener("submit", saveOrUpdate);
+    setCreateMode();
     loadUpdates();
   });
 </script>

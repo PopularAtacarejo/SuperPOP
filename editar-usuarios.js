@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const analyticsNavItem = document.getElementById("analyticsNavItem");
   const manageUsersNavItem = document.getElementById("manageUsersNavItem");
   const editUsersNavItem = document.getElementById("editUsersNavItem");
+  const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
   const authUserAvatarImage = document.getElementById("authUserAvatarImage");
   const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
   const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
@@ -255,7 +256,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (analyticsNavItem && payload.permissoes.analytics) analyticsNavItem.classList.remove("hidden");
     if (manageUsersNavItem && payload.permissoes.manage_users) manageUsersNavItem.classList.remove("hidden");
-    if (editUsersNavItem && payload.permissoes.edit_users) editUsersNavItem.classList.remove("hidden");
+    if (editUsersNavItem && payload.permissoes.edit_users) {
+      editUsersNavItem.classList.remove("hidden");
+      if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
+    }
     setUserView(payload.usuario);
   }
 

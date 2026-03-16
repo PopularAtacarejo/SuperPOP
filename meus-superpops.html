@@ -296,6 +296,77 @@
   .auth-user-dropdown.open {
     display: block;
   }
+  .reaction-row {
+    margin-top: 0.65rem;
+    border: 1px solid #fecaca;
+    background: #fff7f7;
+    border-radius: 0.8rem;
+    padding: 0.5rem;
+  }
+  .reaction-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.8rem;
+    height: 1.8rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .reaction-picker {
+    margin-top: 0.45rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .reaction-emoji-btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+  }
+  .reaction-emoji-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+    border-color: #f87171;
+  }
+  .reaction-emoji-btn.is-active {
+    background: #ef4444;
+    border-color: #dc2626;
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.26);
+  }
+  .reaction-emoji-btn:disabled,
+  .reaction-clear-btn:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+  .reaction-clear-btn {
+    border-radius: 999px;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    color: #b91c1c;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0.45rem 0.65rem;
+    cursor: pointer;
+    transition: background-color 0.14s ease, border-color 0.14s ease;
+  }
+  .reaction-clear-btn:hover {
+    background: #fff1f2;
+    border-color: #fca5a5;
+  }
 </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-body antialiased min-h-screen flex flex-col">
@@ -420,6 +491,7 @@
 <span id="refreshBtnLabel">Atualizar</span>
 </button>
 </div>
+<p class="mt-3 hidden text-xs font-bold" id="reactionFeedback"></p>
 </section>
 
 <section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -536,9 +608,12 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const receivedListEl = document.getElementById("receivedList");
     const sourceInfoEl = document.getElementById("sourceInfo");
     const lastUpdateEl = document.getElementById("lastUpdate");
+    const reactionFeedbackEl = document.getElementById("reactionFeedback");
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
     const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+    const REACTION_EMOJIS = ["👏", "🔥", "💯", "🎉", "🚀", "❤️", "🙌", "⭐"];
     let loading = false;
+    let isSavingReaction = false;
 
     function resolveOrigin(urlValue) {
       try {
@@ -567,11 +642,41 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         .replace(/'/g, "&#39;");
     }
 
+    function setReactionButtonsDisabled(disabled) {
+      document.querySelectorAll(".reaction-emoji-btn, .reaction-clear-btn").forEach(function (button) {
+        button.disabled = Boolean(disabled);
+      });
+    }
+
+    function showReactionFeedback(message, isError) {
+      if (!reactionFeedbackEl) return;
+      const safeMessage = String(message || "").trim();
+      if (!safeMessage) {
+        reactionFeedbackEl.textContent = "";
+        reactionFeedbackEl.classList.add("hidden");
+        reactionFeedbackEl.classList.remove("text-red-700", "text-emerald-700");
+        return;
+      }
+      reactionFeedbackEl.textContent = safeMessage;
+      reactionFeedbackEl.classList.remove("hidden");
+      reactionFeedbackEl.classList.toggle("text-red-700", Boolean(isError));
+      reactionFeedbackEl.classList.toggle("text-emerald-700", !isError);
+    }
+
+    function formatIsoDateTime(isoValue) {
+      const cleanIso = String(isoValue || "").trim();
+      if (!cleanIso) return "";
+      const parsed = new Date(cleanIso);
+      if (Number.isNaN(parsed.getTime())) return "";
+      return parsed.toLocaleDateString("pt-BR") + " às " + parsed.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    }
+
     function setLoading(isLoading) {
       loading = isLoading;
       refreshBtn.disabled = isLoading;
       monthSelect.disabled = isLoading;
       refreshBtnLabel.textContent = isLoading ? "Carregando..." : "Atualizar";
+      setReactionButtonsDisabled(isLoading || isSavingReaction);
     }
 
     function renderMonthOptions(months, selectedKey) {
@@ -601,12 +706,59 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }).join(" ");
     }
 
-    function itemHtml(item, typeLabel) {
+    function buildReactionSectionHtml(item, role) {
+      const reaction = (item && item.reacao_destinatario) || {};
+      const reactionEmoji = String(reaction.emoji || "").trim();
+      const reactionReactor = (reaction && reaction.reactor) || {};
+      const otherActor = (item && item.outra_pessoa) || {};
+      const reactorName = String(reactionReactor.nome || otherActor.nome || "Destinatário").trim();
+      const reactedAtLabel = formatIsoDateTime(reaction.updated_at_iso);
+      const metaLabel = reactedAtLabel ? (" em " + reactedAtLabel) : "";
+
+      if (role === "sent") {
+        if (!reactionEmoji) {
+          return '<p class="mt-2 text-[11px] font-semibold text-gray-400">Destinatário ainda não reagiu.</p>';
+        }
+        return '' +
+          '<div class="reaction-row">' +
+            '<div class="flex items-center gap-2">' +
+              '<span class="reaction-badge" aria-hidden="true">' + escapeHtml(reactionEmoji) + '</span>' +
+              '<p class="text-[11px] font-bold text-gray-700">Reação de ' + escapeHtml(reactorName) + escapeHtml(metaLabel) + '</p>' +
+            '</div>' +
+          '</div>';
+      }
+
+      const cardId = String(item && item.card_id || "").trim();
+      const logId = String(item && item.id || "").trim();
+      if (!cardId && !logId) return "";
+
+      const optionsHtml = REACTION_EMOJIS.map(function (emojiOption) {
+        const isActive = reactionEmoji === emojiOption;
+        return '<button type="button" class="reaction-emoji-btn' + (isActive ? ' is-active' : '') + '" data-card-id="' + escapeHtml(cardId) + '" data-log-id="' + escapeHtml(logId) + '" data-reaction-emoji="' + escapeHtml(emojiOption) + '" aria-pressed="' + (isActive ? "true" : "false") + '" title="Reagir com ' + escapeHtml(emojiOption) + '">' + escapeHtml(emojiOption) + '</button>';
+      }).join("");
+      const clearBtnHtml = reactionEmoji
+        ? '<button type="button" class="reaction-clear-btn" data-card-id="' + escapeHtml(cardId) + '" data-log-id="' + escapeHtml(logId) + '" title="Remover reação">Limpar</button>'
+        : "";
+      const currentLabel = reactionEmoji ? ("Sua reação atual: " + reactionEmoji) : "Escolha uma reação para este Super POP";
+
+      return '' +
+        '<div class="reaction-row">' +
+          '<p class="text-[11px] font-bold text-gray-700">' + escapeHtml(currentLabel) + '</p>' +
+          '<div class="reaction-picker">' +
+            optionsHtml +
+            clearBtnHtml +
+          '</div>' +
+          '<p class="mt-1 text-[10px] font-semibold text-gray-500">Sua reação ficará visível para quem enviou este Super POP.</p>' +
+        '</div>';
+    }
+
+    function itemHtml(item, typeLabel, role) {
       const other = (item && item.outra_pessoa) || {};
       const files = (item && item.arquivos) || {};
       const dataLabel = [item.dia || "", item.horario || ""].filter(Boolean).join(" às ");
       const mediaUrl = String(files.uploaded_image_url || files.image_url || "").trim();
       const mensagem = String(item.mensagem || "").trim();
+      const reactionHtml = buildReactionSectionHtml(item, role);
       return '' +
         '<div class="rounded-xl border border-gray-100 bg-gray-50/80 p-3.5">' +
           '<div class="flex items-start justify-between gap-2">' +
@@ -620,17 +772,36 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           '<p class="mt-2 text-xs font-semibold text-gray-500">Telefone: <span class="text-gray-700">' + escapeHtml(other.numero || "-") + "</span></p>" +
           '<div class="mt-2 flex flex-wrap gap-1.5">' + valuesBadges(item.valores) + "</div>" +
           (mensagem ? '<p class="mt-2 text-xs text-gray-700"><strong>Mensagem:</strong> ' + escapeHtml(mensagem) + "</p>" : "") +
+          reactionHtml +
           (mediaUrl ? '<a class="mt-3 inline-flex text-xs font-bold text-primary hover:underline" href="' + escapeHtml(mediaUrl) + '" rel="noopener noreferrer" target="_blank">Abrir imagem do Super POP</a>' : "") +
         "</div>";
     }
 
-    function renderItems(container, items, emptyText, label) {
+    function renderItems(container, items, emptyText, label, role) {
       const safe = Array.isArray(items) ? items : [];
       if (!safe.length) {
         container.innerHTML = '<div class="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-4 text-sm font-semibold text-gray-500">' + escapeHtml(emptyText) + "</div>";
         return;
       }
-      container.innerHTML = safe.map(function (item) { return itemHtml(item, label); }).join("");
+      container.innerHTML = safe.map(function (item) { return itemHtml(item, label, role); }).join("");
+    }
+
+    async function saveReaction(cardId, logId, emoji) {
+      const response = await fetch(apiBase + "/api/me/superpops/reaction", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          card_id: cardId || "",
+          log_id: logId || "",
+          emoji: emoji || "",
+        }),
+      });
+      const payload = await response.json().catch(function () { return {}; });
+      if (!response.ok || !payload.ok) {
+        throw new Error(String(payload.error || "Nao foi possivel salvar sua reação."));
+      }
+      return payload;
     }
 
     async function fetchData(monthKey) {
@@ -653,8 +824,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const payload = await fetchData(monthKey);
         renderMonthOptions(payload.meses_disponiveis, payload.mes_selecionado);
         renderSummary(payload.resumo_mes);
-        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mês.", "Enviado para");
-        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mês.", "Recebido de");
+        renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mês.", "Enviado para", "sent");
+        renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mês.", "Recebido de", "received");
         const source = payload.fonte || {};
         sourceInfoEl.textContent = source.tipo === "remoto"
           ? "Fonte: remoto"
@@ -663,22 +834,59 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const message = String(error && error.message ? error.message : "Erro ao carregar dados.");
         sentListEl.innerHTML = '<div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-bold text-red-700">' + escapeHtml(message) + "</div>";
         receivedListEl.innerHTML = sentListEl.innerHTML;
-        if (/não autenticado|sessão inválida/i.test(message)) {
+        if (/nao autenticado|não autenticado|sessao invalida|sessão inválida/i.test(message)) {
           window.location.href = buildFrontendUrl("index.html");
           return;
         }
       } finally {
         setLoading(false);
+        setReactionButtonsDisabled(isSavingReaction);
         const now = new Date();
         lastUpdateEl.textContent = now.toLocaleDateString("pt-BR") + " " + now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
       }
     }
 
     monthSelect.addEventListener("change", function () {
+      showReactionFeedback("", false);
       loadData(monthSelect.value);
     });
     refreshBtn.addEventListener("click", function () {
+      showReactionFeedback("", false);
       loadData(monthSelect.value);
+    });
+
+    document.addEventListener("click", async function (event) {
+      const actionButton = event.target.closest(".reaction-emoji-btn, .reaction-clear-btn");
+      if (!actionButton) return;
+      if (loading || isSavingReaction) return;
+
+      const cardId = String(actionButton.getAttribute("data-card-id") || "").trim();
+      const logId = String(actionButton.getAttribute("data-log-id") || "").trim();
+      if (!cardId && !logId) {
+        showReactionFeedback("Nao foi possivel identificar o Super POP para reagir.", true);
+        return;
+      }
+
+      let nextEmoji = "";
+      if (actionButton.classList.contains("reaction-emoji-btn")) {
+        const selectedEmoji = String(actionButton.getAttribute("data-reaction-emoji") || "").trim();
+        nextEmoji = actionButton.classList.contains("is-active") ? "" : selectedEmoji;
+      }
+
+      isSavingReaction = true;
+      setReactionButtonsDisabled(true);
+      showReactionFeedback("Salvando reação...", false);
+      try {
+        await saveReaction(cardId, logId, nextEmoji);
+        await loadData(monthSelect.value);
+        showReactionFeedback(nextEmoji ? "Reação salva com sucesso." : "Reação removida com sucesso.", false);
+      } catch (error) {
+        const message = String(error && error.message ? error.message : "Erro ao salvar reação.");
+        showReactionFeedback(message, true);
+      } finally {
+        isSavingReaction = false;
+        setReactionButtonsDisabled(loading);
+      }
     });
 
     loadData("");
