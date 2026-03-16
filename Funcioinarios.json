@@ -304,5 +304,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-16T10:34:09.131821-03:00"
+  },
+  {
+    "id": "ca88160d2c964af9a4b0902e6841754e",
+    "nome": "Grayce Kelly Brito silva",
+    "funcao": "Atendente de Caixa",
+    "numero_celular": "(82) 9 8201 - 2587",
+    "numero_normalizado": "82982012587",
+    "email": "issis.santos.123@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "ff1684f9e0b0c1e2f749f71e23d8fee7",
+      "hash": "ee49bc0370ee89fd13d5f99dd7b2d318ac4744d06d83fa2b298e33eba1305b16",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-16T10:50:19.113594-03:00"
   }
 ]
