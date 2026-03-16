@@ -353,8 +353,8 @@
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "47969e5fc25e3ff6ea41b278ba944454",
-      "hash": "0700a583f8ddb4d89b1b549f08f425b21ec8064f002147c8362a30922768a863",
+      "salt": "1c3df07ef2eb041c23d3e7158e460fcd",
+      "hash": "1cb4fa5aeb0b4b3ae4749223f6c3040be2282734ea2e46f2752f7ab16deff1cd",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
