@@ -342,5 +342,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-16T11:58:49.492467-03:00"
+  },
+  {
+    "id": "10a5a6e0441649ffb06661510eddd172",
+    "nome": "Eduarda beatriz ferreira dos santos",
+    "funcao": "Aprendiz",
+    "numero_celular": "(82) 9 8168 - 4764",
+    "numero_normalizado": "82981684764",
+    "email": "eduardasillva1209@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "47969e5fc25e3ff6ea41b278ba944454",
+      "hash": "0700a583f8ddb4d89b1b549f08f425b21ec8064f002147c8362a30922768a863",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-16T14:35:49.645985-03:00"
   }
 ]
