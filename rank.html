@@ -113,12 +113,11 @@
       scrollbar-width: thin;
       scrollbar-color: #E63946 transparent;
     }
-    .rank-user-trigger {
-      width: 100%;
+    .rank-profile-trigger {
+      flex: 1;
+      min-width: 0;
       display: inline-flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
       border: 0;
       background: transparent;
       padding: 0;
@@ -132,10 +131,16 @@
     .dark .rank-user-name {
       color: #f3f4f6;
     }
-    .rank-user-trigger:hover .rank-user-name {
+    .rank-profile-trigger:hover .rank-user-name {
       text-decoration: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 2px;
+    }
+    .rank-reaction-trigger {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
     }
     .reaction-indicator {
       min-width: 28px;
@@ -806,9 +811,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     let currentViewer = { id: "", nome: "" };
     let currentMonthKey = "";
     let isSavingReaction = false;
+    let actorDetailsByKey = new Map();
     let reactionMenuTarget = null;
     let activeReactionTrigger = null;
     const reactionMenu = createReactionMenu();
+    const profileModal = createProfileModal();
     function getMedalHTML(pos) {
       if (pos === 1) return '<span class="medal-gold material-symbols-outlined text-3xl drop-shadow-sm" title="Ouro">workspace_premium</span>';
       if (pos === 2) return '<span class="medal-silver material-symbols-outlined text-3xl drop-shadow-sm" title="Prata">workspace_premium</span>';
@@ -911,6 +918,89 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         return String(encoded || "");
       }
     }
+    function createProfileModal() {
+      const overlay = document.createElement("div");
+      overlay.className = "fixed inset-0 z-[90] hidden items-center justify-center bg-black/45 p-4";
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.innerHTML =
+        '<div class="w-full max-w-md rounded-2xl bg-white p-5 shadow-2xl dark:bg-surface-dark dark:text-white">' +
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div class="flex items-center gap-3">' +
+              '<div class="h-14 w-14 overflow-hidden rounded-full border border-slate-200 bg-slate-100 dark:border-gray-600 dark:bg-gray-700" id="rankProfileAvatarWrap"></div>' +
+              '<div class="min-w-0">' +
+                '<h3 class="truncate text-lg font-extrabold text-slate-900 dark:text-slate-100" id="rankProfileName">-</h3>' +
+                '<p class="truncate text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300" id="rankProfileRole">Sem função</p>' +
+              '</div>' +
+            '</div>' +
+            '<button type="button" class="rounded-lg p-1.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-gray-700 dark:hover:text-white" data-close-rank-profile>' +
+              '<span class="material-symbols-outlined">close</span>' +
+            "</button>" +
+          "</div>" +
+          '<div class="mt-4 grid grid-cols-2 gap-3">' +
+            '<div class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-600 dark:bg-gray-800"><p class="text-[11px] font-bold uppercase text-slate-500 dark:text-slate-300">Super POPs enviados</p><p class="mt-1 text-xl font-extrabold text-slate-900 dark:text-white" id="rankProfileSentCount">0</p></div>' +
+            '<div class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-600 dark:bg-gray-800"><p class="text-[11px] font-bold uppercase text-slate-500 dark:text-slate-300">Super POPs recebidos</p><p class="mt-1 text-xl font-extrabold text-slate-900 dark:text-white" id="rankProfileReceivedCount">0</p></div>' +
+            '<div class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-600 dark:bg-gray-800"><p class="text-[11px] font-bold uppercase text-slate-500 dark:text-slate-300">Chaves enviadas</p><p class="mt-1 text-xl font-extrabold text-slate-900 dark:text-white" id="rankProfileSentKeys">0</p></div>' +
+            '<div class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-600 dark:bg-gray-800"><p class="text-[11px] font-bold uppercase text-slate-500 dark:text-slate-300">Chaves recebidas</p><p class="mt-1 text-xl font-extrabold text-slate-900 dark:text-white" id="rankProfileReceivedKeys">0</p></div>' +
+          "</div>" +
+        "</div>";
+      document.body.appendChild(overlay);
+      const closeButton = overlay.querySelector("[data-close-rank-profile]");
+      if (closeButton) {
+        closeButton.addEventListener("click", function () {
+          closeProfileModal();
+        });
+      }
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          closeProfileModal();
+        }
+      });
+      return {
+        overlay: overlay,
+        avatarWrap: overlay.querySelector("#rankProfileAvatarWrap"),
+        name: overlay.querySelector("#rankProfileName"),
+        role: overlay.querySelector("#rankProfileRole"),
+        sentCount: overlay.querySelector("#rankProfileSentCount"),
+        receivedCount: overlay.querySelector("#rankProfileReceivedCount"),
+        sentKeys: overlay.querySelector("#rankProfileSentKeys"),
+        receivedKeys: overlay.querySelector("#rankProfileReceivedKeys")
+      };
+    }
+    function getActorDetail(actorName) {
+      const key = normalizeNameKey(actorName);
+      if (!key || !actorDetailsByKey.has(key)) return null;
+      return actorDetailsByKey.get(key);
+    }
+    function openProfileModal(actorName) {
+      const details = getActorDetail(actorName);
+      if (!details || !profileModal || !profileModal.overlay) return;
+      const safeName = String(details.name || actorName || "").trim() || "Colaborador";
+      const safeRole = String(details.funcao || "").trim() || "Sem função";
+      const safePhoto = String(details.photoDataUrl || "").trim();
+      const initials = safeName.split(" ").map(function (part) { return part ? part.charAt(0) : ""; }).join("").slice(0, 2).toUpperCase() || "SP";
+      if (profileModal.name) profileModal.name.textContent = safeName;
+      if (profileModal.role) profileModal.role.textContent = safeRole;
+      if (profileModal.sentCount) profileModal.sentCount.textContent = String(Number(details.sentSuperpop || 0));
+      if (profileModal.receivedCount) profileModal.receivedCount.textContent = String(Number(details.receivedSuperpop || 0));
+      if (profileModal.sentKeys) profileModal.sentKeys.textContent = String(Number(details.sentKeys || 0));
+      if (profileModal.receivedKeys) profileModal.receivedKeys.textContent = String(Number(details.receivedKeys || 0));
+      if (profileModal.avatarWrap) {
+        profileModal.avatarWrap.innerHTML = safePhoto
+          ? '<img src="' + escapeHtml(safePhoto) + '" alt="Foto de ' + escapeHtml(safeName) + '" class="h-full w-full object-cover"/>'
+          : '<div class="flex h-full w-full items-center justify-center bg-slate-200 text-sm font-extrabold text-slate-600 dark:bg-gray-700 dark:text-slate-200">' + escapeHtml(initials) + "</div>";
+      }
+      profileModal.overlay.classList.remove("hidden");
+      profileModal.overlay.classList.add("flex");
+      profileModal.overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeProfileModal() {
+      if (!profileModal || !profileModal.overlay) return;
+      profileModal.overlay.classList.add("hidden");
+      profileModal.overlay.classList.remove("flex");
+      profileModal.overlay.setAttribute("aria-hidden", "true");
+      document.body.style.removeProperty("overflow");
+    }
     function createReactionMenu() {
       const menu = document.createElement("div");
       menu.className = "rank-reaction-menu";
@@ -996,7 +1086,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
     function updateReactionIndicators(rankKind, actorName, emoji) {
       const encodedName = encodeRankName(actorName);
-      const selector = '.rank-user-trigger[data-rank-kind="' + rankKind + '"][data-rank-name="' + encodedName + '"] .reaction-indicator';
+      const selector = '.rank-reaction-trigger[data-rank-kind="' + rankKind + '"][data-rank-name="' + encodedName + '"] .reaction-indicator';
       const appliedEmoji = typeof emoji === "string" ? emoji : getReaction(rankKind, actorName);
       document.querySelectorAll(selector).forEach(function (indicator) {
         updateReactionIndicatorElement(indicator, appliedEmoji);
@@ -1012,7 +1102,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     }
     function bindReactionTriggers(container) {
       if (!container) return;
-      container.querySelectorAll(".rank-user-trigger").forEach(function (button) {
+      container.querySelectorAll(".rank-reaction-trigger").forEach(function (button) {
         button.addEventListener("click", function (event) {
           event.preventDefault();
           event.stopPropagation();
@@ -1032,6 +1122,18 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         });
       });
     }
+    function bindProfileTriggers(container) {
+      if (!container) return;
+      container.querySelectorAll(".rank-profile-trigger").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          const actorName = decodeRankName(button.getAttribute("data-rank-name"));
+          if (!actorName) return;
+          openProfileModal(actorName);
+        });
+      });
+    }
     document.addEventListener("click", function (event) {
       if (!reactionMenu.classList.contains("open")) return;
       const target = event.target;
@@ -1040,7 +1142,10 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       closeReactionMenu();
     });
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") closeReactionMenu();
+      if (event.key === "Escape") {
+        closeReactionMenu();
+        closeProfileModal();
+      }
     });
     window.addEventListener("resize", closeReactionMenu);
     window.addEventListener("scroll", function () {
@@ -1116,15 +1221,17 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const byPhone = new Map();
       (Array.isArray(records) ? records : []).forEach(function (item) {
         if (!item || typeof item !== "object") return;
+        const safeName = String(item.nome || "").trim();
+        const safeRole = String(item.funcao || "").trim();
         const photoDataUrl = String(item.foto_perfil_data_url || "").trim();
-        if (!photoDataUrl) return;
-        const nameKey = normalizeNameKey(item.nome);
+        const profile = { nome: safeName, funcao: safeRole, photoDataUrl: photoDataUrl };
+        const nameKey = normalizeNameKey(safeName);
         const phoneKey = normalizePhone(item.numero_normalizado || item.numero_celular);
         if (nameKey && !byName.has(nameKey)) {
-          byName.set(nameKey, photoDataUrl);
+          byName.set(nameKey, profile);
         }
         if (phoneKey && !byPhone.has(phoneKey)) {
-          byPhone.set(phoneKey, photoDataUrl);
+          byPhone.set(phoneKey, profile);
         }
       });
       return { byName: byName, byPhone: byPhone };
@@ -1156,16 +1263,16 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function getSenderName(log) {
       return normalizeName(log && log.remetente && log.remetente.nome) || normalizeName(log && log.reconhecido_por);
     }
-    function getPhotoForActor(actor, employeeDirectory, fallbackName) {
+    function getEmployeeProfileForActor(actor, employeeDirectory, fallbackName) {
       const actorPhone = normalizePhone(actor && (actor.numero_normalizado || actor.numero));
       if (actorPhone && employeeDirectory.byPhone.has(actorPhone)) {
-        return employeeDirectory.byPhone.get(actorPhone) || "";
+        return employeeDirectory.byPhone.get(actorPhone) || null;
       }
       const actorNameKey = normalizeNameKey(actor && actor.nome || fallbackName);
       if (actorNameKey && employeeDirectory.byName.has(actorNameKey)) {
-        return employeeDirectory.byName.get(actorNameKey) || "";
+        return employeeDirectory.byName.get(actorNameKey) || null;
       }
-      return "";
+      return null;
     }
     function parseLogDate(log) {
       if (!log || typeof log !== "object") return null;
@@ -1236,10 +1343,14 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           '<td class="px-6 py-4"><div class="flex items-center">' +
             getAvatar(item) +
             '<div class="min-w-0 flex-1">' +
-              '<button type="button" class="rank-user-trigger" data-rank-kind="' + escapeHtml(rankKind) + '" data-rank-name="' + escapeHtml(encodedName) + '" title="Reagir com emoji">' +
-                '<span class="rank-user-name">' + escapeHtml(safeName) + '</span>' +
-                '<span class="' + reactionClass + '" aria-hidden="true">' + reactionValue + '</span>' +
-              '</button>' +
+              '<div class="flex items-center justify-between gap-2">' +
+                '<button type="button" class="rank-profile-trigger" data-rank-name="' + escapeHtml(encodedName) + '" title="Ver detalhes do colaborador">' +
+                  '<span class="rank-user-name">' + escapeHtml(safeName) + '</span>' +
+                '</button>' +
+                '<button type="button" class="rank-reaction-trigger" data-rank-kind="' + escapeHtml(rankKind) + '" data-rank-name="' + escapeHtml(encodedName) + '" title="Reagir com emoji">' +
+                  '<span class="' + reactionClass + '" aria-hidden="true">' + reactionValue + '</span>' +
+                '</button>' +
+              '</div>' +
               '<div class="reaction-summary" data-rank-kind="' + escapeHtml(rankKind) + '" data-rank-name="' + escapeHtml(encodedName) + '">' + buildReactionSummaryHtml(rankKind, safeName) + '</div>' +
             '</div>' +
           '</div></td>' +
@@ -1247,18 +1358,59 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         tbody.appendChild(row);
       });
       bindReactionTriggers(tbody);
+      bindProfileTriggers(tbody);
     }
     function compareRankEntries(a, b) {
-      return b.count - a.count || b.values - a.values || a.name.localeCompare(b.name, "pt-BR");
+      const superpopDiff = Number(b && b.count || 0) - Number(a && a.count || 0);
+      if (superpopDiff !== 0) return superpopDiff;
+      const keysDiff = Number(b && b.values || 0) - Number(a && a.values || 0);
+      if (keysDiff !== 0) return keysDiff;
+      return String(a && a.name || "").localeCompare(String(b && b.name || ""), "pt-BR");
     }
     function processAndRender(logs, employeeDirectory) {
       const receivedMap = new Map();
       const sentMap = new Map();
+      actorDetailsByKey = new Map();
+
+      function ensureActorDetail(name) {
+        const safeName = String(name || "").trim();
+        const key = normalizeNameKey(safeName);
+        if (!key) return null;
+        if (!actorDetailsByKey.has(key)) {
+          actorDetailsByKey.set(key, {
+            name: safeName,
+            funcao: "",
+            photoDataUrl: "",
+            sentSuperpop: 0,
+            receivedSuperpop: 0,
+            sentKeys: 0,
+            receivedKeys: 0
+          });
+        }
+        const detail = actorDetailsByKey.get(key);
+        if (safeName && (!detail.name || safeName.length > detail.name.length)) {
+          detail.name = safeName;
+        }
+        return detail;
+      }
+
+      function applyProfile(detail, actorInfo, profileInfo) {
+        if (!detail) return;
+        const actorRole = normalizeName(actorInfo && actorInfo.funcao);
+        const profileRole = normalizeName(profileInfo && profileInfo.funcao);
+        const profilePhoto = String(profileInfo && profileInfo.photoDataUrl || "").trim();
+        if (!detail.funcao && actorRole) detail.funcao = actorRole;
+        if (!detail.funcao && profileRole) detail.funcao = profileRole;
+        if (!detail.photoDataUrl && profilePhoto) detail.photoDataUrl = profilePhoto;
+      }
+
       logs.forEach(function (log) {
         const options = Array.isArray(log && log.opcoes_marcadas) ? log.opcoes_marcadas : [];
+        const keysCount = options.length;
         const recKey = getCollaboratorName(log);
         const recipient = log && log.destinatario && typeof log.destinatario === "object" ? log.destinatario : null;
-        const recPhoto = getPhotoForActor(recipient, employeeDirectory, recKey);
+        const recipientProfile = getEmployeeProfileForActor(recipient, employeeDirectory, recKey);
+        const recPhoto = String(recipientProfile && recipientProfile.photoDataUrl || "").trim();
         if (recKey) {
           if (!receivedMap.has(recKey)) {
             receivedMap.set(recKey, { name: recKey, count: 0, values: 0, photoDataUrl: recPhoto });
@@ -1266,11 +1418,19 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             receivedMap.get(recKey).photoDataUrl = recPhoto;
           }
           receivedMap.get(recKey).count += 1;
-          receivedMap.get(recKey).values += options.length;
+          receivedMap.get(recKey).values += keysCount;
+
+          const recipientDetail = ensureActorDetail(recKey);
+          if (recipientDetail) {
+            recipientDetail.receivedSuperpop += 1;
+            recipientDetail.receivedKeys += keysCount;
+            applyProfile(recipientDetail, recipient, recipientProfile);
+          }
         }
         const sentKey = getSenderName(log);
         const sender = log && log.remetente && typeof log.remetente === "object" ? log.remetente : null;
-        const sentPhoto = getPhotoForActor(sender, employeeDirectory, sentKey);
+        const senderProfile = getEmployeeProfileForActor(sender, employeeDirectory, sentKey);
+        const sentPhoto = String(senderProfile && senderProfile.photoDataUrl || "").trim();
         if (sentKey) {
           if (!sentMap.has(sentKey)) {
             sentMap.set(sentKey, { name: sentKey, count: 0, values: 0, photoDataUrl: sentPhoto });
@@ -1278,7 +1438,14 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             sentMap.get(sentKey).photoDataUrl = sentPhoto;
           }
           sentMap.get(sentKey).count += 1;
-          sentMap.get(sentKey).values += options.length;
+          sentMap.get(sentKey).values += keysCount;
+
+          const senderDetail = ensureActorDetail(sentKey);
+          if (senderDetail) {
+            senderDetail.sentSuperpop += 1;
+            senderDetail.sentKeys += keysCount;
+            applyProfile(senderDetail, sender, senderProfile);
+          }
         }
       });
       const receivedArr = Array.from(receivedMap.values()).sort(compareRankEntries);
