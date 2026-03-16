@@ -325,5 +325,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-16T10:50:19.113594-03:00"
+  },
+  {
+    "id": "b27a3ec24e1349309cc08c4cd02837d3",
+    "nome": "Marci Cleia de Oliveira Almeida",
+    "funcao": "Assistente Administrativo",
+    "numero_celular": "(82) 9 8843 - 9630",
+    "numero_normalizado": "82988439630",
+    "email": "marcicleia.oli@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "a09f0f4e4135121074ea1253013521cc",
+      "hash": "b1502c1cbf2790ed47d42a04c6cb5abb9cf37530ec5d9ead650055036acd4cf8",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-16T11:58:49.492467-03:00"
   }
 ]
