@@ -377,6 +377,108 @@
         transform: translate3d(var(--tx, 0px), var(--ty, 420px), 0) rotate(var(--rot, 420deg)) scale(0.8);
       }
     }
+    .wa-loading-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 135;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(2, 6, 23, 0.6);
+      backdrop-filter: blur(4px);
+    }
+    .wa-loading-modal.open {
+      display: flex;
+    }
+    .wa-loading-card {
+      width: min(440px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      box-shadow: 0 26px 58px rgba(15, 23, 42, 0.34);
+      overflow: hidden;
+    }
+    .dark .wa-loading-card {
+      background: linear-gradient(160deg, #111827 0%, #0f172a 100%);
+      border-color: rgba(100, 116, 139, 0.45);
+    }
+    .wa-loading-head {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1rem 1rem 0.8rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    .wa-loading-icon-wrap {
+      width: 2.45rem;
+      height: 2.45rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(37, 211, 102, 0.15);
+      color: #16a34a;
+      flex-shrink: 0;
+    }
+    .wa-loading-spinner {
+      width: 0.95rem;
+      height: 0.95rem;
+      border: 2px solid rgba(22, 163, 74, 0.26);
+      border-top-color: #16a34a;
+      border-radius: 999px;
+      animation: waLoadingSpin 0.8s linear infinite;
+      margin-top: 0.05rem;
+    }
+    .wa-loading-body {
+      padding: 0.9rem 1rem 1rem;
+    }
+    .wa-loading-status {
+      margin: 0;
+      font-size: 0.83rem;
+      line-height: 1.35rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .dark .wa-loading-status {
+      color: #e2e8f0;
+    }
+    .wa-loading-progress {
+      width: 100%;
+      height: 0.42rem;
+      border-radius: 999px;
+      margin-top: 0.85rem;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+    .dark .wa-loading-progress {
+      background: #1f2937;
+    }
+    .wa-loading-progress > span {
+      display: block;
+      height: 100%;
+      width: 48%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+      animation: waLoadingBar 1.2s ease-in-out infinite;
+      transform-origin: left center;
+    }
+    @keyframes waLoadingSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes waLoadingBar {
+      0% {
+        transform: translateX(-100%) scaleX(0.55);
+      }
+      55% {
+        transform: translateX(110%) scaleX(1);
+      }
+      100% {
+        transform: translateX(220%) scaleX(0.62);
+      }
+    }
     .wa-send-modal {
       position: fixed;
       inset: 0;
@@ -489,7 +591,9 @@
       .send-whatsapp-btn-progress,
       .send-whatsapp-btn-icon,
       .send-whatsapp-btn-label,
-      .send-confetti-piece {
+      .send-confetti-piece,
+      .wa-loading-spinner,
+      .wa-loading-progress > span {
         animation: none !important;
         transition: none !important;
       }
@@ -1141,6 +1245,27 @@
 </div>
 </form>
 </main>
+<div aria-hidden="true" class="wa-loading-modal" id="waLoadingModal" role="status">
+<div class="wa-loading-card">
+<div class="wa-loading-head">
+<span class="wa-loading-icon-wrap">
+<span class="material-symbols-outlined">chat</span>
+</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-[0.2em] text-[#16a34a]">Processando envio</p>
+<h3 class="mt-0.5 text-lg font-extrabold text-slate-900 dark:text-slate-100">Preparando WhatsApp</h3>
+</div>
+</div>
+<div class="wa-loading-body">
+<p class="wa-loading-status" id="waLoadingModalStatus">Preparando envio no WhatsApp...</p>
+<div aria-hidden="true" class="wa-loading-progress"><span></span></div>
+<div class="mt-3 flex items-center gap-2 text-[11px] font-semibold text-slate-500 dark:text-slate-300">
+<span class="wa-loading-spinner"></span>
+<span>Aguarde alguns segundos.</span>
+</div>
+</div>
+</div>
+</div>
 <div aria-hidden="true" class="wa-send-modal" id="waSendModal" role="dialog">
 <div class="wa-send-modal-card">
 <div class="wa-send-modal-head">
@@ -1272,6 +1397,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const sendButtonProgress = document.getElementById("sendButtonProgress");
     const sendButtonIcon = document.getElementById("sendButtonIcon");
     const sendButtonLabel = document.getElementById("sendButtonLabel");
+    const waLoadingModal = document.getElementById("waLoadingModal");
+    const waLoadingModalStatus = document.getElementById("waLoadingModalStatus");
     const waSendModal = document.getElementById("waSendModal");
     const waSendModalStatus = document.getElementById("waSendModalStatus");
     const waSendModalRecipient = document.getElementById("waSendModalRecipient");
@@ -1296,7 +1423,6 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     let collaboratorsLoaded = false;
     let waSendModalResolver = null;
     let waSendModalUrl = "";
-    let pendingWaPopupWindow = null;
 
     function sanitizeApiBaseUrl(value) {
       const text = String(value || "").trim();
@@ -1537,45 +1663,38 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
     }
 
-    function preparePendingWaPopupWindow() {
-      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
+    function setWhatsappLoadingStatus(statusText) {
+      if (!waLoadingModalStatus) {
         return;
       }
-      try {
-        pendingWaPopupWindow = window.open("", "_blank");
-      } catch (_err) {
-        pendingWaPopupWindow = null;
+      const safeText = String(statusText || "").trim();
+      waLoadingModalStatus.textContent = safeText || "Preparando envio no WhatsApp...";
+    }
+
+    function preparePendingWaPopupWindow(statusText) {
+      if (!waLoadingModal) {
+        return;
       }
-      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
-        try {
-          pendingWaPopupWindow.document.title = "Abrindo WhatsApp...";
-          pendingWaPopupWindow.document.body.innerHTML = '<p style="font-family:Arial,sans-serif;padding:20px;">Preparando envio no WhatsApp...</p>';
-        } catch (_err) {}
-      }
+      setWhatsappLoadingStatus(statusText);
+      waLoadingModal.classList.add("open");
+      waLoadingModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
     }
 
     function closePendingWaPopupWindow() {
-      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
-        try {
-          pendingWaPopupWindow.close();
-        } catch (_err) {}
+      if (!waLoadingModal) {
+        return;
       }
-      pendingWaPopupWindow = null;
+      waLoadingModal.classList.remove("open");
+      waLoadingModal.setAttribute("aria-hidden", "true");
+      if (!waSendModal || !waSendModal.classList.contains("open")) {
+        document.body.style.removeProperty("overflow");
+      }
     }
 
     function openWhatsappUrlInWindow(whatsappUrl) {
       const safeUrl = String(whatsappUrl || "").trim();
       if (!safeUrl) return false;
-
-      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
-        try {
-          pendingWaPopupWindow.location.href = safeUrl;
-          pendingWaPopupWindow = null;
-          return true;
-        } catch (_err) {
-          closePendingWaPopupWindow();
-        }
-      }
 
       try {
         const popup = window.open(safeUrl, "_blank", "noopener,noreferrer");
@@ -1642,6 +1761,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const whatsappText = String(safePayload.whatsappText || "").trim();
       const recipient = String(safePayload.recipient || "").trim();
       const status = String(safePayload.status || "").trim();
+      closePendingWaPopupWindow();
       if (waSendModalResolver) {
         closeWhatsappManualModal("replace");
       }
@@ -2216,7 +2336,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           return;
         }
 
-        preparePendingWaPopupWindow();
+        preparePendingWaPopupWindow("Preparando envio no WhatsApp...");
 
         const payload = {
           colaborador: collaborator,
@@ -2291,6 +2411,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           await Promise.race([apiWakeupPromise, waitMs(1400)]);
         }
 
+        setWhatsappLoadingStatus("Conectando ao servidor...");
         updateSendButtonStep("cloud_sync", "Conectando ao servidor...");
 
         await wakeUpApi(apiBase, apiWakeupTimeoutMs);
@@ -2314,6 +2435,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         let delivery = {};
         let directDeliveryOk = false;
         await buttonSequencePromise.catch(function () {});
+        setWhatsappLoadingStatus("Gerando cartao e preparando link...");
         updateSendButtonStep("hourglass_top", "Aguardando servidor Render...");
         const registerOutcome = await registerAttempt;
 
@@ -2337,9 +2459,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         await playSendSuccessEffects();
 
         if (directDeliveryOk) {
+          setWhatsappLoadingStatus("Envio concluido com sucesso.");
           closePendingWaPopupWindow();
           alert(statusMessage);
         } else if (shouldOpenWaMe) {
+          setWhatsappLoadingStatus("Abrindo WhatsApp...");
           const whatsappPayload = buildWhatsappUrl(uploadedImageUrl || "");
           const recipientSummary = collaborator + (collaboratorNumberRaw ? (" | " + collaboratorNumberRaw) : "");
           await openWhatsappManualModal({
@@ -2349,6 +2473,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             status: statusMessage || "Abra o WhatsApp para concluir o envio manual."
           });
         } else {
+          setWhatsappLoadingStatus("Nao foi possivel abrir o WhatsApp.");
           closePendingWaPopupWindow();
           alert(statusMessage || "Não foi possível enviar agora.");
         }
