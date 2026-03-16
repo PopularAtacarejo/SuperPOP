@@ -2,10 +2,10 @@
   {
     "id": "seed-online-users-20260316",
     "data_referencia": "16/03/2026",
-    "titulo": "Usuarios online no Super POP",
-    "descricao": "Adicionado menu de usuarios online em tempo quase real na tela de envio do Super POP, com lista de ativos e contador.",
+    "titulo": "Usuários online no Super POP",
+    "descricao": "Adicionado menu de usuários online em tempo quase real na tela de envio do Super POP, com lista de ativos e contador.",
     "categoria": "Conectividade",
-    "status": "Concluido",
+    "status": "Concluído",
     "autor": {
       "id": "",
       "nome": "Jeferson"
@@ -15,8 +15,8 @@
   {
     "id": "seed-rank-reactions-20260316",
     "data_referencia": "16/03/2026",
-    "titulo": "Reacoes por emoji no ranking",
-    "descricao": "Usuarios agora podem reagir no ranking com emojis, alterar a reacao e visualizar quem reagiu em cada usuario.",
+    "titulo": "Reações por emoji no ranking",
+    "descricao": "Usuários agora podem reagir no ranking com emojis, alterar a reação e visualizar quem reagiu em cada usuário.",
     "categoria": "Ranking",
     "status": "Nova funcionalidade",
     "autor": {
@@ -29,9 +29,9 @@
     "id": "seed-rank-rule-20260316",
     "data_referencia": "16/03/2026",
     "titulo": "Regra mensal do ranking ajustada",
-    "descricao": "No rank mensal, cada par remetente + destinatario conta apenas uma vez por mes, mesmo com varios envios.",
-    "categoria": "Regra de negocio",
-    "status": "Concluido",
+    "descricao": "No ranking mensal, cada par remetente + destinatário conta apenas uma vez por mês, mesmo com vários envios.",
+    "categoria": "Regra de negócio",
+    "status": "Concluído",
     "autor": {
       "id": "",
       "nome": "Jeferson"
@@ -42,9 +42,9 @@
     "id": "seed-duplicate-day-20260316",
     "data_referencia": "16/03/2026",
     "titulo": "Bloqueio de envio duplicado no mesmo dia",
-    "descricao": "Mantida a regra de 1 Super POP por dia para o mesmo destinatario, com mensagem elegante para tentativas duplicadas.",
-    "categoria": "Protecao",
-    "status": "Concluido",
+    "descricao": "Mantida a regra de 1 Super POP por dia para o mesmo destinatário, com mensagem elegante para tentativas duplicadas.",
+    "categoria": "Proteção",
+    "status": "Concluído",
     "autor": {
       "id": "",
       "nome": "Jeferson"
@@ -55,9 +55,9 @@
     "id": "seed-register-robust-20260316",
     "data_referencia": "16/03/2026",
     "titulo": "Robustez no registro de Super POP",
-    "descricao": "Aplicados controles para reduzir falhas de contabilizacao e evitar concorrencia no envio.",
+    "descricao": "Aplicados controles para reduzir falhas de contabilização e evitar concorrência no envio.",
     "categoria": "Confiabilidade",
-    "status": "Concluido",
+    "status": "Concluído",
     "autor": {
       "id": "",
       "nome": "Jeferson"
@@ -67,10 +67,10 @@
   {
     "id": "seed-destination-fix-20260316",
     "data_referencia": "16/03/2026",
-    "titulo": "Ajuste na selecao de destinatario",
-    "descricao": "Corrigido comportamento da tela para permitir alterar o destinatario apos a primeira selecao sem travamentos.",
+    "titulo": "Ajuste na seleção de destinatário",
+    "descricao": "Corrigido comportamento da tela para permitir alterar o destinatário após a primeira seleção sem travamentos.",
     "categoria": "Usabilidade",
-    "status": "Concluido",
+    "status": "Concluído",
     "autor": {
       "id": "",
       "nome": "Jeferson"
