@@ -2130,6 +2130,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/92b343b012?token=4de6c0fa11f14275154f135073a86c361e1a0513c97c7b54f62a0b5c6016cfb6",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "💯",
+      "updated_at_iso": "2026-03-16T19:34:51.463738-03:00",
+      "reactor": {
+        "id": "8fccdfeb248f4e2996debcd65f325fc6",
+        "nome": "Natallia Katiane Alves da Silva"
+      }
     }
   },
   {
