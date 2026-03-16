@@ -1296,6 +1296,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     let collaboratorsLoaded = false;
     let waSendModalResolver = null;
     let waSendModalUrl = "";
+    let pendingWaPopupWindow = null;
 
     function sanitizeApiBaseUrl(value) {
       const text = String(value || "").trim();
@@ -1536,6 +1537,56 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
     }
 
+    function preparePendingWaPopupWindow() {
+      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
+        return;
+      }
+      try {
+        pendingWaPopupWindow = window.open("", "_blank");
+      } catch (_err) {
+        pendingWaPopupWindow = null;
+      }
+      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
+        try {
+          pendingWaPopupWindow.document.title = "Abrindo WhatsApp...";
+          pendingWaPopupWindow.document.body.innerHTML = '<p style="font-family:Arial,sans-serif;padding:20px;">Preparando envio no WhatsApp...</p>';
+        } catch (_err) {}
+      }
+    }
+
+    function closePendingWaPopupWindow() {
+      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
+        try {
+          pendingWaPopupWindow.close();
+        } catch (_err) {}
+      }
+      pendingWaPopupWindow = null;
+    }
+
+    function openWhatsappUrlInWindow(whatsappUrl) {
+      const safeUrl = String(whatsappUrl || "").trim();
+      if (!safeUrl) return false;
+
+      if (pendingWaPopupWindow && !pendingWaPopupWindow.closed) {
+        try {
+          pendingWaPopupWindow.location.href = safeUrl;
+          pendingWaPopupWindow = null;
+          return true;
+        } catch (_err) {
+          closePendingWaPopupWindow();
+        }
+      }
+
+      try {
+        const popup = window.open(safeUrl, "_blank", "noopener,noreferrer");
+        if (popup && !popup.closed) {
+          return true;
+        }
+      } catch (_err) {}
+
+      return false;
+    }
+
     function closeWhatsappManualModal(reason) {
       if (!waSendModal) {
         if (waSendModalResolver) {
@@ -1547,6 +1598,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       }
       waSendModal.classList.remove("open");
       waSendModal.setAttribute("aria-hidden", "true");
+      if (waSendModalOpenBtn) waSendModalOpenBtn.classList.remove("hidden");
+      if (waSendModalDoneBtn) waSendModalDoneBtn.classList.remove("hidden");
       document.body.style.removeProperty("overflow");
       if (waSendModalResolver) {
         const resolve = waSendModalResolver;
@@ -1593,10 +1646,14 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         closeWhatsappManualModal("replace");
       }
       waSendModalUrl = whatsappUrl;
+      const autoOpened = openWhatsappUrlInWindow(whatsappUrl);
 
       if (!waSendModal || !waSendModalMessage) {
         if (whatsappUrl) {
-          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+          const opened = openWhatsappUrlInWindow(whatsappUrl);
+          if (!opened) {
+            window.location.href = whatsappUrl;
+          }
         }
         return Promise.resolve("fallback");
       }
@@ -1606,26 +1663,38 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         waSendModalRecipient.textContent = recipient ? ("Destinatario: " + recipient) : "";
       }
       if (waSendModalStatus) {
-        waSendModalStatus.textContent = status || "Abra o WhatsApp e confirme o envio.";
+        waSendModalStatus.textContent = autoOpened
+          ? "WhatsApp aberto automaticamente com a mensagem preenchida."
+          : (status || "Nao foi possivel abrir automaticamente. Use o botao para abrir.");
       }
       if (waSendModalOpenBtn) {
         waSendModalOpenBtn.disabled = !whatsappUrl;
+        waSendModalOpenBtn.classList.toggle("hidden", autoOpened);
       }
       if (waSendModalCopyBtn) {
         waSendModalCopyBtn.disabled = !whatsappText;
         waSendModalCopyBtn.innerHTML = '<span class="material-symbols-outlined text-base">content_copy</span>Copiar texto';
+      }
+      if (waSendModalDoneBtn) {
+        waSendModalDoneBtn.classList.toggle("hidden", autoOpened);
       }
 
       waSendModal.classList.add("open");
       waSendModal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
       window.setTimeout(function () {
-        if (waSendModalOpenBtn && !waSendModalOpenBtn.disabled) {
+        if (waSendModalOpenBtn && !waSendModalOpenBtn.disabled && !autoOpened) {
           waSendModalOpenBtn.focus();
         } else if (waSendModalDoneBtn) {
           waSendModalDoneBtn.focus();
         }
       }, 30);
+
+      if (autoOpened) {
+        window.setTimeout(function () {
+          closeWhatsappManualModal("auto_opened");
+        }, 1000);
+      }
 
       return new Promise(function (resolve) {
         waSendModalResolver = resolve;
@@ -1635,8 +1704,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     if (waSendModalOpenBtn) {
       waSendModalOpenBtn.addEventListener("click", function () {
         if (!waSendModalUrl) return;
-        const popup = window.open(waSendModalUrl, "_blank", "noopener,noreferrer");
-        if (!popup) {
+        const opened = openWhatsappUrlInWindow(waSendModalUrl);
+        if (!opened) {
           window.location.href = waSendModalUrl;
           return;
         }
@@ -2106,6 +2175,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           return;
         }
 
+        preparePendingWaPopupWindow();
+
         const payload = {
           colaborador: collaborator,
           numero_colaborador: collaboratorNumber,
@@ -2221,6 +2292,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         await playSendSuccessEffects();
 
         if (directDeliveryOk) {
+          closePendingWaPopupWindow();
           alert(statusMessage);
         } else if (shouldOpenWaMe) {
           const whatsappPayload = buildWhatsappUrl(uploadedImageUrl || "");
@@ -2232,6 +2304,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             status: statusMessage || "Abra o WhatsApp para concluir o envio manual."
           });
         } else {
+          closePendingWaPopupWindow();
           alert(statusMessage || "Não foi possível enviar agora.");
         }
 
