@@ -11,5 +11,18 @@
       "nome": "Matheus Ataide"
     },
     "reacted_at_iso": "2026-03-16T10:15:14.047284-03:00"
+  },
+  {
+    "id": "7e79b02bc78848a4a1899ebea24b88a5",
+    "month_key": "2026-03",
+    "rank_kind": "sent",
+    "target_name": "Israel Ribeiro",
+    "target_name_key": "israel ribeiro",
+    "emoji": "🙌",
+    "reactor": {
+      "id": "75259daf721c4f709b6012fe7f192a23",
+      "nome": "Matheus Ataide"
+    },
+    "reacted_at_iso": "2026-03-16T10:15:46.071945-03:00"
   }
 ]
