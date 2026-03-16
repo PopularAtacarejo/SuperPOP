@@ -155,6 +155,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/43a3cef333?token=c8739011c5003977bf84b07569d066e23c2cd7835ae55e8ed4adaaf0817c6ecb",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-03-16T11:18:49.464085-03:00",
+      "reactor": {
+        "id": "256932dc70a9455c80ab5e9ee46357bd",
+        "nome": "Cecília Paulino"
+      }
     }
   },
   {
