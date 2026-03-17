@@ -1,5 +1,22 @@
 [
   {
+    "id": "8870b491ed82449d8ca210a906660b3a",
+    "nome": "Ester Martins",
+    "funcao": "Operador de Caixa",
+    "numero_celular": "(87) 9 8103 - 9273",
+    "numero_normalizado": "87981039273",
+    "email": "estermartinsdasilva21@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "df6e49e9060547d252c77653d7ce933d",
+      "hash": "59e91a7c8cb68aaf20c023a57bc1b2120b35323cf9109db5397c1a9bc6125cee",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-17T08:39:14.521841-03:00"
+  },
+  {
     "id": "b8c2c8b2a24b4037830f099f4f2469d1",
     "nome": "Jeferson",
     "funcao": "Analista de Marketing",
@@ -342,5 +359,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-16T11:58:49.492467-03:00"
+  },
+  {
+    "id": "f9e9d14785574a97a511e1eb9a5efe5c",
+    "nome": "Ielson Caetano da Silva",
+    "funcao": "Lider de Deposito",
+    "numero_celular": "(82) 9 8843 - 0632",
+    "numero_normalizado": "82988430632",
+    "email": "ielsonpopular@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "b620f1b4375ee7e7bb66253bca96434c",
+      "hash": "4990ae5ca314e91f21e694a164d523b671c9b70a2988b7986b238f29e92b614d",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-17T09:30:37.940696-03:00"
   }
 ]
