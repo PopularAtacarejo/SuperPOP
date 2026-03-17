@@ -393,5 +393,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-17T14:12:53.454478-03:00"
+  },
+  {
+    "id": "e46aa8c8d2d24ef8a84d3a91622408b0",
+    "nome": "Wanderson Manoel",
+    "funcao": "Conferente de Mercadorias",
+    "numero_celular": "(82) 9 9968 - 1441",
+    "numero_normalizado": "82999681441",
+    "email": "wanderson999681441@outlook.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "2dcee0e9b5c38b3ca1d61908508afbe2",
+      "hash": "68e42df070d75509e07698a5617d5644153044b4bc51fb972c62da0ebfd7f1ff",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-17T17:56:21.709004-03:00"
   }
 ]
