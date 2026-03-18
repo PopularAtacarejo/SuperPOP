@@ -123,10 +123,43 @@
       padding: 9px 10px;
       cursor: pointer;
     }
+
+    .toggle-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      color: #0f172a;
+      text-transform: none;
+    }
+
+    .toggle-row input {
+      width: 20px;
+      height: 20px;
+      accent-color: #e63946;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+    }
   </style>
+  <link rel="stylesheet" href="auth-online.css"/>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-amber-50 font-body text-slate-900">
-  <div class="auth-user-menu" id="authUserMenu">
+  <div class="auth-top-actions" id="authTopActions">
+  <div class="online-users-menu" id="onlineUsersMenu">
+    <button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button">
+      <span class="material-symbols-outlined">groups</span>
+      <span class="online-users-btn-text">Online</span>
+      <span class="online-users-count" id="onlineUsersCount">0</span>
+    </button>
+    <div class="online-users-dropdown" id="onlineUsersDropdown">
+      <p class="online-users-dropdown-title">Usuarios online</p>
+      <p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando status...</p>
+      <ul class="online-users-list" id="onlineUsersList"></ul>
+    </div>
+  </div>
+<div class="auth-user-menu" id="authUserMenu">
     <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
       <span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
       <span class="auth-user-btn-text">
@@ -142,6 +175,7 @@
       <button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button>
     </div>
   </div>
+</div>
   <main class="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
     <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
@@ -212,6 +246,17 @@
                 <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="telefoneInput">Telefone</label>
                 <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="telefoneInput" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000 - 0000" type="text"/>
               </div>
+              <div>
+                <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="dataNascimentoInput">Data de nascimento</label>
+                <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="dataNascimentoInput" type="date"/>
+              </div>
+              <div class="md:col-span-2 flex flex-col gap-1">
+                <label class="toggle-row" for="mostrarAniversarioInput">
+                  <input id="mostrarAniversarioInput" type="checkbox"/>
+                  Mostrar meu aniversário no mural
+                </label>
+                <p class="text-xs text-slate-400">Aparece na página de aniversariantes e permite ganhar parabéns automáticos no dia.</p>
+              </div>
               <div class="md:col-span-2">
                 <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="fotoInput">Foto de perfil</label>
                 <input accept="image/png,image/jpeg,image/webp" class="block w-full rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-red-100 file:px-4 file:py-2 file:font-bold file:text-red-700 hover:file:bg-red-200" id="fotoInput" type="file"/>
@@ -280,6 +325,8 @@
       const emailInput = document.getElementById("emailInput");
       const funcaoInput = document.getElementById("funcaoInput");
       const telefoneInput = document.getElementById("telefoneInput");
+      const dataNascimentoInput = document.getElementById("dataNascimentoInput");
+      const mostrarAniversarioInput = document.getElementById("mostrarAniversarioInput");
       const fotoInput = document.getElementById("fotoInput");
       const removePhotoBtn = document.getElementById("removePhotoBtn");
       const profileForm = document.getElementById("profileForm");
@@ -310,6 +357,11 @@
       let currentUser = null;
       let pendingPhotoDataUrl = "";
       let removePhoto = false;
+
+      if (dataNascimentoInput) {
+        const todayIso = new Date().toISOString().split("T")[0];
+        dataNascimentoInput.setAttribute("max", todayIso);
+      }
 
       function resolveOrigin(urlValue) {
         try { return new URL(String(urlValue || "")).origin.toLowerCase(); } catch (_err) { return ""; }
@@ -412,6 +464,12 @@
         emailInput.value = String(currentUser.email || "");
         funcaoInput.value = String(currentUser.funcao || "");
         telefoneInput.value = formattedPhone || rawPhone;
+        if (dataNascimentoInput) {
+          dataNascimentoInput.value = String(currentUser.data_nascimento_iso || "");
+        }
+        if (mostrarAniversarioInput) {
+          mostrarAniversarioInput.checked = Boolean(currentUser.mostrar_aniversario);
+        }
         renderTags(currentUser.tags_acesso);
         const currentPermissions = currentUser && currentUser.permissoes ? currentUser.permissoes : {};
         if (manageUsersQuickLink && currentPermissions.manage_users) manageUsersQuickLink.classList.remove("hidden");
@@ -495,7 +553,9 @@
               email: email,
               numero_celular: telefone,
               foto_perfil_data_url: pendingPhotoDataUrl,
-              remover_foto: removePhoto
+              remover_foto: removePhoto,
+              data_nascimento: dataNascimentoInput ? dataNascimentoInput.value : "",
+              mostrar_aniversario: mostrarAniversarioInput ? mostrarAniversarioInput.checked : false
             })
           });
           const payload = await response.json().catch(function () { return {}; });
@@ -582,6 +642,7 @@
       });
     });
   </script>
+  <script src="auth-online.js"></script>
 </body>
 </html>
 

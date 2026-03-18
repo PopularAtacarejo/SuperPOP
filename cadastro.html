@@ -170,6 +170,33 @@
     display: none;
   }
 
+  .toggle-control {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  .toggle-control input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+    border: 2px solid #dbe3ee;
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .helper-text {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 4px 2px 0;
+  }
+
   .status {
     border-radius: 12px;
     padding: 10px 12px;
@@ -290,6 +317,19 @@
       </div>
 
       <div>
+        <label for="dataNascimento">Data de nascimento</label>
+        <input id="dataNascimento" type="date"/>
+      </div>
+
+      <div>
+        <label class="toggle-control" for="mostrarAniversario">
+          <input id="mostrarAniversario" type="checkbox"/>
+          Mostrar meu aniversário no mural
+        </label>
+        <p class="helper-text">Ao ativar, seu nome, dia e idade aparecem na lista de aniversariantes do mês.</p>
+      </div>
+
+      <div>
         <label for="senha">Senha</label>
         <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
       </div>
@@ -316,6 +356,8 @@
     const numeroInput = document.getElementById("numeroCelular");
     const emailInput = document.getElementById("email");
     const senhaInput = document.getElementById("senha");
+    const dataNascimentoInput = document.getElementById("dataNascimento");
+    const mostrarAniversarioInput = document.getElementById("mostrarAniversario");
     const listaFuncoesEl = document.getElementById("listaFuncoesSupermercado");
     const submitBtn = document.getElementById("submitBtn");
     const submitBtnLabel = document.getElementById("submitBtnLabel");
@@ -474,6 +516,11 @@
 
     loadFuncoesAutocomplete();
 
+    if (dataNascimentoInput) {
+      const todayIso = new Date().toISOString().split("T")[0];
+      dataNascimentoInput.setAttribute("max", todayIso);
+    }
+
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
       statusErro.style.display = "none";
@@ -484,6 +531,8 @@
         funcao: getFuncaoValue(),
         numero_celular: String(numeroInput.value || "").trim(),
         email: String(emailInput.value || "").trim(),
+        data_nascimento: dataNascimentoInput ? String(dataNascimentoInput.value || "").trim() : "",
+        mostrar_aniversario: Boolean(mostrarAniversarioInput && mostrarAniversarioInput.checked),
         senha: String(senhaInput.value || "")
       };
 
@@ -538,6 +587,3 @@
   });
 </script>
 </body></html>
-
-
-

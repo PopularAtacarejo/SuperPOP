@@ -1,8 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="pt-BR"><head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SuperPop | Sobre</title>
+<title>SuperPop | Aniversariantes do mês</title>
 <link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -146,29 +147,6 @@
     font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 24;
     box-shadow: 0 8px 16px rgba(220, 38, 38, 0.34);
   }
-  .dark .menu-item {
-    color: #94a3b8;
-  }
-  .dark .menu-item .material-symbols-outlined {
-    background: rgba(51, 65, 85, 0.9);
-    color: #94a3b8;
-    border-color: rgba(148, 163, 184, 0.25);
-  }
-  .dark .menu-item:hover {
-    background: rgba(127, 29, 29, 0.45);
-    color: #fecaca;
-  }
-  .dark .menu-item.active {
-    background: rgba(153, 27, 27, 0.55);
-    color: #fecaca;
-    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
-  }
-  .dark .menu-item.active .material-symbols-outlined {
-    background: linear-gradient(145deg, #f87171, #ef4444);
-    border-color: rgba(254, 202, 202, 0.5);
-    color: #ffffff;
-    box-shadow: 0 8px 16px rgba(248, 113, 113, 0.32);
-  }
   .sidebar-content-fade {
     opacity: 0;
     transform: translateX(-10px);
@@ -183,6 +161,13 @@
     pointer-events: auto;
     position: static;
     visibility: visible;
+  }
+  .main-content {
+    margin-left: 72px;
+    transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sidebar.expanded ~ .main-content {
+    margin-left: 250px;
   }
   .sidebar:not(.expanded) .sidebar-header {
     padding-left: 0.75rem;
@@ -202,24 +187,6 @@
   }
   .sidebar:not(.expanded) .menu-item:hover {
     transform: none;
-  }
-  .sidebar:not(.expanded) .menu-item .material-symbols-outlined {
-    margin: 0;
-    font-size: 22px;
-  }
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 40;
-  }
-  .main-content {
-    margin-left: 72px;
-    transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .sidebar.expanded ~ .main-content {
-    margin-left: 250px;
   }
   @media (max-width: 1100px) {
     .sidebar {
@@ -255,20 +222,21 @@
   }
   .auth-user-menu {
     position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 60;
+    top: 14px;
+    right: 14px;
+    z-index: 45;
   }
   .auth-user-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #1f2937;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
     border-radius: 999px;
-    padding: 8px 12px;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    padding: 6px 10px;
+    color: #0f172a;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
     cursor: pointer;
   }
   .auth-user-avatar {
@@ -293,24 +261,26 @@
     object-fit: cover;
     display: block;
   }
-  .auth-user-btn-text {
-    text-align: left;
-    line-height: 1.05;
-    display: none;
+  .auth-user-btn .material-symbols-outlined {
+    font-size: 20px;
   }
   .auth-user-btn-text strong {
-    font-size: 0.78rem;
-    font-weight: 800;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.77rem;
     display: block;
   }
   .auth-user-btn-text small {
-    font-size: 0.68rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #64748b;
+    font-size: 0.68rem;
     font-weight: 700;
     display: block;
-  }
-  @media (min-width: 640px) {
-    .auth-user-btn-text { display: inline-flex; flex-direction: column; }
   }
   .auth-user-dropdown {
     display: none;
@@ -324,11 +294,85 @@
     box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
     padding: 12px;
   }
-  .auth-user-dropdown.open { display: block; }
+  .auth-user-dropdown.open {
+    display: block;
+  }
+  .reaction-row {
+    margin-top: 0.65rem;
+    border: 1px solid #fecaca;
+    background: #fff7f7;
+    border-radius: 0.8rem;
+    padding: 0.5rem;
+  }
+  .reaction-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.8rem;
+    height: 1.8rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .reaction-picker {
+    margin-top: 0.45rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .reaction-emoji-btn {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+  }
+  .reaction-emoji-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+    border-color: #f87171;
+  }
+  .reaction-emoji-btn.is-active {
+    background: #ef4444;
+    border-color: #dc2626;
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.26);
+  }
+  .reaction-emoji-btn:disabled,
+  .reaction-clear-btn:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+  .reaction-clear-btn {
+    border-radius: 999px;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    color: #b91c1c;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0.45rem 0.65rem;
+    cursor: pointer;
+    transition: background-color 0.14s ease, border-color 0.14s ease;
+  }
+  .reaction-clear-btn:hover {
+    background: #fff1f2;
+    border-color: #fca5a5;
+  }
 </style>
-  <link rel="stylesheet" href="auth-online.css"/>
+<link rel="stylesheet" href="auth-online.css"/>
 </head>
 <body class="bg-gray-50 text-gray-900 font-body antialiased min-h-screen flex flex-col">
+
 <div class="bg-pattern"></div>
 <div class="floating-icons-bg" aria-hidden="true">
 <span class="floating-icon material-symbols-outlined text-3xl" style="top: 8%; left: 14%; animation-delay: -0.8s;">stars</span>
@@ -340,7 +384,6 @@
 <span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 20%; left: 30%; animation-delay: -2.2s;">kid_star</span>
 <span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 12%; right: 28%; animation-delay: -4.7s;">auto_awesome</span>
 </div>
-
 <aside class="sidebar fixed top-0 left-0 h-screen bg-white shadow-xl z-50 border-r border-gray-100" id="sidebar">
 <div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
 <div class="h-24 flex items-center justify-center overflow-hidden relative">
@@ -365,12 +408,10 @@
 <span class="material-symbols-outlined shrink-0">history</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POPs</span>
 </a>
-<a class="menu-item group" href="aniversariantes.html" title="Aniversariantes do mês">
-  <span class="material-symbols-outlined shrink-0">cake</span>
-  <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Aniversariantes</span>
+<a class="menu-item active group" href="aniversariantes.html" title="Aniversariantes do mês">
+<span class="material-symbols-outlined shrink-0">cake</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Aniversariantes</span>
 </a>
-
-`n
 <a class="menu-item group" href="rank.html" title="Ranking">
 <span class="material-symbols-outlined shrink-0">leaderboard</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
@@ -379,7 +420,7 @@
 <span class="material-symbols-outlined shrink-0">workspace_premium</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
 </a>
-<a class="menu-item active group" href="sobre.html" title="Sobre">
+<a class="menu-item group" href="sobre.html" title="Sobre">
 <span class="material-symbols-outlined shrink-0">info</span>
 <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
 </a>
@@ -414,12 +455,10 @@
 <span class="material-symbols-outlined text-[14px]">chevron_right</span>
 </button>
 </aside>
-
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <button class="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button">
 <span class="material-symbols-outlined">menu</span>
 </button>
-
 <div class="auth-top-actions" id="authTopActions">
   <div class="online-users-menu" id="onlineUsersMenu">
     <button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button">
@@ -450,7 +489,6 @@
 </div>
 </div>
 </div>
-
 <div class="main-content flex-col flex min-h-screen">
 <header class="relative px-6 pb-2 pt-4 text-center">
 <div class="max-w-7xl mx-auto relative z-10 pt-4">
@@ -458,223 +496,262 @@
 </div>
 </header>
 
-<main class="flex-1 max-w-5xl mx-auto w-full px-5 py-6 space-y-6">
+<main class="flex-1 max-w-7xl mx-auto w-full px-5 py-6 space-y-6">
 <section class="text-center space-y-2">
-<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Sobre o SuperPOP</h1>
-<p class="text-gray-600 font-semibold text-base sm:text-lg">Entenda como funciona o programa interno de reconhecimento.</p>
+<p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Mural comemorativo</p>
+<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Aniversariantes do mês</h1>
+<p class="text-gray-600 font-semibold text-base sm:text-lg">Aqui aparecem apenas os colegas que autorizaram exibir o aniversário no perfil. No dia especial, envie um carinho usando emojis.</p>
 </section>
-
-<section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-5 sm:p-8">
-<div class="space-y-5 text-[17px] leading-relaxed text-gray-800">
-<p>Na nossa empresa, reconhecer o bom trabalho dos colegas é algo muito importante. Pensando nisso, criamos o SUPERPOP, um programa interno feito para valorizar atitudes que representam as Chaves da Excelência que seguimos no dia a dia.</p>
-<p><strong>Como funciona?</strong><br/>Sempre que você perceber que um colega demonstrou uma ou mais das nossas Chaves da Excelência, você pode preencher um cartão SUPERPOP reconhecendo essa atitude.</p>
-<p><strong>O cartão tem duas vias:</strong><br/>Via branca: entregue diretamente para o colega que você está reconhecendo.<br/>Via verde: coloque na urna do SUPERPOP.</p>
-<p>No final de cada mês, todos os cartões da urna serão contabilizados. O colaborador que mais reconhecer e o que mais receber reconhecimentos SUPERPOP irão ganhar um prêmio especial, escolhido pela diretoria.</p>
-<p>Todos podem participar. O importante é observar e valorizar quem faz a diferença no nosso dia a dia com atitudes positivas, comprometidas e alinhadas com os valores da empresa.</p>
-<p class="font-bold text-primary">Vamos juntos espalhar reconhecimento e fortalecer nosso time com respeito, gratidão e alegria!</p>
+<section class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<article class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-4">
+<p class="text-xs font-bold uppercase tracking-wide text-primary">Aniversariantes visíveis</p>
+<p class="mt-2 text-3xl font-bold text-slate-900" id="birthdayTotal">0</p>
+<p class="text-sm text-slate-500">Contagem dos colegas com aniversário visível neste mês.</p>
+</article>
+<article class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-4">
+<p class="text-xs font-bold uppercase tracking-wide text-primary">Aniversariantes hoje</p>
+<p class="mt-2 text-3xl font-bold text-slate-900" id="todayTotal">0</p>
+<p class="text-sm text-slate-500">A caixa do parabéns fica aberta por 24 horas a partir da meia-noite.</p>
+</article>
+<article class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-4">
+<p class="text-xs font-bold uppercase tracking-wide text-primary">Mês atual</p>
+<p class="mt-2 text-3xl font-bold text-slate-900 capitalize" id="monthLabel">março</p>
+<p class="text-sm text-slate-500">Apenas quem marcou 'Mostrar meu aniversário' aparece aqui.</p>
+</article>
+</section>
+<section class="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
+<article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+<div class="flex items-start justify-between gap-3">
+<div>
+<p class="text-xs uppercase tracking-[0.28em] text-primary">Quem faz aniversário hoje</p>
+<h2 class="mt-1 text-2xl font-display text-slate-900">Celebre o dia</h2>
 </div>
+<span class="text-xs text-slate-500" id="todayExpires">Expira em --:--</span>
+</div>
+<p class="mt-2 text-sm text-slate-500" id="todayStatus">Carregando...</p>
+<div class="mt-4 space-y-3" id="todayList">
+<p class="text-sm text-slate-500">Carregando aniversariantes...</p>
+</div>
+<div class="mt-5 space-y-3">
+<p class="text-xs uppercase tracking-[0.28em] font-semibold text-primary">Envie um parabéns</p>
+<div class="flex flex-wrap gap-2" id="todayEmojiPicker"></div>
+<textarea id="todayMessage" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-900 focus:border-primary focus:ring-primary" rows="3" placeholder="Adicione uma mensagem carinhosa..."></textarea>
+<div class="flex flex-wrap items-center justify-between gap-3">
+<span class="text-xs text-slate-500" id="todayWishesStatus">&nbsp;</span>
+<button id="sendCongratsBtn" class="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white disabled:opacity-60" type="button" disabled>
+<span class="material-symbols-outlined text-base">send</span>
+Enviar parabéns
+</button>
+</div>
+</div>
+</article>
+<article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+<div class="flex flex-wrap items-end justify-between gap-4">
+<div>
+<p class="text-xs uppercase tracking-[0.28em] text-primary">Lista do mês</p>
+<h2 class="mt-1 text-2xl font-display text-slate-900">Quem completa mais um ano</h2>
+</div>
+<div class="text-right text-sm text-slate-500">
+<p>Lembre-se: só aparecem os aniversariantes visíveis.</p>
+</div>
+</div>
+<div class="mt-6 space-y-3" id="birthdayList">
+<p class="text-sm text-slate-500">Carregando aniversariantes...</p>
+</div>
+</article>
 </section>
-
-<footer class="pb-8">
-<p class="text-center text-xs font-bold tracking-wide text-gray-400 mt-2">Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0</p>
-</footer>
 </main>
 </div>
-
-<script data-purpose="sidebar-logic">
-  document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("sidebarToggle");
-    const overlay = document.getElementById("sidebarOverlay");
-    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-    const smallLogo = document.querySelector(".sidebar-collapsed-only");
-    const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
-    const sidebarStorageKey = "superpop_sidebar_expanded";
-
-    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
-      return;
-    }
-
-    function openSidebar(shouldPersist = true) {
-      sidebar.classList.add("expanded");
-      chevron.textContent = "chevron_left";
-      smallLogo.style.opacity = "0";
-      if (shouldPersist && window.innerWidth >= 1100) {
-        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
-      }
-    }
-
-    function closeSidebar(shouldPersist = true) {
-      sidebar.classList.remove("expanded");
-      chevron.textContent = "chevron_right";
-      window.setTimeout(function () {
-        if (!sidebar.classList.contains("expanded")) {
-          smallLogo.style.opacity = "1";
-        }
-      }, 220);
-      if (shouldPersist && window.innerWidth >= 1100) {
-        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
-      }
-    }
-
-    function syncSidebarState() {
-      if (window.innerWidth < 1100) {
-        closeSidebar(false);
-        return;
-      }
-      let storedState = "";
-      try { storedState = localStorage.getItem(sidebarStorageKey) || ""; } catch (_err) {}
-      if (storedState === "0") {
-        closeSidebar(false);
-      } else {
-        openSidebar(false);
-      }
-    }
-
-    toggleBtn.addEventListener("click", function () {
-      if (sidebar.classList.contains("expanded")) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
-    });
-
-    mobileMenuBtn.addEventListener("click", function () { openSidebar(false); });
-    overlay.addEventListener("click", function () { closeSidebar(false); });
-    window.addEventListener("resize", syncSidebarState);
-    syncSidebarState();
-  });
-</script>
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const authUserBtn = document.getElementById("authUserBtn");
-    const authUserDropdown = document.getElementById("authUserDropdown");
-    const authLogoutBtn = document.getElementById("authLogoutBtn");
-    const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
-    const editUsersQuickLink = document.getElementById("editUsersQuickLink");
-    const analyticsNavItem = document.getElementById("analyticsNavItem");
-    const manageUsersNavItem = document.getElementById("manageUsersNavItem");
-    const editUsersNavItem = document.getElementById("editUsersNavItem");
-    const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
-    const analyticsSection = document.getElementById("analyticsSection");
-    const authUserAvatarImage = document.getElementById("authUserAvatarImage");
-    const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
-    const nameTargets = [document.getElementById("authUserName"), document.getElementById("authUserNameDetail")];
-    const roleTargets = [document.getElementById("authUserRole"), document.getElementById("authUserRoleDetail")];
+    const monthLabelEl = document.getElementById("monthLabel");
+    const birthdayTotalEl = document.getElementById("birthdayTotal");
+    const todayTotalEl = document.getElementById("todayTotal");
+    const birthdayListEl = document.getElementById("birthdayList");
+    const todayListEl = document.getElementById("todayList");
+    const todayStatusEl = document.getElementById("todayStatus");
+    const todayExpiresEl = document.getElementById("todayExpires");
+    const todayEmojiPicker = document.getElementById("todayEmojiPicker");
+    const todayMessageInput = document.getElementById("todayMessage");
+    const todayWishesStatus = document.getElementById("todayWishesStatus");
+    const sendCongratsBtn = document.getElementById("sendCongratsBtn");
+    const EMOJIS = ["🎉", "🎂", "👏", "🥳", "💐", "🌟", "🍾", "💌"];
+    let selectedEmoji = "";
+    let todayEntries = [];
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
-    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
-    if (!authUserBtn || !authUserDropdown || !authLogoutBtn) return;
 
-    function resolveOrigin(urlValue) {
-      try {
-        return new URL(String(urlValue || "")).origin.toLowerCase();
-      } catch (_err) {
-        return "";
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function buildEntryCard(entry) {
+      const day = entry && entry.day ? String(entry.day).padStart(2, "0") : "--";
+      const month = entry && entry.month ? String(entry.month).padStart(2, "0") : "--";
+      return `
+        <div class="rounded-2xl border border-gray-100 bg-gray-50 px-4 py-3 shadow-sm">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="text-xs uppercase tracking-[0.25em] text-primary">Dia ${day}/${month}</p>
+              <p class="mt-1 text-lg font-bold text-slate-900">${escapeHtml(entry.nome)}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-slate-500">${escapeHtml(entry.funcao || "Sem função")}</p>
+              <p class="text-xs text-slate-400">Idade ${escapeHtml(String(entry.age || 0))}</p>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderBirthdayList(entries) {
+      const safe = Array.isArray(entries) ? entries : [];
+      if (birthdayTotalEl) {
+        birthdayTotalEl.textContent = String(safe.length);
       }
+      if (!birthdayListEl) return;
+      birthdayListEl.innerHTML = safe.length
+        ? safe.map(buildEntryCard).join("")
+        : '<p class="text-sm text-slate-500">Ainda não há aniversariantes públicos para este mês.</p>';
     }
 
-    function buildFrontendUrl(path) {
-      const cleanPath = String(path || "").replace(/^\/+/, "");
-      const currentOrigin = String(window.location.origin || "").toLowerCase();
-      const apiOrigin = resolveOrigin(apiBase);
-      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
-        return cleanPath ? ("/" + cleanPath) : "/";
+    function renderTodayList(entries) {
+      const safe = Array.isArray(entries) ? entries : [];
+      if (todayTotalEl) {
+        todayTotalEl.textContent = String(safe.length);
       }
-      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+      if (!todayListEl) return;
+      todayListEl.innerHTML = safe.length
+        ? safe.map(buildEntryCard).join("")
+        : '<p class="text-sm text-slate-500">Nenhum aniversariante visível hoje.</p>';
     }
 
-    function setUserView(nome, funcao) {
-      const safeNome = String(nome || "").trim() || "Usuário";
-      const safeFuncao = String(funcao || "").trim() || "Sem função";
-      nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
-      roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+    function renderTodayBox(box) {
+      const hasBox = box && box.available && Array.isArray(box.entries) && box.entries.length;
+      todayEntries = hasBox ? box.entries : [];
+      if (todayStatusEl) {
+        todayStatusEl.textContent = hasBox
+          ? "Celebre quem nasceu hoje!"
+          : "Especial reservado apenas para quem autoriza o mural.";
+      }
+      if (todayExpiresEl) {
+        todayExpiresEl.textContent = hasBox && box.expires_at_iso
+          ? "Expira em " + new Date(box.expires_at_iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
+          : "Expira em --:--";
+      }
+      if (sendCongratsBtn) {
+        sendCongratsBtn.disabled = !hasBox;
+      }
+      renderTodayList(todayEntries);
     }
 
-    function initialsFromName(name) {
-      const parts = String(name || "").trim().split(/\s+/).filter(Boolean).slice(0, 2);
-      if (!parts.length) return "SP";
-      return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+    function renderMonth(payload) {
+      if (!payload) return;
+      if (monthLabelEl && payload.month_label) {
+        monthLabelEl.textContent = payload.month_label;
+      }
+      renderBirthdayList(payload.birthdays);
     }
 
-    function renderUserAvatar(photoDataUrl, name) {
-      if (!authUserAvatarImage || !authUserAvatarFallback) return;
-      const safePhoto = String(photoDataUrl || "").trim();
-      if (safePhoto) {
-        authUserAvatarImage.src = safePhoto;
-        authUserAvatarImage.classList.remove("hidden");
-        authUserAvatarFallback.classList.add("hidden");
+    function setMessage(text, isError) {
+      if (!todayWishesStatus) return;
+      todayWishesStatus.textContent = String(text || "");
+      todayWishesStatus.classList.toggle("text-red-600", Boolean(isError));
+      todayWishesStatus.classList.toggle("text-slate-500", !Boolean(isError));
+    }
+
+    function createEmojiButtons() {
+      if (!todayEmojiPicker) return;
+      todayEmojiPicker.innerHTML = "";
+      EMOJIS.forEach(function (emoji) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "h-10 w-10 rounded-full border border-slate-200 bg-white text-xl transition-colors focus:ring-2 focus:ring-primary";
+        button.textContent = emoji;
+        button.addEventListener("click", function () {
+          selectedEmoji = selectedEmoji === emoji ? "" : emoji;
+          updateEmojiSelection();
+        });
+        todayEmojiPicker.appendChild(button);
+      });
+    }
+
+    function updateEmojiSelection() {
+      if (!todayEmojiPicker) return;
+      todayEmojiPicker.querySelectorAll("button").forEach(function (button) {
+        const isSelected = button.textContent === selectedEmoji;
+        button.classList.toggle("bg-primary", isSelected);
+        button.classList.toggle("text-white", isSelected);
+        button.classList.toggle("border-transparent", isSelected);
+      });
+    }
+
+    function handleSendCongrats() {
+      if (!todayEntries.length) {
+        setMessage("Não há aniversariantes visíveis hoje.", true);
         return;
       }
-      authUserAvatarImage.removeAttribute("src");
-      authUserAvatarImage.classList.add("hidden");
-      authUserAvatarFallback.textContent = initialsFromName(name);
-      authUserAvatarFallback.classList.remove("hidden");
+      const text = String(todayMessageInput.value || "").trim();
+      if (!text && !selectedEmoji) {
+        setMessage("Adicione uma mensagem ou emoji para enviar o parabéns.", true);
+        return;
+      }
+      const tokens = [];
+      if (selectedEmoji) tokens.push(selectedEmoji);
+      if (text) tokens.push(text);
+      setMessage("Parabéns enviado! " + tokens.join(" "), false);
+      if (todayMessageInput) {
+        todayMessageInput.value = "";
+      }
+      selectedEmoji = "";
+      updateEmojiSelection();
+      window.setTimeout(function () {
+        setMessage("Pronto para celebrar mais um Super POP!", false);
+      }, 4200);
     }
 
-    function setUserView(userOrNome, funcao) {
-      const user = userOrNome && typeof userOrNome === "object"
-        ? userOrNome
-        : { nome: userOrNome, funcao: funcao };
-      const safeNome = String(user && user.nome || "").trim() || "Usuário";
-      const safeFuncao = String(user && user.funcao || "").trim() || "Sem função";
-      nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
-      roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
-      renderUserAvatar(user && user.foto_perfil_data_url, safeNome);
-    }
-
-    async function loadUserFromSession() {
-      const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
-      if (!response.ok) throw new Error("Não autenticado");
-      const payload = await response.json();
-      if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessão inválida");
-      setUserView(payload.usuario);
-      if (analyticsSection && payload.permissoes && payload.permissoes.analytics) {
-        analyticsSection.classList.remove("hidden");
-      }
-      if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
-        analyticsNavItem.classList.remove("hidden");
-      }
-      if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) {
-        manageUsersNavItem.classList.remove("hidden");
-      }
-      if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
-        editUsersNavItem.classList.remove("hidden");
-        if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
+    async function loadMonthBirthdays() {
+      try {
+        const response = await fetch(apiBase + "/api/aniversariantes/mes", { cache: "no-store", credentials: "include" });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok || !payload.ok) {
+          throw new Error(String(payload.error || "Não foi possível carregar os aniversariantes."));
+        }
+        renderMonth(payload);
+      } catch (error) {
+        renderBirthdayList([]);
+        setMessage("Erro ao carregar aniversariantes do mês.", true);
+        console.error(error);
       }
     }
 
-    authUserBtn.addEventListener("click", function () {
-      const isOpen = authUserDropdown.classList.contains("open");
-      authUserDropdown.classList.toggle("open", !isOpen);
-      authUserBtn.setAttribute("aria-expanded", String(!isOpen));
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
-        authUserDropdown.classList.remove("open");
-        authUserBtn.setAttribute("aria-expanded", "false");
+    async function loadTodayBirthdays() {
+      try {
+        const response = await fetch(apiBase + "/api/aniversariantes/hoje", { cache: "no-store", credentials: "include" });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok || !payload.ok) {
+          throw new Error(String(payload.error || "Não foi possível carregar as comemorações de hoje."));
+        }
+        renderTodayBox(payload.box);
+      } catch (error) {
+        renderTodayList([]);
+        setMessage("Erro ao carregar o mural de hoje.", true);
+        console.error(error);
       }
-    });
+    }
 
-    authLogoutBtn.addEventListener("click", async function () {
-      try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
-      try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
-      window.location.href = buildFrontendUrl("index.html");
-    });
+    if (sendCongratsBtn) {
+      sendCongratsBtn.addEventListener("click", handleSendCongrats);
+    }
 
-    loadUserFromSession().catch(function () {
-      window.location.href = buildFrontendUrl("index.html");
-    });
+    createEmojiButtons();
+    loadMonthBirthdays();
+    loadTodayBirthdays();
   });
 </script>
-  <script src="auth-online.js"></script>
-</body></html>
-
-
-
-
-
-
-
-
+<script src="auth-online.js"></script>
+</body>
+</html>

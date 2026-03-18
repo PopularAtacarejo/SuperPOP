@@ -22,6 +22,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 .pill{border-radius:999px;padding:.28rem .7rem;font-size:.72rem;font-weight:800}.mini{border-radius:999px;padding:.22rem .55rem;font-size:.68rem;font-weight:800;background:#f1f5f9;color:#334155}.metric{background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,241,242,.96))}.table-wrap{overflow-x:auto}
 @media (max-width:1100px){.sidebar{width:0;overflow:hidden;position:fixed;z-index:50;height:100vh}.sidebar.expanded{width:250px}.main-content{margin-left:0!important}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40}.sidebar.expanded+.sidebar-overlay{display:block}#mobileMenuBtn{display:flex!important}#sidebarToggle{display:none!important}}
 </style>
+  <link rel="stylesheet" href="auth-online.css"/>
 </head>
 <body class="min-h-screen bg-white text-slate-900 font-body">
 <div class="bg-pattern"></div>
@@ -30,6 +31,12 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6"><div class="space-y-1"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Geral</span></div>
 <a class="menu-item group" href="superpop.html" title="Enviar Super POP"><span class="material-symbols-outlined shrink-0">send</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span></a>
 <a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs"><span class="material-symbols-outlined shrink-0">history</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POPs</span></a>
+<a class="menu-item group" href="aniversariantes.html" title="Aniversariantes do mês">
+  <span class="material-symbols-outlined shrink-0">cake</span>
+  <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Aniversariantes</span>
+</a>
+
+`n
 <a class="menu-item group" href="rank.html" title="Ranking"><span class="material-symbols-outlined shrink-0">leaderboard</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span></a>
 <a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês"><span class="material-symbols-outlined shrink-0">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span></a>
 <a class="menu-item group" href="sobre.html" title="Sobre"><span class="material-symbols-outlined shrink-0">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
@@ -42,9 +49,23 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <button class="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button"><span class="material-symbols-outlined">menu</span></button>
 
+<div class="auth-top-actions" id="authTopActions">
+  <div class="online-users-menu" id="onlineUsersMenu">
+    <button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button">
+      <span class="material-symbols-outlined">groups</span>
+      <span class="online-users-btn-text">Online</span>
+      <span class="online-users-count" id="onlineUsersCount">0</span>
+    </button>
+    <div class="online-users-dropdown" id="onlineUsersDropdown">
+      <p class="online-users-dropdown-title">Usuarios online</p>
+      <p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando status...</p>
+      <ul class="online-users-list" id="onlineUsersList"></ul>
+    </div>
+  </div>
 <div class="auth-user-menu" id="authUserMenu">
 <button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button>
 <div class="auth-user-dropdown" id="authUserDropdown"><p class="auth-user-dropdown-name" id="authUserNameDetail">Carregando...</p><p class="auth-user-dropdown-role" id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a><button class="auth-user-logout" id="authLogoutBtn" type="button">Sair</button></div>
+</div>
 </div>
 
 <div class="main-content flex flex-col min-h-screen">
@@ -433,8 +454,10 @@ document.addEventListener("DOMContentLoaded", function () {
   loadSession().then(loadAnalytics).catch(function (err) { window.location.href = buildFrontendUrl(err && err.code === 'forbidden' ? 'superpop.html' : 'index.html'); });
 });
 </script>
+  <script src="auth-online.js"></script>
 </body>
 </html>
+
 
 
 

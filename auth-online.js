@@ -1,0 +1,679 @@
+﻿document.addEventListener("DOMContentLoaded", function () {
+  const authTopActions = document.getElementById("authTopActions");
+  const authUserBtn = document.getElementById("authUserBtn");
+  const authUserDropdown = document.getElementById("authUserDropdown");
+  const authLogoutBtn = document.getElementById("authLogoutBtn");
+  const authUserMenu = document.getElementById("authUserMenu");
+  const onlineUsersBtn = document.getElementById("onlineUsersBtn");
+  const onlineUsersDropdown = document.getElementById("onlineUsersDropdown");
+  const onlineUsersCount = document.getElementById("onlineUsersCount");
+  const onlineUsersStatus = document.getElementById("onlineUsersStatus");
+  const onlineUsersList = document.getElementById("onlineUsersList");
+  const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
+  const editUsersQuickLink = document.getElementById("editUsersQuickLink");
+  const analyticsNavItem = document.getElementById("analyticsNavItem");
+  const manageUsersNavItem = document.getElementById("manageUsersNavItem");
+  const editUsersNavItem = document.getElementById("editUsersNavItem");
+  const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
+  const analyticsSection = document.getElementById("analyticsSection");
+  const authUserAvatarImage = document.getElementById("authUserAvatarImage");
+  const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
+  const nameTargets = [
+    document.getElementById("authUserName"),
+    document.getElementById("authUserNameDetail"),
+  ];
+  const roleTargets = [
+    document.getElementById("authUserRole"),
+    document.getElementById("authUserRoleDetail"),
+  ];
+  const apiBase = String(
+    window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com"
+  ).replace(/\/+$/, "");
+  const frontendBase = String(
+    window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP"
+  ).replace(/\/+$/, "");
+
+  if (!authUserBtn || !authUserDropdown || !authLogoutBtn) {
+    return;
+  }
+
+  const presenceHeartbeatIntervalMs = 25000;
+  const presenceRefreshIntervalMs = 30000;
+  const notificationsRefreshIntervalMs = 45000;
+
+  let currentAuthenticatedUserId = "";
+  let presenceHeartbeatTimer = 0;
+  let presenceRefreshTimer = 0;
+  let notificationsRefreshTimer = 0;
+  let notificationsLoading = false;
+
+  const NOTIFICATIONS_TEMPLATE = `
+<div class="notifications-menu" id="notificationsMenu">
+  <button type="button" class="notifications-btn" aria-expanded="false" id="notificationBtn">
+    <span class="material-symbols-outlined">notifications</span>
+    <span class="online-users-count" id="notificationCount">0</span>
+  </button>
+  <div class="notifications-dropdown" id="notificationsDropdown">
+    <p class="online-users-dropdown-title">Super POPs do dia</p>
+    <p class="online-users-dropdown-subtitle" id="notificationStatus">Carregando...</p>
+    <div class="notifications-list" id="notificationsList">
+      <p class="text-sm text-slate-500">Carregando...</p>
+    </div>
+    <div class="notifications-actions">
+      <button type="button" class="secondary" id="markAllNotificationsBtn">Marcar todos como vistos</button>
+      <button type="button" class="primary" id="showSuperpopsBtn">Mostrar Super POP</button>
+    </div>
+  </div>
+</div>`;
+
+  function ensureNotificationsMenu() {
+    if (!authTopActions) {
+      return null;
+    }
+    const existing = document.getElementById("notificationsMenu");
+    if (existing) {
+      return existing;
+    }
+    if (!authUserMenu) {
+      authTopActions.insertAdjacentHTML("beforeend", NOTIFICATIONS_TEMPLATE);
+      return document.getElementById("notificationsMenu");
+    }
+    const template = document.createElement("div");
+    template.innerHTML = NOTIFICATIONS_TEMPLATE.trim();
+    const node = template.firstElementChild;
+    if (node) {
+      authTopActions.insertBefore(node, authUserMenu);
+    }
+    return document.getElementById("notificationsMenu");
+  }
+
+  ensureNotificationsMenu();
+
+  const notificationBtn = document.getElementById("notificationBtn");
+  const notificationDropdown = document.getElementById("notificationsDropdown");
+  const notificationCount = document.getElementById("notificationCount");
+  const notificationStatus = document.getElementById("notificationStatus");
+  const notificationsList = document.getElementById("notificationsList");
+  const showSuperpopsBtn = document.getElementById("showSuperpopsBtn");
+  const markAllNotificationsBtn = document.getElementById("markAllNotificationsBtn");
+
+  function resolveOrigin(urlValue) {
+    try {
+      return new URL(String(urlValue || "")).origin.toLowerCase();
+    } catch (_err) {
+      return "";
+    }
+  }
+
+  function buildFrontendUrl(path) {
+    const cleanPath = String(path || "").replace(/^\/+/, "");
+    const currentOrigin = String(window.location.origin || "").toLowerCase();
+    const apiOrigin = resolveOrigin(apiBase);
+    if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+      return cleanPath ? ("/" + cleanPath) : "/";
+    }
+    return frontendBase ? frontendBase + (cleanPath ? ("/" + cleanPath) : "") : (cleanPath || "");
+  }
+
+  function initialsFromName(name) {
+    const parts = String(name || "").trim().split(/\s+/).filter(Boolean).slice(0, 2);
+    if (!parts.length) {
+      return "SP";
+    }
+    return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+  }
+
+  function renderUserAvatar(photoDataUrl, name) {
+    if (!authUserAvatarImage || !authUserAvatarFallback) return;
+    const safePhoto = String(photoDataUrl || "").trim();
+    if (safePhoto) {
+      authUserAvatarImage.src = safePhoto;
+      authUserAvatarImage.classList.remove("hidden");
+      authUserAvatarFallback.classList.add("hidden");
+      return;
+    }
+    authUserAvatarImage.removeAttribute("src");
+    authUserAvatarImage.classList.add("hidden");
+    authUserAvatarFallback.textContent = initialsFromName(name);
+    authUserAvatarFallback.classList.remove("hidden");
+  }
+
+  function setUserView(userOrNome, funcao) {
+    const user = userOrNome && typeof userOrNome === "object"
+      ? userOrNome
+      : { nome: userOrNome, funcao: funcao };
+    const safeNome = String(user && user.nome || "").trim() || "Usuário";
+    const safeFuncao = String(user && user.funcao || "").trim() || "Sem função";
+    currentAuthenticatedUserId = String(user && user.id || "").trim();
+    nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
+    roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
+    renderUserAvatar(user && user.foto_perfil_data_url, safeNome);
+  }
+
+  function closeAuthDropdown() {
+    authUserDropdown.classList.remove("open");
+    authUserBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function closeOnlineDropdown() {
+    if (!onlineUsersDropdown || !onlineUsersBtn) return;
+    onlineUsersDropdown.classList.remove("open");
+    onlineUsersBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function closeNotificationDropdown() {
+    if (!notificationDropdown || !notificationBtn) return;
+    notificationDropdown.classList.remove("open");
+    notificationBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function setOnlineUsersCount(value) {
+    if (!onlineUsersCount || !onlineUsersBtn) return;
+    const numericValue = Number(value);
+    const safeCount = Number.isFinite(numericValue) && numericValue >= 0
+      ? Math.floor(numericValue)
+      : 0;
+    onlineUsersCount.textContent = String(safeCount);
+    onlineUsersBtn.title = safeCount === 1
+      ? "1 usuario online"
+      : (safeCount + " usuarios online");
+  }
+
+  function setOnlineUsersStatus(text) {
+    if (onlineUsersStatus) {
+      onlineUsersStatus.textContent = String(text || "");
+    }
+  }
+
+  function appendEmptyOnlineRow(text) {
+    if (!onlineUsersList) return;
+    const row = document.createElement("li");
+    row.className = "online-user-item empty";
+    row.textContent = String(text || "Sem usuarios online agora.");
+    onlineUsersList.appendChild(row);
+  }
+
+  function formatOnlineLastSeen(lastSeenIso) {
+    const parsedTime = Date.parse(String(lastSeenIso || ""));
+    if (!Number.isFinite(parsedTime)) {
+      return "ativo recentemente";
+    }
+    const elapsedSeconds = Math.max(0, Math.floor((Date.now() - parsedTime) / 1000));
+    if (elapsedSeconds < 45) {
+      return "ativo agora";
+    }
+    if (elapsedSeconds < 90) {
+      return "ativo ha 1 min";
+    }
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+    if (elapsedMinutes < 60) {
+      return elapsedMinutes === 1 ? "ativo ha 1 min" : ("ativo ha " + elapsedMinutes + " min");
+    }
+    const elapsedHours = Math.floor(elapsedMinutes / 60);
+    if (elapsedHours < 24) {
+      return elapsedHours === 1 ? "ativo ha 1 hora" : ("ativo ha " + elapsedHours + " horas");
+    }
+    const elapsedDays = Math.floor(elapsedHours / 24);
+    return elapsedDays === 1 ? "ativo ha 1 dia" : ("ativo ha " + elapsedDays + " dias");
+  }
+
+  function buildOnlineAvatarNode(photoDataUrl, name) {
+    const avatarNode = document.createElement("span");
+    avatarNode.className = "online-user-avatar";
+    const safePhoto = String(photoDataUrl || "").trim();
+    if (safePhoto) {
+      const imageNode = document.createElement("img");
+      imageNode.alt = "Avatar";
+      imageNode.src = safePhoto;
+      avatarNode.appendChild(imageNode);
+    } else {
+      avatarNode.textContent = initialsFromName(name);
+    }
+    return avatarNode;
+  }
+
+  function renderOnlineUsers(users) {
+    if (!onlineUsersList || !onlineUsersCount) return;
+    onlineUsersList.innerHTML = "";
+
+    const safeUsers = Array.isArray(users)
+      ? users.filter(function (item) { return item && typeof item === "object"; })
+      : [];
+    setOnlineUsersCount(safeUsers.length);
+
+    if (!safeUsers.length) {
+      setOnlineUsersStatus("Nenhum usuario online agora.");
+      appendEmptyOnlineRow("Nenhum usuario online agora.");
+      return;
+    }
+
+    setOnlineUsersStatus(
+      safeUsers.length === 1
+        ? "1 usuario ativo agora."
+        : (safeUsers.length + " usuarios ativos agora.")
+    );
+
+    safeUsers.forEach(function (item) {
+      const userId = String(item.id || "").trim();
+      const userName = String(item.nome || "").trim() || "Usuario";
+      const userRole = String(item.funcao || "").trim() || "Sem funcao";
+      const userPresence = formatOnlineLastSeen(item.last_seen_iso);
+      const userIsCurrent = Boolean(userId && currentAuthenticatedUserId && userId === currentAuthenticatedUserId);
+      const row = document.createElement("li");
+      row.className = "online-user-item";
+      row.appendChild(buildOnlineAvatarNode(item.foto_perfil_data_url, userName));
+
+      const meta = document.createElement("div");
+      meta.className = "online-user-meta";
+      const title = document.createElement("strong");
+      title.textContent = userName + (userIsCurrent ? " (voce)" : "");
+      const subtitle = document.createElement("small");
+      subtitle.textContent = userRole + " | " + userPresence;
+      meta.appendChild(title);
+      meta.appendChild(subtitle);
+      row.appendChild(meta);
+      onlineUsersList.appendChild(row);
+    });
+  }
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  async function callAuthApi(path, options) {
+    const cleanPath = path.startsWith("/") ? path : ("/" + path);
+    const requestOptions = Object.assign(
+      { cache: "no-store", credentials: "include" },
+      options && typeof options === "object" ? options : {}
+    );
+    const response = await fetch(apiBase + cleanPath, requestOptions);
+    const payload = await response.json().catch(function () { return {}; });
+    if (!response.ok || !payload || !payload.ok) {
+      const message = payload && payload.error
+        ? String(payload.error)
+        : ("Falha na solicitacao (HTTP " + response.status + ").");
+      const error = new Error(message);
+      if (response.status === 401) {
+        error.authReason = "unauthorized";
+      }
+      throw error;
+    }
+    return payload;
+  }
+
+  function callPresenceEndpoint(path, options) {
+    return callAuthApi(path, options);
+  }
+
+  function handlePresenceError(error) {
+    const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+    const isUnauthorized = typeof unauthorizedCheck === "function"
+      ? unauthorizedCheck(error) || Boolean(error && error.authReason === "unauthorized")
+      : Boolean(error && error.authReason === "unauthorized");
+    if (isUnauthorized) {
+      window.location.href = buildFrontendUrl("index.html");
+      return true;
+    }
+    return false;
+  }
+
+  async function sendPresenceHeartbeat() {
+    if (!onlineUsersBtn || document.visibilityState === "hidden") return;
+    try {
+      const payload = await callPresenceEndpoint("/api/presence/heartbeat", { method: "POST" });
+      if (payload && typeof payload.online_count !== "undefined") {
+        setOnlineUsersCount(payload.online_count);
+      }
+    } catch (error) {
+      handlePresenceError(error);
+    }
+  }
+
+  async function refreshOnlineUsers() {
+    if (!onlineUsersList || document.visibilityState === "hidden") return;
+    try {
+      const payload = await callPresenceEndpoint("/api/presence/online");
+      const onlineUsers = Array.isArray(payload && payload.online_users) ? payload.online_users : [];
+      renderOnlineUsers(onlineUsers);
+      if (payload && typeof payload.online_count !== "undefined") {
+        setOnlineUsersCount(payload.online_count);
+      }
+    } catch (error) {
+      if (handlePresenceError(error)) return;
+      setOnlineUsersStatus("Nao foi possivel atualizar agora.");
+    }
+  }
+
+  function stopPresenceRefreshLoop() {
+    if (presenceHeartbeatTimer) {
+      window.clearInterval(presenceHeartbeatTimer);
+      presenceHeartbeatTimer = 0;
+    }
+    if (presenceRefreshTimer) {
+      window.clearInterval(presenceRefreshTimer);
+      presenceRefreshTimer = 0;
+    }
+  }
+
+  function startPresenceRefreshLoop() {
+    if (!onlineUsersBtn || !onlineUsersDropdown || document.visibilityState === "hidden") return;
+    stopPresenceRefreshLoop();
+    sendPresenceHeartbeat();
+    refreshOnlineUsers();
+    presenceHeartbeatTimer = window.setInterval(sendPresenceHeartbeat, presenceHeartbeatIntervalMs);
+    presenceRefreshTimer = window.setInterval(refreshOnlineUsers, presenceRefreshIntervalMs);
+  }
+
+  function setNotificationCount(value) {
+    if (!notificationCount || !notificationBtn) return;
+    const numericValue = Number(value);
+    const safeCount = Number.isFinite(numericValue) && numericValue >= 0
+      ? Math.floor(numericValue)
+      : 0;
+    notificationCount.textContent = String(safeCount);
+    notificationBtn.title = safeCount === 1
+      ? "1 Super POP recebido hoje"
+      : (safeCount + " Super POPs recebidos hoje");
+  }
+
+  function setNotificationStatus(message, isError) {
+    if (!notificationStatus) return;
+    const text = String(message || "").trim() || "Sem notificacoes";
+    notificationStatus.textContent = text;
+    notificationStatus.classList.toggle("text-red-600", Boolean(isError));
+    notificationStatus.classList.toggle("text-slate-500", !Boolean(isError));
+  }
+
+  function renderNotifications(payload) {
+    const entries = Array.isArray(payload && payload.notifications) ? payload.notifications : [];
+    const unreadCount = Number.isFinite(payload && payload.unread) ? Math.max(0, Math.floor(payload.unread)) : 0;
+    setNotificationCount(unreadCount);
+    if (!notificationsList) return;
+    if (!entries.length) {
+      notificationsList.innerHTML = '<p class="text-sm text-slate-500">Você ainda não recebeu Super POPs hoje.</p>';
+      return;
+    }
+    notificationsList.innerHTML = entries.map(function (item) {
+      const sender = (item && item.remetente && item.remetente.nome) ? item.remetente.nome : "Colega";
+      const funcao = (item && item.remetente && item.remetente.funcao) ? item.remetente.funcao : "Super POP";
+      const dia = String(item && item.dia || "").trim();
+      const horario = String(item && item.horario || "").trim();
+      const timeLabel = [dia, horario].filter(Boolean).join(" às ");
+      const message = String(item && item.mensagem || "").trim();
+      const values = Array.isArray(item && item.valores) ? item.valores.filter(Boolean) : [];
+      const valuesHtml = values.length
+        ? '<p class="text-xs text-gray-500">' + escapeHtml(values.join(", ")) + '</p>'
+        : "";
+      const cardId = String(item && item.card_id || "").trim();
+      const logId = String(item && item.id || "").trim();
+      return '' +
+        '<div class="notification-item">' +
+          '<strong>' + escapeHtml("Recebido de " + sender) + '</strong>' +
+          '<div class="notification-meta">' +
+            '<span>' + escapeHtml(funcao) + '</span>' +
+            '<span>' + escapeHtml(timeLabel || "Hoje") + '</span>' +
+          '</div>' +
+          (message ? '<p>' + escapeHtml(message) + '</p>' : '') +
+          valuesHtml +
+          '<div class="notification-actions">' +
+            '<button type="button" class="primary" data-show-superpop="' + escapeHtml(cardId) + '" data-mark-log-id="' + escapeHtml(logId) + '">Mostrar Super POP</button>' +
+            '<button type="button" class="secondary" data-mark-log-id="' + escapeHtml(logId) + '">Marcar como visto</button>' +
+          '</div>' +
+        '</div>';
+    }).join("");
+  }
+
+  async function loadNotifications() {
+    if (!notificationStatus || !notificationsList || notificationsLoading) return;
+    notificationsLoading = true;
+    setNotificationStatus("Carregando...");
+    notificationsList.innerHTML = '<p class="text-sm text-slate-500">Carregando...</p>';
+    try {
+      const payload = await callAuthApi("/api/me/notifications/superpops");
+      renderNotifications(payload);
+      if (payload && payload.total) {
+        setNotificationStatus(payload.total === payload.unread
+          ? `Você tem ${payload.total} Super POPs novos hoje.`
+          : `${payload.total} Super POPs no dia, ${payload.unread || 0} não lidos.`);
+      } else {
+        setNotificationStatus("Nenhum Super POP novo hoje.");
+      }
+    } catch (error) {
+      if (handlePresenceError(error)) return;
+      const message = String(error && error.message ? error.message : "Erro ao carregar notificações.");
+      setNotificationStatus(message, true);
+      notificationsList.innerHTML = '<p class="text-sm text-red-600">Não foi possível carregar as notificações.</p>';
+    } finally {
+      notificationsLoading = false;
+    }
+  }
+
+  async function markNotification(logId) {
+    if (!logId) return;
+    try {
+      await callAuthApi("/api/me/notifications/superpops/mark", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ log_id: logId }),
+      });
+      await loadNotifications();
+    } catch (error) {
+      if (handlePresenceError(error)) return;
+      setNotificationStatus(String(error && error.message ? error.message : "Erro ao marcar como visto."), true);
+    }
+  }
+
+  async function markAllNotifications() {
+    try {
+      await callAuthApi("/api/me/notifications/superpops/mark-all", { method: "POST" });
+      await loadNotifications();
+    } catch (error) {
+      if (handlePresenceError(error)) return;
+      setNotificationStatus(String(error && error.message ? error.message : "Erro ao marcar todos."), true);
+    }
+  }
+
+  async function showSuperpopFromNotification(logId, cardId) {
+    if (logId) {
+      try {
+        await callAuthApi("/api/me/notifications/superpops/mark", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ log_id: logId }),
+        });
+      } catch (error) {
+        if (handlePresenceError(error)) return;
+        console.warn("Falha ao marcar Super POP como visto.", error);
+      }
+    }
+    closeNotificationDropdown();
+    const target = buildFrontendUrl("meus-superpops.html") + (cardId ? "?card_id=" + encodeURIComponent(cardId) : "");
+    window.location.href = target;
+  }
+
+  function stopNotificationsRefreshLoop() {
+    if (notificationsRefreshTimer) {
+      window.clearInterval(notificationsRefreshTimer);
+      notificationsRefreshTimer = 0;
+    }
+  }
+
+  function startNotificationsRefreshLoop() {
+    stopNotificationsRefreshLoop();
+    loadNotifications();
+    notificationsRefreshTimer = window.setInterval(loadNotifications, notificationsRefreshIntervalMs);
+  }
+
+  async function loadUserFromSession() {
+    const response = await fetch(apiBase + "/api/auth/me", { cache: "no-store", credentials: "include" });
+    if (!response.ok) throw new Error("Não autenticado");
+    const payload = await response.json();
+    if (!payload || !payload.ok || !payload.usuario) throw new Error("Sessão inválida");
+    setUserView(payload.usuario);
+    if (analyticsSection && payload.permissoes && payload.permissoes.analytics) {
+      analyticsSection.classList.remove("hidden");
+    }
+    if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
+      analyticsNavItem.classList.remove("hidden");
+    }
+    if (manageUsersQuickLink && payload.permissoes && payload.permissoes.manage_users) {
+      manageUsersQuickLink.classList.remove("hidden");
+    }
+    if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) {
+      manageUsersNavItem.classList.remove("hidden");
+    }
+    if (editUsersQuickLink && payload.permissoes && payload.permissoes.edit_users) {
+      editUsersQuickLink.classList.remove("hidden");
+    }
+    if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
+      editUsersNavItem.classList.remove("hidden");
+      if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
+    }
+  }
+
+  authUserBtn.addEventListener("click", function () {
+    const isOpen = authUserDropdown.classList.contains("open");
+    authUserDropdown.classList.toggle("open", !isOpen);
+    authUserBtn.setAttribute("aria-expanded", String(!isOpen));
+    if (!isOpen) {
+      closeOnlineDropdown();
+      closeNotificationDropdown();
+    }
+  });
+
+  if (onlineUsersBtn && onlineUsersDropdown) {
+    onlineUsersBtn.addEventListener("click", function () {
+      const isOpen = onlineUsersDropdown.classList.contains("open");
+      onlineUsersDropdown.classList.toggle("open", !isOpen);
+      onlineUsersBtn.setAttribute("aria-expanded", String(!isOpen));
+      if (!isOpen) {
+        closeAuthDropdown();
+        closeNotificationDropdown();
+        refreshOnlineUsers();
+      }
+    });
+  }
+
+  if (notificationBtn && notificationDropdown) {
+    notificationBtn.addEventListener("click", function () {
+      const isOpen = notificationDropdown.classList.contains("open");
+      notificationDropdown.classList.toggle("open", !isOpen);
+      notificationBtn.setAttribute("aria-expanded", String(!isOpen));
+      if (!isOpen) {
+        closeAuthDropdown();
+        closeOnlineDropdown();
+        loadNotifications();
+      }
+    });
+  }
+
+  if (notificationsList) {
+    notificationsList.addEventListener("click", function (event) {
+      const showButton = event.target.closest("[data-show-superpop]");
+      if (showButton) {
+        const logId = showButton.getAttribute("data-mark-log-id");
+        const cardId = showButton.getAttribute("data-show-superpop");
+        showSuperpopFromNotification(logId, cardId);
+        return;
+      }
+      const markButton = event.target.closest("[data-mark-log-id]");
+      if (markButton) {
+        const logId = markButton.getAttribute("data-mark-log-id");
+        markNotification(logId);
+      }
+    });
+  }
+
+  if (markAllNotificationsBtn) {
+    markAllNotificationsBtn.addEventListener("click", function () {
+      markAllNotifications();
+    });
+  }
+
+  if (showSuperpopsBtn) {
+    showSuperpopsBtn.addEventListener("click", async function () {
+      await markAllNotifications();
+      closeNotificationDropdown();
+      window.location.href = buildFrontendUrl("meus-superpops.html");
+    });
+  }
+
+  document.addEventListener("click", function (event) {
+    if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
+      closeAuthDropdown();
+    }
+    if (
+      onlineUsersDropdown
+      && onlineUsersBtn
+      && !onlineUsersDropdown.contains(event.target)
+      && !onlineUsersBtn.contains(event.target)
+    ) {
+      closeOnlineDropdown();
+    }
+    if (
+      notificationDropdown
+      && notificationBtn
+      && !notificationDropdown.contains(event.target)
+      && !notificationBtn.contains(event.target)
+    ) {
+      closeNotificationDropdown();
+    }
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") {
+      stopPresenceRefreshLoop();
+      stopNotificationsRefreshLoop();
+      return;
+    }
+    startPresenceRefreshLoop();
+    startNotificationsRefreshLoop();
+  });
+
+  authLogoutBtn.addEventListener("click", async function () {
+    stopPresenceRefreshLoop();
+    stopNotificationsRefreshLoop();
+    try {
+      await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" });
+    } catch (_err) {}
+    try {
+      localStorage.removeItem("superpop_auth_user");
+    } catch (_err) {}
+    window.location.href = buildFrontendUrl("index.html");
+  });
+
+  loadUserFromSession()
+    .then(function () {
+      startPresenceRefreshLoop();
+      startNotificationsRefreshLoop();
+    })
+    .catch(function (error) {
+      const cachedReader = window.__superpopGetCachedAuthUser;
+      const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
+      if (cachedUser) {
+        setUserView(cachedUser);
+        startPresenceRefreshLoop();
+        startNotificationsRefreshLoop();
+        return;
+      }
+      const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+      const isUnauthorized = typeof unauthorizedCheck === "function"
+        ? unauthorizedCheck(error)
+        : Boolean(error && error.message === "Não autenticado");
+      if (isUnauthorized) {
+        window.location.href = buildFrontendUrl("index.html");
+        return;
+      }
+      console.warn("Falha temporaria ao validar sessao no menu do usuario.", error);
+    });
+
+  setOnlineUsersCount(0);
+  setNotificationCount(0);
+  setOnlineUsersStatus("Carregando usuarios online...");
+  setNotificationStatus("Carregando...");
+});
