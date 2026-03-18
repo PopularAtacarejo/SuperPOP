@@ -37,6 +37,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/f96e6037b7?token=e391cd70a8cc5f6035975489d84320feb38fce497e835910037c9f49ef9ca901",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-03-18T17:35:24.683499-03:00",
+      "reactor": {
+        "id": "c27055d3a93f4802a0323d3215cfbc5f",
+        "nome": "Isabella Teodosio"
+      }
     }
   },
   {
