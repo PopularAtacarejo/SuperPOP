@@ -3799,6 +3799,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/2bb9ab208c?token=e5222be22e9de8c07937ae79c59c7cd78c1b0e0b43b9143803c785872e384b82",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-03-18T08:08:00.064244-03:00",
+      "reactor": {
+        "id": "f9e9d14785574a97a511e1eb9a5efe5c",
+        "nome": "Ielson Caetano da Silva"
+      }
     }
   },
   {
