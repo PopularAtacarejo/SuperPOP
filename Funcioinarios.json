@@ -427,5 +427,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-18T09:58:45.824266-03:00"
+  },
+  {
+    "id": "97dc5b3447994199ba3955a20ec593ff",
+    "nome": "Janielly Nayara",
+    "funcao": "Vendedor",
+    "numero_celular": "(82) 9 9603 - 1624",
+    "numero_normalizado": "82996031624",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "87eda94642201b204a98b3323827afea",
+      "hash": "280485d5545ae91f69ac77540503d0eea5ca363da298e67ec96bb650ae2dc07a",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-18T10:18:01.818956-03:00"
   }
 ]
