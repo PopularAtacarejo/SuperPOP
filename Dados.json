@@ -4957,6 +4957,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/8f8afafca4?token=82087725f73630279333e925b51246589b58a7781a16bfe70af07f90b5680e98",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-03-18T10:05:56.102029-03:00",
+      "reactor": {
+        "id": "b17842e5d764443fb5d804694b9927fe",
+        "nome": "JORDANA BIANK DOS SANTOS SILVA"
+      }
     }
   },
   {
