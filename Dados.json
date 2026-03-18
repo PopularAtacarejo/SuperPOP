@@ -4132,5 +4132,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "237dbe69313747239035bab3fe84041f",
+    "card_id": "f88dc94e72",
+    "dia": "18/03/2026",
+    "horario": "07:34:14",
+    "data_hora_iso": "2026-03-18T07:34:14.596590-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582991226467",
+      "numero_normalizado": "+5582991226467",
+      "funcao": "Analista de Marketing"
+    },
+    "remetente": {
+      "nome": "Wanderson Manoel",
+      "numero": "5582999681441",
+      "numero_normalizado": "+5582999681441",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Obrigado por fazer parte de uma forma boa e positiva do dia a dia. Você é especial.",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582991226467",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-f88dc94e72.png",
+      "uploaded_image_url": "https://i.ibb.co/mFNz87xt/card-f88dc94e72.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-f88dc94e72.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/f88dc94e72?token=cc28ca4f094f4c39b1524db6a44fabdf22053666fd2b127c0c3387b91e0dc912",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
