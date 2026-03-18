@@ -79,6 +79,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/dedc4e3fe7?token=d3cece485d44d95d6085c787ab999ba8efd8fa2ff130403e36171d01d39b1a31",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "👏",
+      "updated_at_iso": "2026-03-18T00:56:31.939292-03:00",
+      "reactor": {
+        "id": "e46aa8c8d2d24ef8a84d3a91622408b0",
+        "nome": "Wanderson Manoel"
+      }
     }
   },
   {
