@@ -462,5 +462,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-18T10:48:30.689464-03:00"
+  },
+  {
+    "id": "351a06bd6d8a4d1c9fa41724f8c600aa",
+    "nome": "Crisllayne",
+    "funcao": "Operador de Caixa",
+    "numero_celular": "(82) 9 9624 - 9835",
+    "numero_normalizado": "82996249835",
+    "email": "moraiscrisllayne123@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "2674212ad12322b81eeb2d0824db1b87",
+      "hash": "731dbbfdfeecfb679cae9cc44180022f199c701d033b8ce2da4c287d4ca93ded",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-18T11:22:34.210386-03:00"
   }
 ]
