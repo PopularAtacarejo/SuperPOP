@@ -5840,5 +5840,47 @@
         "nome": "DEWISON BARBOSA"
       }
     }
+  },
+  {
+    "id": "8d4ed5a3d9664bf8a47aa85a3653d6d2",
+    "card_id": "c888134d5f",
+    "dia": "18/03/2026",
+    "horario": "17:59:47",
+    "data_hora_iso": "2026-03-18T17:59:47.075569-03:00",
+    "destinatario": {
+      "nome": "Rhuann Lima",
+      "numero": "5582981360271",
+      "numero_normalizado": "+5582981360271",
+      "funcao": "Departamento Fiscal"
+    },
+    "remetente": {
+      "nome": "DEWISON BARBOSA",
+      "numero": "5582999606185",
+      "numero_normalizado": "+5582999606185",
+      "funcao": "T.I"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Bom amigo e parceiro de trabalho, focado na sua tarefa e implacável nos lançamentos corretos do ambiente de notas fiscais seguindo as regras tributárias. Tarefa não muito fácil e exige uma concentração e conhecimento na área. Parabéns por estar sempre presente e disponível.",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582981360271",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-c888134d5f.png",
+      "uploaded_image_url": "https://i.ibb.co/J0BmZPK/card-c888134d5f.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-c888134d5f.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/c888134d5f?token=d58da48a544becfed79cb0e02d29d9caecc9e3cadd49258e8453bbad6a0053fe",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
