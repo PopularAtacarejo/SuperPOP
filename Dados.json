@@ -2529,6 +2529,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/f8202027f7?token=52cc62aacd530f963ab3cc165e801e011b60709b21c1f31c217ce731f4223947",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "🚀",
+      "updated_at_iso": "2026-03-18T15:12:02.141769-03:00",
+      "reactor": {
+        "id": "17691f67026c4f8a8b922ba507cc123c",
+        "nome": "Rhuann Lima"
+      }
     }
   },
   {
