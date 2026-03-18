@@ -4998,5 +4998,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "85d164c23ec34e1fa3f40b9b649b694a",
+    "card_id": "6a7a21dcdb",
+    "dia": "18/03/2026",
+    "horario": "10:03:05",
+    "data_hora_iso": "2026-03-18T10:03:05.611617-03:00",
+    "destinatario": {
+      "nome": "Grayce Kelly Brito silva",
+      "numero": "5582982012587",
+      "numero_normalizado": "+5582982012587",
+      "funcao": "Atendente de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns Grayce pelas chaves aplicadas acolhimento, eficiência,cortesia e o resultado que vem acumulando no seu  desempenho como operadora. \nVocê faz a diferença na frente de loja",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582982012587",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-6a7a21dcdb.png",
+      "uploaded_image_url": "https://i.ibb.co/5Xh6KjsV/card-6a7a21dcdb.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-6a7a21dcdb.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/6a7a21dcdb?token=671f74ef2a0470bebba89500e500e739c7bcd4a87a32d9c63bb7aa739b063737",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
