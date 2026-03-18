@@ -445,5 +445,22 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-18T10:18:01.818956-03:00"
+  },
+  {
+    "id": "b7327b0cf1084be1a67bdadaf5d33712",
+    "nome": "DEWISON BARBOSA",
+    "funcao": "T.I",
+    "numero_celular": "(82) 9 9960 - 6185",
+    "numero_normalizado": "82999606185",
+    "email": "dewisonventa@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "b925826d6da3537eae9195b81db6fc21",
+      "hash": "d7e67660412d53e33bb18ca710a9fe7064d82dcdd8c5d21f86b0031b95b28c74",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-18T10:48:30.689464-03:00"
   }
 ]
