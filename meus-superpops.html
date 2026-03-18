@@ -811,13 +811,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const whatsappUrl = role === "sent"
         ? buildWhatsappUrl(other.numero, buildWhatsappMessage(other, mensagem, dataLabel))
         : "";
-      const whatsappAction = whatsappUrl
-        ? '<div class="mt-4 flex flex-wrap gap-2">' +
-            '<a class="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition hover:border-primary hover:bg-primary/20" href="' + escapeHtml(whatsappUrl) + '" target="_blank" rel="noreferrer noopener">' +
-              '<span class="material-symbols-outlined text-base">share</span>' +
-              'Reenviar pelo WhatsApp' +
-            '</a>' +
-          '</div>'
+      const whatsappButton = whatsappUrl
+        ? '<a class="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition hover:border-primary hover:bg-primary/20" href="' + escapeHtml(whatsappUrl) + '" target="_blank" rel="noreferrer noopener">' +
+            '<span class="material-symbols-outlined text-base">share</span>' +
+            'Reenviar pelo WhatsApp' +
+          '</a>'
         : "";
       return '' +
         '<div class="rounded-xl border border-gray-100 bg-gray-50/80 p-3.5">' +
@@ -833,8 +831,13 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           '<div class="mt-2 flex flex-wrap gap-1.5">' + valuesBadges(item.valores) + "</div>" +
           (mensagem ? '<p class="mt-2 text-xs text-gray-700"><strong>Mensagem:</strong> ' + escapeHtml(mensagem) + "</p>" : "") +
           reactionHtml +
-          whatsappAction +
-          (mediaUrl ? '<a class="mt-3 inline-flex text-xs font-bold text-primary hover:underline" href="' + escapeHtml(mediaUrl) + '" rel="noopener noreferrer" target="_blank">Abrir imagem do Super POP</a>' : "") +
+          (whatsappButton || mediaUrl
+            ? '<div class="mt-3 flex flex-wrap gap-3">' + whatsappButton +
+                (mediaUrl
+                  ? '<a class="inline-flex text-xs font-bold text-primary hover:underline" href="' + escapeHtml(mediaUrl) + '" rel="noopener noreferrer" target="_blank">Abrir imagem do Super POP</a>'
+                  : "") +
+              '</div>'
+            : "") +
         "</div>";
     }
 
