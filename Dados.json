@@ -5623,6 +5623,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/ad859ccded?token=10d0a2e1b667ee113b8cd2a1bdc751330eafbd56b49fc50cdbe45de13535b468",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "💯",
+      "updated_at_iso": "2026-03-18T17:56:28.434361-03:00",
+      "reactor": {
+        "id": "b7327b0cf1084be1a67bdadaf5d33712",
+        "nome": "DEWISON BARBOSA"
+      }
     }
   },
   {
