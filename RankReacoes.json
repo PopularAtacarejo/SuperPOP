@@ -76,5 +76,18 @@
       "nome": "Israel Ribeiro"
     },
     "reacted_at_iso": "2026-03-16T19:33:01.218490-03:00"
+  },
+  {
+    "id": "8f6556c8f9374008b53eae7a2f4f13de",
+    "month_key": "2026-03",
+    "rank_kind": "received",
+    "target_name": "Rhuann Lima",
+    "target_name_key": "rhuann lima",
+    "emoji": "🚀",
+    "reactor": {
+      "id": "17691f67026c4f8a8b922ba507cc123c",
+      "nome": "Rhuann Lima"
+    },
+    "reacted_at_iso": "2026-03-18T15:10:01.804084-03:00"
   }
 ]
