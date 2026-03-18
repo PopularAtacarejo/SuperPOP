@@ -5258,6 +5258,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/fbd7e5170a?token=5656fd5dce5e79edec9c0ce384206066abe540448e9a3573b9cf98af0eed49b0",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-03-18T16:36:50.704985-03:00",
+      "reactor": {
+        "id": "a68adc741547418e8142169247c6f540",
+        "nome": "Eduarda beatriz ferreira dos santos"
+      }
     }
   },
   {
