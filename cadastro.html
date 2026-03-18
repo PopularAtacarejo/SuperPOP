@@ -273,6 +273,7 @@
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="auth-online.css"/>
 </head>
 <body>
 <div class="floating-icons-bg" aria-hidden="true">
@@ -284,6 +285,36 @@
   <span class="floating-icon alt material-symbols-outlined" style="top: 63%; right: 16%; font-size: 30px; animation-delay: -5.3s;">volunteer_activism</span>
   <span class="floating-icon material-symbols-outlined" style="bottom: 18%; left: 28%; font-size: 24px; animation-delay: -2.2s;">kid_star</span>
   <span class="floating-icon alt material-symbols-outlined" style="bottom: 11%; right: 27%; font-size: 24px; animation-delay: -4.7s;">auto_awesome</span>
+</div>
+<div class="auth-top-actions" id="authTopActions">
+  <div class="online-users-menu" id="onlineUsersMenu">
+    <button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button">
+      <span class="material-symbols-outlined">groups</span>
+      <span class="online-users-btn-text">Online</span>
+      <span class="online-users-count" id="onlineUsersCount">0</span>
+    </button>
+    <div class="online-users-dropdown" id="onlineUsersDropdown">
+      <p class="online-users-dropdown-title">Usuarios online</p>
+      <p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando status...</p>
+      <ul class="online-users-list" id="onlineUsersList"></ul>
+    </div>
+  </div>
+<div class="auth-user-menu" id="authUserMenu">
+<button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
+<span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
+<span class="auth-user-btn-text">
+<strong id="authUserName">Carregando...</strong>
+<small id="authUserRole">Perfil</small>
+</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="auth-user-dropdown" id="authUserDropdown">
+<p class="text-sm font-bold text-gray-900" id="authUserNameDetail">Carregando...</p>
+<p class="text-xs font-semibold text-gray-500 mb-3" id="authUserRoleDetail">Perfil</p>
+<a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="usuarios.html" id="manageUsersQuickLink">Usuários cadastrados</a><a class="mb-2 hidden inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="editar-usuarios.html" id="editUsersQuickLink">Editar usuários</a>
+<button class="w-full rounded-xl bg-red-100 text-red-700 text-sm font-bold py-2 hover:bg-red-200 transition-colors" id="authLogoutBtn" type="button">Sair</button>
+</div>
+</div>
 </div>
 <div class="page">
   <section class="card">
@@ -586,4 +617,5 @@
     });
   });
 </script>
+<script src="auth-online.js"></script>
 </body></html>

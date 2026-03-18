@@ -7,9 +7,10 @@
   align-items: flex-start;
   gap: 10px;
   flex-wrap: wrap;
+  font-family: "Nunito", "Fredoka One", sans-serif;
 }
-.auth-top-actions .online-users-menu,
-.auth-top-actions .auth-user-menu {
+ .auth-top-actions .online-users-menu,
+ .auth-top-actions .auth-user-menu {
   position: relative;
   top: auto !important;
   right: auto !important;
@@ -18,7 +19,9 @@
 .online-users-menu {
   position: relative;
 }
-.online-users-btn {
+.online-users-btn,
+.auth-user-btn,
+.notifications-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -30,6 +33,7 @@
   color: #0f172a;
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
   cursor: pointer;
+  font-weight: 700;
 }
 .online-user-avatar {
   width: 38px;
