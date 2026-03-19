@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const editUsersNavItem = document.getElementById("editUsersNavItem");
   const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
   const analyticsSection = document.getElementById("analyticsSection");
+  const authUserAvatar = document.querySelector(".auth-user-avatar");
   const authUserAvatarImage = document.getElementById("authUserAvatarImage");
   const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
   const nameTargets = [
