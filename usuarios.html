@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -20,6 +20,10 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 .auth-user-menu{position:fixed;top:14px;right:14px;z-index:45}.auth-user-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(226,232,240,.9);background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-radius:999px;padding:6px 10px;color:#0f172a;box-shadow:0 8px 20px rgba(15,23,42,.12);cursor:pointer}.auth-user-avatar{width:38px;height:38px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;border-radius:999px;border:1px solid rgba(226,232,240,.95);background:linear-gradient(135deg,#fee2e2,#fde68a);color:#b91c1c;font-size:.82rem;font-weight:800;letter-spacing:.02em}.auth-user-avatar img{width:100%;height:100%;object-fit:cover;display:block}.auth-user-btn .material-symbols-outlined{font-size:20px}.auth-user-btn-text strong,.auth-user-btn-text small{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}.auth-user-btn-text small{color:#64748b;font-size:.68rem;font-weight:700}
 .auth-user-dropdown{display:none;position:absolute;top:calc(100% + 8px);right:0;width:min(280px,88vw);background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 16px 36px rgba(15,23,42,.18);padding:12px}.auth-user-dropdown.open{display:block}.auth-user-dropdown-name{font-size:.9rem;font-weight:800;color:#0f172a}.auth-user-dropdown-role{margin:2px 0 10px;font-size:.78rem;color:#64748b;font-weight:700}.auth-user-logout{width:100%;border:0;border-radius:10px;background:#fee2e2;color:#b91c1c;font-size:.8rem;font-weight:800;padding:9px 10px;cursor:pointer}
 .pill{border-radius:999px;padding:.28rem .7rem;font-size:.72rem;font-weight:800}.mini{border-radius:999px;padding:.22rem .55rem;font-size:.68rem;font-weight:800;background:#f1f5f9;color:#334155}.metric{background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,241,242,.96))}.table-wrap{overflow-x:auto}
+.table-wrap table{background:#ffffff}.table-wrap table tbody tr{background:#ffffff}.table-wrap table tbody tr:hover{background:#f8fafc}
+#usersTableBody tr{background-color:#fff!important}
+#usersTableBody tr td{background-color:transparent!important;color:#0f172a;transition:color .2s}
+#usersTableBody tr:hover{background-color:#f8fafc!important}
 @media (max-width:1100px){.sidebar{width:0;overflow:hidden;position:fixed;z-index:50;height:100vh}.sidebar.expanded{width:250px}.main-content{margin-left:0!important}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40}.sidebar.expanded+.sidebar-overlay{display:block}#mobileMenuBtn{display:flex!important}#sidebarToggle{display:none!important}}
 </style>
   <link rel="stylesheet" href="auth-online.css"/>
