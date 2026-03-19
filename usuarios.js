@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
+  const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+  function buildApiUrl(path) {
+    const cleanPath = path.startsWith("/") ? path : ("/" + path);
+    return apiBase + cleanPath;
+  }
+
   let state = {
     users: [],
     generatedAt: "",
@@ -88,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function fetchUsers() {
     setLoading(true);
     showTableMessage("Carregando usuários...");
-    fetch("/api/admin/users", { credentials: "include", cache: "no-store" })
+    fetch(buildApiUrl("/api/admin/users"), { credentials: "include", cache: "no-store" })
       .then(function (response) {
         if (response.status === 401) {
           window.location.href = "index.html";
