@@ -83,12 +83,13 @@
     "titulo": "Atualizações",
     "descricao": "Atualização de Segurança de Dados. JWT*\nBackup De Dados Dairiamente*\nCryptografia de dados cheva Hexadecimal*",
     "categoria": "Atualização de Segurança",
-    "status": "Concluído",
+    "status": "Segurança",
     "autor": {
       "id": "b8c2c8b2a24b4037830f099f4f2469d1",
       "nome": "Jeferson"
     },
-    "created_at_iso": "2026-03-19T11:54:39.408071-03:00"
+    "created_at_iso": "2026-03-19T11:54:39.408071-03:00",
+    "updated_at_iso": "2026-03-19T12:02:28.434902-03:00"
   },
   {
     "id": "a05cb78270f147ba88925f0628d81f7f",
