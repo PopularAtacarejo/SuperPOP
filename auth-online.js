@@ -385,6 +385,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const userIsCurrent = Boolean(userId && currentAuthenticatedUserId && userId === currentAuthenticatedUserId);
       const row = document.createElement("li");
       row.className = "online-user-item";
+      const isAdmin = Boolean(item.permissoes && item.permissoes.manage_users);
+      const isDeveloper = Boolean(item.permissoes && item.permissoes.edit_users);
+      if (isAdmin) {
+        row.classList.add("admin");
+      } else if (isDeveloper) {
+        row.classList.add("developer");
+      }
       row.appendChild(buildOnlineAvatarNode(item.foto_perfil_data_url, userName));
 
       const meta = document.createElement("div");
@@ -394,6 +401,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const subtitle = document.createElement("small");
       subtitle.textContent = userRole + " | " + userPresence;
       meta.appendChild(title);
+      if (isAdmin || isDeveloper) {
+        const tag = document.createElement("span");
+        tag.className = "online-user-role-tag " + (isAdmin ? "admin" : "developer");
+        tag.textContent = isAdmin ? "Administrador" : "Desenvolvedor";
+        meta.appendChild(tag);
+      }
       meta.appendChild(subtitle);
       row.appendChild(meta);
       onlineUsersList.appendChild(row);
