@@ -747,6 +747,85 @@ Enviar parabéns
     loadTodayBirthdays();
   });
 </script>
+<script data-purpose="sidebar-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const overlay = document.getElementById("sidebarOverlay");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const smallLogo = document.querySelector(".sidebar-collapsed-only");
+    const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+    const sidebarStorageKey = "superpop_sidebar_expanded";
+
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar(shouldPersist = true) {
+      sidebar.classList.add("expanded");
+      chevron.textContent = "chevron_left";
+      smallLogo.style.opacity = "0";
+      if (shouldPersist && window.innerWidth >= 1100) {
+        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
+      }
+    }
+
+    function closeSidebar(shouldPersist = true) {
+      sidebar.classList.remove("expanded");
+      chevron.textContent = "chevron_right";
+      window.setTimeout(function () {
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
+      }, 220);
+      if (shouldPersist && window.innerWidth >= 1100) {
+        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
+      }
+    }
+
+    function toggleSidebar() {
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    }
+
+    function readStoredState() {
+      try {
+        const stored = localStorage.getItem(sidebarStorageKey);
+        if (stored === "1") {
+          openSidebar(false);
+        } else if (stored === "0") {
+          closeSidebar(false);
+        }
+      } catch (_err) {}
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      toggleSidebar();
+    });
+
+    overlay.addEventListener("click", function () {
+      closeSidebar();
+    });
+
+    mobileMenuBtn.addEventListener("click", function () {
+      openSidebar();
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 1100 && !sidebar.classList.contains("expanded")) {
+        openSidebar(false);
+      }
+      if (window.innerWidth < 1100 && sidebar.classList.contains("expanded")) {
+        closeSidebar(false);
+      }
+    });
+
+    readStoredState();
+  });
+</script>
 <script src="auth-online.js"></script>
 </body>
 </html>
