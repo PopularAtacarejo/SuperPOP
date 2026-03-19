@@ -481,5 +481,24 @@
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-18T11:22:34.210386-03:00"
+  },
+  {
+    "id": "69f7cbbe7a5746f991c5e7567eafb043",
+    "nome": "Delma Barros",
+    "funcao": "Encarregado de Padaria",
+    "numero_celular": "(82) 9 8171 - 7873",
+    "numero_normalizado": "82981717873",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "f85fe28006c4007992a76b639e67ecae",
+      "hash": "cb5c87b7d7aae6abc6075053f9dd2d840e43e29510328c0e66832ca52cdb287d",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-19T17:11:11.545862-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false
   }
 ]
