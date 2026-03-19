@@ -385,8 +385,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const userIsCurrent = Boolean(userId && currentAuthenticatedUserId && userId === currentAuthenticatedUserId);
       const row = document.createElement("li");
       row.className = "online-user-item";
-      const isAdmin = Boolean(item.permissoes && item.permissoes.manage_users);
-      const isDeveloper = Boolean(item.permissoes && item.permissoes.edit_users);
+      const roleLabel = userRole.toLowerCase();
+      const isAdmin = Boolean(
+        (item.permissoes && item.permissoes.manage_users) ||
+        roleLabel.indexOf("admin") >= 0
+      );
+      const isDeveloper = Boolean(
+        (item.permissoes && item.permissoes.edit_users) ||
+        roleLabel.indexOf("dev") >= 0 ||
+        roleLabel.indexOf("desenvolvedor") >= 0
+      );
       if (isAdmin) {
         row.classList.add("admin");
       } else if (isDeveloper) {
