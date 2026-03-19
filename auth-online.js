@@ -668,16 +668,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
       analyticsNavItem.classList.remove("hidden");
     }
-    if (manageUsersQuickLink && payload.permissoes && payload.permissoes.manage_users) {
+    const hasDeveloperPermission = Boolean(payload.permissoes && payload.permissoes.edit_users);
+    if (manageUsersQuickLink && hasDeveloperPermission) {
       manageUsersQuickLink.classList.remove("hidden");
     }
-    if (manageUsersNavItem && payload.permissoes && payload.permissoes.manage_users) {
+    if (manageUsersNavItem && hasDeveloperPermission) {
       manageUsersNavItem.classList.remove("hidden");
     }
-    if (editUsersQuickLink && payload.permissoes && payload.permissoes.edit_users) {
+    if (editUsersQuickLink && hasDeveloperPermission) {
       editUsersQuickLink.classList.remove("hidden");
     }
-    if (editUsersNavItem && payload.permissoes && payload.permissoes.edit_users) {
+    if (editUsersNavItem && hasDeveloperPermission) {
       editUsersNavItem.classList.remove("hidden");
       if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
     }
