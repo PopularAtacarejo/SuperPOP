@@ -217,6 +217,23 @@ document.addEventListener("DOMContentLoaded", function () {
     return container;
   }
 
+  function normalizeTagsForUser(user) {
+    const rawTags = Array.isArray(user && user.tags_acesso) ? user.tags_acesso : [];
+    return rawTags
+      .map(function (tag) { return String(tag || "").trim().toLowerCase(); })
+      .filter(function (tag) { return Boolean(tag); });
+  }
+
+  function userHasTag(user, targets) {
+    const normalized = normalizeTagsForUser(user);
+    if (!normalized.length) return false;
+    const candidates = Array.isArray(targets) ? targets : [targets];
+    return candidates.some(function (target) {
+      const value = String(target || "").trim().toLowerCase();
+      return value && normalized.indexOf(value) >= 0;
+    });
+  }
+
   function resolveOrigin(urlValue) {
     try {
       return new URL(String(urlValue || "")).origin.toLowerCase();
@@ -386,11 +403,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const row = document.createElement("li");
       row.className = "online-user-item";
       const roleLabel = userRole.toLowerCase();
+      const hasAdminTag = userHasTag(item, "admin");
+      const hasDeveloperTag = userHasTag(item, ["developer", "dev"]);
       const isAdmin = Boolean(
+        hasAdminTag ||
         (item.permissoes && item.permissoes.manage_users) ||
         roleLabel.indexOf("admin") >= 0
       );
       const isDeveloper = Boolean(
+        hasDeveloperTag ||
         (item.permissoes && item.permissoes.edit_users) ||
         roleLabel.indexOf("dev") >= 0 ||
         roleLabel.indexOf("desenvolvedor") >= 0
@@ -668,19 +689,19 @@ document.addEventListener("DOMContentLoaded", function () {
     if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
       analyticsNavItem.classList.remove("hidden");
     }
-    const hasManagerPermission = Boolean(payload.permissoes && payload.permissoes.manage_users);
-    const hasDeveloperPermission = Boolean(payload.permissoes && payload.permissoes.edit_users);
-    const showManageItems = hasManagerPermission || hasDeveloperPermission;
+    const hasAdminTag = userHasTag(payload.usuario, "admin");
+    const hasDeveloperTag = userHasTag(payload.usuario, ["developer", "dev"]);
+    const showManageItems = hasAdminTag || hasDeveloperTag;
     if (manageUsersQuickLink && showManageItems) {
       manageUsersQuickLink.classList.remove("hidden");
     }
     if (manageUsersNavItem && showManageItems) {
       manageUsersNavItem.classList.remove("hidden");
     }
-    if (editUsersQuickLink && hasDeveloperPermission) {
+    if (editUsersQuickLink && hasDeveloperTag) {
       editUsersQuickLink.classList.remove("hidden");
     }
-    if (editUsersNavItem && hasDeveloperPermission) {
+    if (editUsersNavItem && hasDeveloperTag) {
       editUsersNavItem.classList.remove("hidden");
       if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
     }
