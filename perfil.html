@@ -552,6 +552,23 @@
         }).join("");
       }
 
+      function normalizeTagsForUser(user) {
+        const rawTags = Array.isArray(user && user.tags_acesso) ? user.tags_acesso : [];
+        return rawTags
+          .map(function (tag) { return String(tag || "").trim().toLowerCase(); })
+          .filter(function (tag) { return Boolean(tag); });
+      }
+
+      function userHasTag(user, targets) {
+        const normalized = normalizeTagsForUser(user);
+        if (!normalized.length) return false;
+        const candidates = Array.isArray(targets) ? targets : [targets];
+        return candidates.some(function (target) {
+          const value = String(target || "").trim().toLowerCase();
+          return value && normalized.indexOf(value) >= 0;
+        });
+      }
+
       function renderAvatar(photoDataUrl, name) {
         const safePhoto = String(photoDataUrl || "").trim();
         if (safePhoto) {
@@ -586,14 +603,13 @@
           mostrarAniversarioInput.checked = Boolean(currentUser.mostrar_aniversario);
         }
         renderTags(currentUser.tags_acesso);
-        const currentPermissions = currentUser && currentUser.permissoes ? currentUser.permissoes : {};
-        const hasManagerPermission = Boolean(currentPermissions.manage_users);
-        const hasDeveloperPermission = Boolean(currentPermissions.edit_users);
-        const showManageLinks = hasManagerPermission || hasDeveloperPermission;
+        const isAdminTag = userHasTag(currentUser, "admin");
+        const isDeveloperTag = userHasTag(currentUser, ["developer", "dev"]);
+        const showManageLinks = isAdminTag || isDeveloperTag;
         if (manageUsersQuickLink && showManageLinks) manageUsersQuickLink.classList.remove("hidden");
-        if (editUsersQuickLink && hasDeveloperPermission) editUsersQuickLink.classList.remove("hidden");
+        if (editUsersQuickLink && isDeveloperTag) editUsersQuickLink.classList.remove("hidden");
         if (manageUsersHeaderLink && showManageLinks) manageUsersHeaderLink.classList.remove("hidden");
-        if (editUsersHeaderLink && hasDeveloperPermission) editUsersHeaderLink.classList.remove("hidden");
+        if (editUsersHeaderLink && isDeveloperTag) editUsersHeaderLink.classList.remove("hidden");
         renderAvatar(currentUser.foto_perfil_data_url, currentUser.nome);
       }
 
