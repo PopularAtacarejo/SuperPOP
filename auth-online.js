@@ -780,37 +780,41 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = buildFrontendUrl("index.html");
   });
 
-  if (!allowAnonymousAuth) {
-    loadUserFromSession()
-      .then(function () {
+  function handleSessionError(error) {
+    const cachedReader = window.__superpopGetCachedAuthUser;
+    const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
+    if (cachedUser) {
+      setUserView(cachedUser);
+      return Promise.resolve();
+    }
+    const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+    const isUnauthorized = typeof unauthorizedCheck === "function"
+      ? unauthorizedCheck(error)
+      : Boolean(error && error.message === "Não autenticado");
+    if (isUnauthorized) {
+      if (!allowAnonymousAuth) {
+        window.location.href = buildFrontendUrl("index.html");
+      } else {
+        setOnlineUsersStatus("Faça login para ver quem está online.");
+        setNotificationStatus("Faça login para ver as notificações.");
+      }
+      return Promise.resolve();
+    }
+    console.warn("Falha temporaria ao validar sessao no menu do usuario.", error);
+    return Promise.resolve();
+  }
+
+  loadUserFromSession()
+    .then(function () {
+      startPresenceRefreshLoop();
+      startNotificationsRefreshLoop();
+    })
+    .catch(function (error) {
+      handleSessionError(error).then(function () {
         startPresenceRefreshLoop();
         startNotificationsRefreshLoop();
-      })
-      .catch(function (error) {
-        const cachedReader = window.__superpopGetCachedAuthUser;
-        const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
-        if (cachedUser) {
-          setUserView(cachedUser);
-          startPresenceRefreshLoop();
-          startNotificationsRefreshLoop();
-          return;
-        }
-        const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
-        const isUnauthorized = typeof unauthorizedCheck === "function"
-          ? unauthorizedCheck(error)
-          : Boolean(error && error.message === "Não autenticado");
-        if (isUnauthorized) {
-          if (!allowAnonymousAuth) {
-            window.location.href = buildFrontendUrl("index.html");
-          }
-          return;
-        }
-        console.warn("Falha temporaria ao validar sessao no menu do usuario.", error);
       });
-  } else {
-    setOnlineUsersStatus("Faça login para ver quem está online.");
-    setNotificationStatus("Faça login para ver as notificações.");
-  }
+    });
 
   setOnlineUsersCount(0);
   setNotificationCount(0);
