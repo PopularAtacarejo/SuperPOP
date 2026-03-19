@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const authTopActions = document.getElementById("authTopActions");
   const authUserBtn = document.getElementById("authUserBtn");
   const authUserDropdown = document.getElementById("authUserDropdown");
@@ -26,12 +26,22 @@
     document.getElementById("authUserRole"),
     document.getElementById("authUserRoleDetail"),
   ];
+  let authUserFunctionDetail = null;
+  let authAvatarViewer = null;
+  let authAvatarViewerImage = null;
+  let authAvatarViewerFallback = null;
+  let authAvatarViewerName = null;
+  let authAvatarViewerRole = null;
   const apiBase = String(
     window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com"
   ).replace(/\/+$/, "");
   const frontendBase = String(
     window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP"
   ).replace(/\/+$/, "");
+  const allowAnonymousAuth = Boolean(
+    (window.SUPERPOP_ALLOW_ANON_AUTH === true || window.SUPERPOP_ALLOW_ANON_AUTH === "true") ||
+    (document.body && document.body.dataset && document.body.dataset.allowAnonymousAuth === "true")
+  );
 
   if (!authUserBtn || !authUserDropdown || !authLogoutBtn) {
     return;
@@ -88,6 +98,8 @@
   }
 
   ensureNotificationsMenu();
+  enhanceAuthUserDropdown();
+  ensureAvatarViewer();
 
   const notificationBtn = document.getElementById("notificationBtn");
   const notificationDropdown = document.getElementById("notificationsDropdown");
@@ -96,6 +108,110 @@
   const notificationsList = document.getElementById("notificationsList");
   const showSuperpopsBtn = document.getElementById("showSuperpopsBtn");
   const markAllNotificationsBtn = document.getElementById("markAllNotificationsBtn");
+
+  function enhanceAuthUserDropdown() {
+    if (!authUserDropdown || authUserDropdown.dataset.enhanced) {
+      return;
+    }
+    const nameDetail = document.getElementById("authUserNameDetail");
+    const roleDetail = document.getElementById("authUserRoleDetail");
+    if (!nameDetail || !roleDetail) {
+      return;
+    }
+    const detailWrapper = document.createElement("div");
+    detailWrapper.className = "auth-user-dropdown-detail";
+    const icon = document.createElement("span");
+    icon.className = "material-symbols-outlined auth-user-dropdown-detail-icon";
+    icon.textContent = "badge";
+    detailWrapper.appendChild(icon);
+    detailWrapper.appendChild(nameDetail);
+    detailWrapper.appendChild(roleDetail);
+    authUserDropdown.prepend(detailWrapper);
+    const functionWrapper = document.createElement("div");
+    functionWrapper.className = "auth-user-dropdown-function";
+    functionWrapper.innerHTML = '<span class="material-symbols-outlined">work</span><strong id="authUserFunctionDetail">Função: Perfil</strong>';
+    detailWrapper.after(functionWrapper);
+    authUserFunctionDetail = document.getElementById("authUserFunctionDetail");
+    authUserDropdown.dataset.enhanced = "1";
+  }
+
+  function closeAuthAvatarViewer() {
+    if (!authAvatarViewer) return;
+    authAvatarViewer.classList.remove("open");
+  }
+
+  function openAuthAvatarViewer() {
+    if (!authAvatarViewer) return;
+    authAvatarViewer.classList.add("open");
+  }
+
+  function updateAvatarViewerContent(photo, name, role) {
+    if (!authAvatarViewer) return;
+    const safePhoto = String(photo || "").trim();
+    if (safePhoto && authAvatarViewerImage) {
+      authAvatarViewerImage.src = safePhoto;
+      authAvatarViewerImage.classList.remove("hidden");
+      if (authAvatarViewerFallback) {
+        authAvatarViewerFallback.classList.add("hidden");
+      }
+    } else if (authAvatarViewerFallback) {
+      authAvatarViewerFallback.textContent = initialsFromName(name);
+      authAvatarViewerFallback.classList.remove("hidden");
+      if (authAvatarViewerImage) {
+        authAvatarViewerImage.removeAttribute("src");
+        authAvatarViewerImage.classList.add("hidden");
+      }
+    }
+    if (authAvatarViewerName) {
+      authAvatarViewerName.textContent = String(name || "Usuário");
+    }
+    if (authAvatarViewerRole) {
+      authAvatarViewerRole.textContent = String(role || "Sem função");
+    }
+  }
+
+  function ensureAvatarViewer() {
+    if (authAvatarViewer) return authAvatarViewer;
+    const container = document.createElement("div");
+    container.id = "authAvatarViewer";
+    container.className = "auth-avatar-viewer";
+    container.innerHTML = `
+      <div class="auth-avatar-viewer-card">
+        <button class="auth-avatar-viewer-close" type="button" aria-label="Fechar">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="auth-avatar-viewer-photo">
+          <img id="authAvatarViewerImage" alt="Foto ampliada do usuário"/>
+          <span id="authAvatarViewerFallback">SP</span>
+        </div>
+        <p class="auth-avatar-viewer-name" id="authAvatarViewerName">Carregando...</p>
+        <p class="auth-avatar-viewer-role" id="authAvatarViewerRole">Perfil</p>
+      </div>
+    `;
+    document.body.appendChild(container);
+    authAvatarViewer = container;
+    authAvatarViewerImage = container.querySelector("#authAvatarViewerImage");
+    authAvatarViewerFallback = container.querySelector("#authAvatarViewerFallback");
+    authAvatarViewerName = container.querySelector("#authAvatarViewerName");
+    authAvatarViewerRole = container.querySelector("#authAvatarViewerRole");
+    const closeButton = container.querySelector(".auth-avatar-viewer-close");
+    if (closeButton) {
+      closeButton.addEventListener("click", function () {
+        closeAuthAvatarViewer();
+      });
+    }
+    container.addEventListener("click", function (event) {
+      if (event.target === container) {
+        closeAuthAvatarViewer();
+      }
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && container.classList.contains("open")) {
+        closeAuthAvatarViewer();
+      }
+    });
+    return container;
+  }
 
   function resolveOrigin(urlValue) {
     try {
@@ -148,6 +264,10 @@
     nameTargets.forEach(function (el) { if (el) el.textContent = safeNome; });
     roleTargets.forEach(function (el) { if (el) el.textContent = safeFuncao; });
     renderUserAvatar(user && user.foto_perfil_data_url, safeNome);
+    if (authUserFunctionDetail) {
+      authUserFunctionDetail.textContent = "Função: " + safeFuncao;
+    }
+    updateAvatarViewerContent(user && user.foto_perfil_data_url, safeNome, safeFuncao);
   }
 
   function closeAuthDropdown() {
@@ -316,7 +436,9 @@
       ? unauthorizedCheck(error) || Boolean(error && error.authReason === "unauthorized")
       : Boolean(error && error.authReason === "unauthorized");
     if (isUnauthorized) {
-      window.location.href = buildFrontendUrl("index.html");
+      if (!allowAnonymousAuth) {
+        window.location.href = buildFrontendUrl("index.html");
+      }
       return true;
     }
     return false;
@@ -546,6 +668,14 @@
     }
   });
 
+  if (authUserAvatar) {
+    authUserAvatar.addEventListener("click", function (event) {
+      event.stopPropagation();
+      ensureAvatarViewer();
+      openAuthAvatarViewer();
+    });
+  }
+
   if (onlineUsersBtn && onlineUsersDropdown) {
     onlineUsersBtn.addEventListener("click", function () {
       const isOpen = onlineUsersDropdown.classList.contains("open");
@@ -647,30 +777,37 @@
     window.location.href = buildFrontendUrl("index.html");
   });
 
-  loadUserFromSession()
-    .then(function () {
-      startPresenceRefreshLoop();
-      startNotificationsRefreshLoop();
-    })
-    .catch(function (error) {
-      const cachedReader = window.__superpopGetCachedAuthUser;
-      const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
-      if (cachedUser) {
-        setUserView(cachedUser);
+  if (!allowAnonymousAuth) {
+    loadUserFromSession()
+      .then(function () {
         startPresenceRefreshLoop();
         startNotificationsRefreshLoop();
-        return;
-      }
-      const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
-      const isUnauthorized = typeof unauthorizedCheck === "function"
-        ? unauthorizedCheck(error)
-        : Boolean(error && error.message === "Não autenticado");
-      if (isUnauthorized) {
-        window.location.href = buildFrontendUrl("index.html");
-        return;
-      }
-      console.warn("Falha temporaria ao validar sessao no menu do usuario.", error);
-    });
+      })
+      .catch(function (error) {
+        const cachedReader = window.__superpopGetCachedAuthUser;
+        const cachedUser = typeof cachedReader === "function" ? cachedReader() : null;
+        if (cachedUser) {
+          setUserView(cachedUser);
+          startPresenceRefreshLoop();
+          startNotificationsRefreshLoop();
+          return;
+        }
+        const unauthorizedCheck = window.__superpopIsUnauthorizedAuthError;
+        const isUnauthorized = typeof unauthorizedCheck === "function"
+          ? unauthorizedCheck(error)
+          : Boolean(error && error.message === "Não autenticado");
+        if (isUnauthorized) {
+          if (!allowAnonymousAuth) {
+            window.location.href = buildFrontendUrl("index.html");
+          }
+          return;
+        }
+        console.warn("Falha temporaria ao validar sessao no menu do usuario.", error);
+      });
+  } else {
+    setOnlineUsersStatus("Faça login para ver quem está online.");
+    setNotificationStatus("Faça login para ver as notificações.");
+  }
 
   setOnlineUsersCount(0);
   setNotificationCount(0);
