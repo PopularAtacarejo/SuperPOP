@@ -453,9 +453,6 @@
       const profileSuccess = document.getElementById("profileSuccess");
       const passwordError = document.getElementById("passwordError");
       const passwordSuccess = document.getElementById("passwordSuccess");
-      const authUserBtn = document.getElementById("authUserBtn");
-      const authUserDropdown = document.getElementById("authUserDropdown");
-      const authLogoutBtn = document.getElementById("authLogoutBtn");
       const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
       const editUsersQuickLink = document.getElementById("editUsersQuickLink");
       const manageUsersHeaderLink = document.getElementById("manageUsersHeaderLink");
@@ -736,26 +733,7 @@
         }
       });
 
-      authUserBtn.addEventListener("click", function () {
-        const isOpen = authUserDropdown.classList.contains("open");
-        authUserDropdown.classList.toggle("open", !isOpen);
-        authUserBtn.setAttribute("aria-expanded", String(!isOpen));
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
-          authUserDropdown.classList.remove("open");
-          authUserBtn.setAttribute("aria-expanded", "false");
-        }
-      });
-
-      authLogoutBtn.addEventListener("click", async function () {
-        try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
-        try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
-        window.location.href = buildFrontendUrl("index.html");
-      });
-
-      saveProfileLabel.dataset.defaultLabel = saveProfileLabel.textContent;
+     saveProfileLabel.dataset.defaultLabel = saveProfileLabel.textContent;
       savePasswordLabel.dataset.defaultLabel = savePasswordLabel.textContent;
 
       loadProfile().catch(function () {
