@@ -119,6 +119,19 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  padding: 10px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+.online-user-item.admin {
+  border-color: #10b981;
+  box-shadow: 0 8px 20px -8px rgba(16, 185, 129, 0.7);
+}
+.online-user-item.developer {
+  border-color: #ef4444;
+  box-shadow: 0 8px 20px -8px rgba(239, 68, 68, 0.7);
 }
 .online-user-item.empty {
   font-size: 0.85rem;
@@ -130,6 +143,25 @@
   display: block;
   font-size: 0.9rem;
   color: #0f172a;
+}
+.online-user-role-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.online-user-role-tag.admin {
+  background: rgba(16, 185, 129, 0.15);
+  color: #047857;
+}
+.online-user-role-tag.developer {
+  background: rgba(239, 68, 68, 0.15);
+  color: #991b1b;
 }
 .online-user-meta small {
   display: block;
