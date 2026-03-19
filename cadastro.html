@@ -104,7 +104,8 @@
     width: clamp(90px, 12vw, 120px);
     border-radius: 16px;
     flex-shrink: 0;
-    box-shadow: 0 12px 28px -18px rgba(0, 0, 0, 0.8);
+    object-fit: contain;
+    background: transparent;
   }
 
   .card-header-text .eyebrow {
@@ -161,6 +162,30 @@
     grid-column: 1 / -1;
   }
 
+  .input-with-toggle {
+    position: relative;
+    width: 100%;
+  }
+
+  .toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+    padding: 0;
+  }
+
+  .toggle-password-btn .material-symbols-outlined {
+    font-size: 20px;
+  }
+
   label {
     font-size: 0.78rem;
     font-weight: 800;
@@ -202,6 +227,18 @@
     border-color: var(--primary);
     box-shadow: 0 0 0 3px #e6394630;
     background: #fff;
+  }
+
+  input[type="text"][placeholder*=\"dd/mm/aaaa\"] {
+    background-image: linear-gradient(180deg, #fff, #fef6f6);
+    box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(203, 213, 225, 0.6);
+    border-color: #f1dede;
+    padding-right: 14px;
+  }
+
+  input[type="text"][placeholder*=\"dd/mm/aaaa\"]:focus {
+    border-color: #e63946;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
   }
 
   .birthday-card {
@@ -338,15 +375,53 @@
     .actions {
       justify-content: center;
     }
-    .funcao-input-desktop {
-      display: none;
+  }
+  .funcao-input-desktop {
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding-bottom: 40px;
     }
-    .funcao-select-mobile {
-      display: block;
+    .page {
+      padding: 16px;
+    }
+    .card {
+      padding: 16px;
+      border-radius: 20px;
+    }
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .card-header-text h1 {
+      font-size: 1.8rem;
+    }
+    .card-hero-pill {
+      justify-content: center;
+      width: 100%;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .birthday-fields {
+      grid-template-columns: 1fr;
+    }
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .toggle-control {
+      gap: 4px;
+    }
+    .input-with-toggle {
+      padding-right: 34px;
     }
   }
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 </head>
 <body data-allow-anonymous-auth="true">
 <div class="floating-icons-bg" aria-hidden="true">
@@ -383,9 +458,6 @@
         <div class="form-group">
           <label for="funcao">Função</label>
           <input class="funcao-input-desktop" id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
-          <select class="funcao-select-mobile" id="funcaoSelectMobile">
-            <option value="">Selecione uma função</option>
-          </select>
           <datalist id="listaFuncoesSupermercado"></datalist>
         </div>
         <div class="form-group">
@@ -396,9 +468,21 @@
           <label for="email">E-mail (opcional)</label>
           <input id="email" maxlength="120" placeholder="nome@empresa.com.br" type="email"/>
         </div>
-        <div class="form-group full">
+        <div class="form-group full password-row">
           <label for="senha">Senha</label>
-          <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
+          <div class="input-with-toggle">
+            <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
+            <button class="toggle-password-btn" id="toggleSenhaVisibility" type="button" aria-label="Mostrar senha">
+              <span class="material-symbols-outlined" id="toggleSenhaIcon">visibility</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group full password-row">
+          <label for="senhaConfirmacao">Confirmar senha</label>
+          <div class="input-with-toggle">
+            <input id="senhaConfirmacao" minlength="6" placeholder="Repita sua senha" required type="password"/>
+          </div>
+          <p class="helper-text">As duas senhas devem ser idênticas.</p>
         </div>
       </div>
 
@@ -410,7 +494,7 @@
         <div class="birthday-fields">
           <div class="form-group">
             <label for="dataNascimento">Data de nascimento</label>
-            <input id="dataNascimento" type="date"/>
+            <input id="dataNascimento" type="text" placeholder="dd/mm/aaaa" inputmode="numeric"/>
           </div>
           <div class="form-group toggle-wrapper">
             <label class="toggle-control" for="mostrarAniversario">
@@ -439,10 +523,12 @@
     const form = document.getElementById("cadastroForm");
     const nomeInput = document.getElementById("nome");
     const funcaoInput = document.getElementById("funcao");
-    const funcaoSelectMobile = document.getElementById("funcaoSelectMobile");
     const numeroInput = document.getElementById("numeroCelular");
     const emailInput = document.getElementById("email");
     const senhaInput = document.getElementById("senha");
+    const senhaConfirmacaoInput = document.getElementById("senhaConfirmacao");
+    const dataNascimentoInput = document.getElementById("dataNascimento");
+    const mostrarAniversarioInput = document.getElementById("mostrarAniversario");
     const listaFuncoesEl = document.getElementById("listaFuncoesSupermercado");
     const submitBtn = document.getElementById("submitBtn");
     const submitBtnLabel = document.getElementById("submitBtnLabel");
@@ -450,8 +536,11 @@
     const statusSucesso = document.getElementById("statusSucesso");
     const FUNCOES_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/FuncoesSupermercado.json";
     const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
+    const DATE_REGEX = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
     const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
     const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+    const toggleSenhaBtn = document.getElementById("toggleSenhaVisibility");
+    const toggleSenhaIcon = document.getElementById("toggleSenhaIcon");
 
     function resolveOrigin(urlValue) {
       try {
@@ -497,23 +586,80 @@
       statusSucesso.style.display = "block";
     }
 
+    function setPasswordVisibility(show) {
+      const type = show ? "text" : "password";
+      if (senhaInput) {
+        senhaInput.type = type;
+      }
+      if (senhaConfirmacaoInput) {
+        senhaConfirmacaoInput.type = type;
+      }
+      if (toggleSenhaIcon) {
+        toggleSenhaIcon.textContent = show ? "visibility_off" : "visibility";
+      }
+      if (toggleSenhaBtn) {
+        toggleSenhaBtn.setAttribute("aria-label", show ? "Ocultar senha" : "Mostrar senha");
+      }
+    }
+
+    function formatDateMask(value) {
+      const digits = String(value || "").replace(/\D/g, "").slice(0, 8);
+      if (!digits) return "";
+      if (digits.length <= 2) return digits;
+      if (digits.length <= 4) return digits.slice(0, 2) + "/" + digits.slice(2);
+      return digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4, 8);
+    }
+
+    function isDateValid(value) {
+      if (!DATE_REGEX.test(value)) return false;
+      const parts = value.split("/");
+      const day = Number(parts[0]);
+      const month = Number(parts[1]) - 1;
+      const year = Number(parts[2]);
+      const date = new Date(year, month, day);
+      return (
+        date.getFullYear() === year &&
+        date.getMonth() === month &&
+        date.getDate() === day
+      );
+    }
+
     function isMobileViewport() {
       return window.matchMedia("(max-width: 768px)").matches;
     }
 
     function getFuncaoValue() {
       const inputValue = String((funcaoInput && funcaoInput.value) || "").trim();
-      const selectValue = String((funcaoSelectMobile && funcaoSelectMobile.value) || "").trim();
-      return isMobileViewport() ? (selectValue || inputValue) : (inputValue || selectValue);
+      return inputValue;
     }
 
-    numeroInput.addEventListener("input", function () {
-      const cursorAtEnd = numeroInput.selectionStart === numeroInput.value.length;
-      numeroInput.value = formatPhoneMask(numeroInput.value);
-      if (cursorAtEnd) {
-        numeroInput.setSelectionRange(numeroInput.value.length, numeroInput.value.length);
-      }
-    });
+    if (numeroInput) {
+      numeroInput.addEventListener("input", function () {
+        const cursorAtEnd = numeroInput.selectionStart === numeroInput.value.length;
+        numeroInput.value = formatPhoneMask(numeroInput.value);
+        if (cursorAtEnd) {
+          numeroInput.setSelectionRange(numeroInput.value.length, numeroInput.value.length);
+        }
+      });
+    }
+
+    if (dataNascimentoInput) {
+      dataNascimentoInput.addEventListener("input", function () {
+        const cursorAtEnd = dataNascimentoInput.selectionStart === dataNascimentoInput.value.length;
+        dataNascimentoInput.value = formatDateMask(dataNascimentoInput.value);
+        if (cursorAtEnd) {
+          dataNascimentoInput.setSelectionRange(dataNascimentoInput.value.length, dataNascimentoInput.value.length);
+        }
+      });
+    }
+
+    if (toggleSenhaBtn) {
+      toggleSenhaBtn.addEventListener("click", function () {
+        const isPasswordVisible = senhaInput && senhaInput.type === "text";
+        setPasswordVisibility(!isPasswordVisible);
+      });
+    }
+    setPasswordVisibility(false);
 
     function normalizeGithubBlobUrl(url) {
       try {
@@ -559,45 +705,20 @@
         const uniqueSorted = Array.from(new Set(funcoes.map(function (item) { return String(item || "").trim(); }).filter(Boolean)))
           .sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
         listaFuncoesEl.innerHTML = "";
-        if (funcaoSelectMobile) {
-          funcaoSelectMobile.innerHTML = "";
-          const placeholderOption = document.createElement("option");
-          placeholderOption.value = "";
-          placeholderOption.textContent = "Selecione uma função";
-          funcaoSelectMobile.appendChild(placeholderOption);
-        }
         uniqueSorted.forEach(function (funcao) {
           const option = document.createElement("option");
           option.value = funcao;
           listaFuncoesEl.appendChild(option);
-          if (funcaoSelectMobile) {
-            const selectOption = document.createElement("option");
-            selectOption.value = funcao;
-            selectOption.textContent = funcao;
-            funcaoSelectMobile.appendChild(selectOption);
-          }
         });
       } catch (_err) {
         listaFuncoesEl.innerHTML = "";
-        if (funcaoSelectMobile) {
-          funcaoSelectMobile.innerHTML = '<option value="">Selecione uma função</option>';
-        }
+        listaFuncoesEl.innerHTML = "";
       }
     }
 
-    if (funcaoSelectMobile && funcaoInput) {
-      funcaoSelectMobile.addEventListener("change", function () {
-        funcaoInput.value = String(funcaoSelectMobile.value || "").trim();
-      });
-      funcaoInput.addEventListener("input", function () {
-        const normalized = String(funcaoInput.value || "").trim();
-        if (!normalized) {
-          funcaoSelectMobile.value = "";
-        } else if (Array.from(funcaoSelectMobile.options).some(function (option) { return option.value === normalized; })) {
-          funcaoSelectMobile.value = normalized;
-        }
-      });
-    }
+    funcaoInput.addEventListener("input", function () {
+      funcaoInput.value = String(funcaoInput.value || "").trim();
+    });
 
     loadFuncoesAutocomplete();
 
@@ -611,6 +732,8 @@
         funcao: getFuncaoValue(),
         numero_celular: String(numeroInput.value || "").trim(),
         email: String(emailInput.value || "").trim(),
+        data_nascimento: dataNascimentoInput ? String(dataNascimentoInput.value || "").trim() : "",
+        mostrar_aniversario: Boolean(mostrarAniversarioInput && mostrarAniversarioInput.checked),
         senha: String(senhaInput.value || "")
       };
 
@@ -628,6 +751,14 @@
       }
       if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
         showError("E-mail inválido.");
+        return;
+      }
+      if (dataNascimentoInput && dataNascimentoInput.value.trim() && !isDateValid(dataNascimentoInput.value.trim())) {
+        showError("Informe uma data de nascimento válida (dd/mm/aaaa).");
+        return;
+      }
+      if (senhaConfirmacaoInput && senhaInput && senhaInput.value !== senhaConfirmacaoInput.value) {
+        showError("As senhas não coincidem.");
         return;
       }
       if (payload.senha.length < 6) {
@@ -649,13 +780,10 @@
         }
 
         form.reset();
-        if (funcaoSelectMobile) {
-          funcaoSelectMobile.value = "";
-        }
-        showSuccess("Cadastro finalizado com sucesso. Redirecionando para o login...");
+        showSuccess("Cadastro realizado com sucesso! Agora você pode fazer login.");
         window.setTimeout(function () {
           window.location.href = buildFrontendUrl("index.html?registered=1");
-        }, 900);
+        }, 1500);
       } catch (err) {
         showError(String(err && err.message ? err.message : "Erro inesperado ao cadastrar."));
       } finally {
@@ -665,4 +793,3 @@
   });
 </script>
 </body></html>
-
