@@ -624,6 +624,27 @@
       );
     }
 
+    function parseBirthIso(value) {
+      if (!value) return "";
+      const parts = String(value).split("/");
+      if (parts.length !== 3) return "";
+      const day = Number(parts[0]);
+      const month = Number(parts[1]) - 1;
+      const year = Number(parts[2]);
+      if (!Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year)) {
+        return "";
+      }
+      const date = new Date(year, month, day);
+      if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== month ||
+        date.getDate() !== day
+      ) {
+        return "";
+      }
+      return date.toISOString().split("T")[0];
+    }
+
     function isMobileViewport() {
       return window.matchMedia("(max-width: 768px)").matches;
     }
@@ -727,12 +748,13 @@
       statusErro.style.display = "none";
       statusSucesso.style.display = "none";
 
+      const birthValue = dataNascimentoInput ? String(dataNascimentoInput.value || "").trim() : "";
       const payload = {
         nome: String(nomeInput.value || "").trim(),
         funcao: getFuncaoValue(),
         numero_celular: String(numeroInput.value || "").trim(),
         email: String(emailInput.value || "").trim(),
-        data_nascimento: dataNascimentoInput ? String(dataNascimentoInput.value || "").trim() : "",
+        data_nascimento: birthValue,
         mostrar_aniversario: Boolean(mostrarAniversarioInput && mostrarAniversarioInput.checked),
         senha: String(senhaInput.value || "")
       };
@@ -753,7 +775,7 @@
         showError("E-mail inválido.");
         return;
       }
-      if (dataNascimentoInput && dataNascimentoInput.value.trim() && !isDateValid(dataNascimentoInput.value.trim())) {
+      if (birthValue && !isDateValid(birthValue)) {
         showError("Informe uma data de nascimento válida (dd/mm/aaaa).");
         return;
       }
@@ -761,6 +783,7 @@
         showError("As senhas não coincidem.");
         return;
       }
+      payload.data_nascimento = birthValue ? parseBirthIso(birthValue) : "";
       if (payload.senha.length < 6) {
         showError("A senha deve ter pelo menos 6 caracteres.");
         return;
