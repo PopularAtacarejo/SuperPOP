@@ -668,11 +668,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (analyticsNavItem && payload.permissoes && payload.permissoes.analytics) {
       analyticsNavItem.classList.remove("hidden");
     }
+    const hasManagerPermission = Boolean(payload.permissoes && payload.permissoes.manage_users);
     const hasDeveloperPermission = Boolean(payload.permissoes && payload.permissoes.edit_users);
-    if (manageUsersQuickLink && hasDeveloperPermission) {
+    const showManageItems = hasManagerPermission || hasDeveloperPermission;
+    if (manageUsersQuickLink && showManageItems) {
       manageUsersQuickLink.classList.remove("hidden");
     }
-    if (manageUsersNavItem && hasDeveloperPermission) {
+    if (manageUsersNavItem && showManageItems) {
       manageUsersNavItem.classList.remove("hidden");
     }
     if (editUsersQuickLink && hasDeveloperPermission) {
