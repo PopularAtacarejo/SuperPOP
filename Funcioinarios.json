@@ -500,5 +500,24 @@
     "data_cadastro_iso": "2026-03-19T17:11:11.545862-03:00",
     "data_nascimento_iso": "",
     "mostrar_aniversario": false
+  },
+  {
+    "id": "de9e4f477a1b47b7824f57f79e192633",
+    "nome": "Jeferson Santos",
+    "funcao": "Analista de Marketing",
+    "numero_celular": "(82) 9 9915 - 8412",
+    "numero_normalizado": "82999158412",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "efe9c6a43d6714ccdbf7662370671497",
+      "hash": "e5296657fe0a97d766b2806da0ee68e50a6ad0eb770f25ec9fd100985c0ec5f7",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-19T17:48:10.786964-03:00",
+    "data_nascimento_iso": "1994-10-27",
+    "mostrar_aniversario": false
   }
 ]
