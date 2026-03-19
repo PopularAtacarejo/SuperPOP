@@ -37,9 +37,10 @@
   .page {
     flex: 1;
     min-height: 0;
-    display: grid;
-    place-items: center;
-    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
     position: relative;
     z-index: 1;
   }
@@ -77,39 +78,67 @@
   }
 
   .card {
-    width: min(720px, 100%);
-    background: rgba(255, 255, 255, 0.96);
+    width: min(960px, 100%);
+    background: rgba(255, 255, 255, 0.98);
     border: 1px solid #f1f5f9;
-    border-radius: 20px;
-    box-shadow: 0 18px 44px -14px rgba(0, 0, 0, 0.12);
-    padding: 24px;
+    border-radius: 26px;
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.24);
+    padding: clamp(24px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
-
-  .logo {
-    display: block;
-    width: min(260px, 72vw);
-    height: auto;
-    margin: 0 auto 10px;
+  .card-header {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f1f5f9;
   }
-
-  h1 {
+  .card-header img {
+    width: clamp(90px, 12vw, 120px);
+    border-radius: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 12px 28px -18px rgba(0, 0, 0, 0.8);
+  }
+  .card-header-text {
+    flex: 1;
+  }
+  .card-header-text .eyebrow {
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    color: #ef4444;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .card-header-text h1 {
     margin: 0;
-    text-align: center;
-    color: var(--primary);
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
     letter-spacing: 0.02em;
+    color: #e63946;
   }
-
-  .subtitle {
-    text-align: center;
-    color: var(--muted);
+  .card-header-text .subtitle {
+    margin: 6px 0 0;
+  }
+  .card-hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.78rem;
     font-weight: 700;
-    margin: 8px 0 22px;
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fee2e2;
   }
 
   form {
-    display: grid;
-    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   label {
@@ -122,27 +151,21 @@
     margin: 0 0 6px 2px;
   }
 
-  input {
-    width: 100%;
-    border: 1px solid #dbe3ee;
-    border-radius: 12px;
-    background: var(--surface);
-    color: var(--text);
-    padding: 12px 14px;
-    font-size: 0.98rem;
-    font-weight: 700;
-    outline: none;
-  }
+  input,
   select {
     width: 100%;
     border: 1px solid #dbe3ee;
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--surface);
     color: var(--text);
-    padding: 12px 14px;
+    padding: 12px 16px;
     font-size: 0.98rem;
     font-weight: 700;
     outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  select {
     appearance: none;
     -webkit-appearance: none;
     background-image:
@@ -153,53 +176,35 @@
       calc(100% - 14px) calc(50% - 4px);
     background-size: 8px 8px, 8px 8px;
     background-repeat: no-repeat;
-    padding-right: 40px;
+    padding-right: 42px;
   }
 
-  input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px #e6394630;
-    background: #fff;
-  }
+  input:focus,
   select:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px #e6394630;
-    background-color: #fff;
-  }
-  .funcao-select-mobile {
-    display: none;
-  }
-
-  .toggle-control {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.88rem;
-    font-weight: 700;
-    text-transform: none;
-    letter-spacing: normal;
-    color: var(--text);
-    margin-top: 4px;
-  }
-
-  .toggle-control input {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--primary);
-    border: 2px solid #dbe3ee;
-    border-radius: 6px;
     background: #fff;
   }
 
-  .helper-text {
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin: 4px 2px 0;
+  .form-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group.full {
+    grid-column: 1 / -1;
   }
 
   .status {
-    border-radius: 12px;
-    padding: 10px 12px;
+    border-radius: 16px;
+    padding: 12px 16px;
     font-size: 0.9rem;
     font-weight: 700;
     display: none;
@@ -219,25 +224,34 @@
 
   .actions {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   button {
     border: 0;
     background: var(--primary);
     color: #fff;
-    border-radius: 12px;
-    padding: 12px 18px;
+    border-radius: 14px;
+    padding: 12px 20px;
     font-size: 0.95rem;
     font-weight: 800;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 12px 22px -10px rgba(230, 57, 70, 0.8);
+  }
+
+  button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 30px -12px rgba(230, 57, 70, 0.8);
   }
 
   button:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+    box-shadow: none;
   }
 
   .hint {
@@ -256,13 +270,24 @@
 
   .login-link:hover { text-decoration: underline; }
 
-  @media (max-width: 480px) {
-    .card { padding: 18px; }
-    .actions { align-items: stretch; }
-    button { width: 100%; }
-    .login-link { margin-left: 0; }
-  }
   @media (max-width: 768px) {
+    .card {
+      width: 100%;
+      border-radius: 22px;
+    }
+    .card-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .card-header img {
+      margin-bottom: 8px;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .actions {
+      justify-content: center;
+    }
     .funcao-input-desktop {
       display: none;
     }
@@ -316,53 +341,58 @@
 </div>
 </div>
 </div>
-<div class="page">
+<main class="page">
   <section class="card">
-    <img alt="SuperPop" class="logo" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
-    <h1>Cadastro de Funcionário</h1>
-    <p class="subtitle">Preencha os dados para criar seu acesso.</p>
-
-    <form id="cadastroForm" novalidate>
-      <div>
-        <label for="nome">Nome</label>
-        <input id="nome" maxlength="80" placeholder="Insira seu nome" required type="text"/>
+    <div class="card-header">
+      <img alt="SuperPop" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+      <div class="card-header-text">
+        <p class="eyebrow">Dados pessoais</p>
+        <h1>Cadastro de Funcionário</h1>
+        <p class="subtitle">Preencha os dados para criar seu acesso e começar a envolver o time.</p>
+        <div class="card-hero-pill">
+          <span class="material-symbols-outlined">emoji_events</span>
+          Reconhecimento interno em minutos
+        </div>
       </div>
+    </div>
 
-      <div>
-        <label for="funcao">Função</label>
-        <input class="funcao-input-desktop" id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
-        <select class="funcao-select-mobile" id="funcaoSelectMobile">
-          <option value="">Selecione uma função</option>
-        </select>
-        <datalist id="listaFuncoesSupermercado"></datalist>
-      </div>
-
-      <div>
-        <label for="numeroCelular">Número de celular</label>
-        <input id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000-0000" required type="text"/>
-      </div>
-
-      <div>
-        <label for="email">E-mail (opcional)</label>
-        <input id="email" maxlength="120" placeholder="nome@empresa.com.br" type="email"/>
-      </div>
-
-      <div>
-        <label for="dataNascimento">Data de nascimento</label>
-        <input id="dataNascimento" type="date"/>
-      </div>
-
-      <div>
-        <label class="toggle-control" for="mostrarAniversario">
-          <input id="mostrarAniversario" type="checkbox"/>
-          Mostrar meu aniversário no mural
-        </label>
-        <p class="helper-text">Ao ativar, seu nome, dia e idade aparecem na lista de aniversariantes do mês.</p>
-      </div>
-
-      <div>
-        <label for="senha">Senha</label>
-        <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
+    <form class="form-body" id="cadastroForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="nome">Nome</label>
+          <input id="nome" maxlength="80" placeholder="Insira seu nome" required type="text"/>
+        </div>
+        <div class="form-group">
+          <label for="funcao">Função</label>
+          <input class="funcao-input-desktop" id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
+          <select class="funcao-select-mobile" id="funcaoSelectMobile">
+            <option value="">Selecione uma função</option>
+          </select>
+          <datalist id="listaFuncoesSupermercado"></datalist>
+        </div>
+        <div class="form-group">
+          <label for="numeroCelular">Número de celular</label>
+          <input id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000-0000" required type="text"/>
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail (opcional)</label>
+          <input id="email" maxlength="120" placeholder="nome@empresa.com.br" type="email"/>
+        </div>
+        <div class="form-group">
+          <label for="dataNascimento">Data de nascimento</label>
+          <input id="dataNascimento" type="date"/>
+        </div>
+        <div class="form-group full">
+          <label class="toggle-control" for="mostrarAniversario">
+            <input id="mostrarAniversario" type="checkbox"/>
+            Mostrar meu aniversário no mural
+          </label>
+          <p class="helper-text">Ao ativar, seu nome, dia e idade aparecem na lista de aniversariantes do mês.</p>
+        </div>
+        <div class="form-group full">
+          <label for="senha">Senha</label>
+          <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
+        </div>
       </div>
 
       <div class="status error" id="statusErro"></div>
@@ -372,10 +402,9 @@
         <button id="submitBtn" type="submit"><span id="submitBtnLabel">Cadastrar</span></button>
         <a class="login-link" href="index.html">Já tem conta? Entrar</a>
       </div>
-
     </form>
   </section>
-</div>
+</main>
 <footer class="site-footer">Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0</footer>
 
 <script>
