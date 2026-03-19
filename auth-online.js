@@ -171,6 +171,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function ensureAvatarViewer() {
+    if (allowAnonymousAuth) {
+      return null;
+    }
     if (authAvatarViewer) return authAvatarViewer;
     const container = document.createElement("div");
     container.id = "authAvatarViewer";
