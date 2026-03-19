@@ -89,5 +89,18 @@
       "nome": "Jeferson"
     },
     "created_at_iso": "2026-03-19T11:54:39.408071-03:00"
+  },
+  {
+    "id": "a05cb78270f147ba88925f0628d81f7f",
+    "data_referencia": "19/03/2026",
+    "titulo": "Aniversário",
+    "descricao": "Função de Aniversário adicionada, agora o usuário pode informa sua data de nascimento e pode aparecer no mural de aniversariantes do mês de acordo com a data informada.",
+    "categoria": "Adição de nova Catergoria",
+    "status": "Nova Função",
+    "autor": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-19T12:01:55.595095-03:00"
   }
 ]
