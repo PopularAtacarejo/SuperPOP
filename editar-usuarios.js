@@ -4,9 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const authUserBtn = document.getElementById("authUserBtn");
-  const authUserDropdown = document.getElementById("authUserDropdown");
-  const authLogoutBtn = document.getElementById("authLogoutBtn");
   const analyticsSection = document.getElementById("analyticsSection");
   const analyticsNavItem = document.getElementById("analyticsNavItem");
   const manageUsersNavItem = document.getElementById("manageUsersNavItem");
@@ -412,25 +409,6 @@ document.addEventListener("DOMContentLoaded", function () {
       setDeleting(false);
     }
   }
-
-  authUserBtn.addEventListener("click", function () {
-    const isOpen = authUserDropdown.classList.contains("open");
-    authUserDropdown.classList.toggle("open", !isOpen);
-    authUserBtn.setAttribute("aria-expanded", String(!isOpen));
-  });
-
-  document.addEventListener("click", function (event) {
-    if (!authUserDropdown.contains(event.target) && !authUserBtn.contains(event.target)) {
-      authUserDropdown.classList.remove("open");
-      authUserBtn.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  authLogoutBtn.addEventListener("click", async function () {
-    try { await fetch(apiBase + "/api/auth/logout", { method: "POST", credentials: "include" }); } catch (_err) {}
-    try { localStorage.removeItem("superpop_auth_user"); } catch (_err) {}
-    window.location.href = buildFrontendUrl("index.html");
-  });
 
   telefoneInput.addEventListener("input", function () {
     const currentValue = String(telefoneInput.value || "");
