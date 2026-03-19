@@ -590,10 +590,13 @@
         }
         renderTags(currentUser.tags_acesso);
         const currentPermissions = currentUser && currentUser.permissoes ? currentUser.permissoes : {};
-        if (manageUsersQuickLink && currentPermissions.manage_users) manageUsersQuickLink.classList.remove("hidden");
-        if (editUsersQuickLink && currentPermissions.edit_users) editUsersQuickLink.classList.remove("hidden");
-        if (manageUsersHeaderLink && currentPermissions.manage_users) manageUsersHeaderLink.classList.remove("hidden");
-        if (editUsersHeaderLink && currentPermissions.edit_users) editUsersHeaderLink.classList.remove("hidden");
+        const hasManagerPermission = Boolean(currentPermissions.manage_users);
+        const hasDeveloperPermission = Boolean(currentPermissions.edit_users);
+        const showManageLinks = hasManagerPermission || hasDeveloperPermission;
+        if (manageUsersQuickLink && showManageLinks) manageUsersQuickLink.classList.remove("hidden");
+        if (editUsersQuickLink && hasDeveloperPermission) editUsersQuickLink.classList.remove("hidden");
+        if (manageUsersHeaderLink && showManageLinks) manageUsersHeaderLink.classList.remove("hidden");
+        if (editUsersHeaderLink && hasDeveloperPermission) editUsersHeaderLink.classList.remove("hidden");
         renderAvatar(currentUser.foto_perfil_data_url, currentUser.nome);
       }
 
