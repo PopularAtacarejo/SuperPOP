@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -666,23 +666,52 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       return String(value || "").replace(/\D/g, "");
     }
 
-    function buildWhatsappMessage(other, text, dateLabel) {
-      const fragments = [];
-      const recipientName = String(other && other.nome || "").trim();
-      if (recipientName) {
-        fragments.push("Super POP para " + recipientName + "!");
-      } else {
-        fragments.push("Super POP especial para você!");
-      }
-      const cleanText = String(text || "").trim();
-      if (cleanText) {
-        fragments.push(cleanText);
-      }
+    function formatDateShort(item, dateLabel) {
       if (dateLabel) {
-        fragments.push("Enviado em " + dateLabel + ".");
+        return dateLabel.split(" às ")[0];
       }
-      fragments.push("Estou reenviando esse carinho no Super POP.");
-      return fragments.join(" ");
+      if (item && item.dia) {
+        return String(item.dia);
+      }
+      if (item && item.data_hora_iso) {
+        const parsed = new Date(item.data_hora_iso);
+        if (!Number.isNaN(parsed.getTime())) {
+          return parsed.toLocaleDateString("pt-BR");
+        }
+      }
+      return "--/--/----";
+    }
+
+    function buildWhatsappMessage(item, text, dateLabel) {
+      const recipientName = String(item && item.outra_pessoa && item.outra_pessoa.nome || "").trim() || "amigo";
+      const senderName = String(item && item.remetente && item.remetente.nome || "Você").trim();
+      const valuesList = Array.isArray(item && item.valores ? item.valores : []) ? item.valores.filter(Boolean) : [];
+      const fallbackValues = Array.isArray(item && item.opcoes_marcadas ? item.opcoes_marcadas : []) ? (item.opcoes_marcadas || []).filter(Boolean) : [];
+      const values = valuesList.length ? valuesList : fallbackValues;
+      const valuesLine = values.length ? values.join(", ") : "Sem valores marcados";
+      const cleanMessage = String(text || "Sem mensagem").trim();
+      const dateLine = formatDateShort(item, dateLabel);
+      const files = (item && item.arquivos) || {};
+      const mediaUrl = String(files.uploaded_image_url || files.best_image_url || files.image_url || "").trim();
+      const imageLine = mediaUrl || "Sem imagem";
+      const shareLink = buildFrontendUrl("");
+      const lines = [
+        "SuperPOP - Reconhecimento",
+        "",
+        "Para: " + recipientName,
+        "Enviado por: " + senderName,
+        "Valores: " + valuesLine,
+        "Data: " + dateLine,
+        "",
+        "Mensagem:",
+        cleanMessage,
+        "",
+        "Imagem do cartao:",
+        imageLine,
+        "",
+        "Envie você também um Super POP! - " + shareLink
+      ];
+      return lines.join("\n");
     }
 
     function buildWhatsappUrl(phone, message) {
@@ -810,7 +839,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       const mensagem = String(item.mensagem || "").trim();
       const reactionHtml = buildReactionSectionHtml(item, role);
       const whatsappUrl = role === "sent"
-        ? buildWhatsappUrl(other.numero, buildWhatsappMessage(other, mensagem, dataLabel))
+        ? buildWhatsappUrl(other.numero, buildWhatsappMessage(item, mensagem, dataLabel))
         : "";
       const whatsappButton = whatsappUrl
         ? '<a class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-600 transition hover:border-emerald-300 hover:bg-emerald-100" href="' + escapeHtml(whatsappUrl) + '" target="_blank" rel="noreferrer noopener">' +
