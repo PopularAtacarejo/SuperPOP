@@ -156,6 +156,10 @@
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  gap: 4px;
+}
+.online-user-role-tag-icon {
+  font-size: 0.85rem;
 }
 .online-user-role-tag.admin {
   background: rgba(16, 185, 129, 0.25);
