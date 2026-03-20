@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -1161,6 +1161,21 @@
 </select>
 </div>
 </div>
+<div class="flex items-center gap-3">
+  <input class="h-4 w-4 rounded border border-gray-300 text-primary focus:ring-primary dark:border-gray-600" id="manualRecipientToggle" type="checkbox"/>
+  <label class="text-sm font-semibold text-gray-700 dark:text-gray-200" for="manualRecipientToggle">Enviar para um destinatário que não está cadastrado</label>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 hidden" id="manualRecipientFields">
+  <div class="relative">
+    <label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="manualRecipientName">Nome do destinatário não cadastrado</label>
+    <input class="w-full pl-3 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="manualRecipientName" placeholder="Ex: João da Silva" type="text"/>
+  </div>
+  <div class="relative">
+    <label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="manualRecipientPhone">Telefone do destinatário não cadastrado</label>
+    <input class="w-full pl-3 pr-4 py-3.5 bg-surface-light dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white dark:focus:bg-gray-700 transition-all font-semibold placeholder-gray-400 text-gray-800 dark:text-gray-100 shadow-sm" id="manualRecipientPhone" inputmode="tel" placeholder="(82) 9 9900 - 0000" type="tel"/>
+    <p class="mt-1 text-[11px] text-gray-500 dark:text-gray-400">Use o formato (DD) 9 0000-0000 para garantir a formatação correta.</p>
+  </div>
+</div>
 <div class="relative">
 <label class="block text-xs font-bold text-primary uppercase mb-1.5 ml-1" for="reconhecidopor">Enviado por (usuário logado)</label>
 <div class="relative flex items-center group">
@@ -1398,6 +1413,10 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     const collaboratorListEl = document.getElementById("listaColaboradores");
     const recognizedByInput = document.getElementById("reconhecidopor");
     const collaboratorNumberInput = document.getElementById("numero_colaborador");
+    const manualRecipientToggle = document.getElementById("manualRecipientToggle");
+    const manualRecipientFields = document.getElementById("manualRecipientFields");
+    const manualRecipientNameInput = document.getElementById("manualRecipientName");
+    const manualRecipientPhoneInput = document.getElementById("manualRecipientPhone");
     const senderNumberInput = document.getElementById("numero_reconhecidopor");
     const sendWhatsappButton = document.getElementById("enviarWhatsapp");
     const sendButtonProgress = document.getElementById("sendButtonProgress");
@@ -2229,6 +2248,30 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       collaboratorSelectMobile.addEventListener("change", syncCollaboratorFromInput);
     }
 
+    function updateManualRecipientState() {
+      const manualActive = Boolean(manualRecipientToggle && manualRecipientToggle.checked);
+      if (manualRecipientFields) {
+        manualRecipientFields.classList.toggle("hidden", !manualActive);
+      }
+      if (collaboratorInput) {
+        collaboratorInput.disabled = manualActive;
+      }
+      if (collaboratorNumberInput) {
+        collaboratorNumberInput.disabled = manualActive;
+      }
+      if (manualRecipientNameInput) {
+        manualRecipientNameInput.required = manualActive;
+      }
+      if (manualRecipientPhoneInput) {
+        manualRecipientPhoneInput.required = manualActive;
+      }
+    }
+
+    if (manualRecipientToggle) {
+      manualRecipientToggle.addEventListener("change", updateManualRecipientState);
+      updateManualRecipientState();
+    }
+
     loadLoggedSenderProfile().catch(function (error) {
       const cachedUser = readCachedAuthUser();
       if (cachedUser) {
@@ -2309,28 +2352,35 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
 
         const typedCollaboratorName = collaboratorInput ? collaboratorInput.value.trim() : "";
         const resolvedCollaborator = selectedCollaborator || findCollaboratorByTypedName(typedCollaboratorName);
-        const collaborator = resolvedCollaborator
+        const manualRecipientActive = Boolean(manualRecipientToggle && manualRecipientToggle.checked);
+        const manualRecipientName = manualRecipientNameInput ? manualRecipientNameInput.value.trim() : "";
+        const manualRecipientPhoneRaw = manualRecipientPhoneInput ? manualRecipientPhoneInput.value.trim() : "";
+        const registeredRecipientName = resolvedCollaborator
           ? String(resolvedCollaborator.nome || "").trim()
           : typedCollaboratorName;
+        const recipientName = manualRecipientActive ? manualRecipientName : registeredRecipientName;
+        const recipientPhoneRaw = manualRecipientActive
+          ? manualRecipientPhoneRaw
+          : (resolvedCollaborator
+            ? String(resolvedCollaborator.numero_celular || "").trim()
+            : (collaboratorNumberInput ? collaboratorNumberInput.value.trim() : ""));
         const recognizedBy = String(loggedSender.nome || "").trim() || (recognizedByInput ? recognizedByInput.value.trim() : "");
-        const collaboratorNumberRaw = resolvedCollaborator
-          ? String(resolvedCollaborator.numero_celular || "").trim()
-          : (collaboratorNumberInput ? collaboratorNumberInput.value.trim() : "");
         const senderNumberRaw = String(loggedSender.numero_celular || "").trim() || (senderNumberInput ? senderNumberInput.value.trim() : "");
         const message = messageInput ? messageInput.value.trim() : "";
         const selectedValues = getSelectedValues();
         const dateText = dateDisplayInput ? dateDisplayInput.value : "";
         const senderDeviceType = detectSenderDeviceType();
-        const collaboratorNumber = normalizeWhatsappDigits(collaboratorNumberRaw);
+        const recipientNumber = normalizeWhatsappDigits(recipientPhoneRaw);
         const senderNumber = normalizeWhatsappDigits(senderNumberRaw);
-        const destinationDigits = collaboratorNumber;
+        const destinationDigits = recipientNumber;
 
         const missing = [];
-        if (!collaboratorsLoaded) missing.push("Carregamento da lista de colaboradores");
-        if (!resolvedCollaborator) missing.push("Selecione um colaborador cadastrado na lista");
-        if (!collaborator || collaborator === "-") missing.push("Nome do colaborador");
-        if (!collaboratorNumberRaw) missing.push("Número do colaborador");
-        if (collaboratorNumberRaw && !collaboratorNumber) missing.push("Número do colaborador inválido");
+        if (!manualRecipientActive && !collaboratorsLoaded) missing.push("Carregamento da lista de colaboradores");
+        if (!manualRecipientActive && !resolvedCollaborator) missing.push("Selecione um colaborador cadastrado na lista");
+        const recipientRequiredLabel = manualRecipientActive ? "destinatário" : "colaborador";
+        if (!recipientName || recipientName === "-") missing.push("Nome do " + recipientRequiredLabel);
+        if (!recipientPhoneRaw) missing.push("Número do " + recipientRequiredLabel);
+        if (recipientPhoneRaw && !recipientNumber) missing.push("Número do " + recipientRequiredLabel + " inválido");
         if (!recognizedBy || recognizedBy === "-") missing.push("Usuário logado");
         if (!senderNumberRaw) missing.push("Número do usuário logado");
         if (senderNumberRaw && !senderNumber) missing.push("Número do usuário logado inválido");
@@ -2345,8 +2395,8 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         preparePendingWaPopupWindow("Preparando envio no WhatsApp...");
 
         const payload = {
-          colaborador: collaborator,
-          numero_colaborador: collaboratorNumber,
+          colaborador: recipientName,
+          numero_colaborador: recipientNumber,
           funcao_colaborador: resolvedCollaborator ? (resolvedCollaborator.funcao || "") : "",
           reconhecido_por: recognizedBy,
           numero_reconhecido_por: senderNumber,
@@ -2354,7 +2404,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
           valores: selectedValues,
           mensagem: message,
           data: dateText,
-          to: collaboratorNumber,
+          to: recipientNumber,
           format: "image",
           send_mode: defaultSendMode,
           sender_device_type: senderDeviceType
@@ -2367,7 +2417,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             ? [
               "\uD83C\uDF89 *SuperPOP - Reconhecimento*",
               "",
-              "\uD83D\uDC64 *Para:* " + collaborator,
+              "\uD83D\uDC64 *Para:* " + recipientName,
               "\uD83D\uDE4C *Enviado por:* " + recognizedBy,
               "\u2B50 *Valores:* " + selectedValues.join(", "),
               "\uD83D\uDCC5 *Data:* " + dateText
@@ -2375,7 +2425,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
             : [
               "*SuperPOP - Reconhecimento*",
               "",
-              "*Para:* " + collaborator,
+              "*Para:* " + recipientName,
               "*Enviado por:* " + recognizedBy,
               "*Valores:* " + selectedValues.join(", "),
               "*Data:* " + dateText
@@ -2471,7 +2521,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         } else if (shouldOpenWaMe) {
           setWhatsappLoadingStatus("Abrindo WhatsApp...");
           const whatsappPayload = buildWhatsappUrl(uploadedImageUrl || "");
-          const recipientSummary = collaborator + (collaboratorNumberRaw ? (" | " + collaboratorNumberRaw) : "");
+          const recipientSummary = recipientName + (recipientPhoneRaw ? (" | " + recipientPhoneRaw) : "");
           await openWhatsappManualModal({
             whatsappUrl: whatsappPayload.url,
             whatsappText: whatsappPayload.text,
