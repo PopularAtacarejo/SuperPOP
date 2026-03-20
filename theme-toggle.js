@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const STORAGE_KEY = "superpop_theme_mode";
   const PREFERS_DARK_MEDIA = "(prefers-color-scheme: dark)";
 
@@ -24,9 +24,12 @@
   function applyMode(button, mode, { persist = false } = {}) {
     const normalized = mode === "dark" ? "dark" : "light";
     const label = normalized === "dark" ? "Tema escuro" : "Tema claro";
-    const iconName = normalized === "dark" ? "light_mode" : "dark_mode";
+    const iconName = normalized === "dark" ? "key" : "key_off";
     const root = document.documentElement;
     root.classList.toggle("dark", normalized === "dark");
+    root.setAttribute("data-theme", normalized);
+    root.style.colorScheme = normalized === "dark" ? "dark" : "light";
+    document.body.classList.toggle("dark", normalized === "dark");
     button.dataset.theme = normalized;
     button.setAttribute("aria-pressed", normalized === "dark" ? "true" : "false");
     button.setAttribute("aria-label", label);
