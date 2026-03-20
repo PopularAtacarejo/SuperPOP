@@ -79,6 +79,60 @@
   background: #d1fae5;
   color: #0f172a;
 }
+.theme-toggle-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: #0f172a;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.theme-toggle-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+.theme-toggle-btn-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.theme-toggle-btn:hover {
+  border-color: rgba(148, 163, 184, 0.9);
+  transform: translateY(-1px);
+}
+.theme-toggle-btn[data-theme=\"dark\"] {
+  border-color: transparent;
+  background: rgba(15, 23, 42, 0.85);
+  color: #f8fafc;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.4);
+}
+.theme-toggle-btn-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  font-size: 1rem;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.35);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.theme-toggle-btn[data-theme=\"dark\"] .theme-toggle-btn-icon {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+.theme-toggle-btn[data-theme=\"dark\"] .material-symbols-outlined {
+  font-size: 18px;
+}
 .online-users-dropdown {
   position: absolute;
   top: calc(100% + 8px);
@@ -121,19 +175,25 @@
   align-items: center;
   background: #fff;
   border-radius: 14px;
-  border: 1px solid transparent;
+  border: 1px solid #e2e8f0;
   padding: 10px;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .online-user-item.admin {
   border-color: #10b981;
   background: #ecfdf5;
-  box-shadow: 0 12px 30px -12px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 18px 40px -16px rgba(16, 185, 129, 0.55);
+}
+.online-user-item.admin:hover {
+  transform: translateY(-1px);
 }
 .online-user-item.developer {
   border-color: #dc2626;
   background: #fef2f2;
-  box-shadow: 0 12px 30px -12px rgba(239, 68, 68, 0.45);
+  box-shadow: 0 18px 40px -16px rgba(239, 68, 68, 0.55);
+}
+.online-user-item.developer:hover {
+  transform: translateY(-1px);
 }
 .online-user-item.empty {
   font-size: 0.85rem;
@@ -165,8 +225,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
+  background: rgba(148, 163, 184, 0.1);
+  color: #475569;
   font-size: 1rem;
   line-height: 1;
   box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.25);
@@ -179,9 +239,19 @@
   background: rgba(16, 185, 129, 0.25);
   color: #065f46;
 }
+.online-user-role-tag.admin .online-user-role-tag-icon {
+  background: rgba(16, 185, 129, 0.2);
+  color: #065f46;
+  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.5);
+}
 .online-user-role-tag.developer {
   background: rgba(239, 68, 68, 0.25);
   color: #7f1d1d;
+}
+.online-user-role-tag.developer .online-user-role-tag-icon {
+  background: rgba(220, 38, 38, 0.18);
+  color: #7f1d1d;
+  box-shadow: inset 0 0 0 1px rgba(220, 38, 38, 0.45);
 }
 .online-user-meta small {
   display: block;
