@@ -184,10 +184,30 @@
       line-height: 1;
       white-space: nowrap;
     }
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.45rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #b91c1c;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.6);
+      padding: 0.06rem 0.5rem;
+      background: rgba(248, 113, 113, 0.08);
+    }
     .dark .reaction-chip {
       color: #e2e8f0;
       border-color: rgba(148, 163, 184, 0.45);
       background: rgba(51, 65, 85, 0.7);
+    }
+    .dark .status-tag {
+      color: #fecaca;
+      border-color: rgba(248, 113, 113, 0.8);
+      background: rgba(248, 113, 113, 0.15);
     }
     .rank-reaction-menu {
       position: absolute;
@@ -1465,6 +1485,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const selectedReaction = getReaction(rankKind, safeName);
         const reactionClass = selectedReaction ? "reaction-indicator" : "reaction-indicator is-empty";
         const reactionValue = selectedReaction || "🙂";
+        const statusTagHtml = item.registered === false ? '<span class="status-tag">sem cadastro</span>' : "";
         const row = document.createElement("tr");
         row.className = "hover:bg-white dark:hover:bg-gray-700/50 transition-colors " + getRowClass(pos);
         row.innerHTML =
@@ -1476,6 +1497,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
                 '<button type="button" class="rank-profile-trigger" data-rank-name="' + escapeHtml(encodedName) + '" title="Ver detalhes do colaborador">' +
                   '<span class="rank-user-name">' + escapeHtml(safeName) + '</span>' +
                 '</button>' +
+                statusTagHtml +
                 '<button type="button" class="rank-reaction-trigger" data-rank-kind="' + escapeHtml(rankKind) + '" data-rank-name="' + escapeHtml(encodedName) + '" title="Reagir com emoji">' +
                   '<span class="' + reactionClass + '" aria-hidden="true">' + reactionValue + '</span>' +
                 '</button>' +
@@ -1540,14 +1562,18 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const recipient = log && log.destinatario && typeof log.destinatario === "object" ? log.destinatario : null;
         const recipientProfile = getEmployeeProfileForActor(recipient, employeeDirectory, recKey);
         const recPhoto = String(recipientProfile && recipientProfile.photoDataUrl || "").trim();
+        const recipientRegistered = Boolean(recipientProfile);
         if (recKey) {
           if (!receivedMap.has(recKey)) {
-            receivedMap.set(recKey, { name: recKey, count: 0, values: 0, photoDataUrl: recPhoto });
+            receivedMap.set(recKey, { name: recKey, count: 0, values: 0, photoDataUrl: recPhoto, registered: recipientRegistered });
           } else if (!receivedMap.get(recKey).photoDataUrl && recPhoto) {
             receivedMap.get(recKey).photoDataUrl = recPhoto;
           }
           receivedMap.get(recKey).count += 1;
           receivedMap.get(recKey).values += keysCount;
+          if (!receivedMap.get(recKey).registered && recipientRegistered) {
+            receivedMap.get(recKey).registered = true;
+          }
 
           const recipientDetail = ensureActorDetail(recKey);
           if (recipientDetail) {
