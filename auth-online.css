@@ -1,3 +1,63 @@
+
+:root {
+  --page-background: linear-gradient(160deg, #fffaf4 0%, #fefefe 60%, #f7f1ec 100%);
+  --panel-background: rgba(255, 255, 255, 0.96);
+  --panel-border: #e2e8f0;
+  --button-background: rgba(255, 255, 255, 0.92);
+  --text-primary-color: #0f172a;
+  --muted-text-color: #64748b;
+}
+.dark {
+  --page-background: linear-gradient(160deg, #020617 0%, #0b1221 70%, #111827 100%);
+  --panel-background: rgba(15, 23, 42, 0.85);
+  --panel-border: #1f2937;
+  --button-background: rgba(30, 41, 59, 0.82);
+  --text-primary-color: #f8fafc;
+  --muted-text-color: #94a3b8;
+}
+body {
+  background: var(--page-background) !important;
+  color: var(--text-primary-color);
+}
+.dark body {
+  color: var(--text-primary-color);
+}
+.dark .sidebar,
+.dark .online-users-dropdown,
+.dark .notifications-dropdown,
+.dark .auth-user-dropdown {
+  background: var(--panel-background) !important;
+  border-color: var(--panel-border) !important;
+}
+.dark .sidebar {
+  color: var(--text-primary-color) !important;
+}
+.dark .auth-user-btn,
+.dark .online-users-btn,
+.dark .theme-toggle-btn,
+.dark .notifications-btn {
+  background: var(--button-background) !important;
+  border-color: var(--panel-border) !important;
+  color: var(--text-primary-color) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.dark .online-user-item,
+.dark .online-users-btn,
+.dark .notifications-btn {
+  border-color: #1f2937;
+}
+.dark .online-users-dropdown-title,
+.dark .online-user-meta strong,
+.dark .online-user-meta small {
+  color: var(--text-primary-color);
+}
+.dark .online-users-dropdown-subtitle,
+.dark .online-user-meta small {
+  color: var(--muted-text-color);
+}
+.dark .online-users-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
 .auth-top-actions {
   position: fixed;
   top: 14px;
