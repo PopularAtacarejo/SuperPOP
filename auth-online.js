@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const authTopActions = document.getElementById("authTopActions");
   const authUserBtn = document.getElementById("authUserBtn");
   const authUserDropdown = document.getElementById("authUserDropdown");
@@ -218,7 +218,11 @@
   }
 
   function normalizeTagsForUser(user) {
-    const rawTags = Array.isArray(user && user.tags_acesso) ? user.tags_acesso : [];
+    const rawTags = [
+      ...(Array.isArray(user && user.tags_acesso) ? user.tags_acesso : []),
+      ...(Array.isArray(user && user.tags) ? user.tags : []),
+      ...(Array.isArray(user && user.tagsAcesso) ? user.tagsAcesso : [])
+    ];
     return rawTags
       .map(function (tag) { return String(tag || "").trim().toLowerCase(); })
       .filter(function (tag) { return Boolean(tag); });
