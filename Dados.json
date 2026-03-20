@@ -3476,6 +3476,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/8e91e8a5b0?token=4ba73795e53929bc0d5f324bf7cb9d3bc248a27659b3397ab707d4ca1361982b",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "🚀",
+      "updated_at_iso": "2026-03-20T17:24:49.094561-03:00",
+      "reactor": {
+        "id": "5c9dbd9cfd8246638cf5dec0a7efde5c",
+        "nome": "Luanderson da silva barros"
+      }
     }
   },
   {
