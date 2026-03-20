@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -109,6 +109,26 @@
     .dark .row-gold { background: linear-gradient(90deg, rgba(255, 183, 3, 0.1) 0%, rgba(45, 40, 42, 0) 100%); }
     .dark .row-silver { background: linear-gradient(90deg, rgba(148, 163, 184, 0.1) 0%, rgba(45, 40, 42, 0) 100%); }
     .dark .row-bronze { background: linear-gradient(90deg, rgba(180, 83, 9, 0.1) 0%, rgba(45, 40, 42, 0) 100%); }
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.45rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #b91c1c;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.6);
+      padding: 0.06rem 0.5rem;
+      background: rgba(248, 113, 113, 0.08);
+    }
+    .dark .status-tag {
+      color: #fecaca;
+      border-color: rgba(248, 113, 113, 0.8);
+      background: rgba(248, 113, 113, 0.15);
+    }
     .ranking-table-container {
       scrollbar-width: thin;
       scrollbar-color: #E63946 transparent;
@@ -840,20 +860,29 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
     function buildEmployeeDirectory(records) {
       const byName = new Map();
       const byPhone = new Map();
+      const nameKeys = new Set();
+      const phoneKeys = new Set();
       (Array.isArray(records) ? records : []).forEach(function (item) {
         if (!item || typeof item !== "object") return;
         const photoDataUrl = String(item.foto_perfil_data_url || "").trim();
-        if (!photoDataUrl) return;
         const nameKey = normalizeNameKey(item.nome);
         const phoneKey = normalizePhone(item.numero_normalizado || item.numero_celular);
-        if (nameKey && !byName.has(nameKey)) {
-          byName.set(nameKey, photoDataUrl);
+        if (nameKey) {
+          nameKeys.add(nameKey);
         }
-        if (phoneKey && !byPhone.has(phoneKey)) {
-          byPhone.set(phoneKey, photoDataUrl);
+        if (phoneKey) {
+          phoneKeys.add(phoneKey);
+        }
+        if (photoDataUrl) {
+          if (nameKey && !byName.has(nameKey)) {
+            byName.set(nameKey, photoDataUrl);
+          }
+          if (phoneKey && !byPhone.has(phoneKey)) {
+            byPhone.set(phoneKey, photoDataUrl);
+          }
         }
       });
-      return { byName: byName, byPhone: byPhone };
+      return { byName: byName, byPhone: byPhone, nameKeys: nameKeys, phoneKeys: phoneKeys };
     }
     async function fetchEmployees() {
       const sources = [
@@ -870,7 +899,7 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         }
       }
       console.warn("Nao foi possivel carregar a base de funcionarios para fotos:", errors.join(" | "));
-      return { byName: new Map(), byPhone: new Map() };
+      return { byName: new Map(), byPhone: new Map(), nameKeys: new Set(), phoneKeys: new Set() };
     }
     function normalizeName(value) {
       const text = String(value || "").trim();
@@ -892,6 +921,19 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         return employeeDirectory.byName.get(actorNameKey) || "";
       }
       return "";
+    }
+    function actorIsRegistered(actor, fallbackName, employeeDirectory) {
+      const phoneKeys = employeeDirectory.phoneKeys || new Set();
+      const actorPhone = normalizePhone(actor && (actor.numero_normalizado || actor.numero));
+      if (actorPhone && phoneKeys.has(actorPhone)) {
+        return true;
+      }
+      const nameKeys = employeeDirectory.nameKeys || new Set();
+      const actorNameKey = normalizeNameKey(actor && actor.nome || fallbackName);
+      if (actorNameKey && nameKeys.has(actorNameKey)) {
+        return true;
+      }
+      return false;
     }
     function parseLogDate(log) {
       if (!log || typeof log !== "object") return null;
@@ -953,9 +995,16 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const pos = index + 1;
         const row = document.createElement("tr");
         row.className = "hover:bg-white dark:hover:bg-gray-700/50 transition-colors " + getRowClass(pos);
+        const statusTagHtml = item.registered === false ? '<span class="status-tag">sem cadastro</span>' : "";
         row.innerHTML =
           '<td class="px-6 py-4 text-center">' + getMedalHTML(pos) + '</td>' +
-          '<td class="px-6 py-4"><div class="flex items-center">' + getAvatar(item) + '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + '</span></div></td>' +
+          '<td class="px-6 py-4"><div class="flex items-center gap-3">' +
+            getAvatar(item) +
+            '<div class="flex items-center gap-2">' +
+              '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + '</span>' +
+              statusTagHtml +
+            '</div>' +
+          '</div></td>' +
           '<td class="px-6 py-4 text-center"><span class="inline-block px-3 py-1 rounded-full font-bold text-sm ' + badgeClass + ' shadow-sm">' + item.count + '</span></td>';
         tbody.appendChild(row);
       });
@@ -980,14 +1029,18 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const recKey = getCollaboratorName(log);
         const recipient = log && log.destinatario && typeof log.destinatario === "object" ? log.destinatario : null;
         const recPhoto = getPhotoForActor(recipient, employeeDirectory, recKey);
+        const recipientRegistered = actorIsRegistered(recipient, recKey, employeeDirectory);
         if (recKey) {
           if (!receivedMap.has(recKey)) {
-            receivedMap.set(recKey, { name: recKey, count: 0, values: 0, photoDataUrl: recPhoto });
+            receivedMap.set(recKey, { name: recKey, count: 0, values: 0, photoDataUrl: recPhoto, registered: recipientRegistered });
           } else if (!receivedMap.get(recKey).photoDataUrl && recPhoto) {
             receivedMap.get(recKey).photoDataUrl = recPhoto;
           }
           receivedMap.get(recKey).count += 1;
           receivedMap.get(recKey).values += options.length;
+          if (!receivedMap.get(recKey).registered && recipientRegistered) {
+            receivedMap.get(recKey).registered = true;
+          }
         }
         const sentKey = getSenderName(log);
         const sender = log && log.remetente && typeof log.remetente === "object" ? log.remetente : null;
@@ -1029,11 +1082,22 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         const monthRank = buildRankings(uniqueMonthLogs, employeeDirectory);
         if (monthRank.receivedArr.length) {
           const topReceived = monthRank.receivedArr[0];
-          receivedHistory.push({ month: formatMonthKey(monthKey), name: topReceived.name, count: topReceived.count, photoDataUrl: topReceived.photoDataUrl || "" });
+          receivedHistory.push({
+            month: formatMonthKey(monthKey),
+            name: topReceived.name,
+            count: topReceived.count,
+            photoDataUrl: topReceived.photoDataUrl || "",
+            registered: topReceived.registered
+          });
         }
         if (monthRank.sentArr.length) {
           const topSent = monthRank.sentArr[0];
-          sentHistory.push({ month: formatMonthKey(monthKey), name: topSent.name, count: topSent.count, photoDataUrl: topSent.photoDataUrl || "" });
+          sentHistory.push({
+            month: formatMonthKey(monthKey),
+            name: topSent.name,
+            count: topSent.count,
+            photoDataUrl: topSent.photoDataUrl || ""
+          });
         }
       });
       return {
@@ -1051,9 +1115,16 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
       data.forEach(function (item) {
         const row = document.createElement("tr");
         row.className = "hover:bg-white dark:hover:bg-gray-700/50 transition-colors";
+        const statusTagHtml = item.registered === false ? '<span class="status-tag">sem cadastro</span>' : "";
         row.innerHTML =
           '<td class="px-6 py-4 text-gray-700 dark:text-gray-300 font-bold">' + item.month + "</td>" +
-          '<td class="px-6 py-4"><div class="flex items-center">' + getAvatar(item) + '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + "</span></div></td>" +
+          '<td class="px-6 py-4"><div class="flex items-center gap-3">' +
+            getAvatar(item) +
+            '<div class="flex items-center gap-2">' +
+              '<span class="text-gray-800 dark:text-gray-100 font-bold">' + item.name + "</span>" +
+              statusTagHtml +
+            '</div>' +
+          '</div></td>' +
           '<td class="px-6 py-4 text-center"><span class="inline-block px-3 py-1 rounded-full font-bold text-sm ' + badgeClass + ' shadow-sm">' + item.count + "</span></td>";
         tbody.appendChild(row);
       });
