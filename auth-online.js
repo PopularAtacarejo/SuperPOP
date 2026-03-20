@@ -547,7 +547,11 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isAdmin || isDeveloper) {
         const tag = document.createElement("span");
         tag.className = "online-user-role-tag " + (isAdmin ? "admin" : "developer");
-        tag.textContent = isAdmin ? "👑 Administrador" : "⚙️ Desenvolvedor";
+        const icon = document.createElement("span");
+        icon.className = "online-user-role-tag-icon material-symbols-outlined";
+        icon.textContent = isAdmin ? "emoji_events" : "engineering";
+        tag.appendChild(icon);
+        tag.appendChild(document.createTextNode(isAdmin ? "Administrador" : "Desenvolvedor"));
         meta.appendChild(tag);
       }
       meta.appendChild(subtitle);
