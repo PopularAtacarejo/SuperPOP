@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let presenceRefreshTimer = 0;
   let notificationsRefreshTimer = 0;
   let notificationsLoading = false;
+  let employeeTagPromise = null;
+  let employeeTagMap = null;
 
   const NOTIFICATIONS_TEMPLATE = `
 <div class="notifications-menu" id="notificationsMenu">
@@ -257,6 +259,94 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function buildEmployeeTagMap(users) {
+    if (!Array.isArray(users) || !users.length) return null;
+    const map = {};
+    users.forEach(function (user) {
+      const id = String(user && user.id || "").trim();
+      if (!id) return;
+      map[id] = {
+        tags_acesso: Array.isArray(user.tags_acesso) ? user.tags_acesso.slice() : [],
+        tags: Array.isArray(user.tags) ? user.tags.slice() : [],
+        tagsAcesso: Array.isArray(user.tagsAcesso) ? user.tagsAcesso.slice() : [],
+        tagsAcessos: Array.isArray(user.tagsAcessos) ? user.tagsAcessos.slice() : [],
+        tagsAccess: Array.isArray(user.tagsAccess) ? user.tagsAccess.slice() : [],
+        permissoes: user.permissoes && typeof user.permissoes === "object"
+          ? Object.assign({}, user.permissoes)
+          : null
+      };
+    });
+    return Object.keys(map).length ? map : null;
+  }
+
+  function enrichOnlineUser(user) {
+    if (!user || !user.id || !employeeTagMap) return user;
+    const id = String(user.id || "").trim();
+    const meta = employeeTagMap[id];
+    if (!meta) return user;
+    const clone = Object.assign({}, user);
+    if (!Array.isArray(clone.tags) && Array.isArray(meta.tags) && meta.tags.length) {
+      clone.tags = meta.tags.slice();
+    }
+    if (!Array.isArray(clone.tags_acesso) && Array.isArray(meta.tags_acesso) && meta.tags_acesso.length) {
+      clone.tags_acesso = meta.tags_acesso.slice();
+    }
+    if (!Array.isArray(clone.tagsAcesso) && Array.isArray(meta.tagsAcesso) && meta.tagsAcesso.length) {
+      clone.tagsAcesso = meta.tagsAcesso.slice();
+    }
+    if (!Array.isArray(clone.tagsAcessos) && Array.isArray(meta.tagsAcessos) && meta.tagsAcessos.length) {
+      clone.tagsAcessos = meta.tagsAcessos.slice();
+    }
+    if (!Array.isArray(clone.tagsAccess) && Array.isArray(meta.tagsAccess) && meta.tagsAccess.length) {
+      clone.tagsAccess = meta.tagsAccess.slice();
+    }
+    if (!clone.permissoes && meta.permissoes) {
+      clone.permissoes = Object.assign({}, meta.permissoes);
+    }
+    return clone;
+  }
+
+  function ensureEmployeeTagsLoaded() {
+    if (employeeTagMap) {
+      return Promise.resolve(employeeTagMap);
+    }
+    if (employeeTagPromise) {
+      return employeeTagPromise;
+    }
+    employeeTagPromise = (async function () {
+      const candidates = [
+        apiBase + "/Funcioinarios.json",
+        buildFrontendUrl("Funcioinarios.json"),
+        "Funcioinarios.json"
+      ];
+      for (let i = 0; i < candidates.length; i += 1) {
+        const url = String(candidates[i] || "").trim();
+        if (!url) continue;
+        try {
+          const response = await fetch(url, { cache: "no-store", credentials: "include" });
+          if (!response.ok) {
+            continue;
+          }
+          const payload = await response.json().catch(function () { return null; });
+          const map = buildEmployeeTagMap(payload);
+          if (map) {
+            employeeTagMap = map;
+            return map;
+          }
+        } catch (_err) {
+          continue;
+        }
+      }
+      return null;
+    })();
+    employeeTagPromise.finally(function () {
+      if (!employeeTagMap) {
+        employeeTagPromise = null;
+      }
+    });
+    return employeeTagPromise;
+  }
+
   function resolveOrigin(urlValue) {
     try {
       return new URL(String(urlValue || "")).origin.toLowerCase();
@@ -418,24 +508,25 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     safeUsers.forEach(function (item) {
-      const userId = String(item.id || "").trim();
-      const userName = String(item.nome || "").trim() || "Usuario";
-      const userRole = String(item.funcao || "").trim() || "Sem funcao";
-      const userPresence = formatOnlineLastSeen(item.last_seen_iso);
+      const user = enrichOnlineUser(item);
+      const userId = String(user.id || "").trim();
+      const userName = String(user.nome || "").trim() || "Usuario";
+      const userRole = String(user.funcao || "").trim() || "Sem funcao";
+      const userPresence = formatOnlineLastSeen(user.last_seen_iso);
       const userIsCurrent = Boolean(userId && currentAuthenticatedUserId && userId === currentAuthenticatedUserId);
       const row = document.createElement("li");
       row.className = "online-user-item";
       const roleLabel = userRole.toLowerCase();
-      const hasAdminTag = userHasTag(item, "admin");
-      const hasDeveloperTag = userHasTag(item, ["developer", "dev"]);
+      const hasAdminTag = userHasTag(user, "admin");
+      const hasDeveloperTag = userHasTag(user, ["developer", "dev"]);
       const isAdmin = Boolean(
         hasAdminTag ||
-        (item.permissoes && item.permissoes.manage_users) ||
+        (user.permissoes && user.permissoes.manage_users) ||
         roleLabel.indexOf("admin") >= 0
       );
       const isDeveloper = Boolean(
         hasDeveloperTag ||
-        (item.permissoes && item.permissoes.edit_users) ||
+        (user.permissoes && user.permissoes.edit_users) ||
         roleLabel.indexOf("dev") >= 0 ||
         roleLabel.indexOf("desenvolvedor") >= 0
       );
@@ -444,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else if (isDeveloper) {
         row.classList.add("developer");
       }
-      row.appendChild(buildOnlineAvatarNode(item.foto_perfil_data_url, userName));
+      row.appendChild(buildOnlineAvatarNode(user.foto_perfil_data_url, userName));
 
       const meta = document.createElement("div");
       meta.className = "online-user-meta";
@@ -530,6 +621,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const payload = await callPresenceEndpoint("/api/presence/online");
       const onlineUsers = Array.isArray(payload && payload.online_users) ? payload.online_users : [];
+      await ensureEmployeeTagsLoaded().catch(function () {});
       renderOnlineUsers(onlineUsers);
       if (payload && typeof payload.online_count !== "undefined") {
         setOnlineUsersCount(payload.online_count);
@@ -554,6 +646,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function startPresenceRefreshLoop() {
     if (!onlineUsersBtn || !onlineUsersDropdown || document.visibilityState === "hidden") return;
     stopPresenceRefreshLoop();
+    ensureEmployeeTagsLoaded().catch(function () {});
     sendPresenceHeartbeat();
     refreshOnlineUsers();
     presenceHeartbeatTimer = window.setInterval(sendPresenceHeartbeat, presenceHeartbeatIntervalMs);
