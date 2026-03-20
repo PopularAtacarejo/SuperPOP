@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
   const authTopActions = document.getElementById("authTopActions");
   const authUserBtn = document.getElementById("authUserBtn");
   const authUserDropdown = document.getElementById("authUserDropdown");
@@ -433,7 +433,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isAdmin || isDeveloper) {
         const tag = document.createElement("span");
         tag.className = "online-user-role-tag " + (isAdmin ? "admin" : "developer");
-        tag.textContent = isAdmin ? "Administrador" : "Desenvolvedor";
+        tag.textContent = isAdmin ? "👑 Administrador" : "⚙️ Desenvolvedor";
         meta.appendChild(tag);
       }
       meta.appendChild(subtitle);
