@@ -6,14 +6,24 @@
   --button-background: rgba(255, 255, 255, 0.92);
   --text-primary-color: #0f172a;
   --muted-text-color: #64748b;
+  --accent-danger: #ef4444;
+  --accent-danger-muted: rgba(239, 68, 68, 0.2);
+  --accent-danger-shadow: rgba(239, 68, 68, 0.55);
+  --accent-danger-contrast: #ffffff;
+  --accent-danger-hover: #ff6b6b;
 }
 .dark {
-  --page-background: linear-gradient(160deg, #020617 0%, #0b1221 70%, #111827 100%);
-  --panel-background: rgba(15, 23, 42, 0.85);
-  --panel-border: #1f2937;
-  --button-background: rgba(30, 41, 59, 0.82);
-  --text-primary-color: #f8fafc;
-  --muted-text-color: #94a3b8;
+  --page-background: linear-gradient(160deg, #030712 0%, #050b16 50%, #070b12 100%);
+  --panel-background: rgba(7, 12, 24, 0.92);
+  --panel-border: #0f172a;
+  --button-background: rgba(18, 24, 38, 0.9);
+  --text-primary-color: #f1f5f9;
+  --muted-text-color: #a5b4fc;
+  --accent-danger: #4ade80;
+  --accent-danger-muted: rgba(74, 222, 128, 0.35);
+  --accent-danger-shadow: rgba(74, 222, 128, 0.65);
+  --accent-danger-contrast: #041a10;
+  --accent-danger-hover: #86efac;
 }
 body {
   background: var(--page-background) !important;
@@ -45,6 +55,14 @@ body {
 .dark .online-users-btn,
 .dark .notifications-btn {
   border-color: #1f2937;
+}
+.dark .online-user-item.developer {
+  border-color: var(--accent-danger);
+  background: rgba(74, 222, 128, 0.16);
+  box-shadow: 0 20px 40px -18px rgba(74, 222, 128, 0.8);
+}
+.dark .online-user-item.developer:hover {
+  box-shadow: 0 20px 46px -18px rgba(74, 222, 128, 0.9);
 }
 .dark .online-users-dropdown-title,
 .dark .online-user-meta strong,
@@ -340,13 +358,13 @@ body {
   box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.5);
 }
 .online-user-role-tag.developer {
-  background: rgba(239, 68, 68, 0.25);
-  color: #7f1d1d;
+  background: var(--accent-danger-muted);
+  color: var(--accent-danger);
 }
 .online-user-role-tag.developer .online-user-role-tag-icon {
-  background: rgba(220, 38, 38, 0.18);
-  color: #7f1d1d;
-  box-shadow: inset 0 0 0 1px rgba(220, 38, 38, 0.45);
+  background: var(--accent-danger-muted);
+  color: var(--accent-danger);
+  box-shadow: inset 0 0 0 1px var(--accent-danger-shadow);
 }
 .online-user-meta small {
   display: block;
@@ -443,13 +461,18 @@ body {
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .notification-actions button:hover {
-  border-color: rgba(226, 232, 240, 0.5);
+  border-color: rgba(148, 163, 184, 0.5);
   background: #f1f5f9;
 }
+.notification-actions .primary:hover {
+  background: var(--accent-danger-hover);
+  border-color: var(--accent-danger-hover);
+}
 .notification-actions .primary {
-  background: #ef4444;
-  color: #ffffff;
+  background: var(--accent-danger);
+  color: var(--accent-danger-contrast);
   border-color: transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .notification-actions .secondary {
   background: #f3f4f6;
@@ -472,8 +495,10 @@ body {
   transition: opacity 0.2s ease;
 }
 .notifications-actions .primary {
-  background: #ef4444;
-  color: #fff;
+  background: var(--accent-danger);
+  color: var(--accent-danger-contrast);
+  border-color: transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .notifications-actions .secondary {
   background: #f3f4f6;
@@ -481,15 +506,15 @@ body {
 }
 .dark .notification-actions .primary,
 .dark .notifications-actions .primary {
-  background: #39ff14;
-  color: #021600;
-  border-color: #39ff14;
-  box-shadow: 0 12px 30px rgba(57, 255, 20, 0.35);
+  background: var(--accent-danger);
+  color: var(--accent-danger-contrast);
+  border-color: var(--accent-danger);
+  box-shadow: 0 12px 30px var(--accent-danger-shadow);
 }
 .dark .notification-actions .primary:hover,
 .dark .notifications-actions .primary:hover {
-  background: #4aff4c;
-  border-color: #4aff4c;
+  background: var(--accent-danger-hover);
+  border-color: var(--accent-danger-hover);
 }
 .auth-user-dropdown {
   display: none;
@@ -559,7 +584,7 @@ body {
 }
 .auth-user-dropdown-detail-icon {
   font-size: 24px;
-  color: #ef4444;
+  color: var(--accent-danger);
 }
 .auth-user-dropdown-function {
   display: flex;
@@ -636,7 +661,7 @@ body {
 .auth-avatar-viewer-photo span {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #ef4444;
+  color: var(--accent-danger);
 }
 .auth-avatar-viewer-name {
   font-size: 1.4rem;
