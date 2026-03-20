@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const url = String(candidates[i] || "").trim();
         if (!url) continue;
         try {
-          const response = await fetch(url, { cache: "no-store", credentials: "include" });
+          const response = await fetch(url, { cache: "no-store", credentials: "omit" });
           if (!response.ok) {
             continue;
           }
