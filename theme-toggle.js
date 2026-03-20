@@ -37,6 +37,7 @@
     const labelEl = button.querySelector(".theme-toggle-btn-label");
     if (icon) {
       icon.textContent = iconName;
+      icon.classList.toggle("active", normalized === "dark");
     }
     if (labelEl) {
       labelEl.textContent = label;
