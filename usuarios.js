@@ -16,11 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const cleanPath = path.startsWith("/") ? path : ("/" + path);
     return apiBase + cleanPath;
   }
-  const USER_DATA_SOURCES = [
-    "https://raw.githubusercontent.com/PopularAtacarejo/SuperPOP/main/Funcioinarios.json",
-    apiBase + "/Funcioinarios.json",
-    "./Funcioinarios.json",
-  ];
 
   let state = {
     users: [],
@@ -85,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tableBody.innerHTML = filtered
       .map(function (user) {
         return (
-          '<tr class="bg-white transition-colors hover:bg-slate-50">' +
+          '<tr class="hover:bg-slate-50 dark:hover:bg-gray-800">' +
             '<td class="py-4 pr-4 align-top">' + escapeHtml(user.nome || "-") + "</td>" +
             '<td class="py-4 pr-4 align-top font-semibold text-slate-600">' + escapeHtml(user.telefone || "-") + "</td>" +
             '<td class="py-4 pr-4 align-top font-semibold text-slate-600">' + escapeHtml(user.funcao || "-") + "</td>" +
@@ -96,87 +91,44 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  async function fetchFirstJsonArray(sources) {
-    for (const source of (Array.isArray(sources) ? sources : [])) {
-      if (!source) continue;
-      try {
-        const response = await fetch(source, { cache: "no-store" });
-        if (!response.ok) continue;
-        const payload = await response.json().catch(function () { return null; });
-        if (!payload) continue;
-        if (Array.isArray(payload)) {
-          return payload;
-        }
-        if (payload && Array.isArray(payload.funcionarios)) {
-          return payload.funcionarios;
-        }
-      } catch (_err) {
-        /* try next source */
-      }
-    }
-    throw new Error("Nenhuma fonte local disponível.");
-  }
-
-  async function loadLocalUsers() {
-    const entries = await fetchFirstJsonArray(USER_DATA_SOURCES);
-    const safeEntries = Array.isArray(entries) ? entries : [];
-    state = {
-      users: safeEntries,
-      generatedAt: new Date().toISOString(),
-      sourceCount: safeEntries.length,
-    };
-    renderUsersList();
-    renderSourceInfo({
-      fonte: {
-        usuarios: {
-          tipo: "Local",
-          total: safeEntries.length,
-          local_total: safeEntries.length,
-        },
-      },
-    });
-    if (lastUpdateEl) {
-      lastUpdateEl.textContent = formatDateTime(state.generatedAt);
-    }
-  }
-
-  async function fetchUsers() {
+  function fetchUsers() {
     setLoading(true);
     showTableMessage("Carregando usuários...");
-    try {
-      const response = await fetch(buildApiUrl("/api/admin/users"), { credentials: "include", cache: "no-store" });
-      if (response.status === 401) {
-        throw new Error("Não autenticado");
-      }
-      if (response.status === 403) {
-        throw new Error("Sem permição");
-      }
-      const payload = await response.json().catch(function () { return {}; });
-      if (!payload.ok) {
-        throw new Error(payload.error || "Erro ao carregar usuários.");
-      }
-      state = {
-        users: Array.isArray(payload.usuarios) ? payload.usuarios : [],
-        generatedAt: String(payload.gerado_em || ""),
-        sourceCount: (payload.resumo && Number(payload.resumo.total_usuarios)) || (payload.usuarios || []).length,
-      };
-      renderUsersList();
-      renderSourceInfo(payload);
-      if (lastUpdateEl) {
-        lastUpdateEl.textContent = formatDateTime(state.generatedAt);
-      }
-    } catch (error) {
-      console.warn("Falha ao carregar usuários via API:", error);
-      showTableMessage("Não foi possível carregar a API. Exibindo dados locais.", "text-slate-500");
-      try {
-        await loadLocalUsers();
-      } catch (localError) {
-        console.error(localError);
-        showTableMessage(localError && localError.message ? escapeHtml(localError.message) : "Não foi possível carregar os usuários.", "text-red-600");
-      }
-    } finally {
-      setLoading(false);
-    }
+    fetch(buildApiUrl("/api/admin/users"), { credentials: "include", cache: "no-store" })
+      .then(function (response) {
+        if (response.status === 401) {
+          window.location.href = "index.html";
+          return null;
+        }
+        if (response.status === 403) {
+          window.location.href = "superpop.html";
+          return null;
+        }
+        return response.json().catch(function () { return {}; });
+      })
+      .then(function (payload) {
+        if (!payload) return;
+        if (!payload.ok) {
+          throw new Error(payload.error || "Erro ao carregar usuários.");
+        }
+        state = {
+          users: Array.isArray(payload.usuarios) ? payload.usuarios : [],
+          generatedAt: String(payload.gerado_em || ""),
+          sourceCount: (payload.resumo && Number(payload.resumo.total_usuarios)) || (payload.usuarios || []).length,
+        };
+        renderUsersList();
+        renderSourceInfo(payload);
+        if (lastUpdateEl) {
+          lastUpdateEl.textContent = formatDateTime(state.generatedAt);
+        }
+      })
+      .catch(function (error) {
+        console.error(error);
+        showTableMessage(error && error.message ? escapeHtml(error.message) : "Não foi possível carregar os usuários.", "text-red-600");
+      })
+      .finally(function () {
+        setLoading(false);
+      });
   }
 
   if (refreshBtn) {

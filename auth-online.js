@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const authTopActions = document.getElementById("authTopActions");
   const authUserBtn = document.getElementById("authUserBtn");
   const authUserDropdown = document.getElementById("authUserDropdown");
@@ -530,14 +530,10 @@
         roleLabel.indexOf("dev") >= 0 ||
         roleLabel.indexOf("desenvolvedor") >= 0
       );
-      const roleDecoration = isAdmin
-        ? { key: "admin", label: "Administrador", icon: "workspace_premium" }
-        : (isDeveloper
-          ? { key: "developer", label: "Desenvolvedor", icon: "settings" }
-          : null);
-      if (roleDecoration) {
-        row.classList.add(roleDecoration.key);
-        row.dataset.role = roleDecoration.key;
+      if (isAdmin) {
+        row.classList.add("admin");
+      } else if (isDeveloper) {
+        row.classList.add("developer");
       }
       row.appendChild(buildOnlineAvatarNode(user.foto_perfil_data_url, userName));
 
@@ -548,16 +544,14 @@
       const subtitle = document.createElement("small");
       subtitle.textContent = userRole + " | " + userPresence;
       meta.appendChild(title);
-      if (roleDecoration) {
+      if (isAdmin || isDeveloper) {
         const tag = document.createElement("span");
-        tag.className = "online-user-role-tag " + roleDecoration.key;
-        tag.setAttribute("aria-label", roleDecoration.label);
-        tag.title = roleDecoration.label;
+        tag.className = "online-user-role-tag " + (isAdmin ? "admin" : "developer");
         const icon = document.createElement("span");
         icon.className = "online-user-role-tag-icon material-symbols-outlined";
-        icon.textContent = roleDecoration.icon;
+        icon.textContent = isAdmin ? "emoji_events" : "engineering";
         tag.appendChild(icon);
-        tag.appendChild(document.createTextNode(roleDecoration.label));
+        tag.appendChild(document.createTextNode(isAdmin ? "Administrador" : "Desenvolvedor"));
         meta.appendChild(tag);
       }
       meta.appendChild(subtitle);

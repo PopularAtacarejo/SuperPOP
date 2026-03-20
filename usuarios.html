@@ -99,7 +99,6 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("sidebar"),t=document.getElementById("sidebarToggle"),o=document.getElementById("sidebarOverlay"),m=document.getElementById("mobileMenuBtn"),l=document.querySelector(".sidebar-collapsed-only"),c=t?t.querySelector("span"):null;if(!s||!t||!o||!m||!l||!c)return;function openS(){s.classList.add("expanded");c.textContent="chevron_left";l.style.opacity="0"}function closeS(){s.classList.remove("expanded");c.textContent="chevron_right";window.setTimeout(function(){if(!s.classList.contains("expanded"))l.style.opacity="1"},220)}function syncS(){if(window.innerWidth<1100){closeS();return}openS()}t.addEventListener("click",function(){s.classList.contains("expanded")?closeS():openS()});m.addEventListener("click",openS);o.addEventListener("click",closeS);window.addEventListener("resize",syncS);syncS()});
 </script>
   <script src="usuarios.js"></script>
-  <script src="theme-toggle.js" defer></script>
   <script src="auth-online.js"></script>
 </body>
 </html>
