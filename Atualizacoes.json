@@ -103,5 +103,18 @@
       "nome": "Jeferson"
     },
     "created_at_iso": "2026-03-19T12:01:55.595095-03:00"
+  },
+  {
+    "id": "c013cce967ea4197b59d7a242dcf4fe9",
+    "data_referencia": "20/03/2026",
+    "titulo": "Correção na pagina de cadastro",
+    "descricao": "Atualização de layout e corrigido bug na inserção da data de aniversário, possiblidade de reenviar o super pop na pagina de \"meus super pop's\" caso não tenha enviado na hora podendo enviar depois. Adição de sistema de notificações de super pop recebido no dia.",
+    "categoria": "Correção de Bugs",
+    "status": "Concluido",
+    "autor": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-20T09:00:08.722220-03:00"
   }
 ]
