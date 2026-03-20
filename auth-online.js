@@ -218,14 +218,33 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function normalizeTagsForUser(user) {
-    const rawTags = [
-      ...(Array.isArray(user && user.tags_acesso) ? user.tags_acesso : []),
-      ...(Array.isArray(user && user.tags) ? user.tags : []),
-      ...(Array.isArray(user && user.tagsAcesso) ? user.tagsAcesso : [])
-    ];
-    return rawTags
+    const gather = function (value) {
+      if (!value) return [];
+      if (Array.isArray(value)) return value;
+      if (typeof value === "string") {
+        return value
+          .split(/[,;|]/)
+          .map(function (segment) { return segment.trim(); })
+          .filter(Boolean);
+      }
+      return [];
+    };
+    const rawTags = [].concat(
+      gather(user && user.tags_acesso),
+      gather(user && user.tags),
+      gather(user && user.tagsAcesso),
+      gather(user && user.tagsAcessos),
+      gather(user && user.tagsAccess)
+    );
+    const normalized = rawTags
       .map(function (tag) { return String(tag || "").trim().toLowerCase(); })
-      .filter(function (tag) { return Boolean(tag); });
+      .filter(Boolean);
+    const seen = [];
+    return normalized.filter(function (tag) {
+      if (seen.indexOf(tag) >= 0) return false;
+      seen.push(tag);
+      return true;
+    });
   }
 
   function userHasTag(user, targets) {
