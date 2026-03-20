@@ -6294,6 +6294,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/08fa4366ec?token=273950d56955bc392046683d34011d1b0447c53f48edf67eda8ab0cc4a1b1b5e",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "💯",
+      "updated_at_iso": "2026-03-20T17:36:02.843772-03:00",
+      "reactor": {
+        "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+        "nome": "Jeferson"
+      }
     }
   }
 ]
