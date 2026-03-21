@@ -89,5 +89,18 @@
       "nome": "Rhuann Lima"
     },
     "reacted_at_iso": "2026-03-18T15:10:01.804084-03:00"
+  },
+  {
+    "id": "86c077ff8fc94dcbaaf0d2d4e9829520",
+    "month_key": "2026-03",
+    "rank_kind": "received",
+    "target_name": "Lazaro Gustavo",
+    "target_name_key": "lazaro gustavo",
+    "emoji": "💯",
+    "reactor": {
+      "id": "68617794d9404c8bb8db016a5894798e",
+      "nome": "Lazaro Gustavo"
+    },
+    "reacted_at_iso": "2026-03-21T09:47:29.733438-03:00"
   }
 ]
