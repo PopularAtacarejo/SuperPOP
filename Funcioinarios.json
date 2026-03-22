@@ -527,5 +527,24 @@
     "data_cadastro_iso": "2026-03-19T17:48:10.786964-03:00",
     "data_nascimento_iso": "1994-10-27",
     "mostrar_aniversario": false
+  },
+  {
+    "id": "56b8c82660c04e71889ad0d4b0096a0f",
+    "nome": "Irineia Soares Dos Santos",
+    "funcao": "Repositor de Mercearia",
+    "numero_celular": "(82) 9 8168 - 7452",
+    "numero_normalizado": "82981687452",
+    "email": "irineiasantos1912@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "233bcbea80dfa494c18352368c62eb99",
+      "hash": "effdcdee4569b19c41d749f4935cafd53a8def734e5df5b705b7e12a5ffbe929",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-22T12:22:08.038104-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false
   }
 ]
