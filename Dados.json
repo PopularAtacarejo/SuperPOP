@@ -7439,5 +7439,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "1e23fdca25b444a39d98519e3f37ff98",
+    "card_id": "b381ce22ac",
+    "dia": "26/03/2026",
+    "horario": "19:32:12",
+    "data_hora_iso": "2026-03-26T19:32:12.634252-03:00",
+    "destinatario": {
+      "nome": "Cecília Paulino",
+      "numero": "5582987347139",
+      "numero_normalizado": "+5582987347139",
+      "funcao": "Assistente de RH"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Diante da solicitação em contrtar vc não mediu esforços até conseguir fechar o quadro da frente de loja....vc faz a diferença...obrigada pela a acolhida com a frente de loja",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582987347139",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b381ce22ac.png",
+      "uploaded_image_url": "https://i.ibb.co/G3sLd5Bm/card-b381ce22ac.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b381ce22ac.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/b381ce22ac?token=589074be870ccc6523ab22a07bd46817e551393e5cf3035d16664de1b73f4a22",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
