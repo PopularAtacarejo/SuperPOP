@@ -7606,5 +7606,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "cf41fcbe7ede4cc684f0a8fffecdf50d",
+    "card_id": "88a4e3eb81",
+    "dia": "27/03/2026",
+    "horario": "07:44:54",
+    "data_hora_iso": "2026-03-27T07:44:54.665863-03:00",
+    "destinatario": {
+      "nome": "Ywriane",
+      "numero": "5582991214558",
+      "numero_normalizado": "+5582991214558",
+      "funcao": "-"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Por acolher a solicitação das compras das Páscoa frente de loja com tanta agilidade e eficiência",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582991214558",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-88a4e3eb81.png",
+      "uploaded_image_url": "https://i.ibb.co/M5KChZfV/card-88a4e3eb81.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-88a4e3eb81.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/88a4e3eb81?token=8ffefb886e34d0c4d5e8453239bcd1518603dc937d6e8ae9ace9eb56726bffb3",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
