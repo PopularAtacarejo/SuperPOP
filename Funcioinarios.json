@@ -538,5 +538,25 @@
     "data_cadastro_iso": "2026-03-22T12:22:08.038104-03:00",
     "data_nascimento_iso": "",
     "mostrar_aniversario": false
+  },
+  {
+    "id": "642a6b22c48d4968a472ee941df2bc2e",
+    "nome": "Caio",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 8862 - 1680",
+    "numero_normalizado": "82988621680",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "0e345a713d027ee7e7d8939d49ef197e",
+      "hash": "d7217984b6a7d451776166dcacd870f2036dea8796802dc61fc32814115d5905",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-28T09:50:37.177979-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
