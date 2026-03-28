@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const editUsersNavItem = document.getElementById("editUsersNavItem");
   const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
   const analyticsSection = document.getElementById("analyticsSection");
+  const sidebarNav = document.querySelector(".sidebar-nav");
   const authUserAvatar = document.querySelector(".auth-user-avatar");
   const authUserAvatarImage = document.getElementById("authUserAvatarImage");
   const authUserAvatarFallback = document.getElementById("authUserAvatarFallback");
@@ -100,9 +101,30 @@ document.addEventListener("DOMContentLoaded", function () {
     return document.getElementById("notificationsMenu");
   }
 
+  function ensureCreateUsersNavItem() {
+    if (!sidebarNav) {
+      return null;
+    }
+    const existing = document.getElementById("createUsersNavItem");
+    if (existing) {
+      return existing;
+    }
+    const anchor = document.createElement("a");
+    anchor.id = "createUsersNavItem";
+    anchor.className = "menu-item group hidden";
+    anchor.href = "criar-usuarios.html";
+    anchor.title = "Criar usuários";
+    anchor.innerHTML =
+      '<span class="material-symbols-outlined shrink-0">person_add</span>' +
+      '<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Criar usuários</span>';
+    sidebarNav.appendChild(anchor);
+    return anchor;
+  }
+
   ensureNotificationsMenu();
   enhanceAuthUserDropdown();
   ensureAvatarViewer();
+  ensureCreateUsersNavItem();
 
   const notificationBtn = document.getElementById("notificationBtn");
   const notificationDropdown = document.getElementById("notificationsDropdown");
@@ -824,6 +846,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (editUsersNavItem && hasDeveloperTag) {
       editUsersNavItem.classList.remove("hidden");
       if (updatesEditorNavItem) updatesEditorNavItem.classList.remove("hidden");
+    }
+    const createUsersNavItem = ensureCreateUsersNavItem();
+    if (createUsersNavItem) {
+      createUsersNavItem.classList.toggle("hidden", !hasDeveloperTag);
+      const currentPath = String(window.location.pathname || "").replace(/^\/+/, "").toLowerCase();
+      const isCreatePage =
+        currentPath === "criar-usuarios" || currentPath === "criar-usuarios.html";
+      createUsersNavItem.classList.toggle("active", isCreatePage);
     }
   }
 
