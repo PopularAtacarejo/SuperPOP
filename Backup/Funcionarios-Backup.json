@@ -658,5 +658,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "8af58cecaf7045d9a6e59919f86a7739",
+    "nome": "Eduardo",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 8233 - 8409",
+    "numero_normalizado": "82982338409",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "be35ec7c6cf551bd1085319fcdb2174f",
+      "hash": "31c789255d081fd5fe59bab6042b27898a695239dccaee3c05610ea202b39047",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:12:35.264623-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
