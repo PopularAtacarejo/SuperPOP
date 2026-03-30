@@ -718,5 +718,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "0d7e8d5c32e649a99ab367cae892caed",
+    "nome": "Rikelmy",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9346 - 8328",
+    "numero_normalizado": "82993468328",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "4f323a22198a4f56b5c5e5d7c0647aa4",
+      "hash": "a52d9dfc4fee9193bcbb469957f520511ad890be65d9f05fdd8d4abb5d34dc33",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:16:40.180612-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
