@@ -558,5 +558,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "f5f3bbe0d3d24df799231f499b0dc433",
+    "nome": "Charleane da silva",
+    "funcao": "Fiscaldecaixa",
+    "numero_celular": "(82) 9 9610 - 4536",
+    "numero_normalizado": "82996104536",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "213ae3016172c3f41cdb4a04095d7211",
+      "hash": "2dcac93d25883337efe6cefc32dd1e87e904208887d4844de6866732d00f74b9",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T05:44:30.309252-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
