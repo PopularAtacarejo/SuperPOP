@@ -678,5 +678,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "2aea076471b9471fa16a35e497675c15",
+    "nome": "Leticia",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 8210 - 9652",
+    "numero_normalizado": "82982109652",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "66fe94ac751d42920efa69ee88343500",
+      "hash": "7cbaa982470bb9c3cacb2a8026906c6f153baff4c0caf85985727ea425882f3e",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:13:09.373270-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
