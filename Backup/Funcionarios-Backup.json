@@ -618,5 +618,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "a44c22f385da4c569caa80bdc315853a",
+    "nome": "Lucas",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9612 - 1968",
+    "numero_normalizado": "82996121968",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "e0f466c565012fe08b57ddde9920c07d",
+      "hash": "5bfb6169b5e2265de97b31081e68080822328421171f7c21911b9b591fc4c916",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:07:58.628213-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
