@@ -778,5 +778,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "b675ed9c41c04ecfb5068cfc8223b61c",
+    "nome": "Francisco Alexandre",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9927 - 5990",
+    "numero_normalizado": "82999275990",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "f73322840ef60c3f101d41a697eccd6e",
+      "hash": "a82fb24b8667b260ba1a3cc99de617db5438f2734ccee336b69d35bbe0b2720d",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:18:25.901621-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
