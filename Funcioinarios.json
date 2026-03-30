@@ -818,5 +818,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "959d1178c63c495881a03f07d90e2602",
+    "nome": "Sabrina",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9664 - 4815",
+    "numero_normalizado": "82996644815",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "3cb5fc96fce3e7cb7fc2909a9a88860d",
+      "hash": "4a60ce87c581507838bbf9fc529094e1b6fd107c962f44deafe76fd35e0a952a",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:40:44.151395-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
