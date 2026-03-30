@@ -578,5 +578,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": false
+  },
+  {
+    "id": "ee041b017ae748ba8f965e8616ebfce6",
+    "nome": "Aldair",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9665 - 2191",
+    "numero_normalizado": "82996652191",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "65709683401c21f27ccfa31d573efbaa",
+      "hash": "7f7471a84e627773de334564da657fe3df79eb3c7f7b6912c8b1076270ec80ce",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:05:32.086165-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
