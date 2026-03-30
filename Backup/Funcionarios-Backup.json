@@ -798,5 +798,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "442012adf8554c99a8cde5ba36212fa1",
+    "nome": "Gabrielly",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 8203 - 3675",
+    "numero_normalizado": "82982033675",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "545ad8e9e0544802a7ab96440ade0ab9",
+      "hash": "0b0a51e6ec635269c0489e7e908e42385d9b332191b028a67db84636d35ce52a",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:18:56.759345-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
