@@ -738,5 +738,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "0e90b34baac145429bdab6e42c74ccd4",
+    "nome": "Alcione",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9946 - 5303",
+    "numero_normalizado": "82999465303",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "04ac589f370367c3d42404f66459685e",
+      "hash": "47ca358b5f39b8edddca95ae1659bfa3634d18476ff0db39eb75e7b956363c4a",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:17:26.479223-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
