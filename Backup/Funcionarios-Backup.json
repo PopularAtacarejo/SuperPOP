@@ -858,5 +858,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "9f0be8e29f554110bdb4464c8e728362",
+    "nome": "Sidnei",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9924 - 7078",
+    "numero_normalizado": "82999247078",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "f010ecb5de17a48117862128f31a98e6",
+      "hash": "38957d2f3b9ecd7d1e4938008e6a3bdb20d3b185b290728b0fc8d671fddd1a0e",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:44:53.053138-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
