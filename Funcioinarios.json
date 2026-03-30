@@ -698,5 +698,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "04e764b69ac4421393f5b6c6f2ff9718",
+    "nome": "Anthony Moises",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9996 - 9415",
+    "numero_normalizado": "82999969415",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "4947054efe04d5b6d7a0ad7179a0808a",
+      "hash": "29be0147f7efb5454a08fb85fd3bde8eccbc43b791066cc4d58757b40b5a1b9f",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:15:33.175742-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
