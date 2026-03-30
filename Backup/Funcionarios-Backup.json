@@ -878,5 +878,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "2468d6ac8f894abcab281a4f3fce9422",
+    "nome": "Renata",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9604 - 0527",
+    "numero_normalizado": "82996040527",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "f8b6592e0d73d4f2dd082dfec3f0b642",
+      "hash": "09555f22528b2bc37ccf4ad457bdce19b9550dbb718cd323f95afa60d7dd5c26",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:45:19.290927-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
