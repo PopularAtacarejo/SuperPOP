@@ -638,5 +638,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "25a9c69afe90450984f0d07ee2b2c8ea",
+    "nome": "Thais",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 9947 - 3368",
+    "numero_normalizado": "82999473368",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "59380775eceaef5bcb85f5999a82cb4e",
+      "hash": "7219dc6c2706ffee62e247ffd79199dcdd7a281ea93675726e39584824a6fc62",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:09:52.259240-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
