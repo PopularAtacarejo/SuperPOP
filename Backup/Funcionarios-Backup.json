@@ -838,5 +838,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "bcbb3cb36b384fb8b736e3cfdb364664",
+    "nome": "Cauan",
+    "funcao": "Função pendente",
+    "numero_celular": "(82) 9 8872 - 4013",
+    "numero_normalizado": "82988724013",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "bbdf5108ca6084ab6645281c9a8cbdd0",
+      "hash": "f7999aca777fef0827ffd0c0799f76d55e9e4a5ea7b1ec1da81b7cb77f660766",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-03-30T09:41:28.840979-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": true
   }
 ]
