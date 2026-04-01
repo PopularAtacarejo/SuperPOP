@@ -243,7 +243,7 @@
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-13T18:42:13.502383-03:00",
     "data_nascimento_iso": "2004-07-05",
-    "mostrar_aniversario": false
+    "mostrar_aniversario": true
   },
   {
     "id": "02e74586bd05442ab2b2eb2762726040",
