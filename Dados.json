@@ -8240,5 +8240,45 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "67ea181c75b041b9bba40a2c617c07d0",
+    "card_id": "fc6918ec90",
+    "dia": "11/04/2026",
+    "horario": "21:33:40",
+    "data_hora_iso": "2026-04-11T21:33:40.896657-03:00",
+    "destinatario": {
+      "nome": "Aldair",
+      "numero": "5582996652191",
+      "numero_normalizado": "+5582996652191",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência"
+    ],
+    "mensagem": "Por todo apoio  e agilidade no montar do ponto da Páscoa",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582996652191",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-fc6918ec90.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-fc6918ec90.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/fc6918ec90?token=b12401c37ccf4470d70fc2b3ea99f2ab68d611cfcff196267455dd299b194412",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
