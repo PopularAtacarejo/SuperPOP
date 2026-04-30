@@ -8616,5 +8616,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "95bf44b9d9e64f4aae041091181ce302",
+    "card_id": "81cb12e6e5",
+    "dia": "30/04/2026",
+    "horario": "06:48:07",
+    "data_hora_iso": "2026-04-30T06:48:07.398170-03:00",
+    "destinatario": {
+      "nome": "Sidnei",
+      "numero": "5582999247078",
+      "numero_normalizado": "+5582999247078",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns pelo comprometimento de agora e acolhimento aos clientes internos e externos sua alegria e dedicação",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999247078",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-81cb12e6e5.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-81cb12e6e5.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/81cb12e6e5?token=d445f568d245b58ddb6a20dd48a3169436740999c01c3ceccb9d02899e527804",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
