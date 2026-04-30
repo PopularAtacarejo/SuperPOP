@@ -8826,5 +8826,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "0b498bf105b544149ea2de3e0558b76b",
+    "card_id": "b895ecf9db",
+    "dia": "30/04/2026",
+    "horario": "06:52:28",
+    "data_hora_iso": "2026-04-30T06:52:28.602456-03:00",
+    "destinatario": {
+      "nome": "Lazaro Gustavo",
+      "numero": "5582999200947",
+      "numero_normalizado": "+5582999200947",
+      "funcao": "Aux. De T.I"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Obrigada Lázaro pelo comprometimento, acolhimento  e apoio de sempre de agora e acolhimento  dedicação faz a diferença",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999200947",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b895ecf9db.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b895ecf9db.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/b895ecf9db?token=8f02a558fb1810f015e36bda4a4fd7d772689cbdf474a7d32ee956bdf1193207",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
