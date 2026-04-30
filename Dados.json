@@ -8490,5 +8490,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "c55c9ea9b0fd42a2a22116520e695e45",
+    "card_id": "8fad5f8ac2",
+    "dia": "30/04/2026",
+    "horario": "06:45:33",
+    "data_hora_iso": "2026-04-30T06:45:33.509830-03:00",
+    "destinatario": {
+      "nome": "Jane Cleide",
+      "numero": "5582999286264",
+      "numero_normalizado": "+5582999286264",
+      "funcao": "Lider de Acougue"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns  por toda dedicação , nao somente no seu setor mais tambem pelo acolhimento e eficiência no  meu você faz a diferença.\nAmo-te",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999286264",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-8fad5f8ac2.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-8fad5f8ac2.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/8fad5f8ac2?token=2663dc4116870f32f659cbaa49e5da5951fc6f168221df4607a7e665ada91b4c",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
