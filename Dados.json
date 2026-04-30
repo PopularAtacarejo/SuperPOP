@@ -8406,5 +8406,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "bb46e37f70d246bd85e664d98fb46ee7",
+    "card_id": "4b9367d22a",
+    "dia": "30/04/2026",
+    "horario": "06:42:49",
+    "data_hora_iso": "2026-04-30T06:42:49.222444-03:00",
+    "destinatario": {
+      "nome": "Cecília Paulino",
+      "numero": "5582987347139",
+      "numero_normalizado": "+5582987347139",
+      "funcao": "Assistente de RH"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns Alcione por toda dedicação , acolhimento e eficiência no que faz.\nAmo tu",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582987347139",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-4b9367d22a.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-4b9367d22a.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/4b9367d22a?token=74c59f7ec53de013906be9791870cc90db74b1daa61a8887693a8eb5fbb95477",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
