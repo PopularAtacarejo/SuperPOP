@@ -8658,5 +8658,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "e76dcb5c06a248978ed06396f4e5e414",
+    "card_id": "79e44a08a8",
+    "dia": "30/04/2026",
+    "horario": "06:48:30",
+    "data_hora_iso": "2026-04-30T06:48:30.935515-03:00",
+    "destinatario": {
+      "nome": "Suzana Vitoria Feitosa Pereira",
+      "numero": "5582982118775",
+      "numero_normalizado": "+5582982118775",
+      "funcao": "Fiscal de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns pelo comprometimento de agora e acolhimento aos clientes internos e externos sua alegria e dedicação",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582982118775",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-79e44a08a8.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-79e44a08a8.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/79e44a08a8?token=5f8f124ec33dc219f517ef97e2102d50871f7e6c1d38c54432008674853ff1ba",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
