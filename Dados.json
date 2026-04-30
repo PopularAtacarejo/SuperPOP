@@ -8910,5 +8910,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "dbbc133220604a52864ac4083313ccf5",
+    "card_id": "5313c6bb9a",
+    "dia": "30/04/2026",
+    "horario": "06:54:21",
+    "data_hora_iso": "2026-04-30T06:54:21.251335-03:00",
+    "destinatario": {
+      "nome": "Grayce Kelly Brito silva",
+      "numero": "5582982012587",
+      "numero_normalizado": "+5582982012587",
+      "funcao": "Atendente de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Obrigada Grayce pelo comprometimento, acolhimento  e apoio de sempre e acolhimento  dedicação faz a diferença",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582982012587",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-5313c6bb9a.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-5313c6bb9a.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/5313c6bb9a?token=30207121e79e3465bcbe366bd5c57152f1c82b8f4ff5f3cd0029dffbb1087cdc",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
