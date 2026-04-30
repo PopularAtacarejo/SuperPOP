@@ -8574,5 +8574,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "8461fefb9ad14d1e8320ee89993d214f",
+    "card_id": "a5ec021fe9",
+    "dia": "30/04/2026",
+    "horario": "06:47:21",
+    "data_hora_iso": "2026-04-30T06:47:21.198793-03:00",
+    "destinatario": {
+      "nome": "Rikelmy",
+      "numero": "5582993468328",
+      "numero_normalizado": "+5582993468328",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns pelo comprometimento de agora e acolhimento aos clientes",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582993468328",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-a5ec021fe9.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-a5ec021fe9.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/a5ec021fe9?token=aae50bbfd0a056eb9f71fd6e107ceee35d87bd1ef56629b1cf579a1e9bf17336",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
