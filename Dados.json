@@ -8952,5 +8952,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "ed6474a3fa3643e98c58a294c97a4eb5",
+    "card_id": "9d0de0a218",
+    "dia": "30/04/2026",
+    "horario": "06:55:03",
+    "data_hora_iso": "2026-04-30T06:55:03.881565-03:00",
+    "destinatario": {
+      "nome": "Gabriel Levi Santos",
+      "numero": "5582981190340",
+      "numero_normalizado": "+5582981190340",
+      "funcao": "Analista de TI"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Obrigada Levi pelo comprometimento, acolhimento  e apoio de sempre a sua  dedicação faz a diferença",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582981190340",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-9d0de0a218.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-9d0de0a218.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/9d0de0a218?token=e0fb3e59d9ef01ee6502517a0c4b17bb3219a3694ac62e42bf90a6e8164eb52b",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
