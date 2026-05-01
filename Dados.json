@@ -9326,5 +9326,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "bc5c06c4be9d4ceb8c3580f132788e01",
+    "card_id": "d474fae366",
+    "dia": "01/05/2026",
+    "horario": "08:48:04",
+    "data_hora_iso": "2026-05-01T08:48:04.212362-03:00",
+    "destinatario": {
+      "nome": "Luan vitor",
+      "numero": "5582999513742",
+      "numero_normalizado": "+5582999513742",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Obrigada por a parceria e acolhimento na mudança de horário  quando precisamos",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999513742",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-d474fae366.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-d474fae366.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/d474fae366?token=52154510471d42624617acba15520ed9fea906999402b1c0664b302ba874ba2e",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
