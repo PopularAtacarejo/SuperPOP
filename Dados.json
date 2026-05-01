@@ -9242,5 +9242,47 @@
       "upload_status": "error",
       "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
     }
+  },
+  {
+    "id": "2ce78a47665f4c0f8d4acf74e38f23a5",
+    "card_id": "2e92f6e78f",
+    "dia": "01/05/2026",
+    "horario": "08:42:51",
+    "data_hora_iso": "2026-05-01T08:42:51.795308-03:00",
+    "destinatario": {
+      "nome": "Lucas",
+      "numero": "5582996121968",
+      "numero_normalizado": "+5582996121968",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns e obrigada, por  nos apoiar no que precisamos...em especial pelo ifood",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582996121968",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-2e92f6e78f.png",
+      "uploaded_image_url": "",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-2e92f6e78f.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/2e92f6e78f?token=dd01289e9c1bcebd3c8ce7edcfefc1ba536d24955283d4e53fc0550c5bcd0d79",
+      "upload_status": "error",
+      "upload_error": "ImgBB HTTP 400: {\"status_code\":400,\"error\":{\"message\":\"You have been forbidden to use this website.\",\"code\":103},\"status_txt\":\"Bad Request\"}"
+    }
   }
 ]
