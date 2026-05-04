@@ -9494,5 +9494,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "d063146301e946a598af9bf680493600",
+    "card_id": "68147e4a3d",
+    "dia": "04/05/2026",
+    "horario": "12:03:58",
+    "data_hora_iso": "2026-05-04T12:03:58.839709-03:00",
+    "destinatario": {
+      "nome": "Gustavo Nobre",
+      "numero": "5582996229651",
+      "numero_normalizado": "+5582996229651",
+      "funcao": "Fiscal de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Parabéns pela desenvoltura e atendimento ímpar onde estar sendo notado principalmente pelos nossos clientes",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582996229651",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-68147e4a3d.png",
+      "uploaded_image_url": "https://i.ibb.co/Fkg01W5h/card-68147e4a3d.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-68147e4a3d.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/68147e4a3d?token=b187cf633b0fa637bf7d292b7f77c3e1ddddb54cc43a0a67c57499ee3e1bd52e",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
