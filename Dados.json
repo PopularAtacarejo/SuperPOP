@@ -10862,5 +10862,44 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "0ffded358713458da752a931c498a849",
+    "card_id": "e60b6eea1b",
+    "dia": "18/05/2026",
+    "horario": "11:17:28",
+    "data_hora_iso": "2026-05-18T11:17:28.991386-03:00",
+    "destinatario": {
+      "nome": "Rhuann Lima",
+      "numero": "5582981360271",
+      "numero_normalizado": "+5582981360271",
+      "funcao": "Departamento Fiscal"
+    },
+    "remetente": {
+      "nome": "Jeferson",
+      "numero": "5582991226467",
+      "numero_normalizado": "+5582991226467",
+      "funcao": "Analista de Marketing"
+    },
+    "opcoes_marcadas": [
+      "Eficiência"
+    ],
+    "mensagem": "Você é um cara dedicado ao trabalho",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582981360271",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-e60b6eea1b.png",
+      "uploaded_image_url": "https://i.ibb.co/5x5t7gjS/card-e60b6eea1b.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-e60b6eea1b.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/e60b6eea1b?token=50e83c4a4b4f87f30dc9dcbe06d92e5b86077e16e40c51abfa0ecd8bd041e0de",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
