@@ -903,5 +903,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": false,
     "pre_cadastro": true
+  },
+  {
+    "id": "71e430e8957044f5a6915cc97dc54d67",
+    "nome": "Marcos Antonio",
+    "funcao": "Líder de Abastecimento",
+    "numero_celular": "(82) 9 9802 - 8350",
+    "numero_normalizado": "82998028350",
+    "email": "marquinhosaec2017@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "7d337acafe5e26d84b827f408f50f043",
+      "hash": "77dab966e2206b5c490f248f63cbb766d74ee75ff819e9f877363be0f5ac1203",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-05-20T10:52:32.398683-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
