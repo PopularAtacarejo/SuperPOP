@@ -11266,5 +11266,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "8c89ab1cf37648e3b5f95a927f2ca7b7",
+    "card_id": "8cede19916",
+    "dia": "21/05/2026",
+    "horario": "10:51:59",
+    "data_hora_iso": "2026-05-21T10:51:59.181836-03:00",
+    "destinatario": {
+      "nome": "Marcos Antonio",
+      "numero": "5582998028350",
+      "numero_normalizado": "+5582998028350",
+      "funcao": "Líder de Abastecimento"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Assistente Administrativo"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Obrigada pela parceria de sempre com a frente de loja",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582998028350",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-8cede19916.png",
+      "uploaded_image_url": "https://i.ibb.co/mgnt8w2/card-8cede19916.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-8cede19916.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/8cede19916?token=cec21bdb41d95b1ad48d4379e3d22536716022514b72720f54ca5411d07dd1bc",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
