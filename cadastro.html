@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -610,39 +610,48 @@
       return digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4, 8);
     }
 
-    function isDateValid(value) {
-      if (!DATE_REGEX.test(value)) return false;
-      const parts = value.split("/");
-      const day = Number(parts[0]);
-      const month = Number(parts[1]) - 1;
-      const year = Number(parts[2]);
-      const date = new Date(year, month, day);
-      return (
-        date.getFullYear() === year &&
-        date.getMonth() === month &&
-        date.getDate() === day
-      );
-    }
-
     function parseBirthIso(value) {
-      if (!value) return "";
-      const parts = String(value).split("/");
-      if (parts.length !== 3) return "";
-      const day = Number(parts[0]);
-      const month = Number(parts[1]) - 1;
-      const year = Number(parts[2]);
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+
+      let day = NaN;
+      let month = NaN;
+      let year = NaN;
+
+      if (DATE_REGEX.test(raw)) {
+        const parts = raw.split("/");
+        day = Number(parts[0]);
+        month = Number(parts[1]);
+        year = Number(parts[2]);
+      } else if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+        const parts = raw.split("-");
+        year = Number(parts[0]);
+        month = Number(parts[1]);
+        day = Number(parts[2]);
+      } else {
+        return "";
+      }
+
       if (!Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year)) {
         return "";
       }
-      const date = new Date(year, month, day);
+
+      const date = new Date(year, month - 1, day);
       if (
         date.getFullYear() !== year ||
-        date.getMonth() !== month ||
+        date.getMonth() !== month - 1 ||
         date.getDate() !== day
       ) {
         return "";
       }
-      return date.toISOString().split("T")[0];
+
+      const monthPadded = String(month).padStart(2, "0");
+      const dayPadded = String(day).padStart(2, "0");
+      return year + "-" + monthPadded + "-" + dayPadded;
+    }
+
+    function isDateValid(value) {
+      return Boolean(parseBirthIso(value));
     }
 
     function isMobileViewport() {
@@ -774,7 +783,8 @@
         showError("E-mail inválido.");
         return;
       }
-      if (birthValue && !isDateValid(birthValue)) {
+      const birthIso = parseBirthIso(birthValue);
+      if (birthValue && !birthIso) {
         showError("Informe uma data de nascimento válida (dd/mm/aaaa).");
         return;
       }
@@ -782,8 +792,8 @@
         showError("As senhas não coincidem.");
         return;
       }
-      payload.data_nascimento = birthValue;
-      payload.data_nascimento_iso = birthValue ? parseBirthIso(birthValue) : "";
+      payload.data_nascimento = birthIso;
+      payload.data_nascimento_iso = birthIso;
       if (payload.senha.length < 6) {
         showError("A senha deve ter pelo menos 6 caracteres.");
         return;
