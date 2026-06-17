@@ -231,7 +231,9 @@
     "numero_celular": "(82) 9 9639 - 4586",
     "numero_normalizado": "82996394586",
     "email": "mariasabrinaa05@icloud.com",
-    "tags_acesso": [],
+    "tags_acesso": [
+      "admin"
+    ],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
       "salt": "49527abbcea8f510054d841086ff6f8b",
