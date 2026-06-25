@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="ganhadores"] .podium-card,
+body[data-page="ganhadores"] [class*="winner"] { box-shadow: 0 26px 60px -30px rgba(255,183,3,.55); }

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop | Dinâmicas POP</title>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},fontFamily:{display:["Fredoka One","cursive"],body:["Nunito","sans-serif"]},boxShadow:{soft:"0 8px 30px -4px rgba(0,0,0,.08)"}}}};
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+.bg-pattern{background-color:#fff;background-image:radial-gradient(#E63946 .5px,transparent .5px),radial-gradient(#FFB703 .5px,#fff .5px);background-size:20px 20px;background-position:0 0,10px 10px;opacity:.4;position:fixed;inset:0;z-index:-1;pointer-events:none}
+.sidebar{transition:width .4s cubic-bezier(.25,1,.5,1);width:72px;display:flex;flex-direction:column}.sidebar.expanded{width:250px}.sidebar-header{padding-left:1.5rem;padding-right:1.5rem}.sidebar-nav{padding-top:.5rem}.menu-section-title{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:#ef4444}
+.menu-item{display:flex;align-items:center;min-height:44px;padding:0 .75rem;border-radius:12px;color:#64748b;font-weight:700;transition:.2s}.menu-item .material-symbols-outlined{font-size:22px;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#eef2f7;color:#475569;border:1px solid rgba(148,163,184,.28)}.menu-item:hover{background:#fff1f2;color:#9f1239}.menu-item.active{background:#fee2e2;color:#b91c1c}.menu-item.active .material-symbols-outlined{background:#dc2626;color:#fff}
+.sidebar-content-fade{opacity:0;transform:translateX(-10px);transition:.2s;pointer-events:none;position:absolute;visibility:hidden}.sidebar.expanded .sidebar-content-fade{opacity:1;transform:translateX(0);pointer-events:auto;position:static;visibility:visible}
+.main-content{margin-left:72px;transition:margin-left .4s cubic-bezier(.25,1,.5,1)}.sidebar.expanded~.main-content{margin-left:250px}.sidebar:not(.expanded) .sidebar-header{padding-left:.75rem;padding-right:.75rem}.sidebar:not(.expanded) .sidebar-nav{padding-left:.5rem;padding-right:.5rem}.sidebar:not(.expanded) .menu-item{justify-content:center;width:44px;padding:0;margin:0 auto}
+.match-card{background:linear-gradient(145deg,#fff,#fff7f7)}.score-input{width:72px;text-align:center;font-size:1.5rem;font-weight:800;border-radius:16px}
+@media(max-width:1100px){.sidebar{width:0;overflow:hidden;position:fixed;z-index:50;height:100vh}.sidebar.expanded{width:250px}.main-content{margin-left:0!important}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40}.sidebar.expanded+.sidebar-overlay{display:block}#mobileMenuBtn{display:flex!important}#sidebarToggle{display:none!important}}
+</style>
+<link rel="stylesheet" href="auth-online.css"/>
+<link rel="stylesheet" href="dinamicas-pop.tailwind.css"/>
+</head>
+<body data-page="dinamicas-pop" class="min-h-screen bg-white text-slate-900 font-body">
+<div class="bg-pattern"></div>
+<aside class="sidebar fixed top-0 left-0 h-screen bg-white shadow-xl z-50 border-r border-gray-100" id="sidebar">
+<div class="sidebar-header pt-6 pb-2 px-6"><div class="h-24 flex items-center justify-center overflow-hidden relative"><div class="absolute left-0 w-12 h-12 flex items-center justify-center"><img alt="SP" class="w-10 h-10 object-contain sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/></div><div class="sidebar-content-fade w-full px-1"><img alt="SuperPop" class="object-contain w-full max-h-[84px]" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/></div></div></div>
+<nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6"><div class="space-y-1"><div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Geral</span></div>
+<a class="menu-item group" href="superpop.html"><span class="material-symbols-outlined">send</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span></a>
+<a class="menu-item group" href="meus-superpops.html"><span class="material-symbols-outlined">history</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POPs</span></a>
+<a class="menu-item group" href="aniversariantes.html"><span class="material-symbols-outlined">cake</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Aniversariantes</span></a>
+<a class="menu-item active group" href="dinamicas-pop.html" id="dynamicsPopNavItem"><span class="material-symbols-outlined">sports_soccer</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Dinâmicas POP</span></a>
+<a class="menu-item group" href="rank.html"><span class="material-symbols-outlined">leaderboard</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span></a>
+<a class="menu-item group" href="ganhadores.html"><span class="material-symbols-outlined">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span></a>
+<a class="menu-item group" href="sobre.html"><span class="material-symbols-outlined">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
+<a class="menu-item group" href="atualizacoes.html"><span class="material-symbols-outlined">campaign</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Atualizações</span></a>
+</div></nav>
+<button class="absolute -right-3 top-12 bg-white border border-gray-200 rounded-full shadow-md hidden md:flex w-6 h-6 items-center justify-center" id="sidebarToggle" type="button"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded-lg shadow-soft" id="mobileMenuBtn" type="button"><span class="material-symbols-outlined">menu</span></button>
+
+<div class="auth-top-actions" id="authTopActions">
+<div class="online-users-menu" id="onlineUsersMenu"><button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button"><span class="material-symbols-outlined">groups</span><span class="online-users-btn-text">Online</span><span class="online-users-count" id="onlineUsersCount">0</span></button><div class="online-users-dropdown" id="onlineUsersDropdown"><p class="online-users-dropdown-title">Usuários online</p><p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando...</p><ul class="online-users-list" id="onlineUsersList"></ul></div></div>
+<div class="auth-user-menu" id="authUserMenu"><button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button><div class="auth-user-dropdown" id="authUserDropdown"><p id="authUserNameDetail">Carregando...</p><p id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold" href="perfil.html">Meu Perfil</a><button class="w-full rounded-xl bg-red-100 text-red-700 text-sm font-bold py-2" id="authLogoutBtn" type="button">Sair</button></div></div>
+</div>
+
+<div class="main-content flex flex-col min-h-screen">
+<header class="px-6 pt-4 text-center"><img alt="SuperPop" class="mx-auto w-48 sm:w-72" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/></header>
+<main class="flex-1 max-w-6xl mx-auto w-full px-5 py-6 space-y-6">
+<section class="text-center space-y-3"><span class="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-emerald-700"><span class="material-symbols-outlined text-base">sports_soccer</span>Futebol do Brasil</span><h1 class="font-display text-4xl sm:text-5xl text-primary uppercase">Dinâmicas POP</h1><p class="max-w-3xl mx-auto text-gray-600 font-semibold">Envie seu palpite de placar antes do início de cada partida.</p></section>
+
+<section class="hidden rounded-3xl border border-red-100 bg-white p-6 shadow-soft" id="developerPanel">
+<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Área do desenvolvedor</p><h2 class="font-display text-3xl">Cadastrar jogo</h2></div><button class="hidden rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold" id="cancelEditBtn" type="button">Cancelar edição</button></div>
+<form class="mt-5 grid gap-4 md:grid-cols-2" id="gameForm">
+<label class="text-sm font-bold text-slate-600">Time da casa<input class="mt-1 w-full rounded-xl border-slate-200" id="homeTeamInput" maxlength="80" required/></label>
+<label class="text-sm font-bold text-slate-600">Time visitante<input class="mt-1 w-full rounded-xl border-slate-200" id="awayTeamInput" maxlength="80" required/></label>
+<label class="text-sm font-bold text-slate-600">Imagem do time da casa<input class="mt-1 w-full rounded-xl border-slate-200" id="homeTeamImageInput" maxlength="1000" placeholder="https://..." type="url"/></label>
+<label class="text-sm font-bold text-slate-600">Imagem do time visitante<input class="mt-1 w-full rounded-xl border-slate-200" id="awayTeamImageInput" maxlength="1000" placeholder="https://..." type="url"/></label>
+<label class="text-sm font-bold text-slate-600">Data do jogo<input class="mt-1 w-full rounded-xl border-slate-200" id="matchDateInput" required type="date"/></label>
+<label class="text-sm font-bold text-slate-600">Horário do jogo<input class="mt-1 w-full rounded-xl border-slate-200" id="matchTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600">Início dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionStartDateInput" required type="date"/></label>
+<label class="text-sm font-bold text-slate-600">Horário de início<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionStartTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600">Fim dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionEndDateInput" required type="date"/></label>
+<label class="text-sm font-bold text-slate-600">Horário de encerramento<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionEndTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600 md:col-span-2">Competição (opcional)<input class="mt-1 w-full rounded-xl border-slate-200" id="competitionInput" maxlength="100" placeholder="Ex.: Brasileirão, Copa do Brasil"/></label>
+<div class="md:col-span-2"><p class="hidden rounded-xl px-4 py-3 text-sm font-bold" id="gameFormMessage"></p><button class="mt-3 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white" id="saveGameBtn" type="submit"><span class="material-symbols-outlined">add_circle</span><span id="saveGameLabel">Cadastrar jogo</span></button></div>
+</form>
+</section>
+
+<section>
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200">
+<div class="flex gap-2">
+<button class="border-b-2 border-primary px-4 py-3 text-sm font-extrabold text-primary" data-tab-button="games" type="button">Jogos e palpites</button>
+<button class="border-b-2 border-transparent px-4 py-3 text-sm font-extrabold text-slate-500" data-tab-button="sent" type="button">Palpites enviados</button>
+</div>
+<button class="mb-2 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white" id="refreshGamesBtn" type="button"><span class="material-symbols-outlined text-base">refresh</span>Atualizar</button>
+</div>
+<div class="pt-5" data-tab-panel="games"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Partidas</p><h2 class="font-display text-3xl">Jogos disponíveis</h2></div><div class="mt-4 grid gap-5 lg:grid-cols-2" id="gamesList"><p class="text-slate-500 font-semibold">Carregando jogos...</p></div></div>
+<div class="hidden pt-5" data-tab-panel="sent"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Participação</p><h2 class="font-display text-3xl">Palpites enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Confira o placar informado, quem enviou e a data e hora do envio.</p></div><div class="mt-4 space-y-4" id="sentPredictionsList"><p class="text-slate-500 font-semibold">Carregando palpites...</p></div></div>
+</section>
+</main>
+</div>
+<div aria-hidden="true" class="prediction-success-modal" id="predictionSuccessModal" role="dialog" aria-modal="true" aria-labelledby="predictionSuccessTitle">
+  <div class="prediction-confetti" id="predictionConfetti"></div>
+  <div class="prediction-success-card">
+    <div class="prediction-success-icon">
+      <span class="material-symbols-outlined">celebration</span>
+    </div>
+    <p class="prediction-success-kicker">Dinâmicas POP</p>
+    <h2 id="predictionSuccessTitle">Palpite enviado com sucesso!</h2>
+    <p id="predictionSuccessMessage">Seu palpite foi registrado e agora faz parte da torcida.</p>
+    <div class="prediction-success-score" id="predictionSuccessScore"></div>
+    <button class="prediction-success-close" id="predictionSuccessCloseBtn" type="button">
+      <span class="material-symbols-outlined">check_circle</span>
+      Continuar
+    </button>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("sidebar"),t=document.getElementById("sidebarToggle"),o=document.getElementById("sidebarOverlay"),m=document.getElementById("mobileMenuBtn"),l=document.querySelector(".sidebar-collapsed-only"),c=t&&t.querySelector("span");function open(){s.classList.add("expanded");if(c)c.textContent="chevron_left";if(l)l.style.opacity="0"}function close(){s.classList.remove("expanded");if(c)c.textContent="chevron_right";if(l)l.style.opacity="1"}if(t)t.addEventListener("click",()=>s.classList.contains("expanded")?close():open());if(m)m.addEventListener("click",open);if(o)o.addEventListener("click",close);window.innerWidth<1100?close():open()});
+</script>
+<script src="dinamicas-pop.js"></script>
+<script src="auth-online.js"></script>
+</body>
+</html>

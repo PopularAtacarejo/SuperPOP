@@ -1,0 +1,643 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop | Atualizacoes</title>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          primary: "#E63946",
+          secondary: "#FFB703",
+          "surface-dark": "#2D282A",
+        },
+        fontFamily: {
+          display: ["Fredoka One", "cursive"],
+          body: ["Nunito", "sans-serif"],
+        },
+        boxShadow: {
+          soft: "0 8px 30px -4px rgba(0, 0, 0, 0.08)",
+          card: "0 15px 40px -10px rgba(0, 0, 0, 0.12)",
+        },
+      },
+    },
+  };
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+  .bg-pattern {
+    background-color: #ffffff;
+    background-image: radial-gradient(#E63946 0.5px, transparent 0.5px), radial-gradient(#FFB703 0.5px, #ffffff 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    opacity: 0.4;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .floating-icons-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .floating-icon {
+    position: absolute;
+    opacity: 0.12;
+    color: #e63946;
+    animation: floatIcon 7s ease-in-out infinite;
+  }
+  .floating-icon.alt {
+    color: #ffb703;
+    opacity: 0.16;
+  }
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
+  }
+  .sidebar {
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 72px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar.expanded {
+    width: 250px;
+  }
+  .sidebar.expanded .sidebar-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .sidebar-header {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    transition: padding 0.25s ease;
+  }
+  .sidebar-nav {
+    transition: padding 0.25s ease;
+    padding-top: 0.5rem;
+  }
+  .menu-section-title {
+    font-size: 0.72rem;
+    line-height: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #ef4444;
+  }
+  .menu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border-radius: 12px;
+    color: #64748b;
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .menu-item .material-symbols-outlined {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #eef2f7;
+    color: #475569;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 24;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .menu-item-label {
+    font-size: 0.98rem;
+    letter-spacing: 0.01em;
+  }
+  .menu-item:hover {
+    background: #fff1f2;
+    color: #9f1239;
+    transform: translateX(2px);
+  }
+  .menu-item:hover .material-symbols-outlined {
+    transform: scale(1.06);
+    background: #ffe4e6;
+    color: #be123c;
+    border-color: rgba(230, 57, 70, 0.28);
+    box-shadow: 0 4px 10px rgba(230, 57, 70, 0.16);
+  }
+  .menu-item.active {
+    background: #fee2e2;
+    color: #b91c1c;
+    box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.28), 0 6px 14px rgba(230, 57, 70, 0.1);
+  }
+  .menu-item.active .material-symbols-outlined {
+    background: linear-gradient(145deg, #ef4444, #dc2626);
+    border-color: rgba(255, 255, 255, 0.65);
+    color: #ffffff;
+    font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 24;
+    box-shadow: 0 8px 16px rgba(220, 38, 38, 0.34);
+  }
+  .dark .menu-item {
+    color: #94a3b8;
+  }
+  .dark .menu-item .material-symbols-outlined {
+    background: rgba(51, 65, 85, 0.9);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.25);
+  }
+  .dark .menu-item:hover {
+    background: rgba(127, 29, 29, 0.45);
+    color: #fecaca;
+  }
+  .dark .menu-item.active {
+    background: rgba(153, 27, 27, 0.55);
+    color: #fecaca;
+    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
+  }
+  .dark .menu-item.active .material-symbols-outlined {
+    background: linear-gradient(145deg, #f87171, #ef4444);
+    border-color: rgba(254, 202, 202, 0.5);
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(248, 113, 113, 0.32);
+  }
+  .sidebar-content-fade {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+  .sidebar.expanded .sidebar-content-fade {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    position: static;
+    visibility: visible;
+  }
+  .sidebar:not(.expanded) .sidebar-header {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .sidebar:not(.expanded) .sidebar-nav {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .sidebar:not(.expanded) .menu-item {
+    justify-content: center;
+    width: 44px;
+    min-height: 44px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sidebar:not(.expanded) .menu-item:hover {
+    transform: none;
+  }
+  .sidebar:not(.expanded) .menu-item .material-symbols-outlined {
+    margin: 0;
+    font-size: 22px;
+  }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 40;
+  }
+  .main-content {
+    margin-left: 72px;
+    transition: margin-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sidebar.expanded ~ .main-content {
+    margin-left: 250px;
+  }
+  @media (max-width: 1100px) {
+    .sidebar {
+      width: 0;
+      overflow: hidden;
+      position: fixed;
+      z-index: 50;
+      height: 100vh;
+    }
+    .sidebar.expanded {
+      width: 250px;
+    }
+    .main-content {
+      margin-left: 0 !important;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      backdrop-filter: blur(2px);
+    }
+    .sidebar.expanded + .sidebar-overlay {
+      display: block;
+    }
+    #mobileMenuBtn {
+      display: flex !important;
+    }
+    #sidebarToggle {
+      display: none !important;
+    }
+  }
+  .auth-user-menu {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 60;
+  }
+  .auth-user-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #1f2937;
+    border-radius: 999px;
+    padding: 8px 12px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    cursor: pointer;
+  }
+  .auth-user-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 999px;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    background: linear-gradient(135deg, #fee2e2, #fde68a);
+    color: #b91c1c;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+  .auth-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .auth-user-btn-text {
+    text-align: left;
+    line-height: 1.05;
+    display: none;
+  }
+  .auth-user-btn-text strong {
+    font-size: 0.78rem;
+    font-weight: 800;
+    display: block;
+  }
+  .auth-user-btn-text small {
+    font-size: 0.68rem;
+    color: #64748b;
+    font-weight: 700;
+    display: block;
+  }
+  @media (min-width: 640px) {
+    .auth-user-btn-text { display: inline-flex; flex-direction: column; }
+  }
+  .auth-user-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(280px, 88vw);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+    padding: 12px;
+  }
+  .auth-user-dropdown.open { display: block; }
+</style>
+  <link rel="stylesheet" href="auth-online.css"/>
+<link rel="stylesheet" href="atualizacoes.tailwind.css"/>
+</head>
+<body data-page="atualizacoes" class="bg-gray-50 text-gray-900 font-body antialiased min-h-screen flex flex-col">
+<div class="bg-pattern"></div>
+<div class="floating-icons-bg" aria-hidden="true">
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 8%; left: 14%; animation-delay: -0.8s;">stars</span>
+<span class="floating-icon alt material-symbols-outlined text-4xl" style="top: 12%; right: 18%; animation-delay: -1.7s;">emoji_events</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="top: 26%; left: 6%; animation-delay: -2.9s;">favorite</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="top: 34%; right: 10%; animation-delay: -3.4s;">celebration</span>
+<span class="floating-icon material-symbols-outlined text-3xl" style="top: 55%; left: 10%; animation-delay: -4.1s;">workspace_premium</span>
+<span class="floating-icon alt material-symbols-outlined text-3xl" style="top: 62%; right: 16%; animation-delay: -5.3s;">volunteer_activism</span>
+<span class="floating-icon material-symbols-outlined text-2xl" style="bottom: 20%; left: 30%; animation-delay: -2.2s;">kid_star</span>
+<span class="floating-icon alt material-symbols-outlined text-2xl" style="bottom: 12%; right: 28%; animation-delay: -4.7s;">auto_awesome</span>
+</div>
+
+<aside class="sidebar fixed top-0 left-0 h-screen bg-white shadow-xl z-50 border-r border-gray-100" id="sidebar">
+<div class="sidebar-header pt-6 pb-2 px-6 flex flex-col gap-4">
+<div class="h-24 flex items-center justify-center overflow-hidden relative">
+<div class="absolute left-0 transition-opacity duration-300 w-12 h-12 flex items-center justify-center">
+<img alt="SP" class="w-10 h-10 object-contain opacity-100 sidebar-collapsed-only" src="https://i.ibb.co/99R7YqxF/Icon.png"/>
+</div>
+<div class="sidebar-content-fade w-full px-1">
+<img alt="SuperPop Logo" class="object-contain w-full h-auto max-h-[84px]" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</div>
+</div>
+<nav class="sidebar-nav flex-1 overflow-y-auto px-3 py-2 space-y-6">
+<div class="space-y-1">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Geral</span>
+</div>
+<a class="menu-item group" href="superpop.html" title="Enviar Super POP">
+<span class="material-symbols-outlined shrink-0">send</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span>
+</a>
+<a class="menu-item group" href="meus-superpops.html" title="Meus Super POPs">
+<span class="material-symbols-outlined shrink-0">history</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POPs</span>
+</a>
+<a class="menu-item group" href="aniversariantes.html" title="Aniversariantes do mês">
+  <span class="material-symbols-outlined shrink-0">cake</span>
+  <span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Aniversariantes</span>
+</a>
+
+<a class="menu-item group" href="rank.html" title="Ranking">
+<span class="material-symbols-outlined shrink-0">leaderboard</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span>
+</a>
+<a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês">
+<span class="material-symbols-outlined shrink-0">workspace_premium</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span>
+</a>
+<a class="menu-item group" href="sobre.html" title="Sobre">
+<span class="material-symbols-outlined shrink-0">info</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span>
+</a>
+<a class="menu-item active group" href="atualizacoes.html" title="Atualizacoes do Sistema">
+<span class="material-symbols-outlined shrink-0">campaign</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Atualizacoes</span>
+</a>
+</div>
+<div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
+<div class="px-3 mb-2 sidebar-content-fade">
+<span class="menu-section-title">Gestão</span>
+</div>
+<a class="menu-item group hidden" href="analise.html" id="analyticsNavItem" title="Análise de Dados">
+<span class="material-symbols-outlined shrink-0">monitoring</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Análise de Dados</span>
+</a>
+<a class="menu-item group hidden" href="usuarios.html" id="manageUsersNavItem" title="Usuários cadastrados">
+<span class="material-symbols-outlined shrink-0">groups</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Usuários cadastrados</span>
+</a>
+<a class="menu-item group hidden" href="editar-usuarios.html" id="editUsersNavItem" title="Editar usuários">
+<span class="material-symbols-outlined shrink-0">edit_square</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Editar usuários</span>
+</a>
+<a class="menu-item group hidden" href="atualizacoes-editor.html" id="updatesEditorNavItem" title="Gerenciar atualizacoes">
+<span class="material-symbols-outlined shrink-0">edit_note</span>
+<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Gerenciar atualizacoes</span>
+</a>
+</div>
+</nav>
+<button class="absolute -right-3 top-12 bg-white text-gray-400 hover:text-primary border border-gray-200 rounded-full p-1 shadow-md hover:scale-110 transition-all hidden md:flex items-center justify-center w-6 h-6 z-50" id="sidebarToggle" type="button">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<button class="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded-lg shadow-soft text-gray-600 border border-gray-100" id="mobileMenuBtn" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+
+<div class="auth-top-actions" id="authTopActions">
+  <div class="online-users-menu" id="onlineUsersMenu">
+    <button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button">
+      <span class="material-symbols-outlined">groups</span>
+      <span class="online-users-btn-text">Online</span>
+      <span class="online-users-count" id="onlineUsersCount">0</span>
+    </button>
+    <div class="online-users-dropdown" id="onlineUsersDropdown">
+      <p class="online-users-dropdown-title">Usuarios online</p>
+      <p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando status...</p>
+      <ul class="online-users-list" id="onlineUsersList"></ul>
+    </div>
+  </div>
+<div class="auth-user-menu" id="authUserMenu">
+<button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button">
+<span class="auth-user-avatar"><img alt="Avatar do usuário" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span>
+<span class="auth-user-btn-text">
+<strong id="authUserName">Carregando...</strong>
+<small id="authUserRole">Perfil</small>
+</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="auth-user-dropdown" id="authUserDropdown">
+<p class="text-sm font-bold text-gray-900" id="authUserNameDetail">Carregando...</p>
+        <p class="text-xs font-semibold text-gray-500 mb-3" id="authUserRoleDetail">Perfil</p>
+        <a class="mb-2 inline-flex w-full items-center justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors" href="perfil.html">Meu Perfil</a>
+<button class="w-full rounded-xl bg-red-100 text-red-700 text-sm font-bold py-2 hover:bg-red-200 transition-colors" id="authLogoutBtn" type="button">Sair</button>
+</div>
+</div>
+</div>
+<div class="main-content flex-col flex min-h-screen">
+<header class="relative px-6 pb-2 pt-4 text-center">
+<div class="max-w-7xl mx-auto relative z-10 pt-4">
+<img alt="SuperPop" class="mx-auto w-48 sm:w-72 h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+</div>
+</header>
+
+<main class="flex-1 max-w-5xl mx-auto w-full px-5 py-6 space-y-6">
+<section class="text-center space-y-2">
+<h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Atualizacoes do Sistema</h1>
+<p class="text-gray-600 font-semibold text-base sm:text-lg">Historico oficial das melhorias aplicadas no SuperPOP.</p>
+</section>
+
+<section class="bg-white/95 border border-white/70 rounded-2xl shadow-card p-5 sm:p-8 space-y-5">
+<div class="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+<p class="text-sm sm:text-base font-semibold text-red-800">Todas as atualizacoes exibem o autor responsavel pelo registro.</p>
+<a class="hidden inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-xs sm:text-sm font-extrabold text-white shadow-soft hover:brightness-105 transition" href="atualizacoes-editor.html" id="updatesEditorCta"><span class="material-symbols-outlined text-base">edit_note</span>Gerenciar atualizacoes</a>
+</div>
+<p class="text-xs sm:text-sm font-bold text-slate-500" id="updatesSourceInfo">Carregando atualizacoes...</p>
+<div class="space-y-4" id="updatesList">
+<article class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft">
+<p class="text-sm font-bold text-slate-500">Carregando atualizacoes...</p>
+</article>
+</div>
+</section>
+
+<footer class="pb-8">
+<p class="text-center text-xs font-bold tracking-wide text-gray-400 mt-2">Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0</p>
+</footer>
+</main>
+</div>
+
+<script data-purpose="sidebar-logic">
+  document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const overlay = document.getElementById("sidebarOverlay");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const smallLogo = document.querySelector(".sidebar-collapsed-only");
+    const chevron = toggleBtn ? toggleBtn.querySelector("span") : null;
+    const sidebarStorageKey = "superpop_sidebar_expanded";
+
+    if (!sidebar || !toggleBtn || !overlay || !mobileMenuBtn || !smallLogo || !chevron) {
+      return;
+    }
+
+    function openSidebar(shouldPersist = true) {
+      sidebar.classList.add("expanded");
+      chevron.textContent = "chevron_left";
+      smallLogo.style.opacity = "0";
+      if (shouldPersist && window.innerWidth >= 1100) {
+        try { localStorage.setItem(sidebarStorageKey, "1"); } catch (_err) {}
+      }
+    }
+
+    function closeSidebar(shouldPersist = true) {
+      sidebar.classList.remove("expanded");
+      chevron.textContent = "chevron_right";
+      window.setTimeout(function () {
+        if (!sidebar.classList.contains("expanded")) {
+          smallLogo.style.opacity = "1";
+        }
+      }, 220);
+      if (shouldPersist && window.innerWidth >= 1100) {
+        try { localStorage.setItem(sidebarStorageKey, "0"); } catch (_err) {}
+      }
+    }
+
+    function syncSidebarState() {
+      if (window.innerWidth < 1100) {
+        closeSidebar(false);
+        return;
+      }
+      let storedState = "";
+      try { storedState = localStorage.getItem(sidebarStorageKey) || ""; } catch (_err) {}
+      if (storedState === "0") {
+        closeSidebar(false);
+      } else {
+        openSidebar(false);
+      }
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      if (sidebar.classList.contains("expanded")) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    mobileMenuBtn.addEventListener("click", function () { openSidebar(false); });
+    overlay.addEventListener("click", function () { closeSidebar(false); });
+    window.addEventListener("resize", syncSidebarState);
+    syncSidebarState();
+  });
+</script>
+
+<script data-purpose="system-updates-view">
+  document.addEventListener("DOMContentLoaded", function () {
+    const listEl = document.getElementById("updatesList");
+    const sourceInfoEl = document.getElementById("updatesSourceInfo");
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    if (!listEl || !sourceInfoEl) return;
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function statusClass(statusValue) {
+      const value = String(statusValue || "").toLowerCase();
+      if (value.includes("nova")) return "bg-sky-100 text-sky-800";
+      if (value.includes("regra")) return "bg-amber-100 text-amber-800";
+      if (value.includes("prote")) return "bg-orange-100 text-orange-800";
+      if (value.includes("confi")) return "bg-violet-100 text-violet-800";
+      if (value.includes("uso")) return "bg-fuchsia-100 text-fuchsia-800";
+      return "bg-emerald-100 text-emerald-800";
+    }
+
+    function renderItems(items) {
+      const safeItems = Array.isArray(items) ? items : [];
+      if (!safeItems.length) {
+        listEl.innerHTML = [
+          '<article class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft">',
+          '<p class="text-sm font-bold text-slate-500">Nenhuma atualizacao registrada ainda.</p>',
+          '</article>'
+        ].join("");
+        return;
+      }
+
+      listEl.innerHTML = safeItems.map(function (item) {
+        const title = escapeHtml(item.data_referencia || "--/--/----") + " - " + escapeHtml(item.titulo || "Atualizacao");
+        const description = escapeHtml(item.descricao || "");
+        const author = escapeHtml((item.autor && item.autor.nome) || "Desenvolvedor");
+        const category = escapeHtml(item.categoria || "Atualizacao");
+        const status = escapeHtml(item.status || "Concluido");
+        const statusTone = statusClass(status);
+        return [
+          '<article class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-soft">',
+          '<div class="flex flex-wrap items-center justify-between gap-2">',
+          '<h2 class="text-lg sm:text-xl font-extrabold text-slate-900">' + title + '</h2>',
+          '<span class="inline-flex rounded-full px-3 py-1 text-xs font-extrabold uppercase tracking-wide ' + statusTone + '">' + status + '</span>',
+          '</div>',
+          '<p class="mt-3 text-sm sm:text-base text-slate-700 font-semibold">' + description + '</p>',
+          '<div class="mt-3 flex flex-wrap items-center gap-2 text-xs sm:text-sm font-bold text-slate-500">',
+          '<span>Categoria: ' + category + '</span>',
+          '<span>|</span>',
+          '<span>Responsavel: ' + author + '</span>',
+          '</div>',
+          '</article>'
+        ].join("");
+      }).join("");
+    }
+
+    async function loadUpdates() {
+      try {
+        const response = await fetch(apiBase + "/api/system-updates", { cache: "no-store", credentials: "include" });
+        const payload = await response.json().catch(function () { return {}; });
+        if (!response.ok || !payload || !payload.ok) {
+          throw new Error(payload && payload.error ? payload.error : "Falha ao carregar atualizacoes.");
+        }
+        renderItems(payload.items);
+        const source = payload.source || {};
+        const sourceType = String(source.tipo || "local").toLowerCase() === "remoto" ? "GitHub" : "Local";
+        sourceInfoEl.textContent = "Fonte: " + sourceType + " | Total: " + String(payload.total || 0);
+      } catch (error) {
+        listEl.innerHTML = [
+          '<article class="rounded-2xl border border-red-200 bg-red-50 p-4 sm:p-5 shadow-soft">',
+          '<p class="text-sm font-bold text-red-700">Nao foi possivel carregar atualizacoes agora.</p>',
+          '</article>'
+        ].join("");
+        sourceInfoEl.textContent = "Falha ao carregar atualizacoes.";
+      }
+    }
+
+    loadUpdates();
+  });
+</script>
+  <script src="auth-online.js"></script>
+</body></html>
+
+
+
+
+
+
+

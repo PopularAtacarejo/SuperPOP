@@ -1,0 +1,4 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="index"] main,
+body[data-page="index"] .login-card { position: relative; z-index: 1; }
+body[data-page="index"] form { border-radius: 1.75rem; }

@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="sobre"] main p { line-height: 1.75; }
+body[data-page="sobre"] main article { background: linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,251,235,.72)) !important; }

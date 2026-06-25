@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="atualizacoes"] #updatesList > article,
+body[data-page="atualizacoes"] #updatesList > div { border-left: 4px solid rgba(255,183,3,.75); }

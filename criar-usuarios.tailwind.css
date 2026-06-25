@@ -1,0 +1,2 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="criar-usuarios"] .form-card { background: linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,247,248,.9)) !important; }

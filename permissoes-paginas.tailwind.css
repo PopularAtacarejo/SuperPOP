@@ -1,0 +1,28 @@
+@import url("./superpop-theme.tailwind.css");
+
+body[data-page="permissoes-paginas"] .permissions-table-wrap {
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1.25rem;
+}
+
+body[data-page="permissoes-paginas"] .permission-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.4rem;
+  color: #e63946;
+  cursor: pointer;
+}
+
+body[data-page="permissoes-paginas"] .permission-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+body[data-page="permissoes-paginas"] .permission-category-row td {
+  background: linear-gradient(90deg, rgba(255, 241, 242, 0.88), rgba(255, 251, 235, 0.62));
+  color: #be123c;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}

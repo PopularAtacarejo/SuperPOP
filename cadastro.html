@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperPop | Cadastro</title>
+<link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
+<style>
+  :root {
+    --primary: #e63946;
+    --bg: #ffffff;
+    --surface: #f8f9fa;
+    --text: #1f1a1c;
+    --muted: #6b7280;
+    --danger-bg: #fef2f2;
+    --danger-border: #fecaca;
+    --danger-text: #b91c1c;
+    --ok-bg: #f0fdf4;
+    --ok-border: #bbf7d0;
+    --ok-text: #15803d;
+    --card-surface: rgba(255, 255, 255, 0.96);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Nunito", Arial, sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+    background-image: radial-gradient(#e6394633 0.7px, transparent 0.7px), radial-gradient(#ffb70333 0.7px, #fff 0.7px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+  }
+
+  .page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .site-footer {
+    padding: 12px 16px 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  .floating-icons-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .floating-icon {
+    position: absolute;
+    opacity: 0.14;
+    color: #e63946;
+    animation: floatIcon 7s ease-in-out infinite;
+    user-select: none;
+  }
+  .floating-icon.alt {
+    color: #ffb703;
+    opacity: 0.18;
+  }
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(8deg); }
+  }
+
+  .card {
+    width: min(960px, 100%);
+    background: var(--card-surface);
+    border: 1px solid #f1f5f9;
+    border-radius: 26px;
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.24);
+    padding: clamp(24px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 6px;
+  }
+
+  .card-header img {
+    width: clamp(90px, 12vw, 120px);
+    border-radius: 16px;
+    flex-shrink: 0;
+    object-fit: contain;
+    background: transparent;
+  }
+
+  .card-header-text .eyebrow {
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    color: #ef4444;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .card-header-text h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--primary);
+    letter-spacing: 0.02em;
+  }
+  .card-header-text .subtitle {
+    margin-top: 6px;
+    margin-bottom: 0;
+  }
+  .card-hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fee2e2;
+  }
+
+  .form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group.full {
+    grid-column: 1 / -1;
+  }
+
+  .input-with-toggle {
+    position: relative;
+    width: 100%;
+  }
+
+  .toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #475569;
+    padding: 0;
+  }
+
+  .toggle-password-btn .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  input,
+  select {
+    width: 100%;
+    border: 1px solid #dbe3ee;
+    border-radius: 14px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 12px 16px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #2d2d2d 50%),
+      linear-gradient(135deg, #2d2d2d 50%, transparent 50%);
+    background-position:
+      calc(100% - 22px) calc(50% - 4px),
+      calc(100% - 14px) calc(50% - 4px);
+    background-size: 8px 8px, 8px 8px;
+    background-repeat: no-repeat;
+    padding-right: 42px;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #e6394630;
+    background: #fff;
+  }
+
+  input[type="text"][placeholder*=\"dd/mm/aaaa\"] {
+    background-image: linear-gradient(180deg, #fff, #fef6f6);
+    box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(203, 213, 225, 0.6);
+    border-color: #f1dede;
+    padding-right: 14px;
+  }
+
+  input[type="text"][placeholder*=\"dd/mm/aaaa\"]:focus {
+    border-color: #e63946;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+  }
+
+  .birthday-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(254, 242, 242, 0.95));
+    border: 1px solid #ffecea;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .birthday-card-text .subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #475569;
+  }
+
+  .birthday-fields {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    align-items: end;
+  }
+
+  .toggle-wrapper {
+    margin-top: 6px;
+  }
+
+  .toggle-control {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: none;
+  }
+
+  .toggle-control input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+    border: 2px solid #dbe3ee;
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .helper-text {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: 2px 0 0 4px;
+  }
+
+  .status {
+    border-radius: 16px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: none;
+  }
+
+  .status.error {
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    color: var(--danger-text);
+  }
+
+  .status.ok {
+    background: var(--ok-bg);
+    border: 1px solid var(--ok-border);
+    color: var(--ok-text);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  button {
+    border: 0;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 14px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 12px 22px -10px rgba(230, 57, 70, 0.8);
+  }
+
+  button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 30px -12px rgba(230, 57, 70, 0.8);
+  }
+
+  button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .login-link {
+    margin-left: auto;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .login-link:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+      border-radius: 22px;
+    }
+    .card-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .card-header img {
+      margin-bottom: 8px;
+    }
+    .form-grid,
+    .birthday-fields {
+      grid-template-columns: 1fr;
+    }
+    .actions {
+      justify-content: center;
+    }
+  }
+  .funcao-input-desktop {
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    body {
+      padding-bottom: 40px;
+    }
+    .page {
+      padding: 16px;
+    }
+    .card {
+      padding: 16px;
+      border-radius: 20px;
+    }
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .card-header-text h1 {
+      font-size: 1.8rem;
+    }
+    .card-hero-pill {
+      justify-content: center;
+      width: 100%;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .birthday-fields {
+      grid-template-columns: 1fr;
+    }
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .toggle-control {
+      gap: 4px;
+    }
+    .input-with-toggle {
+      padding-right: 34px;
+    }
+  }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="cadastro.tailwind.css"/>
+</head>
+<body data-page="cadastro" data-allow-anonymous-auth="true">
+<div class="floating-icons-bg" aria-hidden="true">
+  <span class="floating-icon material-symbols-outlined" style="top: 8%; left: 14%; font-size: 30px; animation-delay: -0.8s;">stars</span>
+  <span class="floating-icon alt material-symbols-outlined" style="top: 12%; right: 18%; font-size: 34px; animation-delay: -1.7s;">emoji_events</span>
+  <span class="floating-icon material-symbols-outlined" style="top: 26%; left: 8%; font-size: 24px; animation-delay: -2.9s;">favorite</span>
+  <span class="floating-icon alt material-symbols-outlined" style="top: 34%; right: 11%; font-size: 24px; animation-delay: -3.4s;">celebration</span>
+  <span class="floating-icon material-symbols-outlined" style="top: 56%; left: 10%; font-size: 28px; animation-delay: -4.1s;">workspace_premium</span>
+  <span class="floating-icon alt material-symbols-outlined" style="top: 63%; right: 16%; font-size: 30px; animation-delay: -5.3s;">volunteer_activism</span>
+  <span class="floating-icon material-symbols-outlined" style="bottom: 18%; left: 28%; font-size: 24px; animation-delay: -2.2s;">kid_star</span>
+  <span class="floating-icon alt material-symbols-outlined" style="bottom: 11%; right: 27%; font-size: 24px; animation-delay: -4.7s;">auto_awesome</span>
+</div>
+<main class="page">
+  <section class="card">
+    <div class="card-header">
+      <img alt="SuperPop" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/>
+      <div class="card-header-text">
+        <p class="eyebrow">Dados pessoais</p>
+        <h1>Cadastro de Funcionário</h1>
+        <p class="subtitle">Preencha os dados para criar seu acesso e começar a espalhar reconhecimento.</p>
+        <div class="card-hero-pill">
+          <span class="material-symbols-outlined">emoji_events</span>
+          Reconhecimento interno em minutos
+        </div>
+      </div>
+    </div>
+
+    <form class="form-body" id="cadastroForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="nome">Nome</label>
+          <input id="nome" maxlength="80" placeholder="Insira seu nome" required type="text"/>
+        </div>
+        <div class="form-group">
+          <label for="funcao">Função</label>
+          <input class="funcao-input-desktop" id="funcao" list="listaFuncoesSupermercado" maxlength="80" placeholder="Ex: Operador de Caixa" required type="text"/>
+          <datalist id="listaFuncoesSupermercado"></datalist>
+        </div>
+        <div class="form-group">
+          <label for="numeroCelular">Número de celular</label>
+          <input id="numeroCelular" inputmode="numeric" maxlength="18" placeholder="(82) 9 0000-0000" required type="text"/>
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail (opcional)</label>
+          <input id="email" maxlength="120" placeholder="nome@empresa.com.br" type="email"/>
+        </div>
+        <div class="form-group full password-row">
+          <label for="senha">Senha</label>
+          <div class="input-with-toggle">
+            <input id="senha" minlength="6" placeholder="Insira sua senha" required type="password"/>
+            <button class="toggle-password-btn" id="toggleSenhaVisibility" type="button" aria-label="Mostrar senha">
+              <span class="material-symbols-outlined" id="toggleSenhaIcon">visibility</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-group full password-row">
+          <label for="senhaConfirmacao">Confirmar senha</label>
+          <div class="input-with-toggle">
+            <input id="senhaConfirmacao" minlength="6" placeholder="Repita sua senha" required type="password"/>
+          </div>
+          <p class="helper-text">As duas senhas devem ser idênticas.</p>
+        </div>
+      </div>
+
+      <div class="birthday-card">
+        <div class="birthday-card-text">
+          <span class="eyebrow">Aniversário</span>
+          <p class="subtitle">Registre a sua data de nascimento e diga se quer entrar no mural de aniversariantes.</p>
+        </div>
+        <div class="birthday-fields">
+          <div class="form-group">
+            <label for="dataNascimento">Data de nascimento</label>
+            <input id="dataNascimento" type="text" placeholder="dd/mm/aaaa" inputmode="numeric"/>
+          </div>
+          <div class="form-group toggle-wrapper">
+            <label class="toggle-control" for="mostrarAniversario">
+              <input id="mostrarAniversario" type="checkbox"/>
+              Exibir meu aniversário no mural
+            </label>
+            <p class="helper-text">Seu nome, dia e idade aparecem na lista mensal quando estiver ativado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="status error" id="statusErro"></div>
+      <div class="status ok" id="statusSucesso"></div>
+
+      <div class="actions">
+        <button id="submitBtn" type="submit"><span id="submitBtnLabel">Cadastrar</span></button>
+        <a class="login-link" href="index.html">Já tem conta? Entrar</a>
+      </div>
+    </form>
+  </section>
+</main>
+<footer class="site-footer">Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("cadastroForm");
+    const nomeInput = document.getElementById("nome");
+    const funcaoInput = document.getElementById("funcao");
+    const numeroInput = document.getElementById("numeroCelular");
+    const emailInput = document.getElementById("email");
+    const senhaInput = document.getElementById("senha");
+    const senhaConfirmacaoInput = document.getElementById("senhaConfirmacao");
+    const dataNascimentoInput = document.getElementById("dataNascimento");
+    const mostrarAniversarioInput = document.getElementById("mostrarAniversario");
+    const listaFuncoesEl = document.getElementById("listaFuncoesSupermercado");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitBtnLabel = document.getElementById("submitBtnLabel");
+    const statusErro = document.getElementById("statusErro");
+    const statusSucesso = document.getElementById("statusSucesso");
+    const FUNCOES_SOURCE_URL = "https://github.com/PopularAtacarejo/SuperPOP/blob/main/FuncoesSupermercado.json";
+    const PHONE_REGEX = /^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/;
+    const DATE_REGEX = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
+    const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
+    const frontendBase = String(window.SUPERPOP_FRONTEND_URL || "https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/, "");
+    const toggleSenhaBtn = document.getElementById("toggleSenhaVisibility");
+    const toggleSenhaIcon = document.getElementById("toggleSenhaIcon");
+
+    function resolveOrigin(urlValue) {
+      try {
+        return new URL(String(urlValue || "")).origin.toLowerCase();
+      } catch (_err) {
+        return "";
+      }
+    }
+
+    function buildFrontendUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      const currentOrigin = String(window.location.origin || "").toLowerCase();
+      const apiOrigin = resolveOrigin(apiBase);
+      if (apiOrigin && currentOrigin && apiOrigin === currentOrigin) {
+        return cleanPath ? ("/" + cleanPath) : "/";
+      }
+      return frontendBase ? (frontendBase + "/" + cleanPath) : (cleanPath || ".");
+    }
+
+    function formatPhoneMask(value) {
+      const digits = String(value || "").replace(/\D/g, "").slice(0, 11);
+      if (!digits) return "";
+      if (digits.length <= 2) return "(" + digits;
+      if (digits.length <= 3) return "(" + digits.slice(0, 2) + ") " + digits.slice(2);
+      if (digits.length <= 7) return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 3) + " " + digits.slice(3);
+      return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 3) + " " + digits.slice(3, 7) + " - " + digits.slice(7, 11);
+    }
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      submitBtnLabel.textContent = isLoading ? "Salvando..." : "Cadastrar";
+    }
+
+    function showError(message) {
+      statusSucesso.style.display = "none";
+      statusErro.textContent = message;
+      statusErro.style.display = "block";
+    }
+
+    function showSuccess(message) {
+      statusErro.style.display = "none";
+      statusSucesso.textContent = message;
+      statusSucesso.style.display = "block";
+    }
+
+    function setPasswordVisibility(show) {
+      const type = show ? "text" : "password";
+      if (senhaInput) {
+        senhaInput.type = type;
+      }
+      if (senhaConfirmacaoInput) {
+        senhaConfirmacaoInput.type = type;
+      }
+      if (toggleSenhaIcon) {
+        toggleSenhaIcon.textContent = show ? "visibility_off" : "visibility";
+      }
+      if (toggleSenhaBtn) {
+        toggleSenhaBtn.setAttribute("aria-label", show ? "Ocultar senha" : "Mostrar senha");
+      }
+    }
+
+    function formatDateMask(value) {
+      const digits = String(value || "").replace(/\D/g, "").slice(0, 8);
+      if (!digits) return "";
+      if (digits.length <= 2) return digits;
+      if (digits.length <= 4) return digits.slice(0, 2) + "/" + digits.slice(2);
+      return digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4, 8);
+    }
+
+    function parseBirthIso(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "";
+
+      let day = NaN;
+      let month = NaN;
+      let year = NaN;
+
+      if (DATE_REGEX.test(raw)) {
+        const parts = raw.split("/");
+        day = Number(parts[0]);
+        month = Number(parts[1]);
+        year = Number(parts[2]);
+      } else if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+        const parts = raw.split("-");
+        year = Number(parts[0]);
+        month = Number(parts[1]);
+        day = Number(parts[2]);
+      } else {
+        return "";
+      }
+
+      if (!Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year)) {
+        return "";
+      }
+
+      const date = new Date(year, month - 1, day);
+      if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== month - 1 ||
+        date.getDate() !== day
+      ) {
+        return "";
+      }
+
+      const monthPadded = String(month).padStart(2, "0");
+      const dayPadded = String(day).padStart(2, "0");
+      return year + "-" + monthPadded + "-" + dayPadded;
+    }
+
+    function isDateValid(value) {
+      return Boolean(parseBirthIso(value));
+    }
+
+    function isMobileViewport() {
+      return window.matchMedia("(max-width: 768px)").matches;
+    }
+
+    function getFuncaoValue() {
+      const inputValue = String((funcaoInput && funcaoInput.value) || "").trim();
+      return inputValue;
+    }
+
+    if (numeroInput) {
+      numeroInput.addEventListener("input", function () {
+        const cursorAtEnd = numeroInput.selectionStart === numeroInput.value.length;
+        numeroInput.value = formatPhoneMask(numeroInput.value);
+        if (cursorAtEnd) {
+          numeroInput.setSelectionRange(numeroInput.value.length, numeroInput.value.length);
+        }
+      });
+    }
+
+    if (dataNascimentoInput) {
+      dataNascimentoInput.addEventListener("input", function () {
+        const cursorAtEnd = dataNascimentoInput.selectionStart === dataNascimentoInput.value.length;
+        dataNascimentoInput.value = formatDateMask(dataNascimentoInput.value);
+        if (cursorAtEnd) {
+          dataNascimentoInput.setSelectionRange(dataNascimentoInput.value.length, dataNascimentoInput.value.length);
+        }
+      });
+    }
+
+    if (toggleSenhaBtn) {
+      toggleSenhaBtn.addEventListener("click", function () {
+        const isPasswordVisible = senhaInput && senhaInput.type === "text";
+        setPasswordVisibility(!isPasswordVisible);
+      });
+    }
+    setPasswordVisibility(false);
+
+    function normalizeGithubBlobUrl(url) {
+      try {
+        const parsed = new URL(url);
+        if (parsed.hostname === "github.com") {
+          const parts = parsed.pathname.split("/").filter(Boolean);
+          if (parts.length >= 5 && parts[2] === "blob") {
+            const owner = parts[0];
+            const repo = parts[1];
+            const branch = parts[3];
+            const filePath = parts.slice(4).join("/");
+            return "https://raw.githubusercontent.com/" + owner + "/" + repo + "/" + branch + "/" + filePath;
+          }
+        }
+      } catch (_err) {}
+      return url;
+    }
+
+    async function loadFuncoesAutocomplete() {
+      if (!listaFuncoesEl) return;
+      const sources = [
+        normalizeGithubBlobUrl(FUNCOES_SOURCE_URL),
+        "./FuncoesSupermercado.json"
+      ];
+      try {
+        let payload = null;
+        for (const source of sources) {
+          try {
+            const response = await fetch(source, { cache: "no-store" });
+            if (!response.ok) {
+              continue;
+            }
+            payload = await response.json();
+            if (Array.isArray(payload)) {
+              break;
+            }
+          } catch (_err) {}
+        }
+        if (!Array.isArray(payload)) {
+          throw new Error("Fonte de funcoes indisponivel");
+        }
+        const funcoes = Array.isArray(payload) ? payload : [];
+        const uniqueSorted = Array.from(new Set(funcoes.map(function (item) { return String(item || "").trim(); }).filter(Boolean)))
+          .sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
+        listaFuncoesEl.innerHTML = "";
+        uniqueSorted.forEach(function (funcao) {
+          const option = document.createElement("option");
+          option.value = funcao;
+          listaFuncoesEl.appendChild(option);
+        });
+      } catch (_err) {
+        listaFuncoesEl.innerHTML = "";
+        listaFuncoesEl.innerHTML = "";
+      }
+    }
+
+    funcaoInput.addEventListener("input", function () {
+      funcaoInput.value = String(funcaoInput.value || "").trim();
+    });
+
+    loadFuncoesAutocomplete();
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      statusErro.style.display = "none";
+      statusSucesso.style.display = "none";
+
+      const birthValue = dataNascimentoInput ? String(dataNascimentoInput.value || "").trim() : "";
+      const payload = {
+        nome: String(nomeInput.value || "").trim(),
+        funcao: getFuncaoValue(),
+        numero_celular: String(numeroInput.value || "").trim(),
+        email: String(emailInput.value || "").trim(),
+        mostrar_aniversario: Boolean(mostrarAniversarioInput && mostrarAniversarioInput.checked),
+        senha: String(senhaInput.value || "")
+      };
+
+      if (payload.nome.length < 3) {
+        showError("Informe um nome válido com pelo menos 3 caracteres.");
+        return;
+      }
+      if (payload.funcao.length < 2) {
+        showError("Informe uma função válida.");
+        return;
+      }
+      if (!PHONE_REGEX.test(payload.numero_celular)) {
+        showError("Número de celular inválido. Use o formato (xx) 9 0000 - 0000.");
+        return;
+      }
+      if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+        showError("E-mail inválido.");
+        return;
+      }
+      const birthIso = parseBirthIso(birthValue);
+      if (birthValue && !birthIso) {
+        showError("Informe uma data de nascimento válida (dd/mm/aaaa).");
+        return;
+      }
+      if (senhaConfirmacaoInput && senhaInput && senhaInput.value !== senhaConfirmacaoInput.value) {
+        showError("As senhas não coincidem.");
+        return;
+      }
+      payload.data_nascimento = birthIso;
+      payload.data_nascimento_iso = birthIso;
+      if (payload.senha.length < 6) {
+        showError("A senha deve ter pelo menos 6 caracteres.");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const response = await fetch(apiBase + "/api/funcionarios/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(function () { return {}; });
+        if (!response.ok || !result.ok) {
+          throw new Error(String(result.error || "Não foi possível concluir o cadastro."));
+        }
+
+        form.reset();
+        showSuccess("Cadastro realizado com sucesso! Agora você pode fazer login.");
+        window.setTimeout(function () {
+          window.location.href = buildFrontendUrl("index.html?registered=1");
+        }, 1500);
+      } catch (err) {
+        showError(String(err && err.message ? err.message : "Erro inesperado ao cadastrar."));
+      } finally {
+        setLoading(false);
+      }
+    });
+  });
+</script>
+</body></html>

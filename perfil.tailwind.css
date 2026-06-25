@@ -1,0 +1,4 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="perfil"] #profileForm,
+body[data-page="perfil"] #passwordForm { scroll-margin-top: 6rem; }
+body[data-page="perfil"] .auth-user-avatar { box-shadow: 0 0 0 4px rgba(255,255,255,.8); }

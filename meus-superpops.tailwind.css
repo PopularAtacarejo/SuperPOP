@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="meus-superpops"] #sentList > div,
+body[data-page="meus-superpops"] #receivedList > div { overflow: hidden; }

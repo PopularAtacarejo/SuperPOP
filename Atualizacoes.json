@@ -1,0 +1,120 @@
+[
+  {
+    "id": "seed-online-users-20260316",
+    "data_referencia": "16/03/2026",
+    "titulo": "Usuarios online no Super POP",
+    "descricao": "Adicionado menu de usuarios online em tempo quase real na tela de envio do Super POP, com lista de ativos e contador.",
+    "categoria": "Conectividade",
+    "status": "Concluido",
+    "autor": {
+      "id": "",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-16T08:00:00-03:00"
+  },
+  {
+    "id": "seed-rank-reactions-20260316",
+    "data_referencia": "16/03/2026",
+    "titulo": "Reacoes por emoji no ranking",
+    "descricao": "Usuarios agora podem reagir no ranking com emojis, alterar a reacao e visualizar quem reagiu em cada usuario.",
+    "categoria": "Ranking",
+    "status": "Nova funcionalidade",
+    "autor": {
+      "id": "",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-16T08:10:00-03:00"
+  },
+  {
+    "id": "seed-rank-rule-20260316",
+    "data_referencia": "16/03/2026",
+    "titulo": "Regra mensal do ranking ajustada",
+    "descricao": "No rank mensal, cada par remetente + destinatario conta apenas uma vez por mes, mesmo com varios envios.",
+    "categoria": "Regra de negocio",
+    "status": "Concluido",
+    "autor": {
+      "id": "",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-16T08:20:00-03:00"
+  },
+  {
+    "id": "seed-duplicate-day-20260316",
+    "data_referencia": "16/03/2026",
+    "titulo": "Bloqueio de envio duplicado no mesmo dia",
+    "descricao": "Mantida a regra de 1 Super POP por dia para o mesmo destinatario, com mensagem elegante para tentativas duplicadas.",
+    "categoria": "Protecao",
+    "status": "Concluido",
+    "autor": {
+      "id": "",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-16T08:30:00-03:00"
+  },
+  {
+    "id": "seed-register-robust-20260316",
+    "data_referencia": "16/03/2026",
+    "titulo": "Robustez no registro de Super POP",
+    "descricao": "Aplicados controles para reduzir falhas de contabilizacao e evitar concorrencia no envio.",
+    "categoria": "Confiabilidade",
+    "status": "Concluido",
+    "autor": {
+      "id": "",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-16T08:40:00-03:00"
+  },
+  {
+    "id": "seed-destination-fix-20260316",
+    "data_referencia": "16/03/2026",
+    "titulo": "Ajuste na selecao de destinatario",
+    "descricao": "Corrigido comportamento da tela para permitir alterar o destinatario apos a primeira selecao sem travamentos.",
+    "categoria": "Usabilidade",
+    "status": "Concluido",
+    "autor": {
+      "id": "",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-16T08:50:00-03:00"
+  },
+  {
+    "id": "a1a14145f7694288ae16361a32512a90",
+    "data_referencia": "19/03/2026",
+    "titulo": "Segurança",
+    "descricao": "Atualização de Segurança de Dados token JWT, Backup De Dados Dairiamente, Cryptografia de dados chave Hexadecimal",
+    "categoria": "Atualização de Segurança",
+    "status": "Concluido",
+    "autor": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-19T11:54:39.408071-03:00",
+    "updated_at_iso": "2026-03-19T12:06:31.355765-03:00"
+  },
+  {
+    "id": "a05cb78270f147ba88925f0628d81f7f",
+    "data_referencia": "19/03/2026",
+    "titulo": "Aniversário",
+    "descricao": "Função de Aniversário adicionada, agora o usuário pode informa sua data de nascimento e pode aparecer no mural de aniversariantes do mês de acordo com a data informada.",
+    "categoria": "Adição de nova Catergoria",
+    "status": "Nova Função",
+    "autor": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-19T12:01:55.595095-03:00"
+  },
+  {
+    "id": "c013cce967ea4197b59d7a242dcf4fe9",
+    "data_referencia": "20/03/2026",
+    "titulo": "Correção na pagina de cadastro",
+    "descricao": "Atualização de layout e corrigido bug na inserção da data de aniversário, possiblidade de reenviar o super pop na pagina de \"meus super pop's\" caso não tenha enviado na hora podendo enviar depois. Adição de sistema de notificações de super pop recebido no dia.",
+    "categoria": "Correção de Bugs",
+    "status": "Concluido",
+    "autor": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    },
+    "created_at_iso": "2026-03-20T09:00:08.722220-03:00"
+  }
+]

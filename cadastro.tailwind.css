@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="cadastro"] { display: flex; flex-direction: column; }
+body[data-page="cadastro"] form { border: 1px solid rgba(255,255,255,.9); box-shadow: var(--sp-shadow); }

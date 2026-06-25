@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="usuarios"] .table-wrap { border-radius: 1.25rem; border: 1px solid rgba(226,232,240,.7); }
+body[data-page="usuarios"] #usersTableBody td { padding-top: 1rem; padding-bottom: 1rem; }

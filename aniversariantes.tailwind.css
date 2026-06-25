@@ -1,0 +1,3 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="aniversariantes"] main > section:first-child { background: linear-gradient(135deg,rgba(255,241,242,.82),rgba(255,251,235,.82)); }
+body[data-page="aniversariantes"] [class*="birthday"] { scroll-margin-top: 5rem; }

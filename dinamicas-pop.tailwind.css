@@ -1,0 +1,164 @@
+@import url("./superpop-theme.tailwind.css");
+body[data-page="dinamicas-pop"] .match-card { overflow: hidden; }
+body[data-page="dinamicas-pop"] [data-tab-button] { position: relative; }
+body[data-page="dinamicas-pop"] [data-tab-button].text-primary { background: linear-gradient(180deg,transparent,rgba(255,241,242,.8)); }
+
+.prediction-success-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(15, 23, 42, 0.66);
+  backdrop-filter: blur(10px);
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.prediction-success-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.prediction-success-card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 440px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 2rem;
+  padding: 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at top, rgba(255, 183, 3, 0.18), transparent 42%),
+    rgba(255, 255, 255, 0.98);
+  box-shadow: 0 36px 90px -28px rgba(15, 23, 42, 0.72);
+  transform: translateY(24px) scale(0.92);
+}
+
+.prediction-success-modal.is-open .prediction-success-card {
+  animation: prediction-card-in 620ms cubic-bezier(.2, 1.25, .35, 1) forwards;
+}
+
+.prediction-success-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, #ffb703, #e63946);
+  box-shadow: 0 20px 36px -18px rgba(230, 57, 70, 0.85);
+}
+
+.prediction-success-icon .material-symbols-outlined {
+  font-size: 46px;
+  animation: prediction-icon-party 900ms ease 280ms both;
+}
+
+.prediction-success-kicker {
+  margin: 0 0 0.45rem;
+  color: #e63946;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.prediction-success-card h2 {
+  margin: 0;
+  color: #172033;
+  font-size: clamp(1.75rem, 6vw, 2.35rem);
+  font-family: "Fredoka One", cursive;
+  line-height: 1.05;
+}
+
+.prediction-success-card > p:not(.prediction-success-kicker) {
+  margin: 0.85rem auto 0;
+  max-width: 32rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.prediction-success-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.25rem;
+  border: 1px solid rgba(230, 57, 70, 0.14);
+  border-radius: 1rem;
+  padding: 0.75rem 1.15rem;
+  color: #be123c;
+  background: #fff1f2;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+
+.prediction-success-close {
+  width: 100%;
+  margin-top: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0.9rem;
+  padding: 0.85rem 1rem;
+  color: #fff;
+  background: linear-gradient(135deg, #ef4453, #d9273a);
+  box-shadow: 0 16px 30px -18px rgba(190, 18, 60, 0.9);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.prediction-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.prediction-confetti-piece {
+  position: absolute;
+  top: -12%;
+  width: 10px;
+  height: 18px;
+  border-radius: 3px;
+  opacity: 0;
+  animation: prediction-confetti-fall var(--duration) cubic-bezier(.2, .7, .3, 1) var(--delay) forwards;
+}
+
+@keyframes prediction-card-in {
+  0% { opacity: 0; transform: translateY(24px) scale(0.92); }
+  65% { opacity: 1; transform: translateY(-5px) scale(1.025); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes prediction-icon-party {
+  0% { transform: scale(0.3) rotate(-24deg); }
+  55% { transform: scale(1.22) rotate(12deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+@keyframes prediction-confetti-fall {
+  0% { opacity: 0; transform: translate3d(0, -10vh, 0) rotate(0deg); }
+  12% { opacity: 1; }
+  100% { opacity: 0.95; transform: translate3d(var(--drift), 112vh, 0) rotate(var(--rotation)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prediction-success-modal.is-open .prediction-success-card,
+  .prediction-success-icon .material-symbols-outlined,
+  .prediction-confetti-piece {
+    animation: none !important;
+  }
+  .prediction-success-modal.is-open .prediction-success-card {
+    opacity: 1;
+    transform: none;
+  }
+}
