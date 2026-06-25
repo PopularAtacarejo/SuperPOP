@@ -80,7 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
       month: "2-digit",
       year: "numeric",
       hour: "2-digit",
-      minute: "2-digit"
+      minute: "2-digit",
+      second: "2-digit"
     });
   }
 
@@ -131,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.setTimeout(function () {
       predictionSuccessCloseBtn.focus();
     }, 250);
+    window.setTimeout(closePredictionSuccess, 5000);
   }
 
   function closePredictionSuccess() {
@@ -199,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
       '<div class="mt-4 text-center"><button class="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50" type="submit"' + (disabled ? " disabled" : "") + '>Enviar palpite</button>' +
       '<p class="mt-2 text-xs font-semibold text-slate-400">' + escapeHtml(predictionHint) + '</p></div>' +
       '<p class="prediction-message mt-3 hidden rounded-xl px-3 py-2 text-center text-sm font-bold"></p></form>' +
-      developerPredictionsHtml(game) + '</article>';
+      '</article>';
   }
 
   function renderGames() {
@@ -228,11 +230,25 @@ document.addEventListener("DOMContentLoaded", function () {
     sentPredictionsList.innerHTML = rows.map(function (row) {
       const game = row.game;
       const item = row.prediction;
+      const userPhoto = item.usuario_foto || item.foto_perfil_data_url || "";
+      const userRole = item.usuario_funcao || item.funcao || "";
+      const photoHtml = userPhoto
+        ? '<img src="' + escapeHtml(userPhoto) + '" alt="Foto" class="h-8 w-8 rounded-full object-cover shrink-0 border border-slate-200" />'
+        : '<div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-400 border border-slate-200"><span class="material-symbols-outlined text-sm">person</span></div>';
+      const roleHtml = userRole ? ' <span class="text-xs font-normal text-slate-400 block sm:inline">(' + escapeHtml(userRole) + ')</span>' : '';
+
+      const isMyPrediction = game.meu_palpite && item.id === game.meu_palpite.id;
+      const canSeePrediction = isDeveloper || isMyPrediction || (!game.palpite_aberto && game.status_palpites !== "aguardando");
+      const scoreHtml = canSeePrediction
+        ? escapeHtml(item.gols_casa) + ' x ' + escapeHtml(item.gols_visitante)
+        : '<span class="blur-sm select-none opacity-60" title="Palpite oculto">' + escapeHtml(item.gols_casa || "0") + ' x ' + escapeHtml(item.gols_visitante || "0") + '</span>';
+
       return '<article class="rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">' +
         '<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">' +
         '<div><p class="text-xs font-bold uppercase tracking-widest text-primary">' + escapeHtml(game.competicao || "Futebol do Brasil") + '</p>' +
-        '<h3 class="mt-1 text-lg font-extrabold">' + escapeHtml(game.time_casa) + ' ' + escapeHtml(item.gols_casa) + ' x ' + escapeHtml(item.gols_visitante) + ' ' + escapeHtml(game.time_visitante) + '</h3>' +
-        '<p class="mt-1 text-sm font-semibold text-slate-500">Enviado por <strong class="text-slate-800">' + escapeHtml(item.usuario_nome || "Usuário") + '</strong></p></div>' +
+        '<h3 class="mt-1 text-lg font-extrabold">' + escapeHtml(game.time_casa) + ' ' + scoreHtml + ' ' + escapeHtml(game.time_visitante) + '</h3>' +
+        '<div class="mt-2 flex items-center gap-2">' + photoHtml + 
+        '<p class="text-sm font-semibold text-slate-500">Enviado por <strong class="text-slate-800">' + escapeHtml(item.usuario_nome || "Usuário") + '</strong>' + roleHtml + '</p></div></div>' +
         '<div class="rounded-xl bg-slate-50 px-4 py-3 text-sm font-bold text-slate-600"><span class="material-symbols-outlined mr-1 align-middle text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
         '</div></article>';
     }).join("");
