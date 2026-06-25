@@ -38,7 +38,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <a class="menu-item group" href="ganhadores.html" title="Ganhadores do Mês"><span class="material-symbols-outlined shrink-0">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span></a>
 <a class="menu-item group" href="sobre.html" title="Sobre"><span class="material-symbols-outlined shrink-0">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
 <a class="menu-item group" href="atualizacoes.html" title="Atualizacoes do Sistema"><span class="material-symbols-outlined shrink-0">campaign</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Atualizacoes</span></a>
-</div><div class="space-y-1 pt-2 border-t border-slate-100">
+</div><div class="space-y-1 pt-2 border-t border-slate-100 hidden" id="analyticsSection">
 <div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>
 <a id="createUsersNavItem" class="menu-item active group" href="criar-usuarios.html" title="Criar usuários"><span class="material-symbols-outlined shrink-0">person_add</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Criar usuários</span></a>
 </div></nav>
@@ -79,14 +79,14 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 </div>
 <div class="main-content flex flex-col min-h-screen">
 <header class="relative px-6 pb-2 pt-4 text-center"><div class="max-w-7xl mx-auto relative z-10 pt-4"><img alt="SuperPop" class="mx-auto w-48 sm:w-72 h-auto" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/></div></header>
-<main class="flex-1 max-w-5xl mx-auto w-full px-5 py-6 space-y-6">
+<main class="flex-1 max-w-6xl mx-auto w-full px-5 py-6 space-y-6">
 <section class="text-center space-y-3"><span class="pill inline-flex items-center gap-2 bg-red-100 text-red-700"><span class="material-symbols-outlined text-sm">code</span>Somente desenvolvedores</span><h1 class="font-display text-4xl sm:text-5xl text-primary uppercase tracking-tight">Criar usuários</h1><p class="text-gray-600 font-semibold text-base sm:text-lg max-w-3xl mx-auto">Registre rapidamente um colaborador com nome e telefone, deixe o resto para o próprio colaborador no primeiro acesso.</p></section>
-<section class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-soft">
+<section class="create-user-shell rounded-3xl border border-white/70 bg-white/95 p-6 shadow-soft">
   <div class="form-card">
     <div class="space-y-3">
       <p class="text-xs font-bold uppercase tracking-widest text-primary">Passo inicial</p>
       <h2 class="font-display text-3xl text-slate-900">Dados mínimos</h2>
-      <p class="text-sm font-semibold text-slate-500">Ao criar a conta, o Super POP coloca o registro em <strong>Funcioinarios.json</strong> e inicia o fluxo de sincronização com o GitHub. O usuário será lembrado de completar o cadastro no primeiro acesso.</p>
+      <p class="text-sm font-semibold text-slate-500">Crie o pré-cadastro do colaborador. No primeiro acesso, ele poderá revisar e completar as próprias informações.</p>
     </div>
     <form class="space-y-4" id="createUserForm" novalidate>
       <div class="grid gap-4 md:grid-cols-2">
@@ -109,7 +109,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
           <input id="emailInput" maxlength="120" placeholder="nome@empresa.com.br" type="email"/>
         </label>
       </div>
-      <div class="rounded-2xl border border-amber-100 bg-amber-50/70 p-4">
+      <div class="create-birthday-card rounded-2xl border border-amber-100 bg-amber-50/70 p-4">
         <div class="mb-4 flex items-start gap-3">
           <span class="material-symbols-outlined rounded-xl bg-amber-100 p-2 text-amber-700">cake</span>
           <div>
@@ -123,9 +123,9 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
             <input id="dataNascimentoInput" min="1900-01-01" type="date"/>
             <small class="mt-2 block text-xs font-semibold normal-case tracking-normal text-slate-500" id="birthDateHint">Selecione dia, mês e ano.</small>
           </label>
-          <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-white bg-white/80 px-4 py-3">
-            <input class="h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" id="mostrarAniversarioInput" type="checkbox"/>
-            <span>
+          <label class="create-birthday-toggle flex cursor-pointer items-center gap-3 rounded-2xl border border-white bg-white/80 px-4 py-3">
+            <input aria-label="Exibir colaborador na página de aniversariantes" class="create-birthday-checkbox" id="mostrarAniversarioInput" type="checkbox"/>
+            <span class="create-birthday-toggle-copy">
               <strong class="block text-sm text-slate-800">Exibir nos aniversariantes</strong>
               <small class="mt-1 block text-xs font-semibold normal-case tracking-normal text-slate-500">O colaborador poderá alterar essa escolha no perfil.</small>
             </span>
@@ -138,12 +138,32 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
       </div>
       <div class="space-y-3">
         <button class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:brightness-110" id="submitBtn" type="submit"><span class="material-symbols-outlined text-base">person_add</span><span id="submitBtnLabel">Registrar</span></button>
-        <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Os dados serão sincronizados automaticamente com o GitHub assim que o registro for salvo.</p>
+        <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">Confira os dados antes de registrar. O colaborador poderá complementar o cadastro depois.</p>
       </div>
     </form>
   </div>
 </section>
 </main></div>
+<div aria-hidden="true" aria-labelledby="accountCreatedTitle" aria-modal="true" class="account-created-modal" id="accountCreatedModal" role="dialog">
+  <div class="account-created-confetti" id="accountCreatedConfetti"></div>
+  <div class="account-created-card">
+    <div class="account-created-icon">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="8" r="4"/>
+        <path d="M2 21c0-5 3-8 7-8 2 0 4 .8 5.5 2.2"/>
+        <path d="m16 17 2 2 4-5"/>
+      </svg>
+    </div>
+    <p class="account-created-kicker">Cadastro concluído</p>
+    <h2 id="accountCreatedTitle">Conta criada com sucesso!</h2>
+    <p id="accountCreatedMessage">O colaborador já foi registrado e poderá completar os dados no primeiro acesso.</p>
+    <div class="account-created-user" id="accountCreatedUser"></div>
+    <button class="account-created-close" id="accountCreatedCloseBtn" type="button">
+      <span class="material-symbols-outlined">check_circle</span>
+      Criar outro usuário
+    </button>
+  </div>
+</div>
 <script>document.addEventListener("DOMContentLoaded",function(){const t=document.getElementById("sidebar"),e=document.getElementById("sidebarToggle"),n=document.getElementById("sidebarOverlay"),a=document.getElementById("mobileMenuBtn"),i=document.querySelector(".sidebar-collapsed-only"),o=e?e.querySelector("span"):null;if(!t||!e||!n||!a||!i||!o)return;const r=window.innerWidth<1100;function s(){t.classList.add("expanded"),o.textContent="chevron_left",i.style.opacity="0"}function c(){t.classList.remove("expanded"),o.textContent="chevron_right",setTimeout(()=>{t.classList.contains("expanded")|| (i.style.opacity="1")},220)}function l(){window.innerWidth<1100?c():s()}e.addEventListener("click",()=>{t.classList.contains("expanded")?c():s()}),a.addEventListener("click",s),n.addEventListener("click",c),window.addEventListener("resize",l),r?c():s()});</script>
   <script src="criar-usuarios.js"></script>
   <script src="auth-online.js"></script>

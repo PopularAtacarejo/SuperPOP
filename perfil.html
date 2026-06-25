@@ -197,14 +197,14 @@
     </div>
   </div>
   <div class="main-content flex-col flex min-h-screen">
-  <main class="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-    <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+  <main class="profile-page max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+    <header class="profile-header flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Área do usuário</p>
         <h1 class="mt-2 font-display text-4xl text-primary">Meu Perfil</h1>
         <p class="mt-2 text-sm sm:text-base font-semibold text-slate-600">Atualize sua foto, nome, telefone, e-mail e senha.</p>
       </div>
-      <div class="flex flex-wrap items-center gap-3 pt-14 sm:pt-0">
+      <div class="profile-header-actions flex flex-wrap items-center gap-3 pt-14 sm:pt-0">
         <a class="hidden inline-flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-bold text-slate-700 shadow-card" href="usuarios.html" id="manageUsersHeaderLink">
           <span class="material-symbols-outlined text-base">groups</span>
           Usuários cadastrados
@@ -220,11 +220,11 @@
       </div>
     </header>
 
-    <section class="mt-6 grid gap-5 lg:grid-cols-[340px,minmax(0,1fr)]">
-      <div class="space-y-4">
-        <article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+    <section class="profile-layout mt-6 grid gap-5 lg:grid-cols-[310px,minmax(0,1fr)]">
+      <aside class="profile-sidebar space-y-4">
+        <article class="profile-summary-card rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
           <div class="flex flex-col items-center text-center">
-            <div class="flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-red-100 to-amber-100 ring-4 ring-white shadow-lg">
+            <div class="profile-main-avatar flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-red-100 to-amber-100 ring-4 ring-white shadow-lg">
               <img alt="Foto de perfil" class="hidden h-full w-full object-cover" id="avatarImage"/>
               <span class="font-display text-5xl text-primary" id="avatarFallback">SP</span>
             </div>
@@ -232,7 +232,7 @@
             <p class="mt-1 text-sm font-semibold text-slate-500" id="summaryRole">Perfil</p>
             <p class="mt-1 text-xs font-semibold text-slate-400" id="summaryPhone"></p>
           </div>
-          <div class="mt-6 space-y-3 rounded-2xl bg-slate-50 p-4">
+          <div class="profile-summary-meta mt-6 space-y-3 rounded-2xl bg-slate-50 p-4">
             <div>
               <p class="text-[11px] font-bold uppercase tracking-widest text-slate-500">E-mail atual</p>
               <p class="mt-1 text-sm font-semibold text-slate-700 break-all" id="summaryEmail">-</p>
@@ -244,12 +244,12 @@
           </div>
         </article>
 
-        <article class="rounded-3xl border border-dashed border-slate-200 bg-white/95 p-5 shadow-soft lg:sticky lg:top-20">
+        <article class="profile-shortcuts rounded-3xl border border-dashed border-slate-200 bg-white/95 p-5 shadow-soft lg:sticky lg:top-20">
           <div class="flex items-center justify-between">
             <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Menu lateral</p>
             <span class="text-xs font-semibold text-slate-400">Atalhos</span>
           </div>
-          <nav aria-label="Navegação do perfil" class="mt-4 space-y-2">
+          <nav aria-label="Navegação do perfil" class="profile-anchor-nav mt-4 space-y-2">
             <a class="flex items-center gap-2 rounded-2xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:border-primary hover:bg-primary/5" href="#profileForm">
               <span class="material-symbols-outlined text-base text-primary">badge</span>
               <span>Dados pessoais</span>
@@ -260,14 +260,14 @@
             </a>
           </nav>
         </article>
-      </div>
-      <div class="space-y-5">
-        <article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
-          <div class="mb-5">
+      </aside>
+      <div class="profile-content space-y-5">
+        <article class="profile-form-card rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+          <div class="profile-section-heading mb-5">
             <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Dados pessoais</p>
             <h2 class="mt-2 text-2xl font-display text-slate-900">Editar perfil</h2>
           </div>
-          <form class="space-y-4" id="profileForm" novalidate>
+          <form class="profile-form space-y-4" id="profileForm" novalidate>
             <div class="grid gap-4 md:grid-cols-2">
               <div class="md:col-span-2">
                 <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="nomeInput">Nome</label>
@@ -289,16 +289,16 @@
                 <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="dataNascimentoInput">Data de nascimento</label>
                 <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="dataNascimentoInput" type="date"/>
               </div>
-              <div class="md:col-span-2 flex flex-col gap-1">
+              <div class="profile-birthday-option md:col-span-2 flex flex-col gap-1">
                 <label class="toggle-row" for="mostrarAniversarioInput">
                   <input id="mostrarAniversarioInput" type="checkbox"/>
                   Mostrar meu aniversário no mural
                 </label>
                 <p class="text-xs text-slate-400">Aparece na página de aniversariantes e permite ganhar parabéns automáticos no dia.</p>
               </div>
-              <div class="md:col-span-2">
+              <div class="profile-upload-section md:col-span-2">
                 <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="fotoInput">Foto de perfil</label>
-                <input accept="image/png,image/jpeg,image/webp" class="block w-full rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-red-100 file:px-4 file:py-2 file:font-bold file:text-red-700 hover:file:bg-red-200" id="fotoInput" type="file"/>
+                <input accept="image/png,image/jpeg,image/webp" class="profile-file-input block w-full rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 file:mr-4 file:rounded-xl file:border-0 file:bg-red-100 file:px-4 file:py-2 file:font-bold file:text-red-700 hover:file:bg-red-200" id="fotoInput" type="file"/>
                 <div class="mt-3 flex flex-wrap items-center gap-3">
                   <button class="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700" id="removePhotoBtn" type="button">
                     <span class="material-symbols-outlined text-base">delete</span>
@@ -310,19 +310,22 @@
             </div>
             <div class="hidden rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700" id="profileError"></div>
             <div class="hidden rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700" id="profileSuccess"></div>
+            <div class="profile-form-footer">
             <button class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white" id="saveProfileBtn" type="submit">
               <span class="material-symbols-outlined text-base">save</span>
               <span id="saveProfileLabel">Salvar perfil</span>
             </button>
+            <p class="text-xs font-semibold text-slate-400">As alterações serão aplicadas ao seu perfil e ao menu do sistema.</p>
+            </div>
           </form>
         </article>
 
-        <article class="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
-          <div class="mb-5">
+        <article class="profile-security-card rounded-3xl border border-white/70 bg-white/95 p-6 shadow-card">
+          <div class="profile-section-heading mb-5">
             <p class="text-xs font-bold uppercase tracking-[0.28em] text-primary">Segurança</p>
             <h2 class="mt-2 text-2xl font-display text-slate-900">Alterar senha</h2>
           </div>
-          <form class="space-y-4" id="passwordForm" novalidate>
+          <form class="profile-password-form space-y-4" id="passwordForm" novalidate>
             <div>
               <label class="mb-1.5 ml-1 block text-xs font-bold uppercase text-primary" for="senhaAtualInput">Senha atual</label>
               <input class="w-full rounded-2xl border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-800 focus:border-primary focus:ring-primary" id="senhaAtualInput" type="password"/>
@@ -339,10 +342,13 @@
             </div>
             <div class="hidden rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700" id="passwordError"></div>
             <div class="hidden rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700" id="passwordSuccess"></div>
+            <div class="profile-form-footer">
             <button class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white" id="savePasswordBtn" type="submit">
               <span class="material-symbols-outlined text-base">lock_reset</span>
               <span id="savePasswordLabel">Atualizar senha</span>
             </button>
+            <p class="text-xs font-semibold text-slate-400">Use uma senha diferente da atual e evite informações fáceis de adivinhar.</p>
+            </div>
           </form>
         </article>
       </div>
@@ -474,8 +480,36 @@
       let pendingPhotoDataUrl = "";
       let removePhoto = false;
 
+      function addPasswordVisibilityToggle(input) {
+        if (!input || input.parentElement.classList.contains("profile-password-field")) return;
+        const wrapper = document.createElement("div");
+        wrapper.className = "profile-password-field";
+        input.parentNode.insertBefore(wrapper, input);
+        wrapper.appendChild(input);
+        const button = document.createElement("button");
+        button.className = "profile-password-toggle";
+        button.type = "button";
+        button.setAttribute("aria-label", "Mostrar senha");
+        button.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
+        button.addEventListener("click", function () {
+          const show = input.type === "password";
+          input.type = show ? "text" : "password";
+          button.setAttribute("aria-label", show ? "Ocultar senha" : "Mostrar senha");
+          button.querySelector("span").textContent = show ? "visibility_off" : "visibility";
+        });
+        wrapper.appendChild(button);
+      }
+
+      [senhaAtualInput, novaSenhaInput, confirmarSenhaInput].forEach(addPasswordVisibilityToggle);
+
       if (dataNascimentoInput) {
-        const todayIso = new Date().toISOString().split("T")[0];
+        const now = new Date();
+        const todayIso = [
+          now.getFullYear(),
+          String(now.getMonth() + 1).padStart(2, "0"),
+          String(now.getDate()).padStart(2, "0")
+        ].join("-");
+        dataNascimentoInput.setAttribute("min", "1900-01-01");
         dataNascimentoInput.setAttribute("max", todayIso);
       }
 
@@ -642,6 +676,17 @@
         setMessage(profileError, "", false);
         const file = fotoInput.files && fotoInput.files[0];
         if (!file) return;
+        const allowedTypes = ["image/png", "image/jpeg", "image/webp"];
+        if (allowedTypes.indexOf(file.type) < 0) {
+          fotoInput.value = "";
+          setMessage(profileError, "Formato de imagem não permitido. Use PNG, JPG ou WEBP.", true);
+          return;
+        }
+        if (file.size > 4 * 1024 * 1024) {
+          fotoInput.value = "";
+          setMessage(profileError, "A imagem deve ter no máximo 4 MB.", true);
+          return;
+        }
         try {
           pendingPhotoDataUrl = await readFileAsDataUrl(file);
           removePhoto = false;
@@ -665,6 +710,7 @@
         const nome = String(nomeInput.value || "").trim();
         const email = String(emailInput.value || "").trim();
         const telefone = String(telefoneInput.value || "").trim();
+        const birthDate = dataNascimentoInput ? String(dataNascimentoInput.value || "") : "";
         if (nome.length < 3) {
           setMessage(profileError, "Informe um nome válido com pelo menos 3 caracteres.", true);
           return;
@@ -675,6 +721,10 @@
         }
         if (!PHONE_REGEX.test(telefone)) {
           setMessage(profileError, "Informe um telefone válido no formato (xx) 9 0000 - 0000.", true);
+          return;
+        }
+        if (birthDate && (birthDate < "1900-01-01" || birthDate > dataNascimentoInput.max)) {
+          setMessage(profileError, "Informe uma data de nascimento válida entre 1900 e hoje.", true);
           return;
         }
         setButtonLoading(saveProfileBtn, saveProfileLabel, "Salvando...", true);
@@ -689,7 +739,7 @@
               numero_celular: telefone,
               foto_perfil_data_url: pendingPhotoDataUrl,
               remover_foto: removePhoto,
-              data_nascimento: dataNascimentoInput ? dataNascimentoInput.value : "",
+              data_nascimento: birthDate,
               mostrar_aniversario: mostrarAniversarioInput ? mostrarAniversarioInput.checked : false
             })
           });

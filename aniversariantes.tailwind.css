@@ -1,3 +1,204 @@
 @import url("./superpop-theme.tailwind.css");
-body[data-page="aniversariantes"] main > section:first-child { background: linear-gradient(135deg,rgba(255,241,242,.82),rgba(255,251,235,.82)); }
-body[data-page="aniversariantes"] [class*="birthday"] { scroll-margin-top: 5rem; }
+
+body[data-page="aniversariantes"] {
+  background:
+    radial-gradient(circle at 85% 8%, rgba(255,183,3,.12), transparent 28rem),
+    radial-gradient(circle at 15% 22%, rgba(230,57,70,.09), transparent 26rem),
+    #fff !important;
+}
+
+body[data-page="aniversariantes"] [class*="birthday"] {
+  scroll-margin-top: 5rem;
+}
+
+body[data-page="aniversariantes"] .birthday-dashboard {
+  max-width: 1280px;
+  padding-bottom: 4rem;
+}
+
+body[data-page="aniversariantes"] .birthday-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border: 1px solid rgba(255,255,255,.82);
+  border-radius: 1.9rem;
+  background:
+    radial-gradient(circle at 90% 0, rgba(255,183,3,.14), transparent 18rem),
+    linear-gradient(135deg,rgba(255,241,242,.9),rgba(255,251,235,.82)) !important;
+  box-shadow: 0 24px 60px -38px rgba(15,23,42,.45);
+}
+
+body[data-page="aniversariantes"] .birthday-hero::before,
+body[data-page="aniversariantes"] .birthday-hero::after {
+  content: "🎉";
+  position: absolute;
+  top: 1rem;
+  color: rgba(230,57,70,.22);
+  font-size: 2rem;
+  transform: rotate(-14deg);
+}
+
+body[data-page="aniversariantes"] .birthday-hero::before { left: 1.4rem; }
+body[data-page="aniversariantes"] .birthday-hero::after {
+  right: 1.4rem;
+  transform: rotate(14deg);
+}
+
+body[data-page="aniversariantes"] .birthday-hero h1 {
+  margin-top: 0.55rem;
+  letter-spacing: -0.045em !important;
+}
+
+body[data-page="aniversariantes"] .birthday-hero > p:last-child {
+  max-width: 850px;
+  margin: 0.75rem auto 0;
+  line-height: 1.6;
+}
+
+body[data-page="aniversariantes"] .birthday-metrics {
+  max-width: 850px;
+}
+
+body[data-page="aniversariantes"] .birthday-metric-card {
+  position: relative;
+  min-height: 142px;
+  overflow: hidden;
+  padding: 1.25rem;
+  border-color: rgba(226,232,240,.75) !important;
+  background: linear-gradient(145deg,#fff,#fffafb) !important;
+}
+
+body[data-page="aniversariantes"] .birthday-metric-card::after {
+  content: "";
+  position: absolute;
+  right: -28px;
+  bottom: -35px;
+  width: 110px;
+  height: 110px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255,183,3,.16), transparent 68%);
+}
+
+body[data-page="aniversariantes"] .birthday-metric-card > p:nth-child(2) {
+  position: relative;
+  z-index: 1;
+  font-size: 2.2rem;
+  font-family: "Fredoka One", cursive;
+  letter-spacing: -0.035em;
+}
+
+body[data-page="aniversariantes"] .birthday-content {
+  align-items: stretch;
+}
+
+body[data-page="aniversariantes"] .birthday-today-card,
+body[data-page="aniversariantes"] .birthday-month-card {
+  min-height: 440px;
+  padding: clamp(1.25rem, 2.7vw, 1.75rem);
+  border-color: rgba(226,232,240,.72) !important;
+}
+
+body[data-page="aniversariantes"] .birthday-today-card {
+  background:
+    radial-gradient(circle at 0 0, rgba(230,57,70,.07), transparent 16rem),
+    rgba(255,255,255,.96) !important;
+}
+
+body[data-page="aniversariantes"] .birthday-month-card {
+  background:
+    radial-gradient(circle at 100% 0, rgba(255,183,3,.09), transparent 16rem),
+    rgba(255,255,255,.96) !important;
+}
+
+body[data-page="aniversariantes"] #todayExpires {
+  padding: 0.42rem 0.65rem;
+  border: 1px solid rgba(226,232,240,.72);
+  border-radius: 999px;
+  background: #f8fafc;
+  font-weight: 800;
+}
+
+body[data-page="aniversariantes"] #todayList > div,
+body[data-page="aniversariantes"] #birthdayList > div {
+  border-color: rgba(226,232,240,.72) !important;
+  background: linear-gradient(145deg,#fff,#f8fafc) !important;
+  box-shadow: 0 10px 24px -22px rgba(15,23,42,.65);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+body[data-page="aniversariantes"] #todayList > div:hover,
+body[data-page="aniversariantes"] #birthdayList > div:hover {
+  border-color: rgba(230,57,70,.2) !important;
+  box-shadow: 0 16px 28px -22px rgba(190,18,60,.4);
+  transform: translateY(-1px);
+}
+
+body[data-page="aniversariantes"] .birthday-wish-composer {
+  padding: 1rem;
+  border: 1px solid rgba(230,57,70,.1);
+  border-radius: 1.25rem;
+  background: linear-gradient(145deg,rgba(255,241,242,.6),rgba(255,255,255,.9));
+}
+
+body[data-page="aniversariantes"] #todayEmojiPicker button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(226,232,240,.82);
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 8px 18px -15px rgba(15,23,42,.65);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+body[data-page="aniversariantes"] #todayEmojiPicker button:hover {
+  border-color: rgba(230,57,70,.3);
+  box-shadow: 0 12px 22px -15px rgba(190,18,60,.55);
+  transform: translateY(-2px) scale(1.04);
+}
+
+body[data-page="aniversariantes"] #todayEmojiPicker button.is-selected,
+body[data-page="aniversariantes"] #todayEmojiPicker button[aria-pressed="true"] {
+  border-color: #e63946;
+  background: #fff1f2;
+  box-shadow: 0 0 0 4px rgba(230,57,70,.1);
+}
+
+body[data-page="aniversariantes"] #todayMessage {
+  min-height: 104px;
+  resize: vertical;
+  border-radius: 1rem;
+  background: rgba(255,255,255,.92);
+}
+
+body[data-page="aniversariantes"] #sendCongratsBtn {
+  min-width: 170px;
+  justify-content: center;
+}
+
+body[data-page="aniversariantes"] #birthdayList {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(230,57,70,.24) transparent;
+}
+
+@media (max-width: 767px) {
+  body[data-page="aniversariantes"] .birthday-dashboard {
+    padding-inline: 0.85rem !important;
+  }
+
+  body[data-page="aniversariantes"] .birthday-hero::before,
+  body[data-page="aniversariantes"] .birthday-hero::after {
+    display: none;
+  }
+
+  body[data-page="aniversariantes"] .birthday-today-card,
+  body[data-page="aniversariantes"] .birthday-month-card {
+    min-height: 0;
+  }
+
+  body[data-page="aniversariantes"] #sendCongratsBtn {
+    width: 100%;
+  }
+}

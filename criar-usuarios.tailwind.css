@@ -1,2 +1,301 @@
 @import url("./superpop-theme.tailwind.css");
-body[data-page="criar-usuarios"] .form-card { background: linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,247,248,.9)) !important; }
+
+body[data-page="criar-usuarios"] main {
+  padding-top: 1.25rem;
+  padding-bottom: 3rem;
+}
+
+body[data-page="criar-usuarios"] .create-user-shell {
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: 1rem !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+}
+
+body[data-page="criar-usuarios"] .form-card {
+  gap: 1.5rem;
+  border-radius: 1.6rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at 100% 0, rgba(255,183,3,.08), transparent 18rem),
+    linear-gradient(145deg,rgba(255,255,255,.98),rgba(255,247,248,.92)) !important;
+}
+
+body[data-page="criar-usuarios"] .form-card > .space-y-3 {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.72);
+}
+
+body[data-page="criar-usuarios"] .form-group {
+  display: block;
+  min-width: 0;
+}
+
+body[data-page="criar-usuarios"] .form-group > span {
+  display: block;
+  margin: 0 0 0.45rem 0.2rem;
+}
+
+body[data-page="criar-usuarios"] .form-card input:not([type="checkbox"]) {
+  min-height: 50px;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.95rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+body[data-page="criar-usuarios"] .create-birthday-card {
+  padding: 1rem;
+  border-color: rgba(245, 158, 11, 0.25) !important;
+  background:
+    radial-gradient(circle at 0 0, rgba(255, 183, 3, 0.12), transparent 13rem),
+    rgba(255, 251, 235, 0.72) !important;
+}
+
+body[data-page="criar-usuarios"] .create-birthday-toggle {
+  min-height: 86px;
+  align-self: end;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 12px 26px -22px rgba(146, 64, 14, 0.45);
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+body[data-page="criar-usuarios"] .create-birthday-toggle:hover {
+  border-color: rgba(230, 57, 70, 0.2) !important;
+  background: #fff !important;
+  transform: translateY(-1px);
+}
+
+body[data-page="criar-usuarios"] .form-card .create-birthday-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 46px !important;
+  height: 26px !important;
+  min-width: 46px;
+  max-width: 46px;
+  min-height: 26px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  flex: 0 0 46px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #e2e8f0;
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+body[data-page="criar-usuarios"] .form-card .create-birthday-checkbox::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.22);
+  transition: transform 180ms cubic-bezier(.2,.8,.2,1);
+}
+
+body[data-page="criar-usuarios"] .form-card .create-birthday-checkbox:checked {
+  border-color: #e63946;
+  background: linear-gradient(135deg, #ef4453, #d9273a);
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+}
+
+body[data-page="criar-usuarios"] .form-card .create-birthday-checkbox:checked::after {
+  transform: translateX(20px);
+}
+
+body[data-page="criar-usuarios"] .create-birthday-toggle-copy {
+  min-width: 0;
+  flex: 1;
+  color: #172033;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+body[data-page="criar-usuarios"] .create-birthday-toggle-copy strong {
+  color: #172033;
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+body[data-page="criar-usuarios"] .create-birthday-toggle-copy small {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+body[data-page="criar-usuarios"] #submitBtn {
+  min-width: 138px;
+  justify-content: center;
+}
+
+body[data-page="criar-usuarios"] #formError,
+body[data-page="criar-usuarios"] #formSuccess {
+  border-radius: 1rem;
+}
+
+.account-created-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(15,23,42,.68);
+  backdrop-filter: blur(10px);
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.account-created-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.account-created-card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 450px);
+  padding: 2rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0, rgba(255,183,3,.18), transparent 15rem),
+    rgba(255,255,255,.98);
+  box-shadow: 0 40px 95px -32px rgba(15,23,42,.78);
+  transform: translateY(24px) scale(.92);
+}
+
+.account-created-modal.is-open .account-created-card {
+  animation: account-card-in 620ms cubic-bezier(.2,1.25,.35,1) forwards;
+}
+
+.account-created-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg,#ffb703,#e63946);
+  box-shadow: 0 22px 38px -20px rgba(230,57,70,.9);
+}
+
+.account-created-icon svg {
+  width: 46px;
+  height: 46px;
+}
+
+.account-created-kicker {
+  margin-bottom: .45rem;
+  color: #e63946;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.account-created-card h2 {
+  color: #172033;
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(1.75rem,6vw,2.35rem);
+  line-height: 1.08;
+}
+
+.account-created-card > p:not(.account-created-kicker) {
+  margin: .85rem auto 0;
+  color: #64748b;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.account-created-user {
+  margin-top: 1.2rem;
+  padding: .85rem 1rem;
+  border: 1px solid rgba(230,57,70,.12);
+  border-radius: 1rem;
+  color: #be123c;
+  background: #fff1f2;
+  font-weight: 900;
+}
+
+.account-created-close {
+  width: 100%;
+  margin-top: 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border: 0;
+  border-radius: .95rem;
+  padding: .9rem 1rem;
+  color: #fff;
+  background: linear-gradient(135deg,#ef4453,#d9273a);
+  box-shadow: 0 16px 30px -18px rgba(190,18,60,.9);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.account-created-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.account-confetti-piece {
+  position: absolute;
+  top: -12%;
+  width: 10px;
+  height: 18px;
+  border-radius: 3px;
+  opacity: 0;
+  animation: account-confetti-fall var(--duration) cubic-bezier(.2,.7,.3,1) var(--delay) forwards;
+}
+
+@keyframes account-card-in {
+  0% { opacity: 0; transform: translateY(24px) scale(.92); }
+  65% { opacity: 1; transform: translateY(-5px) scale(1.025); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes account-confetti-fall {
+  0% { opacity: 0; transform: translate3d(0,-10vh,0) rotate(0); }
+  12% { opacity: 1; }
+  100% { opacity: .95; transform: translate3d(var(--drift),112vh,0) rotate(var(--rotation)); }
+}
+
+@media (max-width: 767px) {
+  body[data-page="criar-usuarios"] .create-user-shell {
+    padding: 0.55rem !important;
+  }
+
+  body[data-page="criar-usuarios"] .form-card {
+    padding: 1.1rem;
+  }
+
+  body[data-page="criar-usuarios"] .create-birthday-toggle {
+    min-height: 74px;
+  }
+
+  body[data-page="criar-usuarios"] #submitBtn {
+    width: 100%;
+  }
+}

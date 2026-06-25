@@ -96,8 +96,19 @@
   }
 
   body[data-page] .sidebar-nav {
+    padding-bottom: 1.25rem;
     scrollbar-width: thin;
     scrollbar-color: rgba(230, 57, 70, 0.25) transparent;
+  }
+
+  body[data-page] #analyticsSection {
+    margin-top: 0.75rem;
+    padding-top: 1rem;
+    border-top-color: rgba(226, 232, 240, 0.72) !important;
+  }
+
+  body[data-page] #analyticsSection > .sidebar-content-fade:first-child {
+    margin-bottom: 0.55rem;
   }
 
   body[data-page] .menu-section-title {
@@ -317,18 +328,35 @@
   body[data-page] .auth-top-actions .auth-user-btn,
   body[data-page] .auth-top-actions .notifications-btn {
     border-color: rgba(255, 255, 255, 0.9) !important;
-    background: rgba(255, 255, 255, 0.86) !important;
-    box-shadow: 0 18px 38px -22px rgba(15, 23, 42, 0.55) !important;
+    background: linear-gradient(145deg, rgba(255,255,255,.97), rgba(255,247,248,.92)) !important;
+    box-shadow:
+      0 14px 32px -22px rgba(15, 23, 42, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(18px) saturate(150%);
+  }
+
+  body[data-page] .auth-user-avatar,
+  body[data-page] .auth-user-avatar img {
+    aspect-ratio: 1 / 1;
+  }
+
+  body[data-page] .auth-user-avatar img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
   body[data-page] .online-users-dropdown,
   body[data-page] .notifications-dropdown,
   body[data-page] .auth-user-dropdown {
     border-color: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 20px !important;
-    background: rgba(255, 255, 255, 0.94) !important;
-    box-shadow: 0 28px 70px -30px rgba(15, 23, 42, 0.55) !important;
+    border-radius: 22px !important;
+    background:
+      radial-gradient(circle at 100% 0, rgba(255,183,3,.09), transparent 11rem),
+      rgba(255,255,255,.96) !important;
+    box-shadow:
+      0 28px 70px -30px rgba(15, 23, 42, 0.52),
+      0 12px 30px -22px rgba(230, 57, 70, 0.3) !important;
     backdrop-filter: blur(22px);
   }
 

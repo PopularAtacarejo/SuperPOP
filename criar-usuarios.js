@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitBtnLabel = document.getElementById("submitBtnLabel");
   const errorBox = document.getElementById("formError");
   const successBox = document.getElementById("formSuccess");
+  const accountCreatedModal = document.getElementById("accountCreatedModal");
+  const accountCreatedCloseBtn = document.getElementById("accountCreatedCloseBtn");
+  const accountCreatedUser = document.getElementById("accountCreatedUser");
+  const accountCreatedConfetti = document.getElementById("accountCreatedConfetti");
 
   if (!form || !nomeInput || !telefoneInput || !submitBtn || !submitBtnLabel || !errorBox || !successBox) {
     return;
@@ -59,6 +63,45 @@ document.addEventListener("DOMContentLoaded", function () {
     errorBox.classList.add("hidden");
     successBox.textContent = message;
     successBox.classList.remove("hidden");
+  }
+
+  function buildAccountConfetti() {
+    if (!accountCreatedConfetti) return;
+    accountCreatedConfetti.innerHTML = "";
+    const colors = ["#e63946", "#ffb703", "#ffffff", "#fb7185", "#facc15"];
+    for (let index = 0; index < 52; index += 1) {
+      const piece = document.createElement("span");
+      piece.className = "account-confetti-piece";
+      piece.style.left = Math.floor(Math.random() * 100) + "%";
+      piece.style.backgroundColor = colors[index % colors.length];
+      piece.style.setProperty("--duration", (2.1 + Math.random() * 1.8).toFixed(2) + "s");
+      piece.style.setProperty("--delay", (Math.random() * 0.5).toFixed(2) + "s");
+      piece.style.setProperty("--drift", (Math.random() * 180 - 90).toFixed(0) + "px");
+      piece.style.setProperty("--rotation", (Math.random() * 900 - 450).toFixed(0) + "deg");
+      accountCreatedConfetti.appendChild(piece);
+    }
+  }
+
+  function showAccountCreated(userName) {
+    if (!accountCreatedModal) return;
+    if (accountCreatedUser) {
+      accountCreatedUser.textContent = String(userName || "Novo colaborador");
+    }
+    buildAccountConfetti();
+    accountCreatedModal.classList.add("is-open");
+    accountCreatedModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    window.setTimeout(function () {
+      if (accountCreatedCloseBtn) accountCreatedCloseBtn.focus();
+    }, 250);
+  }
+
+  function closeAccountCreated() {
+    if (!accountCreatedModal) return;
+    accountCreatedModal.classList.remove("is-open");
+    accountCreatedModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    nomeInput.focus();
   }
 
   function todayIso() {
@@ -169,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error(payload.error || "Não foi possível criar o usuário.");
       }
 
+      const createdUserName = nome;
       form.reset();
       const synced = payload.github_sync && payload.github_sync.synced;
       let successMessage = "Usuário criado com sucesso e sincronizado.";
@@ -179,10 +223,25 @@ document.addEventListener("DOMContentLoaded", function () {
           : "Usuário registrado localmente, mas a sincronização com o GitHub não foi concluída.";
       }
       showSuccess(successMessage);
+      showAccountCreated(createdUserName);
     } catch (err) {
       showError(String((err && err.message) || "Erro inesperado ao criar o usuário."));
     } finally {
       setLoading(false);
+    }
+  });
+
+  if (accountCreatedCloseBtn) {
+    accountCreatedCloseBtn.addEventListener("click", closeAccountCreated);
+  }
+  if (accountCreatedModal) {
+    accountCreatedModal.addEventListener("click", function (event) {
+      if (event.target === accountCreatedModal) closeAccountCreated();
+    });
+  }
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && accountCreatedModal && accountCreatedModal.classList.contains("is-open")) {
+      closeAccountCreated();
     }
   });
 });

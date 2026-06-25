@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const manageUsersNavItem = document.getElementById("manageUsersNavItem");
   const editUsersNavItem = document.getElementById("editUsersNavItem");
   const updatesEditorNavItem = document.getElementById("updatesEditorNavItem");
-  const analyticsSection = document.getElementById("analyticsSection");
+  let analyticsSection = document.getElementById("analyticsSection");
   const sidebarNav = document.querySelector(".sidebar-nav");
   const authUserAvatar = document.querySelector(".auth-user-avatar");
   const authUserAvatarImage = document.getElementById("authUserAvatarImage");
@@ -107,7 +107,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const existing = document.getElementById("createUsersNavItem");
     if (existing) {
+      const managementSection = ensureManagementSection();
+      if (managementSection && existing.parentElement !== managementSection) {
+        managementSection.appendChild(existing);
+      }
       return existing;
+    }
+    const managementSection = ensureManagementSection();
+    if (!managementSection) {
+      return null;
     }
     const anchor = document.createElement("a");
     anchor.id = "createUsersNavItem";
@@ -117,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
     anchor.innerHTML =
       '<span class="material-symbols-outlined shrink-0">person_add</span>' +
       '<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Criar usuários</span>';
-    sidebarNav.appendChild(anchor);
+    managementSection.appendChild(anchor);
     return anchor;
   }
 
@@ -157,19 +165,100 @@ document.addEventListener("DOMContentLoaded", function () {
     return anchor;
   }
 
+  function ensureManagementSection() {
+    if (!sidebarNav) return null;
+    let section = document.getElementById("analyticsSection")
+      || document.getElementById("pagePermissionsSection");
+    if (!section) {
+      const existingManagementLink = sidebarNav.querySelector(
+        'a[href="analise.html"],a[href="usuarios.html"],a[href="editar-usuarios.html"],a[href="criar-usuarios.html"],a[href="atualizacoes-editor.html"],a[href="permissoes-paginas.html"]'
+      );
+      if (existingManagementLink) {
+        section = existingManagementLink.closest(".space-y-1");
+      }
+    }
+    if (!section) {
+      section = document.createElement("div");
+      section.id = "analyticsSection";
+      section.className = "space-y-1 pt-2 border-t border-slate-100 hidden";
+      section.innerHTML =
+        '<div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>';
+      sidebarNav.appendChild(section);
+    } else if (section.id !== "analyticsSection") {
+      section.id = "analyticsSection";
+    }
+    Array.from(sidebarNav.children).forEach(function (candidate) {
+      if (
+        candidate !== section &&
+        candidate.classList &&
+        candidate.classList.contains("space-y-1") &&
+        candidate.querySelector('a[href="analise.html"],a[href="usuarios.html"],a[href="editar-usuarios.html"],a[href="criar-usuarios.html"],a[href="atualizacoes-editor.html"],a[href="permissoes-paginas.html"]')
+      ) {
+        candidate.querySelectorAll("a.menu-item").forEach(function (anchor) {
+          section.appendChild(anchor);
+        });
+        candidate.remove();
+      }
+    });
+    analyticsSection = section;
+    return section;
+  }
+
+  const MANAGEMENT_NAV_ITEMS = [
+    { id: "analyticsNavItem", href: "analise.html", icon: "monitoring", label: "Análise de Dados" },
+    { id: "manageUsersNavItem", href: "usuarios.html", icon: "groups", label: "Usuários cadastrados" },
+    { id: "editUsersNavItem", href: "editar-usuarios.html", icon: "edit_square", label: "Editar usuários" },
+    { id: "createUsersNavItem", href: "criar-usuarios.html", icon: "person_add", label: "Criar usuários" },
+    { id: "updatesEditorNavItem", href: "atualizacoes-editor.html", icon: "edit_note", label: "Gerenciar atualizações" },
+    { id: "pagePermissionsNavItem", href: "permissoes-paginas.html", icon: "admin_panel_settings", label: "Permissões" }
+  ];
+
+  function ensureManagementNavItems() {
+    const section = ensureManagementSection();
+    if (!section) return [];
+    const currentPath = String(window.location.pathname || "").replace(/^\/+/, "").toLowerCase();
+    const items = [];
+    MANAGEMENT_NAV_ITEMS.forEach(function (spec) {
+      let anchor = document.getElementById(spec.id)
+        || sidebarNav.querySelector('a[href="' + spec.href + '"]');
+      if (!anchor) {
+        anchor = document.createElement("a");
+        anchor.id = spec.id;
+        anchor.className = "menu-item group hidden";
+        anchor.href = spec.href;
+        anchor.title = spec.label;
+        anchor.innerHTML =
+          '<span class="material-symbols-outlined shrink-0">' + spec.icon + '</span>' +
+          '<span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">' + spec.label + '</span>';
+      }
+      anchor.id = spec.id;
+      anchor.classList.add("menu-item", "group");
+      if (anchor.parentElement !== section) {
+        section.appendChild(anchor);
+      } else {
+        section.appendChild(anchor);
+      }
+      anchor.classList.toggle(
+        "active",
+        currentPath === spec.href || currentPath === spec.href.replace(/\.html$/, "")
+      );
+      items.push(anchor);
+    });
+    return items;
+  }
+
   function ensurePagePermissionsNavItem() {
     if (!sidebarNav) return null;
     const existing = document.getElementById("pagePermissionsNavItem");
-    if (existing) return existing;
-    let managementSection = document.getElementById("analyticsSection");
-    if (!managementSection) {
-      managementSection = document.createElement("div");
-      managementSection.id = "pagePermissionsSection";
-      managementSection.className = "space-y-1 pt-2 border-t border-slate-100";
-      managementSection.innerHTML =
-        '<div class="px-3 mb-2 sidebar-content-fade"><span class="menu-section-title">Gestão</span></div>';
-      sidebarNav.appendChild(managementSection);
+    if (existing) {
+      const managementSection = ensureManagementSection();
+      if (managementSection && existing.parentElement !== managementSection) {
+        managementSection.appendChild(existing);
+      }
+      return existing;
     }
+    const managementSection = ensureManagementSection();
+    if (!managementSection) return null;
     const anchor = document.createElement("a");
     anchor.id = "pagePermissionsNavItem";
     anchor.className = "menu-item group hidden";
@@ -218,6 +307,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function syncActiveSidebarItem() {
+    if (!sidebarNav) return;
+    const currentPath = String(window.location.pathname || "")
+      .replace(/^\/+/, "")
+      .toLowerCase();
+    const normalizedCurrent = currentPath || "superpop.html";
+    sidebarNav.querySelectorAll("a.menu-item[href]").forEach(function (anchor) {
+      const href = String(anchor.getAttribute("href") || "")
+        .split("?")[0]
+        .replace(/^.*\//, "")
+        .toLowerCase();
+      const hrefWithoutExtension = href.replace(/\.html$/, "");
+      const currentWithoutExtension = normalizedCurrent.replace(/\.html$/, "");
+      anchor.classList.toggle(
+        "active",
+        Boolean(href) && (href === normalizedCurrent || hrefWithoutExtension === currentWithoutExtension)
+      );
+    });
+  }
+
   const PAGE_KEY_BY_PATH = {
     "superpop.html": "superpop",
     "meus-superpops.html": "meus_superpops",
@@ -244,19 +353,22 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!pageKey) return;
       anchor.classList.toggle("hidden", pageAccess[pageKey] !== true);
     });
-    if (analyticsSection) {
-      const visibleManagementItems = Array.from(analyticsSection.querySelectorAll("a.menu-item"))
+    const managementSection = ensureManagementSection();
+    if (managementSection) {
+      const visibleManagementItems = Array.from(managementSection.querySelectorAll("a.menu-item"))
         .some(function (anchor) { return !anchor.classList.contains("hidden"); });
-      analyticsSection.classList.toggle("hidden", !visibleManagementItems);
+      managementSection.classList.toggle("hidden", !visibleManagementItems);
     }
   }
 
   ensureNotificationsMenu();
   enhanceAuthUserDropdown();
   ensureAvatarViewer();
+  ensureManagementNavItems();
   ensureCreateUsersNavItem();
   ensureDynamicsNavItem();
   ensurePagePermissionsNavItem();
+  syncActiveSidebarItem();
   enhanceSidebarIcons();
 
   const notificationBtn = document.getElementById("notificationBtn");
@@ -641,6 +753,25 @@ document.addEventListener("DOMContentLoaded", function () {
     return avatarNode;
   }
 
+  function buildOnlineRoleIcon(roleKind) {
+    const wrapper = document.createElement("span");
+    wrapper.className = "online-user-role-tag-icon";
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("class", "online-role-svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "1.8");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    svg.innerHTML = roleKind === "developer"
+      ? '<path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 5-4 14"/><circle cx="12" cy="12" r="10"/>'
+      : '<path d="M12 3 4.5 6v5.2c0 4.6 3.1 8 7.5 9.8 4.4-1.8 7.5-5.2 7.5-9.8V6L12 3Z"/><path d="m9.4 12 1.7 1.7 3.8-4"/>';
+    wrapper.appendChild(svg);
+    return wrapper;
+  }
+
   function renderOnlineUsers(users) {
     if (!onlineUsersList || !onlineUsersCount) return;
     onlineUsersList.innerHTML = "";
@@ -685,10 +816,10 @@ document.addEventListener("DOMContentLoaded", function () {
         roleLabel.indexOf("dev") >= 0 ||
         roleLabel.indexOf("desenvolvedor") >= 0
       );
-      if (isAdmin) {
-        row.classList.add("admin");
-      } else if (isDeveloper) {
+      if (isDeveloper) {
         row.classList.add("developer");
+      } else if (isAdmin) {
+        row.classList.add("admin");
       }
       row.appendChild(buildOnlineAvatarNode(user.foto_perfil_data_url, userName));
 
@@ -701,12 +832,10 @@ document.addEventListener("DOMContentLoaded", function () {
       meta.appendChild(title);
       if (isAdmin || isDeveloper) {
         const tag = document.createElement("span");
-        tag.className = "online-user-role-tag " + (isAdmin ? "admin" : "developer");
-        const icon = document.createElement("span");
-        icon.className = "online-user-role-tag-icon material-symbols-outlined";
-        icon.textContent = isAdmin ? "emoji_events" : "engineering";
-        tag.appendChild(icon);
-        tag.appendChild(document.createTextNode(isAdmin ? "Administrador" : "Desenvolvedor"));
+        const roleKind = isDeveloper ? "developer" : "admin";
+        tag.className = "online-user-role-tag " + roleKind;
+        tag.appendChild(buildOnlineRoleIcon(roleKind));
+        tag.appendChild(document.createTextNode(roleKind === "developer" ? "Desenvolvedor" : "Administrador"));
         meta.appendChild(tag);
       }
       meta.appendChild(subtitle);
