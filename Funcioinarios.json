@@ -388,15 +388,15 @@
   {
     "id": "a68adc741547418e8142169247c6f540",
     "nome": "Eduarda beatriz ferreira dos santos",
-    "funcao": "Assistente",
+    "funcao": "Assistente de Marketing",
     "numero_celular": "(82) 9 8168 - 4746",
     "numero_normalizado": "82981684746",
     "email": "eduardasillva1209@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "757516e0910066352f6c7122727cf51f",
-      "hash": "15cfc5c00480b184ea9ef8486b7e6ca99b28addc3d6cf3e67d91a87d8de5daa1",
+      "salt": "b6296c0d0b10598e25804adbc444260e",
+      "hash": "6c105b28232ab0583b80bba23e3507a27cb9976c00a01cfb9664bb106581a075",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
