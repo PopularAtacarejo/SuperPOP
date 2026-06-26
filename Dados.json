@@ -12146,5 +12146,46 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "ceb4fb921be743fe91343018a0f4ab5b",
+    "card_id": "b188e2ab91",
+    "dia": "26/06/2026",
+    "horario": "07:12:47",
+    "data_hora_iso": "2026-06-26T07:12:47.761119-03:00",
+    "destinatario": {
+      "nome": "Janielly Nayara",
+      "numero": "5582996031624",
+      "numero_normalizado": "+5582996031624",
+      "funcao": "Vendedor"
+    },
+    "remetente": {
+      "nome": "Israel Ribeiro",
+      "numero": "5582981189669",
+      "numero_normalizado": "+5582981189669",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia"
+    ],
+    "mensagem": "Você é um ótimo vendedora",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582996031624",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b188e2ab91.png",
+      "uploaded_image_url": "https://i.ibb.co/mr83hTvn/card-b188e2ab91.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b188e2ab91.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/b188e2ab91?token=25a1e6f030700debc883ac85de17ee422f2d1de2632cdbbd0e8af004c567ac5e",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
