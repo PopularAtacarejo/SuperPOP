@@ -32,6 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
   let games = [];
   let isDeveloper = false;
   let editingGameId = "";
+  let sentPredictionsView = "list";
+
+  try {
+    sentPredictionsView = localStorage.getItem("superpop_sent_predictions_view") === "cards" ? "cards" : "list";
+  } catch (error) {
+    sentPredictionsView = "list";
+  }
 
   function escapeHtml(value) {
     return String(value == null ? "" : value)
@@ -66,6 +73,40 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("<br>");
   }
 
+  function updateSentViewButtons() {
+    document.querySelectorAll("[data-sent-view]").forEach(function (button) {
+      const active = button.dataset.sentView === sentPredictionsView;
+      button.classList.toggle("bg-slate-900", active);
+      button.classList.toggle("text-white", active);
+      button.classList.toggle("shadow-sm", active);
+      button.classList.toggle("text-slate-500", !active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+
+  function setupSentViewControls() {
+    if (!sentPredictionsList || document.getElementById("sentPredictionsViewControls")) return;
+    sentPredictionsList.insertAdjacentHTML("beforebegin",
+      '<div class="mt-4 flex justify-end" id="sentPredictionsViewControls">' +
+        '<div class="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm" aria-label="Modo de visualizacao dos palpites">' +
+          '<button class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-extrabold text-slate-500" data-sent-view="list" type="button"><span class="material-symbols-outlined text-base">view_list</span>Lista</button>' +
+          '<button class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-extrabold text-slate-500" data-sent-view="cards" type="button"><span class="material-symbols-outlined text-base">grid_view</span>Cards</button>' +
+        '</div>' +
+      '</div>'
+    );
+    document.querySelectorAll("[data-sent-view]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        sentPredictionsView = button.dataset.sentView === "cards" ? "cards" : "list";
+        try {
+          localStorage.setItem("superpop_sent_predictions_view", sentPredictionsView);
+        } catch (error) {}
+        updateSentViewButtons();
+        renderSentPredictions();
+      });
+    });
+    updateSentViewButtons();
+  }
+
   async function api(path, options) {
     const response = await fetch(apiBase + path, Object.assign({
       cache: "no-store",
@@ -74,8 +115,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }, options || {}));
     const payload = await response.json().catch(function () { return {}; });
     if (!response.ok || !payload.ok) {
+      if (response.status === 401 || payload.error === "Nao autenticado.") {
+        window.location.href = "login.html";
+        return;
+      }
       throw new Error(String(payload.error || "Não foi possível concluir a solicitação."));
     }
+
+    // Log GitHub sync failures for debugging
+    if (payload.github_sync && payload.github_sync.synced === false) {
+      console.error("Falha ao sincronizar com o GitHub:", payload.github_sync.reason);
+    }
+    
     return payload;
   }
 
@@ -180,6 +231,14 @@ document.addEventListener("DOMContentLoaded", function () {
       '<div class="mt-3 space-y-2">' +
       predictions.map(function (item) {
         const selected = Boolean(item.ganhador_selecionado);
+        const predictionId = String(item.id || "").trim();
+        const deletePredictionId = predictionId || "legacy";
+        const deleteQuery = predictionId ? "" : (
+          "?usuario_id=" + encodeURIComponent(item.usuario_id || "") +
+          "&enviado_em_iso=" + encodeURIComponent(item.enviado_em_iso || "") +
+          "&gols_casa=" + encodeURIComponent(item.gols_casa == null ? "" : item.gols_casa) +
+          "&gols_visitante=" + encodeURIComponent(item.gols_visitante == null ? "" : item.gols_visitante)
+        );
         const roleText = item.usuario_funcao ? '<span class="ml-1 text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
         const selectedClass = selected
           ? "border-2 border-yellow-400 bg-yellow-50 ring-4 ring-yellow-100 shadow-sm"
@@ -193,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
           ? '<span class="rounded-lg bg-yellow-200 px-3 py-2 text-xs font-extrabold text-yellow-900">Ganhador</span>'
           : '<button class="rounded-lg bg-yellow-100 px-3 py-2 text-xs font-bold text-yellow-800 hover:bg-yellow-200" data-select-winner type="button">Marcar ganhador</button>';
         return '<form class="developer-prediction-form flex flex-wrap items-center gap-2 rounded-xl p-3 ' + selectedClass + '" data-game-id="' +
-          escapeHtml(game.id) + '" data-prediction-id="' + escapeHtml(item.id) + '">' +
+          escapeHtml(game.id) + '" data-prediction-id="' + escapeHtml(deletePredictionId) + '" data-delete-query="' + escapeHtml(deleteQuery) + '">' +
           crownSvg +
           userAvatarHtml(item, "h-10 w-10") +
           '<strong class="mr-auto min-w-[140px] text-sm">' + escapeHtml(item.usuario_nome || "Usuário") + roleText + '</strong>' +
@@ -273,7 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '</div>'
       : "";
     const predictionHint = alreadySent
-      ? "Seu palpite é definitivo. Você não pode alterá-lo ou excluí-lo."
+      ? ""
       : Number(game.total_palpites || 0) + " palpite(s) enviado(s)";
 
     return '<article class="match-card rounded-3xl border border-slate-100 p-5 shadow-soft">' +
@@ -322,15 +381,21 @@ document.addEventListener("DOMContentLoaded", function () {
       return Date.parse(right.prediction.enviado_em_iso || "") - Date.parse(left.prediction.enviado_em_iso || "");
     });
     if (!rows.length) {
+      sentPredictionsList.className = "mt-4";
       sentPredictionsList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center font-semibold text-slate-500">Nenhum palpite enviado.</div>';
       return;
     }
+    sentPredictionsList.className = sentPredictionsView === "cards"
+      ? "mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+      : "mt-4 space-y-4";
     sentPredictionsList.innerHTML = rows.map(function (row) {
       const game = row.game;
       const item = row.prediction;
       const userRole = item.usuario_funcao || item.funcao || "";
       const photoHtml = userAvatarHtml(item, "h-12 w-12");
+      const cardPhotoHtml = userAvatarHtml(item, "h-10 w-10");
       const roleHtml = userRole ? ' <span class="text-xs font-normal text-slate-400 block sm:inline">(' + escapeHtml(userRole) + ')</span>' : '';
+      const cardRoleHtml = userRole ? '<span class="truncate text-xs font-bold text-slate-400">' + escapeHtml(userRole) + '</span>' : '';
 
       const isMyPrediction = game.meu_palpite && item.id === game.meu_palpite.id;
       const canSeePrediction = isDeveloper || isMyPrediction || (!game.palpite_aberto && game.status_palpites !== "aguardando");
@@ -346,6 +411,19 @@ document.addEventListener("DOMContentLoaded", function () {
       const articleClass = selectedWinner
         ? "rounded-2xl border-2 border-yellow-400 bg-yellow-50 p-4 shadow-soft ring-4 ring-yellow-100"
         : "rounded-2xl border border-slate-100 bg-white p-4 shadow-soft";
+
+      if (sentPredictionsView === "cards") {
+        return '<article class="' + articleClass + ' flex h-full flex-col gap-4">' +
+          '<div class="flex items-start justify-between gap-3">' +
+          '<div class="min-w-0"><p class="text-xs font-bold uppercase tracking-widest text-primary">' + escapeHtml(game.competicao || "Futebol do Brasil") + '</p>' +
+          '<h3 class="mt-2 flex items-center gap-2 text-base font-extrabold">' + winnerCrown + '<span class="truncate">' + escapeHtml(game.time_casa) + ' x ' + escapeHtml(game.time_visitante) + '</span></h3></div>' +
+          '<div class="rounded-xl bg-slate-50 px-3 py-2 text-xl font-extrabold text-slate-900">' + scoreHtml + '</div>' +
+          '</div>' +
+          '<div class="mt-auto flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">' + cardPhotoHtml +
+          '<div class="min-w-0"><p class="truncate text-sm font-bold text-slate-800">' + escapeHtml(item.usuario_nome || "Usuario") + '</p>' + cardRoleHtml + '</div></div>' +
+          '<div class="flex items-center gap-2 text-xs font-bold text-slate-500"><span class="material-symbols-outlined text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
+          '</article>';
+      }
 
       return '<article class="' + articleClass + '">' +
         '<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">' +
@@ -525,11 +603,15 @@ document.addEventListener("DOMContentLoaded", function () {
   gamesList.addEventListener("click", async function (event) {
     const selectWinnerButton = event.target.closest("[data-select-winner]");
     if (selectWinnerButton) {
+      event.preventDefault();
       const form = selectWinnerButton.closest(".developer-prediction-form");
       if (!form || !window.confirm("Marcar este palpite como ganhador?")) return;
       try {
         await api("/api/dinamicas-pop/jogos/" + encodeURIComponent(form.dataset.gameId) +
-          "/ganhador/" + encodeURIComponent(form.dataset.predictionId), { method: "PUT" });
+          "/ganhador/" + encodeURIComponent(form.dataset.predictionId), {
+            method: "PUT",
+            body: JSON.stringify({})
+          });
         await loadGames();
       } catch (error) {
         window.alert(error.message);
@@ -539,11 +621,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const deletePredictionButton = event.target.closest("[data-delete-prediction]");
     if (deletePredictionButton) {
+      event.preventDefault();
       const form = deletePredictionButton.closest(".developer-prediction-form");
       if (!form || !window.confirm("Excluir o palpite deste usuário?")) return;
       try {
         await api("/api/dinamicas-pop/jogos/" + encodeURIComponent(form.dataset.gameId) +
-          "/palpites/" + encodeURIComponent(form.dataset.predictionId), { method: "DELETE" });
+          "/palpites/" + encodeURIComponent(form.dataset.predictionId) + (form.dataset.deleteQuery || ""), {
+            method: "DELETE"
+          });
         await loadGames();
       } catch (error) {
         window.alert(error.message);
@@ -580,7 +665,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (deleteButton) {
       if (!window.confirm("Excluir este jogo e todos os palpites enviados?")) return;
       try {
-        await api("/api/dinamicas-pop/jogos/" + encodeURIComponent(deleteButton.dataset.deleteGame), { method: "DELETE" });
+        await api("/api/dinamicas-pop/jogos/" + encodeURIComponent(deleteButton.dataset.deleteGame), {
+          method: "DELETE"
+        });
         await loadGames();
       } catch (error) {
         window.alert(error.message);
@@ -616,5 +703,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+  setupSentViewControls();
   loadGames();
 });
