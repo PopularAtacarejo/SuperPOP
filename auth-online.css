@@ -963,43 +963,150 @@
 
 @media (max-width: 768px) {
   .auth-top-actions {
-    top: 10px;
-    right: 10px;
-    max-width: calc(100vw - 68px);
-    gap: 5px;
+    top: 12px;
+    right: max(8px, env(safe-area-inset-right));
+    left: 88px;
+    width: auto;
+    max-width: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
   }
 
   .online-users-btn,
   .notifications-btn {
+    position: relative;
+    width: 42px;
+    min-width: 42px;
+    height: 40px;
     min-height: 40px;
+    justify-content: center;
+    padding: 5px;
+    gap: 0;
+    overflow: visible;
   }
 
   .online-users-btn-text {
-    display: none;
+    display: none !important;
+  }
+
+  .online-users-btn > .material-symbols-outlined,
+  .notifications-btn > .material-symbols-outlined {
+    font-size: 20px;
+  }
+
+  .online-users-count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    font-size: 0.68rem;
+    line-height: 1;
   }
 
   .auth-user-btn {
     width: auto;
     min-width: 0;
-    max-width: 185px;
+    max-width: none;
+    height: 40px;
+    min-height: 40px;
+    padding: 4px 7px 4px 4px;
+    gap: 5px;
   }
 
   .auth-top-actions .auth-user-menu {
     width: auto;
-    max-width: 185px;
+    min-width: 0;
+    max-width: none;
+    flex: 1 1 auto;
   }
 
-  .auth-user-btn-text strong,
+  .auth-user-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+    flex-basis: 32px;
+    border-width: 2px;
+  }
+
+  .auth-user-btn-text {
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .auth-user-btn-text strong {
+    max-width: 100%;
+    font-size: 0.73rem;
+  }
+
   .auth-user-btn-text small {
-    max-width: 95px;
+    max-width: 100%;
+    font-size: 0.61rem;
   }
 
-  .online-users-dropdown {
+  .auth-user-btn > .material-symbols-outlined:last-child {
+    flex-basis: 18px;
+    width: 18px;
+    height: 18px;
+    font-size: 17px;
+    background: transparent;
+  }
+
+  .online-users-dropdown,
+  .notifications-dropdown,
+  .auth-user-dropdown {
     position: fixed;
     top: 62px;
-    right: 10px;
-    left: 10px;
+    right: max(10px, env(safe-area-inset-right));
+    left: max(10px, env(safe-area-inset-left));
     width: auto;
     max-height: calc(100vh - 76px);
+    overflow-y: auto;
+  }
+
+  .auth-user-dropdown {
+    max-width: none;
+  }
+
+  body[data-page] main,
+  body[data-page] .main-content {
+    padding-top: max(1rem, env(safe-area-inset-top)) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .auth-top-actions {
+    left: 78px;
+    gap: 3px;
+  }
+
+  .online-users-btn,
+  .notifications-btn {
+    width: 40px;
+    min-width: 40px;
+  }
+
+  .auth-user-avatar {
+    display: none !important;
+  }
+
+  .auth-user-btn {
+    padding-left: 8px;
+  }
+}
+
+@media (max-width: 340px) {
+  .auth-user-btn-text small {
+    display: none;
   }
 }
