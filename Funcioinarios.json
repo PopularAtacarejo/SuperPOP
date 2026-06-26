@@ -1006,5 +1006,25 @@
     "data_nascimento_iso": "2004-06-06",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "18ec570a205c4263895fe099888b4fd9",
+    "nome": "Eryk",
+    "funcao": "Operador de Caixa",
+    "numero_celular": "(82) 9 8155 - 7180",
+    "numero_normalizado": "82981557180",
+    "email": "erykzsantoz@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "23c20d61cd4cdf7f7c27e17a2715958c",
+      "hash": "2acaf44f9bc3d40d5ae80ca19a1de62f4edd2a5306e38263bfd521ebe9889cf3",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-26T17:17:43.695904-03:00",
+    "data_nascimento_iso": "2005-10-16",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
