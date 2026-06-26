@@ -946,5 +946,25 @@
     "data_nascimento_iso": "2008-01-10",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "ec755b79da2548dca19cb3fcbaa0872b",
+    "nome": "Sabrina Lima",
+    "funcao": "Balconista",
+    "numero_celular": "(82) 9 9943 - 9257",
+    "numero_normalizado": "82999439257",
+    "email": "ssabrinalima8@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "10d09d7c8172918b4131cf9c605d740c",
+      "hash": "35415b2ddcfd858357a24f8403da3c5c68432f353f1bcb8338d3cbbdae5bf6f6",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-26T16:18:10.605337-03:00",
+    "data_nascimento_iso": "",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
