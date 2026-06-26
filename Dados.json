@@ -11900,5 +11900,46 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "7643fdcce3f8415d82ad68e891fe7820",
+    "card_id": "6e715d4f42",
+    "dia": "26/06/2026",
+    "horario": "06:58:23",
+    "data_hora_iso": "2026-06-26T06:58:23.676323-03:00",
+    "destinatario": {
+      "nome": "Millena da Silva Santos",
+      "numero": "5582987549379",
+      "numero_normalizado": "+5582987549379",
+      "funcao": "Atendente de SAC"
+    },
+    "remetente": {
+      "nome": "Israel Ribeiro",
+      "numero": "5582981189669",
+      "numero_normalizado": "+5582981189669",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia"
+    ],
+    "mensagem": "Colaboradora top nota 10 /10",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582987549379",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-6e715d4f42.png",
+      "uploaded_image_url": "https://i.ibb.co/ksD0Hn9d/card-6e715d4f42.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-6e715d4f42.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/6e715d4f42?token=bec6c352fd8fd5830d33194bf49036fd81aea5717f570e2c8d0d1406b1adcc42",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
