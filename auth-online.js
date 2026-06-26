@@ -46,6 +46,21 @@ document.addEventListener("DOMContentLoaded", function () {
     (document.body && document.body.dataset && document.body.dataset.allowAnonymousAuth === "true")
   );
 
+  function removeLegacyFooterText() {
+    const legacyPattern = /Super\s*POP!?\s*Popular\s*Atacarejo\s*Todos\s*os\s*Direitos\s*Reservados\s*-\s*2026\s*V:?1\.0\.0/i;
+    const candidates = Array.prototype.slice.call(document.querySelectorAll("footer, p, div, span"));
+    candidates.forEach(function (node) {
+      const text = String(node.textContent || "").replace(/\s+/g, " ").trim();
+      if (!legacyPattern.test(text)) return;
+      const isOnlyLegacyText = legacyPattern.test(text) && text.length <= 120;
+      if (node.matches("footer") || isOnlyLegacyText) {
+        node.remove();
+      }
+    });
+  }
+
+  removeLegacyFooterText();
+
   if (!authUserBtn || !authUserDropdown || !authLogoutBtn) {
     return;
   }

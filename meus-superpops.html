@@ -541,15 +541,6 @@
 </article>
 </section>
 
-<footer class="pb-8">
-<p class="text-center text-xs font-bold uppercase tracking-widest text-gray-400">
-Atualizado em <span class="text-primary" id="lastUpdate">--/--/---- --:--</span>
-</p>
-<p class="text-center text-[11px] font-semibold text-gray-400 mt-1" id="sourceInfo"></p>
-<p class="text-center text-xs font-bold tracking-wide text-gray-400 mt-2">
-Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
-</p>
-</footer>
 </main>
 <footer class="superpop-footer" role="contentinfo">
   <div class="superpop-footer-inner">
@@ -931,9 +922,11 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         renderItems(sentListEl, payload.enviados, "Nenhum Super POP enviado neste mês.", "Enviado para", "sent");
         renderItems(receivedListEl, payload.recebidos, "Nenhum Super POP recebido neste mês.", "Recebido de", "received");
         const source = payload.fonte || {};
-        sourceInfoEl.textContent = source.tipo === "remoto"
-          ? "Fonte: remoto"
-          : "Fonte: local" + (source.erro_remoto ? " (fallback)" : "");
+        if (sourceInfoEl) {
+          sourceInfoEl.textContent = source.tipo === "remoto"
+            ? "Fonte: remoto"
+            : "Fonte: local" + (source.erro_remoto ? " (fallback)" : "");
+        }
       } catch (error) {
         const message = String(error && error.message ? error.message : "Erro ao carregar dados.");
         sentListEl.innerHTML = '<div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-bold text-red-700">' + escapeHtml(message) + "</div>";
@@ -946,7 +939,9 @@ Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0
         setLoading(false);
         setReactionButtonsDisabled(isSavingReaction);
         const now = new Date();
-        lastUpdateEl.textContent = now.toLocaleDateString("pt-BR") + " " + now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        if (lastUpdateEl) {
+          lastUpdateEl.textContent = now.toLocaleDateString("pt-BR") + " " + now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+        }
       }
     }
 
