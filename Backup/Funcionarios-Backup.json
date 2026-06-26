@@ -1026,5 +1026,25 @@
     "data_nascimento_iso": "2005-10-16",
     "mostrar_aniversario": false,
     "pre_cadastro": false
+  },
+  {
+    "id": "dfda8064ca304a03aa2b5f34d62e19b9",
+    "nome": "Arthur",
+    "funcao": "Estoquista",
+    "numero_celular": "(82) 9 9970 - 5711",
+    "numero_normalizado": "82999705711",
+    "email": "artur1234517@icloud.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "b3457494fa3623600a9e26160a86e9e2",
+      "hash": "c65ddcba454a74210f02893e0d4f040bbf48fe8b63d5ce9b71c1e619aee4f17b",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-26T20:42:06.747038-03:00",
+    "data_nascimento_iso": "2004-11-22",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
