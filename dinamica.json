@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "8538b26581024386a335d64a306db520",
+    "time_casa": "Brasil",
+    "time_visitante": "Japão",
+    "imagem_time_casa": "https://img.magnific.com/vetores-premium/logotipo-do-circulo-da-bandeira-do-brasil-icone-de-ilustracao-vetorial-de-computador_1143296-3214.jpg?semt=ais_hybrid&w=740&q=80",
+    "imagem_time_visitante": "https://static.vecteezy.com/system/resources/previews/003/077/212/non_2x/japanese-flag-of-japan-vector.jpg",
+    "competicao": "Palpite Premiado.",
+    "descricao_premio": "Um Chaveiro da Copa do Mundo e um Kit Popular",
+    "regras": "A participação será realizada pela plataforma do Super POP.\nCada colaborador poderá enviar apenas um palpite na plataforma.\nApenas um colaborador será o ganhador do Kit Popular e do Chaveiro da Copa do Mundo.\nCaso existam dois ou mais palpites iguais, o critério de desempate será o horário de envio. O palpite enviado primeiro terá prioridade.",
+    "data_jogo": "2026-06-29",
+    "horario_jogo": "14:00",
+    "inicio_iso": "2026-06-29T14:00:00-03:00",
+    "inicio_palpites_iso": "2026-06-27T23:59:00-03:00",
+    "fim_palpites_iso": "2026-06-29T13:00:00-03:00",
+    "created_at_iso": "2026-06-26T15:48:22.801540-03:00",
+    "criado_por": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    },
+    "palpites": []
+  }
+]
