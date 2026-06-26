@@ -10220,6 +10220,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/4abfb31172?token=4b8a6fa21b8d776b9554ab6ff1c4761940514cfa4e5b3eab2c89f6e239967ff6",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-06-26T17:19:44.512370-03:00",
+      "reactor": {
+        "id": "18ec570a205c4263895fe099888b4fd9",
+        "nome": "Eryk"
+      }
     }
   },
   {
