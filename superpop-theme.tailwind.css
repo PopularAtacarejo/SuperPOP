@@ -348,11 +348,12 @@
 
   body[data-page] .superpop-footer {
     margin-top: auto;
-    padding: 1.25rem 1.5rem 1.75rem;
-    color: #94a3b8;
+    padding: 1.5rem 1.5rem 1.75rem;
+    color: #64748b;
     text-align: center;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
+    letter-spacing: 0;
   }
 
   body[data-page] .superpop-footer-inner {
@@ -362,23 +363,47 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem 0.7rem;
-    border-top: 1px solid rgba(226, 232, 240, 0.75);
-    padding-top: 1rem;
+    gap: 0.4rem 0.75rem;
+    min-height: 3rem;
+    border: 1px solid rgba(226, 232, 240, 0.92);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.86));
+    box-shadow:
+      0 16px 40px -32px rgba(15, 23, 42, 0.58),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    padding: 0.8rem 1.1rem;
   }
 
   body[data-page] .superpop-footer a {
-    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    color: #334155;
+    background: rgba(241, 245, 249, 0.92);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    padding: 0.12rem 0.48rem;
     text-decoration: none;
-    transition: color 160ms ease;
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease;
   }
 
   body[data-page] .superpop-footer a:hover {
     color: var(--sp-primary-dark);
+    background: rgba(255, 241, 242, 0.95);
+    border-color: rgba(244, 63, 94, 0.22);
+    box-shadow: 0 8px 22px -18px rgba(230, 57, 70, 0.75);
   }
 
   body[data-page] .superpop-footer-separator {
-    color: #cbd5e1;
+    width: 1px;
+    height: 0.9rem;
+    overflow: hidden;
+    color: transparent;
+    background: rgba(203, 213, 225, 0.9);
   }
 
   body[data-page] .online-users-dropdown,
@@ -419,6 +444,21 @@
 
     body[data-page] h1 {
       font-size: clamp(2rem, 11vw, 3.25rem) !important;
+    }
+
+    body[data-page] .superpop-footer {
+      padding: 1.25rem 0.9rem 1.45rem;
+      font-size: 0.72rem;
+    }
+
+    body[data-page] .superpop-footer-inner {
+      border-radius: 16px;
+      gap: 0.42rem 0.55rem;
+      padding: 0.85rem 0.9rem;
+    }
+
+    body[data-page] .superpop-footer-separator {
+      display: none;
     }
   }
 
