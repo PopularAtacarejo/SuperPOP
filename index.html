@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -100,10 +100,6 @@ tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:"#E63946",secon
 </form>
 </section>
 </main>
-<footer class="py-4 text-center">
-<p class="text-xs font-bold tracking-wide text-gray-500">Super POP! Popular Atacarejo Todos os Direitos Reservados - 2026 V:1.0.0</p>
-<p class="text-[11px] font-semibold text-gray-400 mt-1">Desenvolvido por: Jeferson</p>
-</footer>
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 const query=new URLSearchParams(window.location.search),form=document.getElementById("loginForm"),forgotPasswordForm=document.getElementById("forgotPasswordForm"),resetPasswordForm=document.getElementById("resetPasswordForm"),phoneInput=document.getElementById("numeroCelular"),passwordInput=document.getElementById("senha"),recoveryEmailInput=document.getElementById("recoveryEmail"),resetNovaSenhaInput=document.getElementById("resetNovaSenha"),resetConfirmarSenhaInput=document.getElementById("resetConfirmarSenha"),rememberInput=document.getElementById("manterConectado"),toggleSenhaBtn=document.getElementById("toggleSenha"),toggleSenhaIcon=document.getElementById("toggleSenhaIcon"),forgotPasswordBtn=document.getElementById("forgotPasswordBtn"),backToLoginBtn=document.getElementById("backToLoginBtn"),cancelResetBtn=document.getElementById("cancelResetBtn"),statusErro=document.getElementById("statusErro"),statusSucesso=document.getElementById("statusSucesso"),submitBtn=document.getElementById("submitBtn"),submitBtnLabel=document.getElementById("submitBtnLabel"),forgotSubmitBtn=document.getElementById("forgotSubmitBtn"),forgotSubmitLabel=document.getElementById("forgotSubmitLabel"),resetSubmitBtn=document.getElementById("resetSubmitBtn"),resetSubmitLabel=document.getElementById("resetSubmitLabel"),PHONE_REGEX=/^\(\d{2}\)\s9\s\d{4}\s-\s\d{4}$/,EMAIL_REGEX=/^[^\s@]+@[^\s@]+\.[^\s@]+$/,apiBase=String(window.SUPERPOP_API_URL||"https://superpopbackend.onrender.com").replace(/\/+$/,""),frontendBase=String(window.SUPERPOP_FRONTEND_URL||"https://popularatacarejo.github.io/SuperPOP").replace(/\/+$/,""),resetToken=String(query.get("reset_token")||"").trim();
