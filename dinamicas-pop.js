@@ -18,7 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const predictionEndDateInput = document.getElementById("predictionEndDateInput");
   const predictionEndTimeInput = document.getElementById("predictionEndTimeInput");
   const competitionInput = document.getElementById("competitionInput");
+  const prizeDescriptionInput = document.getElementById("prizeDescriptionInput");
+  const rulesInput = document.getElementById("rulesInput");
   const sentPredictionsList = document.getElementById("sentPredictionsList");
+  const winnersHistoryList = document.getElementById("winnersHistoryList");
   const tabButtons = Array.from(document.querySelectorAll("[data-tab-button]"));
   const tabPanels = Array.from(document.querySelectorAll("[data-tab-panel]"));
   const predictionSuccessModal = document.getElementById("predictionSuccessModal");
@@ -37,6 +40,30 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  function initials(name) {
+    const parts = String(name || "Usuário").trim().split(/\s+/).filter(Boolean).slice(0, 2);
+    return parts.length ? parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("") : "US";
+  }
+
+  function userAvatarHtml(item, sizeClass) {
+    const photo = item && (item.usuario_foto || item.foto_perfil_data_url) || "";
+    const name = item && item.usuario_nome || "Usuário";
+    const size = sizeClass || "h-10 w-10";
+    if (photo) {
+      return '<img src="' + escapeHtml(photo) + '" alt="Foto de ' + escapeHtml(name) + '" class="' + size + ' shrink-0 rounded-full border-2 border-white object-cover shadow-sm ring-1 ring-slate-200" />';
+    }
+    return '<div class="' + size + ' flex shrink-0 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-red-100 to-amber-100 text-xs font-extrabold text-red-700 shadow-sm ring-1 ring-slate-200">' +
+      escapeHtml(initials(name)) + '</div>';
+  }
+
+  function multilineHtml(value) {
+    return String(value || "")
+      .split(/\n+/)
+      .map(function (line) { return escapeHtml(line.trim()); })
+      .filter(Boolean)
+      .join("<br>");
   }
 
   async function api(path, options) {
@@ -152,16 +179,83 @@ document.addEventListener("DOMContentLoaded", function () {
       '<p class="text-xs font-bold uppercase tracking-widest text-primary">Gerenciar palpites</p>' +
       '<div class="mt-3 space-y-2">' +
       predictions.map(function (item) {
-        return '<form class="developer-prediction-form flex flex-wrap items-center gap-2 rounded-xl bg-slate-50 p-3" data-game-id="' +
+        const selected = Boolean(item.ganhador_selecionado);
+        const roleText = item.usuario_funcao ? '<span class="ml-1 text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
+        const selectedClass = selected
+          ? "border-2 border-yellow-400 bg-yellow-50 ring-4 ring-yellow-100 shadow-sm"
+          : "border border-transparent bg-slate-50";
+        const crownSvg = selected
+          ? '<span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm" title="Palpite ganhador">' +
+            '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+            '</span>'
+          : "";
+        const winnerButton = selected
+          ? '<span class="rounded-lg bg-yellow-200 px-3 py-2 text-xs font-extrabold text-yellow-900">Ganhador</span>'
+          : '<button class="rounded-lg bg-yellow-100 px-3 py-2 text-xs font-bold text-yellow-800 hover:bg-yellow-200" data-select-winner type="button">Marcar ganhador</button>';
+        return '<form class="developer-prediction-form flex flex-wrap items-center gap-2 rounded-xl p-3 ' + selectedClass + '" data-game-id="' +
           escapeHtml(game.id) + '" data-prediction-id="' + escapeHtml(item.id) + '">' +
-          '<strong class="mr-auto min-w-[140px] text-sm">' + escapeHtml(item.usuario_nome || "Usuário") + '</strong>' +
+          crownSvg +
+          userAvatarHtml(item, "h-10 w-10") +
+          '<strong class="mr-auto min-w-[140px] text-sm">' + escapeHtml(item.usuario_nome || "Usuário") + roleText + '</strong>' +
           '<input class="w-16 rounded-lg border-slate-200 text-center font-bold" min="0" max="99" name="gols_casa" required type="number" value="' + escapeHtml(item.gols_casa) + '"/>' +
           '<span class="font-bold">x</span>' +
           '<input class="w-16 rounded-lg border-slate-200 text-center font-bold" min="0" max="99" name="gols_visitante" required type="number" value="' + escapeHtml(item.gols_visitante) + '"/>' +
+          winnerButton +
           '<button class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white" type="submit">Salvar</button>' +
           '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-prediction type="button">Excluir</button>' +
           '</form>';
       }).join("") + '</div></div>';
+  }
+
+  function resultSummaryHtml(game) {
+    const result = game.resultado || {};
+    const selectedWinner = result.ganhador_selecionado || null;
+    if (!result.definido && !selectedWinner) return "";
+    const winners = selectedWinner ? [selectedWinner] : (Array.isArray(result.ganhadores) ? result.ganhadores : []);
+    const winnersText = winners.length
+      ? winners.map(function (item) { return item.usuario_nome || "Usuário"; }).join(", ")
+      : "Sem ganhador selecionado";
+    const scoreText = result.definido
+      ? 'Resultado final: ' + escapeHtml(game.time_casa) + ' ' + escapeHtml(result.gols_casa) +
+        ' x ' + escapeHtml(result.gols_visitante) + ' ' + escapeHtml(game.time_visitante)
+      : 'Ganhador selecionado pelo desenvolvedor';
+    return '<div class="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-bold text-emerald-800">' +
+      '<span class="material-symbols-outlined mr-1 align-middle text-base">verified</span>' +
+      scoreText +
+      '<div class="mt-1 text-xs text-emerald-700">Ganhador: ' + escapeHtml(winnersText) + '</div>' +
+      '</div>';
+  }
+
+  function developerResultHtml(game) {
+    if (!isDeveloper) return "";
+    const result = game.resultado || {};
+    return '<form class="developer-result-form mt-4 rounded-xl border border-emerald-100 bg-white p-3" data-game-id="' + escapeHtml(game.id) + '">' +
+      '<p class="text-xs font-bold uppercase tracking-widest text-emerald-700">Resultado final</p>' +
+      '<div class="mt-3 flex flex-wrap items-center gap-2">' +
+      '<input aria-label="Gols finais do time da casa" class="w-16 rounded-lg border-slate-200 text-center font-bold" min="0" max="99" name="gols_casa" required type="number" value="' + escapeHtml(result.definido ? result.gols_casa : "") + '"/>' +
+      '<span class="font-bold">x</span>' +
+      '<input aria-label="Gols finais do time visitante" class="w-16 rounded-lg border-slate-200 text-center font-bold" min="0" max="99" name="gols_visitante" required type="number" value="' + escapeHtml(result.definido ? result.gols_visitante : "") + '"/>' +
+      '<button class="rounded-lg bg-emerald-600 px-3 py-2 text-xs font-bold text-white" type="submit">Salvar resultado</button>' +
+      '</div>' +
+      '<p class="mt-2 text-xs font-semibold text-slate-400">Ao salvar, o histórico calcula quem acertou o placar exato.</p>' +
+      '</form>';
+  }
+
+  function prizeRulesHtml(game) {
+    const prize = String(game.descricao_premio || "").trim();
+    const rules = String(game.regras || "").trim();
+    if (!prize && !rules) return "";
+    const prizeHtml = prize
+      ? '<div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Prêmio</p>' +
+        '<p class="mt-2 text-sm font-bold leading-relaxed text-amber-950">' + multilineHtml(prize) + '</p></div>'
+      : "";
+    const rulesHtml = rules
+      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
+        '<p class="mt-2 text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
+      : "";
+    return '<div class="mt-4 grid gap-3 sm:grid-cols-2">' + prizeHtml + rulesHtml + '</div>';
   }
 
   function gameHtml(game) {
@@ -192,6 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
       '<p class="mt-3 text-center text-sm font-bold text-slate-500">' + escapeHtml(formatDate(game.data_jogo)) + ' às ' + escapeHtml(game.horario_jogo) + '</p>' +
       '<div class="mt-3 rounded-xl bg-amber-50 px-3 py-2 text-center text-xs font-bold text-amber-800">Período para palpites: ' +
       escapeHtml(formatDateTime(game.inicio_palpites_iso)) + ' até ' + escapeHtml(formatDateTime(game.fim_palpites_iso)) + '</div>' +
+      prizeRulesHtml(game) +
       '<form class="prediction-form mt-5 border-t border-slate-100 pt-4" data-game-id="' + escapeHtml(game.id) + '">' +
       '<p class="text-center text-xs font-bold uppercase tracking-widest text-slate-400">Seu palpite</p>' +
       '<div class="mt-3 flex items-center justify-center gap-3">' +
@@ -201,6 +296,9 @@ document.addEventListener("DOMContentLoaded", function () {
       '<div class="mt-4 text-center"><button class="rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white disabled:opacity-50" type="submit"' + (disabled ? " disabled" : "") + '>Enviar palpite</button>' +
       '<p class="mt-2 text-xs font-semibold text-slate-400">' + escapeHtml(predictionHint) + '</p></div>' +
       '<p class="prediction-message mt-3 hidden rounded-xl px-3 py-2 text-center text-sm font-bold"></p></form>' +
+      resultSummaryHtml(game) +
+      developerResultHtml(game) +
+      developerPredictionsHtml(game) +
       '</article>';
   }
 
@@ -230,27 +328,87 @@ document.addEventListener("DOMContentLoaded", function () {
     sentPredictionsList.innerHTML = rows.map(function (row) {
       const game = row.game;
       const item = row.prediction;
-      const userPhoto = item.usuario_foto || item.foto_perfil_data_url || "";
       const userRole = item.usuario_funcao || item.funcao || "";
-      const photoHtml = userPhoto
-        ? '<img src="' + escapeHtml(userPhoto) + '" alt="Foto" class="h-8 w-8 rounded-full object-cover shrink-0 border border-slate-200" />'
-        : '<div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-400 border border-slate-200"><span class="material-symbols-outlined text-sm">person</span></div>';
+      const photoHtml = userAvatarHtml(item, "h-12 w-12");
       const roleHtml = userRole ? ' <span class="text-xs font-normal text-slate-400 block sm:inline">(' + escapeHtml(userRole) + ')</span>' : '';
 
       const isMyPrediction = game.meu_palpite && item.id === game.meu_palpite.id;
       const canSeePrediction = isDeveloper || isMyPrediction || (!game.palpite_aberto && game.status_palpites !== "aguardando");
+      const selectedWinner = Boolean(item.ganhador_selecionado);
       const scoreHtml = canSeePrediction
         ? escapeHtml(item.gols_casa) + ' x ' + escapeHtml(item.gols_visitante)
         : '<span class="blur-sm select-none opacity-60" title="Palpite oculto">' + escapeHtml(item.gols_casa || "0") + ' x ' + escapeHtml(item.gols_visitante || "0") + '</span>';
+      const winnerCrown = selectedWinner
+        ? '<span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm" title="Palpite ganhador">' +
+          '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+          '</span>'
+        : "";
+      const articleClass = selectedWinner
+        ? "rounded-2xl border-2 border-yellow-400 bg-yellow-50 p-4 shadow-soft ring-4 ring-yellow-100"
+        : "rounded-2xl border border-slate-100 bg-white p-4 shadow-soft";
 
-      return '<article class="rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">' +
+      return '<article class="' + articleClass + '">' +
         '<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">' +
         '<div><p class="text-xs font-bold uppercase tracking-widest text-primary">' + escapeHtml(game.competicao || "Futebol do Brasil") + '</p>' +
-        '<h3 class="mt-1 text-lg font-extrabold">' + escapeHtml(game.time_casa) + ' ' + scoreHtml + ' ' + escapeHtml(game.time_visitante) + '</h3>' +
+        '<h3 class="mt-1 flex flex-wrap items-center gap-2 text-lg font-extrabold">' + winnerCrown + '<span>' + escapeHtml(game.time_casa) + ' ' + scoreHtml + ' ' + escapeHtml(game.time_visitante) + '</span></h3>' +
         '<div class="mt-2 flex items-center gap-2">' + photoHtml + 
         '<p class="text-sm font-semibold text-slate-500">Enviado por <strong class="text-slate-800">' + escapeHtml(item.usuario_nome || "Usuário") + '</strong>' + roleHtml + '</p></div></div>' +
         '<div class="rounded-xl bg-slate-50 px-4 py-3 text-sm font-bold text-slate-600"><span class="material-symbols-outlined mr-1 align-middle text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
         '</div></article>';
+    }).join("");
+  }
+
+  function renderWinnersHistory() {
+    if (!winnersHistoryList) return;
+    const finishedGames = games.filter(function (game) {
+      const result = game.resultado || {};
+      return result.definido || result.ganhador_selecionado;
+    });
+    finishedGames.sort(function (left, right) {
+      const leftResult = left.resultado || {};
+      const rightResult = right.resultado || {};
+      const leftWinner = leftResult.ganhador_selecionado || {};
+      const rightWinner = rightResult.ganhador_selecionado || {};
+      const leftDate = Date.parse(leftWinner.selecionado_em_iso || leftResult.definido_em_iso || left.inicio_iso || "");
+      const rightDate = Date.parse(rightWinner.selecionado_em_iso || rightResult.definido_em_iso || right.inicio_iso || "");
+      return rightDate - leftDate;
+    });
+
+    if (!finishedGames.length) {
+      winnersHistoryList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center font-semibold text-slate-500">Nenhum ganhador selecionado ainda.</div>';
+      return;
+    }
+
+    winnersHistoryList.innerHTML = finishedGames.map(function (game) {
+      const result = game.resultado || {};
+      const selectedWinner = result.ganhador_selecionado || null;
+      const winners = selectedWinner ? [selectedWinner] : (Array.isArray(result.ganhadores) ? result.ganhadores : []);
+      const outcomeHits = Array.isArray(result.acertos_resultado) ? result.acertos_resultado : [];
+      const winnersHtml = winners.length
+        ? winners.map(function (item) {
+            const photoHtml = userAvatarHtml(item, "h-10 w-10");
+            return '<div class="flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2 text-sm font-bold text-emerald-800">' +
+              '<span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm">' +
+              '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+              '</span>' + photoHtml + '<span>' + escapeHtml(item.usuario_nome || "Usuário") + '</span>' +
+              '<span class="rounded-full border border-yellow-300 bg-yellow-100 px-2 py-0.5 text-xs text-yellow-900">' + escapeHtml(item.gols_casa) + ' x ' + escapeHtml(item.gols_visitante) + '</span></div>';
+          }).join("")
+        : '<p class="rounded-xl bg-slate-50 px-3 py-2 text-sm font-bold text-slate-500">Sem ganhador selecionado.</p>';
+      const scoreTitle = result.definido
+        ? escapeHtml(game.time_casa) + ' ' + escapeHtml(result.gols_casa) + ' x ' + escapeHtml(result.gols_visitante) + ' ' + escapeHtml(game.time_visitante)
+        : escapeHtml(game.time_casa) + ' x ' + escapeHtml(game.time_visitante);
+      const prizeHistoryHtml = game.descricao_premio
+        ? '<div class="mt-4 rounded-xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-950"><span class="material-symbols-outlined mr-1 align-middle text-base text-amber-700">redeem</span>' + multilineHtml(game.descricao_premio) + '</div>'
+        : "";
+
+      return '<article class="rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">' +
+        '<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">' +
+        '<div><p class="text-xs font-bold uppercase tracking-widest text-primary">' + escapeHtml(game.competicao || "Futebol do Brasil") + '</p>' +
+        '<h3 class="mt-1 text-lg font-extrabold">' + scoreTitle + '</h3>' +
+        '<p class="mt-1 text-sm font-semibold text-slate-500">' + escapeHtml(formatDate(game.data_jogo)) + ' às ' + escapeHtml(game.horario_jogo) + '</p></div>' +
+        '<div class="rounded-xl bg-yellow-50 px-4 py-3 text-sm font-bold text-yellow-900">' +
+        Number(winners.length) + ' ganhador selecionado / ' + Number(outcomeHits.length) + ' acerto(s) do resultado</div>' +
+        '</div>' + prizeHistoryHtml + '<div class="mt-4 flex flex-wrap gap-2">' + winnersHtml + '</div></article>';
     }).join("");
   }
 
@@ -263,6 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
       developerPanel.classList.toggle("hidden", !isDeveloper);
       renderGames();
       renderSentPredictions();
+      renderWinnersHistory();
     } catch (error) {
       gamesList.innerHTML = '<div class="rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
     }
@@ -281,7 +440,9 @@ document.addEventListener("DOMContentLoaded", function () {
       horario_inicio_palpites: predictionStartTimeInput.value,
       data_fim_palpites: predictionEndDateInput.value,
       horario_fim_palpites: predictionEndTimeInput.value,
-      competicao: competitionInput.value
+      competicao: competitionInput.value,
+      descricao_premio: prizeDescriptionInput ? prizeDescriptionInput.value : "",
+      regras: rulesInput ? rulesInput.value : ""
     };
     try {
       await api("/api/dinamicas-pop/jogos" + (editingGameId ? "/" + encodeURIComponent(editingGameId) : ""), {
@@ -306,6 +467,24 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify({
             gols_casa: developerForm.elements.gols_casa.value,
             gols_visitante: developerForm.elements.gols_visitante.value
+          })
+        });
+        await loadGames();
+      } catch (error) {
+        window.alert(error.message);
+      }
+      return;
+    }
+
+    const resultForm = event.target.closest(".developer-result-form");
+    if (resultForm) {
+      event.preventDefault();
+      try {
+        await api("/api/dinamicas-pop/jogos/" + encodeURIComponent(resultForm.dataset.gameId) + "/resultado", {
+          method: "PUT",
+          body: JSON.stringify({
+            gols_casa: resultForm.elements.gols_casa.value,
+            gols_visitante: resultForm.elements.gols_visitante.value
           })
         });
         await loadGames();
@@ -344,6 +523,20 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   gamesList.addEventListener("click", async function (event) {
+    const selectWinnerButton = event.target.closest("[data-select-winner]");
+    if (selectWinnerButton) {
+      const form = selectWinnerButton.closest(".developer-prediction-form");
+      if (!form || !window.confirm("Marcar este palpite como ganhador?")) return;
+      try {
+        await api("/api/dinamicas-pop/jogos/" + encodeURIComponent(form.dataset.gameId) +
+          "/ganhador/" + encodeURIComponent(form.dataset.predictionId), { method: "PUT" });
+        await loadGames();
+      } catch (error) {
+        window.alert(error.message);
+      }
+      return;
+    }
+
     const deletePredictionButton = event.target.closest("[data-delete-prediction]");
     if (deletePredictionButton) {
       const form = deletePredictionButton.closest(".developer-prediction-form");
@@ -377,6 +570,8 @@ document.addEventListener("DOMContentLoaded", function () {
       predictionEndDateInput.value = predictionEnd.date;
       predictionEndTimeInput.value = predictionEnd.time;
       competitionInput.value = game.competicao || "";
+      if (prizeDescriptionInput) prizeDescriptionInput.value = game.descricao_premio || "";
+      if (rulesInput) rulesInput.value = game.regras || "";
       saveGameLabel.textContent = "Salvar alterações";
       cancelEditBtn.classList.remove("hidden");
       developerPanel.scrollIntoView({ behavior: "smooth" });

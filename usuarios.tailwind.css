@@ -1,3 +1,212 @@
 @import url("./superpop-theme.tailwind.css");
-body[data-page="usuarios"] .table-wrap { border-radius: 1.25rem; border: 1px solid rgba(226,232,240,.7); }
-body[data-page="usuarios"] #usersTableBody td { padding-top: 1rem; padding-bottom: 1rem; }
+body[data-page="usuarios"] {
+  background:
+    linear-gradient(180deg, rgba(255,241,242,.62), rgba(255,255,255,.94) 340px),
+    #fff;
+}
+
+body[data-page="usuarios"] .bg-pattern {
+  opacity: .22;
+}
+
+body[data-page="usuarios"] .users-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 150px;
+  border: 1px solid rgba(226,232,240,.78);
+  border-radius: 1.5rem;
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 20px 60px -35px rgba(15,23,42,.35);
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(14px);
+}
+
+body[data-page="usuarios"] .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .75rem;
+}
+
+body[data-page="usuarios"] .users-dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(3, minmax(150px, 190px));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+body[data-page="usuarios"] .users-search-panel,
+body[data-page="usuarios"] .users-stat-card,
+body[data-page="usuarios"] .users-table-panel {
+  border: 1px solid rgba(226,232,240,.78);
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 18px 48px -34px rgba(15,23,42,.38);
+  backdrop-filter: blur(12px);
+}
+
+body[data-page="usuarios"] .users-search-panel {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  align-items: end;
+  gap: 1rem;
+  border-radius: 1.35rem;
+  padding: 1.25rem;
+}
+
+body[data-page="usuarios"] .users-stat-card {
+  border-radius: 1.25rem;
+  padding: 1.15rem;
+}
+
+body[data-page="usuarios"] .stat-label {
+  color: #e63946;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+body[data-page="usuarios"] .stat-value {
+  margin-top: .55rem;
+  color: #0f172a;
+  font-family: "Fredoka One", cursive;
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+body[data-page="usuarios"] .stat-help {
+  margin-top: .45rem;
+  color: #64748b;
+  font-size: .82rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+body[data-page="usuarios"] .users-table-panel {
+  margin-top: 1.5rem;
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+}
+
+body[data-page="usuarios"] .users-table-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+body[data-page="usuarios"] .table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(226,232,240,.85);
+  border-radius: 1.15rem;
+  background: #fff;
+}
+
+body[data-page="usuarios"] .table-wrap table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+body[data-page="usuarios"] .table-wrap thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f8fafc;
+  box-shadow: inset 0 -1px 0 rgba(226,232,240,.85);
+}
+
+body[data-page="usuarios"] #usersTableBody td {
+  padding-top: .95rem;
+  padding-bottom: .95rem;
+}
+
+body[data-page="usuarios"] #usersTableBody tr {
+  background: #fff;
+  transition: background-color .16s ease, transform .16s ease;
+}
+
+body[data-page="usuarios"] #usersTableBody tr:hover {
+  background: #fff7f7 !important;
+}
+
+body[data-page="usuarios"] .user-avatar {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fee2e2, #fef3c7);
+  color: #b91c1c;
+  font-size: .82rem;
+  font-weight: 900;
+  box-shadow: inset 0 0 0 1px rgba(239,68,68,.18);
+}
+
+body[data-page="usuarios"] .role-pill,
+body[data-page="usuarios"] .contact-pill {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  border-radius: 999px;
+  padding: .35rem .7rem;
+  font-size: .78rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+body[data-page="usuarios"] .role-pill {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+body[data-page="usuarios"] .role-pill.pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+body[data-page="usuarios"] .contact-pill {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+body[data-page="usuarios"] .contact-pill.empty {
+  background: #f8fafc;
+  color: #94a3b8;
+}
+
+@media (max-width: 1180px) {
+  body[data-page="usuarios"] .users-dashboard {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  body[data-page="usuarios"] .users-search-panel {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-page="usuarios"] .users-hero,
+  body[data-page="usuarios"] .users-table-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body[data-page="usuarios"] .hero-actions {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  body[data-page="usuarios"] .users-dashboard,
+  body[data-page="usuarios"] .users-search-panel {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="usuarios"] .users-stat-card {
+    min-height: 118px;
+  }
+}

@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const onlineUsersList = document.getElementById("onlineUsersList");
   const manageUsersQuickLink = document.getElementById("manageUsersQuickLink");
   const editUsersQuickLink = document.getElementById("editUsersQuickLink");
+  const editUsersHeaderLink = document.getElementById("editUsersHeaderLink");
   const analyticsNavItem = document.getElementById("analyticsNavItem");
   const manageUsersNavItem = document.getElementById("manageUsersNavItem");
   const editUsersNavItem = document.getElementById("editUsersNavItem");
@@ -68,14 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
     <span class="online-users-count" id="notificationCount">0</span>
   </button>
   <div class="notifications-dropdown" id="notificationsDropdown">
-    <p class="online-users-dropdown-title">Super POPs do dia</p>
+    <p class="online-users-dropdown-title">Notifica&ccedil;&otilde;es</p>
     <p class="online-users-dropdown-subtitle" id="notificationStatus">Carregando...</p>
     <div class="notifications-list" id="notificationsList">
       <p class="text-sm text-slate-500">Carregando...</p>
     </div>
     <div class="notifications-actions">
       <button type="button" class="secondary" id="markAllNotificationsBtn">Marcar todos como vistos</button>
-      <button type="button" class="primary" id="showSuperpopsBtn">Mostrar Super POP</button>
+      <button type="button" class="primary" id="showSuperpopsBtn">Ver Super POPs</button>
     </div>
   </div>
 </div>`;
@@ -949,8 +950,8 @@ document.addEventListener("DOMContentLoaded", function () {
       : 0;
     notificationCount.textContent = String(safeCount);
     notificationBtn.title = safeCount === 1
-      ? "1 Super POP recebido hoje"
-      : (safeCount + " Super POPs recebidos hoje");
+      ? "1 notifica\u00e7\u00e3o nova"
+      : (safeCount + " notifica\u00e7\u00f5es novas");
   }
 
   function setNotificationStatus(message, isError) {
@@ -967,10 +968,41 @@ document.addEventListener("DOMContentLoaded", function () {
     setNotificationCount(unreadCount);
     if (!notificationsList) return;
     if (!entries.length) {
-      notificationsList.innerHTML = '<p class="text-sm text-slate-500">Você ainda não recebeu Super POPs hoje.</p>';
+      notificationsList.innerHTML = '<p class="text-sm text-slate-500">Voc&ecirc; ainda n&atilde;o tem notifica&ccedil;&otilde;es.</p>';
       return;
     }
     notificationsList.innerHTML = entries.map(function (item) {
+      const notificationType = String(item && item.tipo || "superpop").trim();
+      if (notificationType === "dinamica_pop_ganhador") {
+        const title = String(item && item.titulo || "Voc\u00ea ganhou na Din\u00e2mica POP!").trim();
+        const message = String(item && item.mensagem || "").trim();
+        const competition = String(item && item.competicao || "Din\u00e2micas POP").trim();
+        const prize = String(item && item.premio || "").trim();
+        const game = item && item.jogo || {};
+        const prediction = item && item.palpite || {};
+        const matchLabel = [game.time_casa, game.time_visitante].filter(Boolean).join(" x ");
+        const hasScore = prediction.gols_casa !== undefined || prediction.gols_visitante !== undefined;
+        const scoreLabel = hasScore
+          ? String(prediction.gols_casa || "0") + " x " + String(prediction.gols_visitante || "0")
+          : "";
+        const notificationId = String(item && item.id || "").trim();
+        const whatsappText = String(item && item.whatsapp_text || message || title).trim();
+        return '' +
+          '<div class="notification-item">' +
+            '<strong>' + escapeHtml(title) + '</strong>' +
+            '<div class="notification-meta">' +
+              '<span>' + escapeHtml(competition) + '</span>' +
+              '<span>' + escapeHtml(matchLabel || "Palpite premiado") + '</span>' +
+            '</div>' +
+            (scoreLabel ? '<p><strong>Seu palpite:</strong> ' + escapeHtml(scoreLabel) + '</p>' : '') +
+            (prize ? '<p><strong>Pr&ecirc;mio:</strong> ' + escapeHtml(prize) + '</p>' : '') +
+            (message ? '<p>' + escapeHtml(message) + '</p>' : '') +
+            '<div class="notification-actions">' +
+              '<button type="button" class="primary" data-whatsapp-text="' + escapeHtml(whatsappText) + '">Mensagem para WhatsApp</button>' +
+              '<button type="button" class="secondary" data-mark-log-id="' + escapeHtml(notificationId) + '">Marcar como visto</button>' +
+            '</div>' +
+          '</div>';
+      }
       const sender = (item && item.remetente && item.remetente.nome) ? item.remetente.nome : "Colega";
       const funcao = (item && item.remetente && item.remetente.funcao) ? item.remetente.funcao : "Super POP";
       const dia = String(item && item.dia || "").trim();
@@ -1010,10 +1042,10 @@ document.addEventListener("DOMContentLoaded", function () {
       renderNotifications(payload);
       if (payload && payload.total) {
         setNotificationStatus(payload.total === payload.unread
-          ? `Você tem ${payload.total} Super POPs novos hoje.`
-          : `${payload.total} Super POPs no dia, ${payload.unread || 0} não lidos.`);
+          ? `Voc\u00ea tem ${payload.total} notifica\u00e7\u00f5es novas.`
+          : `${payload.total} notifica\u00e7\u00f5es, ${payload.unread || 0} n\u00e3o lidas.`);
       } else {
-        setNotificationStatus("Nenhum Super POP novo hoje.");
+        setNotificationStatus("Nenhuma notifica\u00e7\u00e3o nova.");
       }
     } catch (error) {
       if (handlePresenceError(error)) return;
@@ -1068,6 +1100,12 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = target;
   }
 
+  function openWinnerWhatsappMessage(text) {
+    const safeText = String(text || "").trim();
+    if (!safeText) return;
+    window.open("https://wa.me/?text=" + encodeURIComponent(safeText), "_blank", "noopener,noreferrer");
+  }
+
   function stopNotificationsRefreshLoop() {
     if (notificationsRefreshTimer) {
       window.clearInterval(notificationsRefreshTimer);
@@ -1107,6 +1145,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (editUsersQuickLink && hasDeveloperTag) {
       editUsersQuickLink.classList.remove("hidden");
+    }
+    if (editUsersHeaderLink && hasDeveloperTag) {
+      editUsersHeaderLink.classList.remove("hidden");
+      editUsersHeaderLink.classList.add("inline-flex");
     }
     if (editUsersNavItem && hasDeveloperTag) {
       editUsersNavItem.classList.remove("hidden");
@@ -1178,6 +1220,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (notificationsList) {
     notificationsList.addEventListener("click", function (event) {
+      const whatsappButton = event.target.closest("[data-whatsapp-text]");
+      if (whatsappButton) {
+        openWinnerWhatsappMessage(whatsappButton.getAttribute("data-whatsapp-text"));
+        return;
+      }
       const showButton = event.target.closest("[data-show-superpop]");
       if (showButton) {
         const logId = showButton.getAttribute("data-mark-log-id");

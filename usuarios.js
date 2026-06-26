@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const lastUpdateEl = document.getElementById("lastUpdate");
   const refreshBtn = document.getElementById("refreshBtn");
   const refreshBtnLabel = document.getElementById("refreshBtnLabel");
+  const usersEmailCountEl = document.getElementById("usersEmailCount");
+  const usersRolesCountEl = document.getElementById("usersRolesCount");
 
   if (!tableBody) {
     return;
@@ -42,6 +44,21 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/'/g, "&#39;");
   }
 
+  function userInitials(name) {
+    const parts = String(name || "")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2);
+    if (!parts.length) return "SP";
+    return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+  }
+
+  function isPendingRole(role) {
+    const normalized = String(role || "").trim().toLowerCase();
+    return !normalized || normalized === "função pendente" || normalized === "funcao pendente";
+  }
+
   function formatDateTime(value) {
     if (!value) return "--/--/----";
     const date = new Date(value);
@@ -72,19 +89,49 @@ document.addEventListener("DOMContentLoaded", function () {
       ].map(function (value) { return String(value || "").toLowerCase(); });
       return haystack.some(function (value) { return value.includes(term); });
     });
-    usersCountEl.textContent = String(filtered.length || state.users.length);
+    if (usersCountEl) usersCountEl.textContent = String(filtered.length || state.users.length);
+    if (usersEmailCountEl) {
+      usersEmailCountEl.textContent = String(filtered.filter(function (user) {
+        const email = String(user.email || "").trim();
+        return email && email !== "-";
+      }).length);
+    }
+    if (usersRolesCountEl) {
+      const roles = new Set(filtered
+        .map(function (user) { return String(user.funcao || "").trim(); })
+        .filter(function (role) { return role && !isPendingRole(role); })
+        .map(function (role) { return role.toLowerCase(); }));
+      usersRolesCountEl.textContent = String(roles.size);
+    }
     if (!filtered.length) {
       showTableMessage("Nenhum usuário encontrado.", "text-slate-500");
       return;
     }
     tableBody.innerHTML = filtered
       .map(function (user) {
+        const phone = String(user.telefone || "").trim();
+        const email = String(user.email || "").trim();
+        const rolePending = isPendingRole(user.funcao);
         return (
-          '<tr class="hover:bg-slate-50 dark:hover:bg-gray-800">' +
-            '<td class="py-4 pr-4 align-top">' + escapeHtml(user.nome || "-") + "</td>" +
-            '<td class="py-4 pr-4 align-top font-semibold text-slate-600">' + escapeHtml(user.telefone || "-") + "</td>" +
-            '<td class="py-4 pr-4 align-top font-semibold text-slate-600">' + escapeHtml(user.funcao || "-") + "</td>" +
-            '<td class="py-4 align-top font-semibold text-slate-600">' + escapeHtml(user.email || "-") + "</td>" +
+          '<tr>' +
+            '<td class="py-4 pl-5 pr-4 align-top">' +
+              '<div class="flex min-w-[220px] items-center gap-3">' +
+                '<span class="user-avatar">' + escapeHtml(userInitials(user.nome)) + '</span>' +
+                '<div class="min-w-0">' +
+                  '<p class="truncate font-extrabold text-slate-900">' + escapeHtml(user.nome || "-") + '</p>' +
+                  '<p class="mt-0.5 text-xs font-bold text-slate-400">Usuário cadastrado</p>' +
+                '</div>' +
+              '</div>' +
+            "</td>" +
+            '<td class="py-4 pr-4 align-top">' +
+              '<span class="contact-pill' + (phone ? "" : " empty") + '">' + escapeHtml(phone || "-") + '</span>' +
+            "</td>" +
+            '<td class="py-4 pr-4 align-top">' +
+              '<span class="role-pill' + (rolePending ? " pending" : "") + '">' + escapeHtml(user.funcao || "Função pendente") + '</span>' +
+            "</td>" +
+            '<td class="py-4 pr-5 align-top">' +
+              '<span class="font-bold ' + (email && email !== "-" ? "text-slate-700" : "text-slate-400") + '">' + escapeHtml(email || "-") + '</span>' +
+            "</td>" +
           "</tr>"
         );
       })

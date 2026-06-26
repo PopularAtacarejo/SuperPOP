@@ -346,6 +346,41 @@
     object-fit: cover !important;
   }
 
+  body[data-page] .superpop-footer {
+    margin-top: auto;
+    padding: 1.25rem 1.5rem 1.75rem;
+    color: #94a3b8;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  body[data-page] .superpop-footer-inner {
+    width: min(100%, 72rem);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.7rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.75);
+    padding-top: 1rem;
+  }
+
+  body[data-page] .superpop-footer a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  body[data-page] .superpop-footer a:hover {
+    color: var(--sp-primary-dark);
+  }
+
+  body[data-page] .superpop-footer-separator {
+    color: #cbd5e1;
+  }
+
   body[data-page] .online-users-dropdown,
   body[data-page] .notifications-dropdown,
   body[data-page] .auth-user-dropdown {

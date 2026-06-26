@@ -61,6 +61,15 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <div class="permissions-table-wrap mt-5 overflow-x-auto"><table class="min-w-full text-sm"><thead id="permissionsHead"></thead><tbody id="permissionsBody"><tr><td class="py-10 text-center text-slate-400">Carregando permissões...</td></tr></tbody></table></div>
 </section>
 </main>
+<footer class="superpop-footer" role="contentinfo">
+  <div class="superpop-footer-inner">
+    <span>Super Pop - Todos os direitos reservados.</span>
+    <span class="superpop-footer-separator">|</span>
+    <span>Versão 2.7</span>
+    <span class="superpop-footer-separator">|</span>
+    <span>Desenvolvido por <a href="https://wa.me/5582999158412" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de Jeferson">Jeferson</a></span>
+  </div>
+</footer>
 </div>
 <script>
 document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("sidebar"),t=document.getElementById("sidebarToggle"),o=document.getElementById("sidebarOverlay"),m=document.getElementById("mobileMenuBtn"),l=document.querySelector(".sidebar-collapsed-only"),c=t&&t.querySelector("span");function open(){s.classList.add("expanded");if(c)c.textContent="chevron_left";if(l)l.style.opacity="0"}function close(){s.classList.remove("expanded");if(c)c.textContent="chevron_right";if(l)l.style.opacity="1"}if(t)t.addEventListener("click",()=>s.classList.contains("expanded")?close():open());if(m)m.addEventListener("click",open);if(o)o.addEventListener("click",close);window.innerWidth<1100?close():open()});

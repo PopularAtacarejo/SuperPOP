@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -141,7 +141,16 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 </form>
 </article>
 </section>
-</main></div>
+</main>
+<footer class="superpop-footer" role="contentinfo">
+  <div class="superpop-footer-inner">
+    <span>Super Pop - Todos os direitos reservados.</span>
+    <span class="superpop-footer-separator">|</span>
+    <span>Versão 2.7</span>
+    <span class="superpop-footer-separator">|</span>
+    <span>Desenvolvido por <a href="https://wa.me/5582999158412" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de Jeferson">Jeferson</a></span>
+  </div>
+</footer></div>
 
 <script>
 document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("sidebar"),t=document.getElementById("sidebarToggle"),o=document.getElementById("sidebarOverlay"),m=document.getElementById("mobileMenuBtn"),l=document.querySelector(".sidebar-collapsed-only"),c=t?t.querySelector("span"):null;if(!s||!t||!o||!m||!l||!c)return;function openS(){s.classList.add("expanded");c.textContent="chevron_left";l.style.opacity="0"}function closeS(){s.classList.remove("expanded");c.textContent="chevron_right";window.setTimeout(function(){if(!s.classList.contains("expanded"))l.style.opacity="1"},220)}function syncS(){if(window.innerWidth<1100){closeS();return}openS()}t.addEventListener("click",function(){s.classList.contains("expanded")?closeS():openS()});m.addEventListener("click",openS);o.addEventListener("click",closeS);window.addEventListener("resize",syncS);syncS()});
