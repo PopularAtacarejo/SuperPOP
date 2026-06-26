@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '</div>'
       : "";
     const predictionHint = alreadySent
-      ? "Seu palpite é definitivo. Apenas o desenvolvedor pode alterá-lo ou excluí-lo."
+      ? "Seu palpite é definitivo. Você não pode alterá-lo ou excluí-lo."
       : Number(game.total_palpites || 0) + " palpite(s) enviado(s)";
 
     return '<article class="match-card rounded-3xl border border-slate-100 p-5 shadow-soft">' +
