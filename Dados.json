@@ -12023,5 +12023,46 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "2876be5ac3734712a3dffab10d02fab6",
+    "card_id": "88e90812cd",
+    "dia": "26/06/2026",
+    "horario": "07:11:12",
+    "data_hora_iso": "2026-06-26T07:11:12.616939-03:00",
+    "destinatario": {
+      "nome": "Leticia",
+      "numero": "5582982109652",
+      "numero_normalizado": "+5582982109652",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Israel Ribeiro",
+      "numero": "5582981189669",
+      "numero_normalizado": "+5582981189669",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia"
+    ],
+    "mensagem": "Tem um ótimo desempenho do seu cargo",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582982109652",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-88e90812cd.png",
+      "uploaded_image_url": "https://i.ibb.co/WvDKtxrC/card-88e90812cd.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-88e90812cd.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/88e90812cd?token=7d8e52080964ce125ea0507c69c5154b83aca273c4cf5b428b085cebe713ce11",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
