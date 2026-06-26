@@ -12105,5 +12105,46 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "94673058ed614701a2dc8d5ace362679",
+    "card_id": "f05aaf4b40",
+    "dia": "26/06/2026",
+    "horario": "07:12:15",
+    "data_hora_iso": "2026-06-26T07:12:15.830696-03:00",
+    "destinatario": {
+      "nome": "Jeferson",
+      "numero": "5582991226467",
+      "numero_normalizado": "+5582991226467",
+      "funcao": "Analista de Marketing"
+    },
+    "remetente": {
+      "nome": "Israel Ribeiro",
+      "numero": "5582981189669",
+      "numero_normalizado": "+5582981189669",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia"
+    ],
+    "mensagem": "Você é um ótimo colaborador continue assim",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582991226467",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-f05aaf4b40.png",
+      "uploaded_image_url": "https://i.ibb.co/VYpGK5c4/card-f05aaf4b40.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-f05aaf4b40.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/f05aaf4b40?token=1ed82c529366c02f6bcd79c244f5b73738e324aba6aaef14ff01ab4e7b00d5fc",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
