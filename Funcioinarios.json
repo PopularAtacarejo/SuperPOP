@@ -809,23 +809,23 @@
   },
   {
     "id": "959d1178c63c495881a03f07d90e2602",
-    "nome": "Sabrina",
-    "funcao": "Função pendente",
+    "nome": "Sabrina Ferreira maximino",
+    "funcao": "Operador de Caixa",
     "numero_celular": "(82) 9 9664 - 4815",
     "numero_normalizado": "82996644815",
     "email": "",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "3cb5fc96fce3e7cb7fc2909a9a88860d",
-      "hash": "4a60ce87c581507838bbf9fc529094e1b6fd107c962f44deafe76fd35e0a952a",
+      "salt": "55ab70853524552723908eddeaaf433c",
+      "hash": "9f9234ca18158b50f98408f1106f1e07f1ffc7d6884fcad85e997fa305550262",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:40:44.151395-03:00",
-    "data_nascimento_iso": "",
-    "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "data_nascimento_iso": "1994-02-25",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   },
   {
     "id": "bcbb3cb36b384fb8b736e3cfdb364664",
