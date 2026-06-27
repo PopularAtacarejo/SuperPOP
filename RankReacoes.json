@@ -102,5 +102,18 @@
       "nome": "Lazaro Gustavo"
     },
     "reacted_at_iso": "2026-03-21T09:47:29.733438-03:00"
+  },
+  {
+    "id": "f80b703988a94a678c58ebb52cc5ad09",
+    "month_key": "2026-06",
+    "rank_kind": "sent",
+    "target_name": "Israel Ribeiro",
+    "target_name_key": "israel ribeiro",
+    "emoji": "💯",
+    "reactor": {
+      "id": "04e764b69ac4421393f5b6c6f2ff9718",
+      "nome": "Antoni Moisés dá Silva"
+    },
+    "reacted_at_iso": "2026-06-27T16:18:38.489159-03:00"
   }
 ]
