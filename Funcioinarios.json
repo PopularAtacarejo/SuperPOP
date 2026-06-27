@@ -1086,5 +1086,25 @@
     "data_nascimento_iso": "1995-02-11",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "b6dc9e700e3d42e09576667c5f7e9603",
+    "nome": "RUAN VINICIUS DA SILVA CRISPINIANO",
+    "funcao": "Embalador",
+    "numero_celular": "(82) 9 9431 - 8200",
+    "numero_normalizado": "82994318200",
+    "email": "ruanvinicius963@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "45a19fab1663981901894a74d7d26429",
+      "hash": "75bd18f1c595e00c363fcf8488a8fae527e4a4e452edec11041f8c0c9f5474b7",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-27T01:44:51.617247-03:00",
+    "data_nascimento_iso": "2005-11-02",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
