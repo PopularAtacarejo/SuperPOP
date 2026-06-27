@@ -1066,5 +1066,25 @@
     "data_nascimento_iso": "",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "a449fefb30134ab18558cb7a71b334c7",
+    "nome": "Ana iris barboza da silva",
+    "funcao": "Operador de Caixa",
+    "numero_celular": "(82) 9 9434 - 1550",
+    "numero_normalizado": "82994341550",
+    "email": "anairisbarboza479@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "2a22fb12addfed0ff0d74a0175b2bdc3",
+      "hash": "9d090341d968e9010aee40315b82ff4b63dc96a6fbcccbca85756cc417e06e1f",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-26T22:48:43.002590-03:00",
+    "data_nascimento_iso": "1995-02-11",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
