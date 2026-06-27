@@ -749,23 +749,23 @@
   },
   {
     "id": "1612befb1c2c4393b4d802046a362b70",
-    "nome": "Micherlane Félix",
-    "funcao": "Função pendente",
+    "nome": "Maria Micherlane Felix dos Santos",
+    "funcao": "Operador de Caixa",
     "numero_celular": "(82) 9 9948 - 2858",
     "numero_normalizado": "82999482858",
-    "email": "",
+    "email": "micherlane_felix@hotmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "66664dd92b7cb3ae41283124b30cad98",
-      "hash": "efcf84467e63cfc82fe0152448fdf4d2601217b75853a4ff8c92cc608276b503",
+      "salt": "e2f96187bb83b00886986cefd9bc8b45",
+      "hash": "9fe636b5ee1f0ce11cf8013606a842bc6aab3fd876b2b626e4fe522e940dfddc",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:17:50.081552-03:00",
-    "data_nascimento_iso": "",
-    "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "data_nascimento_iso": "1984-05-03",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   },
   {
     "id": "b675ed9c41c04ecfb5068cfc8223b61c",
