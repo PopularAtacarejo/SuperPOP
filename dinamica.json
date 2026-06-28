@@ -118,6 +118,16 @@
         "gols_casa": 2,
         "gols_visitante": 3,
         "enviado_em_iso": "2026-06-28T15:32:00.900443-03:00"
+      },
+      {
+        "id": "1d43031452b74b6a9cfd73be16b7dad3",
+        "usuario_id": "18ec570a205c4263895fe099888b4fd9",
+        "usuario_nome": "Eryk",
+        "usuario_foto": "",
+        "usuario_funcao": "Operador de Caixa",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-28T18:39:21.030524-03:00"
       }
     ],
     "ganhadores": [],
