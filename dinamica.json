@@ -78,6 +78,16 @@
         "gols_casa": 2,
         "gols_visitante": 0,
         "enviado_em_iso": "2026-06-28T09:31:08.613452-03:00"
+      },
+      {
+        "id": "a4938ffbfe544b4380aac9304de6fb08",
+        "usuario_id": "a449fefb30134ab18558cb7a71b334c7",
+        "usuario_nome": "Ana iris barboza da silva",
+        "usuario_foto": "",
+        "usuario_funcao": "Operador de Caixa",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-28T10:10:49.375874-03:00"
       }
     ],
     "ganhadores": [],
