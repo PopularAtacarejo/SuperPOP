@@ -58,6 +58,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-28T06:13:42.451716-03:00"
+      },
+      {
+        "id": "8d4218410f7c4f718c0d6dc31cd6f9bb",
+        "usuario_id": "7ac61723d36e4d088416d07794256863",
+        "usuario_nome": "Yuri Kwai Alves Feitosa de Souza",
+        "usuario_foto": "",
+        "usuario_funcao": "Operador de Caixa",
+        "gols_casa": 3,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-28T08:35:09.708296-03:00"
       }
     ],
     "ganhadores": [],
