@@ -98,6 +98,16 @@
         "gols_casa": 3,
         "gols_visitante": 2,
         "enviado_em_iso": "2026-06-28T10:11:43.765363-03:00"
+      },
+      {
+        "id": "67135f7dcb2040688269151115fab03d",
+        "usuario_id": "cdecfdc636c24be6b39df6f2ffd1d43e",
+        "usuario_nome": "Deyvisson Felipe Ferreira da Silva",
+        "usuario_foto": "",
+        "usuario_funcao": "Repositor",
+        "gols_casa": 3,
+        "gols_visitante": 0,
+        "enviado_em_iso": "2026-06-28T12:09:47.226305-03:00"
       }
     ],
     "ganhadores": [],
