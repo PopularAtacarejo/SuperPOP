@@ -28,6 +28,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-28T00:04:12.762366-03:00"
+      },
+      {
+        "id": "5a0a313dac6743d49c8d822b4bc53148",
+        "usuario_id": "04a15f4a6c3e429abc506243fbd0a4d0",
+        "usuario_nome": "RAUL LINO DA SILVA",
+        "usuario_foto": "",
+        "usuario_funcao": "Repositor",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-28T00:19:46.310921-03:00"
       }
     ],
     "ganhadores": [],
