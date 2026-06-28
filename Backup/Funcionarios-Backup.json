@@ -909,11 +909,11 @@
   },
   {
     "id": "f1381bf031bb413c93cf210427e8bc23",
-    "nome": "Millena da Silva Santos",
+    "nome": "Millena S. Ribeiro",
     "funcao": "Atendente de SAC",
     "numero_celular": "(82) 9 8754 - 9379",
     "numero_normalizado": "82987549379",
-    "email": "sacpopular2022@gmail.com",
+    "email": "millena.anellim5@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
