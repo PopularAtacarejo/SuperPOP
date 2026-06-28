@@ -1106,5 +1106,25 @@
     "data_nascimento_iso": "2005-11-02",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "cdecfdc636c24be6b39df6f2ffd1d43e",
+    "nome": "Deyvisson Felipe Ferreira da Silva",
+    "funcao": "Repositor",
+    "numero_celular": "(82) 9 8155 - 9086",
+    "numero_normalizado": "82981559086",
+    "email": "deyvissonfelipe105@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "a36faa837ca575e650e73b9efb86ce05",
+      "hash": "35fc5f2f59bf40693aa042000ebbc9460e27453bf6e1c9c8de74aedc6fdb7765",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-28T12:08:41.797404-03:00",
+    "data_nascimento_iso": "2005-06-17",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
