@@ -108,6 +108,16 @@
         "gols_casa": 3,
         "gols_visitante": 0,
         "enviado_em_iso": "2026-06-28T12:09:47.226305-03:00"
+      },
+      {
+        "id": "eed99d86c92d4cdf806948afa2e35988",
+        "usuario_id": "5c9dbd9cfd8246638cf5dec0a7efde5c",
+        "usuario_nome": "Luanderson da silva barros",
+        "usuario_foto": "",
+        "usuario_funcao": "Auxiliar Administrativo",
+        "gols_casa": 2,
+        "gols_visitante": 3,
+        "enviado_em_iso": "2026-06-28T15:32:00.900443-03:00"
       }
     ],
     "ganhadores": [],
