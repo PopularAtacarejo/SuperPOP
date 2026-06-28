@@ -88,6 +88,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-28T10:10:49.375874-03:00"
+      },
+      {
+        "id": "3be6f09fbc4b42d7b77c54d23464cdcc",
+        "usuario_id": "f1381bf031bb413c93cf210427e8bc23",
+        "usuario_nome": "Millena da Silva Santos",
+        "usuario_foto": "",
+        "usuario_funcao": "Atendente de SAC",
+        "gols_casa": 3,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-28T10:11:43.765363-03:00"
       }
     ],
     "ganhadores": [],
