@@ -18,6 +18,19 @@
       "id": "b8c2c8b2a24b4037830f099f4f2469d1",
       "nome": "Jeferson"
     },
-    "palpites": []
+    "palpites": [
+      {
+        "id": "28e4b2451a724c3f88636ab4b0ab6ffc",
+        "usuario_id": "1612befb1c2c4393b4d802046a362b70",
+        "usuario_nome": "Maria Micherlane Felix dos Santos",
+        "usuario_foto": "",
+        "usuario_funcao": "Operador de Caixa",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-28T00:04:12.762366-03:00"
+      }
+    ],
+    "ganhadores": [],
+    "acertos_resultado": []
   }
 ]
