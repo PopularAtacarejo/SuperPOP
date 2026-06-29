@@ -288,6 +288,16 @@
         "gols_casa": 1,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-29T10:29:30.304945-03:00"
+      },
+      {
+        "id": "332ef61c84c74158a8d18688b81eecc6",
+        "usuario_id": "f5f3bbe0d3d24df799231f499b0dc433",
+        "usuario_nome": "Charleane da silva",
+        "usuario_foto": "",
+        "usuario_funcao": "Fiscaldecaixa",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-29T11:51:19.881724-03:00"
       }
     ],
     "ganhadores": [],
