@@ -298,6 +298,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-29T11:51:19.881724-03:00"
+      },
+      {
+        "id": "0600c302c82e492dad19d134b8e45b14",
+        "usuario_id": "21f03f00f9464f4a8d11e8434e44d798",
+        "usuario_nome": "Jorge Motorista",
+        "usuario_foto": "",
+        "usuario_funcao": "Motorista",
+        "gols_casa": 4,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-29T11:59:10.058433-03:00"
       }
     ],
     "ganhadores": [],
