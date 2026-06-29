@@ -248,6 +248,16 @@
         "gols_casa": 3,
         "gols_visitante": 2,
         "enviado_em_iso": "2026-06-29T08:51:21.669341-03:00"
+      },
+      {
+        "id": "6eaa4e07736f4a88b142df3ae5c5087c",
+        "usuario_id": "c27055d3a93f4802a0323d3215cfbc5f",
+        "usuario_nome": "Isabella Teodosio",
+        "usuario_foto": "",
+        "usuario_funcao": "Assistente Administrativo",
+        "gols_casa": 2,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-29T09:09:34.368236-03:00"
       }
     ],
     "ganhadores": [],
