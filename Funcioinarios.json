@@ -589,23 +589,23 @@
   },
   {
     "id": "9afe1f508a9a42eca91b9acfe2cad26e",
-    "nome": "Huiliane",
-    "funcao": "Função pendente",
+    "nome": "HUILIANE DOS SANTOS BARBOSA",
+    "funcao": "Repositora",
     "numero_celular": "(82) 9 8125 - 2629",
     "numero_normalizado": "82981252629",
-    "email": "",
+    "email": "barbosa.huilly@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "db5cfe433e2b66979aed8b025e5a8ce6",
-      "hash": "9a38930ee3d0291e96eced7e061880642a421fef8dc828ff5e880af203ac5391",
+      "salt": "8753e2cfd06aa005f2f2495e7d00a76e",
+      "hash": "976f82a402c9104db1886feb162bf4c7f0e026ed41c1485cb984e54189a82725",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:06:09.271039-03:00",
-    "data_nascimento_iso": "",
+    "data_nascimento_iso": "1994-03-09",
     "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "pre_cadastro": false
   },
   {
     "id": "a44c22f385da4c569caa80bdc315853a",
