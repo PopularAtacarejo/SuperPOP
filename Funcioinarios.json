@@ -789,23 +789,23 @@
   },
   {
     "id": "442012adf8554c99a8cde5ba36212fa1",
-    "nome": "Gabrielly",
-    "funcao": "Função pendente",
+    "nome": "maria gabrielly gomes limeira",
+    "funcao": "Auxiliar Administrativo",
     "numero_celular": "(82) 9 8203 - 3675",
     "numero_normalizado": "82982033675",
-    "email": "",
+    "email": "mariagabriellye2007@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "545ad8e9e0544802a7ab96440ade0ab9",
-      "hash": "0b0a51e6ec635269c0489e7e908e42385d9b332191b028a67db84636d35ce52a",
+      "salt": "20985d1cdd94e2cc5b7d935dffe12761",
+      "hash": "fdcef8a62e191348798a05da420b28c5565a2e831e8aa0c7707b37ecfd6f901c",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:18:56.759345-03:00",
-    "data_nascimento_iso": "",
-    "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "data_nascimento_iso": "2007-05-22",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   },
   {
     "id": "959d1178c63c495881a03f07d90e2602",
