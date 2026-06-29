@@ -188,6 +188,16 @@
         "gols_casa": 2,
         "gols_visitante": 2,
         "enviado_em_iso": "2026-06-29T08:19:39.645745-03:00"
+      },
+      {
+        "id": "4ae503750e2f46c4bfe0ab31c13f9957",
+        "usuario_id": "442012adf8554c99a8cde5ba36212fa1",
+        "usuario_nome": "maria gabrielly gomes limeira",
+        "usuario_foto": "",
+        "usuario_funcao": "Auxiliar Administrativo",
+        "gols_casa": 3,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-29T08:32:11.328887-03:00"
       }
     ],
     "ganhadores": [],
