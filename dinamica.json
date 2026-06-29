@@ -138,6 +138,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-28T21:35:29.120400-03:00"
+      },
+      {
+        "id": "c9f8cff3fb99423a9cd1f8d8f49796cc",
+        "usuario_id": "dfda8064ca304a03aa2b5f34d62e19b9",
+        "usuario_nome": "Arthur",
+        "usuario_foto": "",
+        "usuario_funcao": "Estoquista",
+        "gols_casa": 3,
+        "gols_visitante": 0,
+        "enviado_em_iso": "2026-06-29T07:46:38.619247-03:00"
       }
     ],
     "ganhadores": [],
