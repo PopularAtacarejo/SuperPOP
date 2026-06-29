@@ -1146,5 +1146,25 @@
     "data_nascimento_iso": "2007-12-15",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "e093fa7c2023471a81ea4ede942afbb7",
+    "nome": "Caua Vinicius Melo dos Santos",
+    "funcao": "Operador de Caixa",
+    "numero_celular": "(82) 9 8771 - 0246",
+    "numero_normalizado": "82987710246",
+    "email": "cauaviniciusmelodossantos@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "75bda281fd27941b42b200eb3c9b13d9",
+      "hash": "30d3e33f0995706180fd4194abb679c7e8cd6c054ff66f7656c3897e56f8f671",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-29T08:16:38.841146-03:00",
+    "data_nascimento_iso": "2004-06-02",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
