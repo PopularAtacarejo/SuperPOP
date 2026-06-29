@@ -158,6 +158,16 @@
         "gols_casa": 4,
         "gols_visitante": 2,
         "enviado_em_iso": "2026-06-29T07:47:56.594646-03:00"
+      },
+      {
+        "id": "33e52bbfd3d74efda287eeb72611f698",
+        "usuario_id": "5324921be838431fbe740c5b8de6ec94",
+        "usuario_nome": "Eduarda Beatriz",
+        "usuario_foto": "",
+        "usuario_funcao": "Assistente De Marketing",
+        "gols_casa": 3,
+        "gols_visitante": 0,
+        "enviado_em_iso": "2026-06-29T08:14:11.497840-03:00"
       }
     ],
     "ganhadores": [],
