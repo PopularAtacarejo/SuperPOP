@@ -1166,5 +1166,25 @@
     "data_nascimento_iso": "2004-06-02",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "2183e5ed0b8f4c53847e2128a392e800",
+    "nome": "CARLOS EDUARDO DA SILVA LOPES",
+    "funcao": "Embalador",
+    "numero_celular": "(82) 9 9902 - 5810",
+    "numero_normalizado": "82999025810",
+    "email": "",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "9cb326b008c55b888f0e202d7e24e017",
+      "hash": "14d0c13639eabedc47a71a77dba5eb0dfaafb8ba6a320a471bf80328f609e17d",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-29T08:21:46.392070-03:00",
+    "data_nascimento_iso": "1998-12-23",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
