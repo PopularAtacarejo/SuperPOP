@@ -1186,5 +1186,25 @@
     "data_nascimento_iso": "1998-12-23",
     "mostrar_aniversario": false,
     "pre_cadastro": false
+  },
+  {
+    "id": "16ac2783a31142a3a852e002409a8127",
+    "nome": "Sandrielly pereira da paz",
+    "funcao": "Embaladora",
+    "numero_celular": "(82) 9 8178 - 5046",
+    "numero_normalizado": "82981785046",
+    "email": "psandrielly49@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "94788ef8290a5150cdf105d8eb97e551",
+      "hash": "3317cb7016a55d2974b210c1feb6940489918f7b809eb807a7019426dcaa2df7",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-29T08:34:35.224986-03:00",
+    "data_nascimento_iso": "1996-10-07",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
