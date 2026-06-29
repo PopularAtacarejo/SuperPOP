@@ -178,6 +178,16 @@
         "gols_casa": 3,
         "gols_visitante": 0,
         "enviado_em_iso": "2026-06-29T08:17:04.083827-03:00"
+      },
+      {
+        "id": "5e26300b81844952acd494c404adffae",
+        "usuario_id": "7ece14b2f81b4e2bb6394bc416ca25b8",
+        "usuario_nome": "Gabriel Levi Santos",
+        "usuario_foto": "",
+        "usuario_funcao": "Analista de TI",
+        "gols_casa": 2,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-29T08:19:39.645745-03:00"
       }
     ],
     "ganhadores": [],
