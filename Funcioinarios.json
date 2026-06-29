@@ -1206,5 +1206,25 @@
     "data_nascimento_iso": "1996-10-07",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "ddfb3d46a6ac4745a7d41fae68e113b1",
+    "nome": "MARIA LETICIA SILVA SANTOS",
+    "funcao": "Comprador",
+    "numero_celular": "(82) 9 9630 - 1324",
+    "numero_normalizado": "82996301324",
+    "email": "leticiacordeiro2715@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "cce5fab3d83f4603bc071222d92b6721",
+      "hash": "69fd01c18d3a37713d2d40a281b26ac6fa55e1443346697d8541099c2a19b4f8",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-29T08:35:29.875917-03:00",
+    "data_nascimento_iso": "2001-01-02",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
