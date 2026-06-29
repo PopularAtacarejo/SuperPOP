@@ -308,6 +308,16 @@
         "gols_casa": 4,
         "gols_visitante": 2,
         "enviado_em_iso": "2026-06-29T11:59:10.058433-03:00"
+      },
+      {
+        "id": "848e45a9da4442b6aea8b0b56cec60cc",
+        "usuario_id": "9afe1f508a9a42eca91b9acfe2cad26e",
+        "usuario_nome": "HUILIANE DOS SANTOS BARBOSA",
+        "usuario_foto": "",
+        "usuario_funcao": "Repositora",
+        "gols_casa": 3,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-29T12:35:52.126020-03:00"
       }
     ],
     "ganhadores": [],
