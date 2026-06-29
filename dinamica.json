@@ -198,6 +198,16 @@
         "gols_casa": 3,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-29T08:32:11.328887-03:00"
+      },
+      {
+        "id": "a6bfd5e7d32a491dae68259e82e930ad",
+        "usuario_id": "d71989e570944585a5780942df79b7b2",
+        "usuario_nome": "Elany de Melo Rodrigues",
+        "usuario_foto": "",
+        "usuario_funcao": "Balconista",
+        "gols_casa": 3,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-29T08:34:34.252968-03:00"
       }
     ],
     "ganhadores": [],
