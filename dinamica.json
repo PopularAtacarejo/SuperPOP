@@ -208,6 +208,16 @@
         "gols_casa": 3,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-29T08:34:34.252968-03:00"
+      },
+      {
+        "id": "c3ee534e1a114a3986e5ff7170616f65",
+        "usuario_id": "ddfb3d46a6ac4745a7d41fae68e113b1",
+        "usuario_nome": "MARIA LETICIA SILVA SANTOS",
+        "usuario_foto": "",
+        "usuario_funcao": "Comprador",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-29T08:36:33.386604-03:00"
       }
     ],
     "ganhadores": [],
