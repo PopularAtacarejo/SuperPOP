@@ -168,6 +168,16 @@
         "gols_casa": 3,
         "gols_visitante": 0,
         "enviado_em_iso": "2026-06-29T08:14:11.497840-03:00"
+      },
+      {
+        "id": "e5b8018496ab4002af42f0ed9f79c5a0",
+        "usuario_id": "2857442ce9fd4969aecbd7728c9a51c6",
+        "usuario_nome": "Márcio Gabriel da Silva",
+        "usuario_foto": "",
+        "usuario_funcao": "Embalador",
+        "gols_casa": 3,
+        "gols_visitante": 0,
+        "enviado_em_iso": "2026-06-29T08:17:04.083827-03:00"
       }
     ],
     "ganhadores": [],
