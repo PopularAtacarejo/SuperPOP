@@ -128,6 +128,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-28T18:39:21.030524-03:00"
+      },
+      {
+        "id": "aee167b2d539484cbe080091cb3d95da",
+        "usuario_id": "02e74586bd05442ab2b2eb2762726040",
+        "usuario_nome": "Ivete Francisca",
+        "usuario_foto": "",
+        "usuario_funcao": "Fiscal de Caixa",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-28T21:35:29.120400-03:00"
       }
     ],
     "ganhadores": [],
