@@ -228,6 +228,16 @@
         "gols_casa": 2,
         "gols_visitante": 1,
         "enviado_em_iso": "2026-06-29T08:39:56.425663-03:00"
+      },
+      {
+        "id": "c9224e2af4454d90850ff2b00b74f4bc",
+        "usuario_id": "b27a3ec24e1349309cc08c4cd02837d3",
+        "usuario_nome": "Marci Cleia de Oliveira Almeida",
+        "usuario_foto": "",
+        "usuario_funcao": "Líder de Frente de Loja",
+        "gols_casa": 2,
+        "gols_visitante": 1,
+        "enviado_em_iso": "2026-06-29T08:46:53.779635-03:00"
       }
     ],
     "ganhadores": [],
