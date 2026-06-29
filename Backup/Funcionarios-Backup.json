@@ -1226,5 +1226,25 @@
     "data_nascimento_iso": "2001-01-02",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "167ea532f2e4425e8b56fafff64c0e2f",
+    "nome": "Ywriane",
+    "funcao": "Compradora",
+    "numero_celular": "(82) 9 9800 - 5054",
+    "numero_normalizado": "82998005054",
+    "email": "ywrianeb@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "efc6554351c7d370ec24696c43f3d4bb",
+      "hash": "dad5bd89e382bb993e1ccc13e052dfa49064fa2ae6b4cb6bf0d0257047169050",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-29T08:37:40.741979-03:00",
+    "data_nascimento_iso": "1999-05-03",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
