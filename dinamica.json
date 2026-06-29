@@ -258,6 +258,16 @@
         "gols_casa": 2,
         "gols_visitante": 2,
         "enviado_em_iso": "2026-06-29T09:09:34.368236-03:00"
+      },
+      {
+        "id": "9705e2a57ea6400f9b883d067434693b",
+        "usuario_id": "71e430e8957044f5a6915cc97dc54d67",
+        "usuario_nome": "Marcos Antonio",
+        "usuario_foto": "",
+        "usuario_funcao": "Líder de Abastecimento",
+        "gols_casa": 3,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-29T09:20:32.943418-03:00"
       }
     ],
     "ganhadores": [],
