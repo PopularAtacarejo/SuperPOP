@@ -148,6 +148,16 @@
         "gols_casa": 3,
         "gols_visitante": 0,
         "enviado_em_iso": "2026-06-29T07:46:38.619247-03:00"
+      },
+      {
+        "id": "e1e446241a95467dba42f37725ebcd0e",
+        "usuario_id": "2bbad22ab6ff4785b54b1c79d8c3ab3d",
+        "usuario_nome": "Maria Sabrina Leandro da Silva",
+        "usuario_foto": "",
+        "usuario_funcao": "Fiscal de Caixa",
+        "gols_casa": 4,
+        "gols_visitante": 2,
+        "enviado_em_iso": "2026-06-29T07:47:56.594646-03:00"
       }
     ],
     "ganhadores": [],
