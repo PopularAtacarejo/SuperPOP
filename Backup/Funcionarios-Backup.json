@@ -1266,5 +1266,25 @@
     "data_nascimento_iso": "1971-09-09",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "64fc7388de2f4161982424b6ad38fb56",
+    "nome": "Jailson Barbosa",
+    "funcao": "Ajudante de Acougue",
+    "numero_celular": "(82) 9 9958 - 8267",
+    "numero_normalizado": "82999588267",
+    "email": "jb9533128@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "4d760e9fe679dcbe401446b9694f5d39",
+      "hash": "6935bec7fb5d57236038831889f886d9b1a329b6f4bc47ae7608606333c70024",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-29T17:59:02.099374-03:00",
+    "data_nascimento_iso": "1995-03-30",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
