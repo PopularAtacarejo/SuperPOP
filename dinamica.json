@@ -321,6 +321,12 @@
       }
     ],
     "ganhadores": [],
-    "acertos_resultado": []
+    "acertos_resultado": [],
+    "palpite_ganhador_id": "28e4b2451a724c3f88636ab4b0ab6ffc",
+    "palpite_ganhador_selecionado_em_iso": "2026-06-29T16:04:45.716239-03:00",
+    "palpite_ganhador_selecionado_por": {
+      "id": "b8c2c8b2a24b4037830f099f4f2469d1",
+      "nome": "Jeferson"
+    }
   }
 ]
