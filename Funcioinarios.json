@@ -1286,5 +1286,25 @@
     "data_nascimento_iso": "1995-03-30",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "4e6f7a1e6f3e453dbaeb920b87d9211f",
+    "nome": "Samylla Keyla Dos Santos Feitosa",
+    "funcao": "Operadordecaixa",
+    "numero_celular": "(82) 9 9936 - 6754",
+    "numero_normalizado": "82999366754",
+    "email": "samyllafeitosa1@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "2770f2d1bd3da52986d54ad3d61d6887",
+      "hash": "4895fee6610f431e3c9d16cac1bd5313e51e248c8d65c1f4e92454eeea123e15",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-06-30T08:51:01.114505-03:00",
+    "data_nascimento_iso": "2007-11-19",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
