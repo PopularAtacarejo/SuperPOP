@@ -383,11 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-3"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
         '<div class="flex flex-col text-sm font-semibold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
       : "";
-    const rulesHtml = rules
-      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600 mb-3"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
-        '<p class="text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
-      : "";
+    const rulesHtml = "";
     firstGoalPrizeRules.innerHTML = prizeHtml + rulesHtml;
   }
 
@@ -616,11 +612,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-3"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
         '<div class="flex flex-col text-sm font-semibold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
       : "";
-    const rulesHtml = rules
-      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600 mb-3"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
-        '<p class="text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
-      : "";
+    const rulesHtml = "";
     return '<div class="mt-4 grid gap-3 sm:grid-cols-2">' + prizeHtml + rulesHtml + '</div>';
   }
 
@@ -1062,13 +1054,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     
-    const rules = String(firstGoalData.regras || "").trim();
     if (firstGoalWaitRules) {
-      if (rules) {
-        firstGoalWaitRules.innerHTML = '<p class="text-xs font-extrabold uppercase tracking-widest text-slate-600"><span class="material-symbols-outlined text-sm align-middle mr-1">rule</span>Regras</p><p class="mt-1 text-sm font-semibold text-slate-700">' + multilineHtml(rules) + '</p>';
-      } else {
-        firstGoalWaitRules.innerHTML = "";
-      }
+      firstGoalWaitRules.innerHTML = "";
     }
 
     firstGoalWaitModal.classList.remove("hidden");
