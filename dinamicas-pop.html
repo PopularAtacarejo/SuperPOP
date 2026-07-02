@@ -146,6 +146,37 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
     </button>
   </div>
 </div>
+<div aria-hidden="true" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" id="firstGoalWaitModal" role="dialog" aria-modal="true">
+  <div class="relative w-full max-w-lg scale-95 transform rounded-3xl bg-white p-6 shadow-2xl transition-transform duration-300" id="firstGoalWaitModalCard">
+    <div class="text-center">
+      <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+        <span class="material-symbols-outlined text-3xl">timer</span>
+      </div>
+      <h2 class="font-display text-2xl text-slate-900">Prepare-se!</h2>
+      <p class="mt-2 text-sm font-semibold text-slate-500">A seleção para o primeiro gol ainda não começou.</p>
+    </div>
+    
+    <div class="mt-6 text-center">
+      <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Falta para começar</p>
+      <div class="mt-2 flex justify-center gap-3 font-display text-4xl text-primary tabular-nums tracking-tight" id="firstGoalWaitCountdown">
+        --:--:--
+      </div>
+    </div>
+    
+    <div class="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 text-center text-sm font-semibold text-slate-600">
+      Disponível no período:<br><strong class="text-slate-900" id="firstGoalWaitPeriod">...</strong>
+    </div>
+
+    <div class="mt-6 space-y-3 text-left">
+      <div id="firstGoalWaitPrize"></div>
+      <div id="firstGoalWaitRules"></div>
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <button class="rounded-xl bg-slate-900 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-slate-800" type="button" id="firstGoalWaitCloseBtn">Entendi</button>
+    </div>
+  </div>
+</div>
 <script>
 document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("sidebar"),t=document.getElementById("sidebarToggle"),o=document.getElementById("sidebarOverlay"),m=document.getElementById("mobileMenuBtn"),l=document.querySelector(".sidebar-collapsed-only"),c=t&&t.querySelector("span");function open(){s.classList.add("expanded");if(c)c.textContent="chevron_left";if(l)l.style.opacity="0"}function close(){s.classList.remove("expanded");if(c)c.textContent="chevron_right";if(l)l.style.opacity="1"}if(t)t.addEventListener("click",()=>s.classList.contains("expanded")?close():open());if(m)m.addEventListener("click",open);if(o)o.addEventListener("click",close);window.innerWidth<1100?close():open()});
 </script>

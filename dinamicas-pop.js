@@ -55,6 +55,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const predictionSuccessMessage = document.getElementById("predictionSuccessMessage");
   const predictionSuccessScore = document.getElementById("predictionSuccessScore");
   const predictionConfetti = document.getElementById("predictionConfetti");
+
+  const firstGoalWaitModal = document.getElementById("firstGoalWaitModal");
+  const firstGoalWaitModalCard = document.getElementById("firstGoalWaitModalCard");
+  const firstGoalWaitCountdown = document.getElementById("firstGoalWaitCountdown");
+  const firstGoalWaitPeriod = document.getElementById("firstGoalWaitPeriod");
+  const firstGoalWaitPrize = document.getElementById("firstGoalWaitPrize");
+  const firstGoalWaitRules = document.getElementById("firstGoalWaitRules");
+  const firstGoalWaitCloseBtn = document.getElementById("firstGoalWaitCloseBtn");
+  let firstGoalWaitInterval = null;
+
   let games = [];
   let firstGoalData = { jogadores: [], palpites_enviados: [], meu_palpite: null, ja_enviou_palpite: false, status_palpites: "nao_configurado", palpite_aberto: false, escolhas_reveladas: false, descricao_premio: "", regras: "" };
   let isDeveloper = false;
@@ -402,11 +412,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!firstGoalVotesPanel || !firstGoalVotesList) return;
     const canSeeVotes = Boolean(firstGoalData.escolhas_reveladas);
     firstGoalVotesPanel.classList.remove("hidden");
-    if (!canSeeVotes) {
-      firstGoalVotesList.className = "mt-4";
-      firstGoalVotesList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-center font-semibold text-slate-500">Os palpites enviados ficam ocultos para os colaboradores até o período de envio acabar.</div>';
-      return;
-    }
     const votes = Array.isArray(firstGoalData.palpites_enviados) ? firstGoalData.palpites_enviados : [];
     if (!votes.length) {
       firstGoalVotesList.className = "mt-4";
@@ -415,16 +420,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     firstGoalVotesList.className = "mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
     firstGoalVotesList.innerHTML = votes.map(function (item) {
+      const selected = Boolean(item.ganhador_selecionado);
+      const isHidden = Boolean(item.oculto);
+      const blurClass = isHidden ? " blur-[4px] select-none opacity-70 grayscale" : "";
       const roleHtml = item.usuario_funcao ? '<span class="text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
-      return '<article class="flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">' +
+      
+      const articleClass = selected 
+        ? "flex h-full flex-col gap-4 rounded-2xl border-2 border-yellow-400 bg-yellow-50 p-4 shadow-sm ring-4 ring-yellow-100" 
+        : "flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft";
+
+      const crownSvg = selected
+          ? '<span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm" title="Palpite ganhador">' +
+            '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+            '</span>'
+          : "";
+
+      const winnerButton = selected
+        ? '<span class="rounded-lg bg-yellow-200 px-3 py-2 text-xs font-extrabold text-yellow-900">Ganhador</span>'
+        : '<button class="rounded-lg bg-yellow-100 px-3 py-2 text-xs font-bold text-yellow-800 hover:bg-yellow-200" data-select-first-goal-winner="' + escapeHtml(item.id) + '" type="button">Marcar ganhador</button>';
+
+      return '<article class="' + articleClass + '">' +
         '<div class="flex items-center justify-between gap-3"><p class="text-xs font-bold uppercase tracking-widest text-primary">Palpite enviado</p>' +
-        (isDeveloper ? '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') + '</div>' +
+        '<div class="flex gap-2">' +
+        (isDeveloper ? winnerButton + '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') + '</div></div>' +
         '<div class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">' + userAvatarHtml(item, "h-11 w-11") +
-        '<div class="min-w-0"><p class="truncate text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + '</p>' +
-        '<p class="truncate text-xs font-bold text-slate-400">' + roleHtml + '</p></div></div>' +
-        '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-3 text-sm font-extrabold text-emerald-800">' +
-        firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10") +
-        '<div><p class="text-xs uppercase tracking-widest text-emerald-600">Primeiro gol</p><p>' + escapeHtml(item.jogador_nome || "Jogador") + '</p></div></div>' +
+        '<div class="min-w-0 mr-auto"><p class="truncate text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + '</p>' +
+        '<p class="truncate text-xs font-bold text-slate-400">' + roleHtml + '</p></div>' + crownSvg + '</div>' +
+        '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-3 text-sm font-extrabold text-emerald-800 relative overflow-hidden">' +
+        firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10 shrink-0" + blurClass) +
+        '<div class="min-w-0' + blurClass + '"><p class="text-xs uppercase tracking-widest text-emerald-600">Primeiro gol</p><p class="truncate">' + escapeHtml(item.jogador_nome || "Jogador") + '</p></div></div>' +
         '<div class="mt-auto flex items-center gap-2 text-xs font-bold text-slate-500"><span class="material-symbols-outlined text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
         '</article>';
     }).join("");
@@ -455,6 +479,7 @@ document.addEventListener("DOMContentLoaded", function () {
       renderFirstGoalPrizeRules();
       renderFirstGoalPlayers();
       renderFirstGoalVotes();
+      showFirstGoalWaitModal();
     } catch (error) {
       firstGoalPlayersList.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
     }
@@ -881,6 +906,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (firstGoalVotesList) {
     firstGoalVotesList.addEventListener("click", async function (event) {
+      const selectWinnerButton = event.target.closest("[data-select-first-goal-winner]");
+      if (selectWinnerButton) {
+        event.preventDefault();
+        if (!window.confirm("Marcar este palpite como ganhador?")) return;
+        try {
+          await api("/api/primeiro-gol/ganhador/" + encodeURIComponent(selectWinnerButton.dataset.selectFirstGoalWinner), {
+            method: "PUT",
+            body: JSON.stringify({})
+          });
+          await loadFirstGoal();
+        } catch (error) {
+          window.alert(error.message);
+        }
+        return;
+      }
+
       const deleteButton = event.target.closest("[data-delete-first-goal-vote]");
       if (!deleteButton) return;
       if (!window.confirm("Excluir a escolha deste colaborador?")) return;
@@ -893,6 +934,79 @@ document.addEventListener("DOMContentLoaded", function () {
         window.alert(error.message);
       }
     });
+  }
+
+  if (firstGoalWaitCloseBtn) {
+    firstGoalWaitCloseBtn.addEventListener("click", function() {
+      if (!firstGoalWaitModal || !firstGoalWaitModalCard) return;
+      firstGoalWaitModal.classList.add("opacity-0");
+      firstGoalWaitModalCard.classList.remove("scale-100");
+      firstGoalWaitModalCard.classList.add("scale-95");
+      setTimeout(() => firstGoalWaitModal.classList.add("hidden"), 300);
+      if (firstGoalWaitInterval) clearInterval(firstGoalWaitInterval);
+    });
+  }
+
+  function showFirstGoalWaitModal() {
+    if (!firstGoalWaitModal || !firstGoalWaitModalCard) return;
+    const status = firstGoalData.status_palpites || "nao_configurado";
+    if (status !== "aguardando") return;
+
+    const startText = formatDateTime(firstGoalData.inicio_palpites_iso);
+    const endText = formatDateTime(firstGoalData.fim_palpites_iso);
+    if (firstGoalWaitPeriod) firstGoalWaitPeriod.innerHTML = escapeHtml(startText) + " até " + escapeHtml(endText);
+    
+    const prize = String(firstGoalData.descricao_premio || "").trim();
+    if (firstGoalWaitPrize) {
+      if (prize) {
+        firstGoalWaitPrize.innerHTML = '<p class="text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-sm align-middle mr-1">redeem</span>Premiação</p><p class="mt-1 text-sm font-bold text-amber-950">' + multilineHtml(prize) + '</p>';
+      } else {
+        firstGoalWaitPrize.innerHTML = "";
+      }
+    }
+    
+    const rules = String(firstGoalData.regras || "").trim();
+    if (firstGoalWaitRules) {
+      if (rules) {
+        firstGoalWaitRules.innerHTML = '<p class="text-xs font-extrabold uppercase tracking-widest text-slate-600"><span class="material-symbols-outlined text-sm align-middle mr-1">rule</span>Regras</p><p class="mt-1 text-sm font-semibold text-slate-700">' + multilineHtml(rules) + '</p>';
+      } else {
+        firstGoalWaitRules.innerHTML = "";
+      }
+    }
+
+    firstGoalWaitModal.classList.remove("hidden");
+    void firstGoalWaitModal.offsetWidth;
+    firstGoalWaitModal.classList.remove("opacity-0");
+    firstGoalWaitModalCard.classList.remove("scale-95");
+    firstGoalWaitModalCard.classList.add("scale-100");
+
+    if (firstGoalWaitInterval) clearInterval(firstGoalWaitInterval);
+    
+    function updateCountdown() {
+      if (!firstGoalWaitCountdown) return;
+      const now = new Date();
+      const start = new Date(firstGoalData.inicio_palpites_iso);
+      const diff = start.getTime() - now.getTime();
+      
+      if (diff <= 0) {
+        clearInterval(firstGoalWaitInterval);
+        firstGoalWaitCountdown.innerHTML = "00:00:00";
+        setTimeout(() => window.location.reload(), 1500);
+        return;
+      }
+      
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      firstGoalWaitCountdown.innerHTML = 
+        String(hours).padStart(2, '0') + ":" + 
+        String(mins).padStart(2, '0') + ":" + 
+        String(secs).padStart(2, '0');
+    }
+    
+    updateCountdown();
+    firstGoalWaitInterval = setInterval(updateCountdown, 1000);
   }
 
   gamesList.addEventListener("submit", async function (event) {
