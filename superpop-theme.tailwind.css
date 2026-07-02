@@ -434,7 +434,10 @@
 @layer superpop-responsive {
   @media (max-width: 768px) {
     body[data-page] .auth-top-actions {
+      /* Garante que não sobreponha o botão de menu mobile (left-4, ~52px) */
       max-width: calc(100vw - 72px);
+      top: 10px;
+      right: 10px;
     }
 
     body[data-page] main {
@@ -459,6 +462,34 @@
 
     body[data-page] .superpop-footer-separator {
       display: none;
+    }
+
+    /* Ocultar texto dos botões de usuário em telas pequenas */
+    body[data-page] .auth-user-btn-text,
+    body[data-page] .online-users-btn-text {
+      display: none !important;
+    }
+
+    body[data-page] .online-users-btn,
+    body[data-page] .auth-user-btn,
+    body[data-page] .notifications-btn {
+      padding: 6px 8px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body[data-page] .auth-top-actions {
+      gap: 6px;
+    }
+
+    /* Botão de usuário: mostrar só o avatar */
+    body[data-page] .auth-user-btn .material-symbols-outlined:last-child {
+      display: none !important;
+    }
+
+    body[data-page] main {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
     }
   }
 

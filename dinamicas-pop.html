@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SuperPop | DinÃ¢micas POP</title>
+<title>SuperPop | Dinâmicas POP</title>
 <link href="https://i.ibb.co/99R7YqxF/Icon.png" rel="icon" type="image/png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
@@ -31,11 +31,11 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <a class="menu-item group" href="superpop.html"><span class="material-symbols-outlined">send</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Enviar Super POP!</span></a>
 <a class="menu-item group" href="meus-superpops.html"><span class="material-symbols-outlined">history</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Meus Super POPs</span></a>
 <a class="menu-item group" href="aniversariantes.html"><span class="material-symbols-outlined">cake</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Aniversariantes</span></a>
-<a class="menu-item active group" href="dinamicas-pop.html" id="dynamicsPopNavItem"><span class="material-symbols-outlined">sports_soccer</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">DinÃ¢micas POP</span></a>
+<a class="menu-item active group" href="dinamicas-pop.html" id="dynamicsPopNavItem"><span class="material-symbols-outlined">sports_soccer</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Dinâmicas POP</span></a>
 <a class="menu-item group" href="rank.html"><span class="material-symbols-outlined">leaderboard</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ranking</span></a>
-<a class="menu-item group" href="ganhadores.html"><span class="material-symbols-outlined">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do MÃªs</span></a>
+<a class="menu-item group" href="ganhadores.html"><span class="material-symbols-outlined">workspace_premium</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Ganhadores do Mês</span></a>
 <a class="menu-item group" href="sobre.html"><span class="material-symbols-outlined">info</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Sobre</span></a>
-<a class="menu-item group" href="atualizacoes.html"><span class="material-symbols-outlined">campaign</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">AtualizaÃ§Ãµes</span></a>
+<a class="menu-item group" href="atualizacoes.html"><span class="material-symbols-outlined">campaign</span><span class="menu-item-label ml-3 sidebar-content-fade whitespace-nowrap">Atualizações</span></a>
 </div></nav>
 <button class="absolute -right-3 top-12 bg-white border border-gray-200 rounded-full shadow-md hidden md:flex w-6 h-6 items-center justify-center" id="sidebarToggle" type="button"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
 </aside>
@@ -43,17 +43,17 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <button class="md:hidden fixed top-4 left-4 z-40 bg-white p-2 rounded-lg shadow-soft" id="mobileMenuBtn" type="button"><span class="material-symbols-outlined">menu</span></button>
 
 <div class="auth-top-actions" id="authTopActions">
-<div class="online-users-menu" id="onlineUsersMenu"><button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button"><span class="material-symbols-outlined">groups</span><span class="online-users-btn-text">Online</span><span class="online-users-count" id="onlineUsersCount">0</span></button><div class="online-users-dropdown" id="onlineUsersDropdown"><p class="online-users-dropdown-title">UsuÃ¡rios online</p><p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando...</p><ul class="online-users-list" id="onlineUsersList"></ul></div></div>
+<div class="online-users-menu" id="onlineUsersMenu"><button aria-expanded="false" class="online-users-btn" id="onlineUsersBtn" type="button"><span class="material-symbols-outlined">groups</span><span class="online-users-btn-text">Online</span><span class="online-users-count" id="onlineUsersCount">0</span></button><div class="online-users-dropdown" id="onlineUsersDropdown"><p class="online-users-dropdown-title">Usuários online</p><p class="online-users-dropdown-subtitle" id="onlineUsersStatus">Carregando...</p><ul class="online-users-list" id="onlineUsersList"></ul></div></div>
 <div class="auth-user-menu" id="authUserMenu"><button aria-expanded="false" class="auth-user-btn" id="authUserBtn" type="button"><span class="auth-user-avatar"><img alt="Avatar" class="hidden" id="authUserAvatarImage"/><span id="authUserAvatarFallback">SP</span></span><span class="auth-user-btn-text"><strong id="authUserName">Carregando...</strong><small id="authUserRole">Perfil</small></span><span class="material-symbols-outlined">expand_more</span></button><div class="auth-user-dropdown" id="authUserDropdown"><p id="authUserNameDetail">Carregando...</p><p id="authUserRoleDetail">Perfil</p><a class="mb-2 inline-flex w-full justify-center rounded-xl bg-slate-100 px-3 py-2 text-sm font-bold" href="perfil.html">Meu Perfil</a><button class="w-full rounded-xl bg-red-100 text-red-700 text-sm font-bold py-2" id="authLogoutBtn" type="button">Sair</button></div></div>
 </div>
 
 <div class="main-content flex flex-col min-h-screen">
 <header class="px-6 pt-14 sm:pt-4 text-center"><img alt="SuperPop" class="mx-auto w-48 sm:w-72" src="https://i.ibb.co/VpLWwfNB/Gemini-Generated-Image-1aiacj1aiacj1aia.png"/></header>
 <main class="flex-1 max-w-6xl mx-auto w-full px-5 py-6 space-y-6">
-<section class="text-center space-y-3"><span class="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-emerald-700"><span class="material-symbols-outlined text-base">sports_soccer</span>Futebol do Brasil</span><h1 class="font-display text-4xl sm:text-5xl text-primary uppercase">DinÃ¢micas POP</h1><p class="max-w-3xl mx-auto text-gray-600 font-semibold">Envie seu palpite de placar antes do inÃ­cio de cada partida.</p></section>
+<section class="text-center space-y-3"><span class="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-emerald-700"><span class="material-symbols-outlined text-base">sports_soccer</span>Futebol do Brasil</span><h1 class="font-display text-4xl sm:text-5xl text-primary uppercase">Dinâmicas POP</h1><p class="max-w-3xl mx-auto text-gray-600 font-semibold">Envie seu palpite de placar antes do início de cada partida.</p></section>
 
 <section class="hidden rounded-3xl border border-red-100 bg-white p-6 shadow-soft" id="developerPanel">
-<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><button class="flex w-full items-center justify-between gap-3 text-left sm:w-auto" id="gameFormToggleBtn" type="button" aria-expanded="false" aria-controls="gameFormContent"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Ãrea do desenvolvedor</p><h2 class="font-display text-3xl">Cadastrar jogo</h2></div><span class="material-symbols-outlined rounded-full bg-slate-100 p-2 text-slate-600" id="gameFormToggleIcon">expand_more</span></button><button class="hidden rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold" id="cancelEditBtn" type="button">Cancelar ediÃ§Ã£o</button></div>
+<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><button class="flex w-full items-center justify-between gap-3 text-left sm:w-auto" id="gameFormToggleBtn" type="button" aria-expanded="false" aria-controls="gameFormContent"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Área do desenvolvedor</p><h2 class="font-display text-3xl">Cadastrar jogo</h2></div><span class="material-symbols-outlined rounded-full bg-slate-100 p-2 text-slate-600" id="gameFormToggleIcon">expand_more</span></button><button class="hidden rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold" id="cancelEditBtn" type="button">Cancelar edição</button></div>
 <div class="hidden" id="gameFormContent">
 <form class="mt-5 grid gap-4 md:grid-cols-2" id="gameForm">
 <label class="text-sm font-bold text-slate-600">Time da casa<input class="mt-1 w-full rounded-xl border-slate-200" id="homeTeamInput" maxlength="80" required/></label>
@@ -61,14 +61,14 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <label class="text-sm font-bold text-slate-600">Imagem do time da casa<input class="mt-1 w-full rounded-xl border-slate-200" id="homeTeamImageInput" maxlength="1000" placeholder="https://..." type="url"/></label>
 <label class="text-sm font-bold text-slate-600">Imagem do time visitante<input class="mt-1 w-full rounded-xl border-slate-200" id="awayTeamImageInput" maxlength="1000" placeholder="https://..." type="url"/></label>
 <label class="text-sm font-bold text-slate-600">Data do jogo<input class="mt-1 w-full rounded-xl border-slate-200" id="matchDateInput" required type="date"/></label>
-<label class="text-sm font-bold text-slate-600">HorÃ¡rio do jogo<input class="mt-1 w-full rounded-xl border-slate-200" id="matchTimeInput" required type="time"/></label>
-<label class="text-sm font-bold text-slate-600">InÃ­cio dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionStartDateInput" required type="date"/></label>
-<label class="text-sm font-bold text-slate-600">HorÃ¡rio de inÃ­cio<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionStartTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600">Horário do jogo<input class="mt-1 w-full rounded-xl border-slate-200" id="matchTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600">Início dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionStartDateInput" required type="date"/></label>
+<label class="text-sm font-bold text-slate-600">Horário de início<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionStartTimeInput" required type="time"/></label>
 <label class="text-sm font-bold text-slate-600">Fim dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionEndDateInput" required type="date"/></label>
-<label class="text-sm font-bold text-slate-600">HorÃ¡rio de encerramento<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionEndTimeInput" required type="time"/></label>
-<label class="text-sm font-bold text-slate-600 md:col-span-2">CompetiÃ§Ã£o (opcional)<input class="mt-1 w-full rounded-xl border-slate-200" id="competitionInput" maxlength="100" placeholder="Ex.: BrasileirÃ£o, Copa do Brasil"/></label>
-<label class="text-sm font-bold text-slate-600 md:col-span-2">DescriÃ§Ã£o do prÃªmio<input class="mt-1 w-full rounded-xl border-slate-200" id="prizeDescriptionInput" maxlength="500" placeholder="Ex.: Vale-compras, brinde especial ou pontuaÃ§Ã£o extra"/></label>
-<label class="text-sm font-bold text-slate-600 md:col-span-2">Regras da dinÃ¢mica<textarea class="mt-1 min-h-[110px] w-full rounded-xl border-slate-200" id="rulesInput" maxlength="900" placeholder="Ex.: SerÃ¡ considerado vencedor quem acertar o placar exato. Em caso de empate, o desenvolvedor seleciona o ganhador conforme ordem de envio."></textarea></label>
+<label class="text-sm font-bold text-slate-600">Horário de encerramento<input class="mt-1 w-full rounded-xl border-slate-200" id="predictionEndTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600 md:col-span-2">Competição (opcional)<input class="mt-1 w-full rounded-xl border-slate-200" id="competitionInput" maxlength="100" placeholder="Ex.: Brasileirão, Copa do Brasil"/></label>
+<label class="text-sm font-bold text-slate-600 md:col-span-2">Descrição do prêmio<textarea class="mt-1 min-h-[110px] w-full rounded-xl border-slate-200" id="prizeDescriptionInput" maxlength="500" placeholder="Ex.: Vale-compras, brinde especial ou pontuação extra"></textarea></label>
+<label class="text-sm font-bold text-slate-600 md:col-span-2">Regras da dinâmica<textarea class="mt-1 min-h-[110px] w-full rounded-xl border-slate-200" id="rulesInput" maxlength="900" placeholder="Ex.: Será considerado vencedor quem acertar o placar exato. Em caso de empate, o desenvolvedor seleciona o ganhador conforme ordem de envio."></textarea></label>
 <div class="md:col-span-2"><p class="hidden rounded-xl px-4 py-3 text-sm font-bold" id="gameFormMessage"></p><button class="mt-3 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white" id="saveGameBtn" type="submit"><span class="material-symbols-outlined">add_circle</span><span id="saveGameLabel">Cadastrar jogo</span></button></div>
 </form>
 </div>
@@ -80,23 +80,23 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <button class="border-b-2 border-primary px-4 py-3 text-sm font-extrabold text-primary" data-tab-button="games" type="button">Jogos e palpites</button>
 <button class="border-b-2 border-transparent px-4 py-3 text-sm font-extrabold text-slate-500" data-tab-button="first-goal" type="button">Quem faz o primeiro gol?</button>
 <button class="border-b-2 border-transparent px-4 py-3 text-sm font-extrabold text-slate-500" data-tab-button="sent" type="button">Palpites enviados</button>
-<button class="border-b-2 border-transparent px-4 py-3 text-sm font-extrabold text-slate-500" data-tab-button="winners" type="button">HistÃ³rico de ganhadores</button>
+<button class="border-b-2 border-transparent px-4 py-3 text-sm font-extrabold text-slate-500" data-tab-button="winners" type="button">Histórico de ganhadores</button>
 </div>
 <button class="mb-2 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white" id="refreshGamesBtn" type="button"><span class="material-symbols-outlined text-base">refresh</span>Atualizar</button>
 </div>
-<div class="pt-5" data-tab-panel="games"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Partidas</p><h2 class="font-display text-3xl">Jogos disponÃ­veis</h2></div><div class="mt-4 grid gap-5 lg:grid-cols-2" id="gamesList"><p class="text-slate-500 font-semibold">Carregando jogos...</p></div></div>
+<div class="pt-5" data-tab-panel="games"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Partidas</p><h2 class="font-display text-3xl">Jogos disponíveis</h2></div><div class="mt-4 grid gap-5 lg:grid-cols-2" id="gamesList"><p class="text-slate-500 font-semibold">Carregando jogos...</p></div></div>
 <div class="hidden pt-5" data-tab-panel="first-goal">
-<div><p class="text-xs font-bold uppercase tracking-widest text-primary">Primeiro gol</p><h2 class="font-display text-3xl">Quem faz o primeiro gol?</h2><p class="mt-1 text-sm font-semibold text-slate-500">Escolha um jogador da seleÃ§Ã£o. Cada colaborador pode enviar apenas uma escolha.</p></div>
+<div><p class="text-xs font-bold uppercase tracking-widest text-primary">Primeiro gol</p><h2 class="font-display text-3xl">Quem faz o primeiro gol?</h2><p class="mt-1 text-sm font-semibold text-slate-500">Escolha um jogador da seleção. Cada colaborador pode enviar apenas uma escolha.</p></div>
 <section class="mt-5 hidden rounded-3xl border border-red-100 bg-white p-5 shadow-soft" id="firstGoalDeveloperPanel">
-<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Ãrea do desenvolvedor</p><h3 class="font-display text-2xl">Cadastrar jogador</h3></div><button class="hidden rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold" id="firstGoalCancelEditBtn" type="button">Cancelar ediÃ§Ã£o</button></div>
+<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Área do desenvolvedor</p><h3 class="font-display text-2xl">Cadastrar jogador</h3></div><button class="hidden rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold" id="firstGoalCancelEditBtn" type="button">Cancelar edição</button></div>
 <form class="mt-4 grid gap-4 md:grid-cols-[1fr,1fr,1fr,1fr,auto]" id="firstGoalPeriodForm">
-<label class="text-sm font-bold text-slate-600">InÃ­cio dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalStartDateInput" required type="date"/></label>
-<label class="text-sm font-bold text-slate-600">HorÃ¡rio de inÃ­cio<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalStartTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600">Início dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalStartDateInput" required type="date"/></label>
+<label class="text-sm font-bold text-slate-600">Horário de início<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalStartTimeInput" required type="time"/></label>
 <label class="text-sm font-bold text-slate-600">Fim dos palpites<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalEndDateInput" required type="date"/></label>
-<label class="text-sm font-bold text-slate-600">HorÃ¡rio de encerramento<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalEndTimeInput" required type="time"/></label>
-<label class="text-sm font-bold text-slate-600 md:col-span-2">PremiaÃ§Ã£o<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalPrizeInput" maxlength="500" placeholder="Ex.: Kit especial, vale-compras ou brinde"/></label>
-<label class="text-sm font-bold text-slate-600 md:col-span-3">Regras da dinÃ¢mica<textarea class="mt-1 min-h-[88px] w-full rounded-xl border-slate-200" id="firstGoalRulesInput" maxlength="900" placeholder="Ex.: Cada colaborador poderÃ¡ escolher apenas um jogador. A escolha nÃ£o poderÃ¡ ser alterada apÃ³s a confirmaÃ§Ã£o."></textarea></label>
-<div class="flex items-end"><button class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white" type="submit"><span class="material-symbols-outlined">event_available</span>Salvar perÃ­odo</button></div>
+<label class="text-sm font-bold text-slate-600">Horário de encerramento<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalEndTimeInput" required type="time"/></label>
+<label class="text-sm font-bold text-slate-600 md:col-span-2">Premiação<textarea class="mt-1 min-h-[88px] w-full rounded-xl border-slate-200" id="firstGoalPrizeInput" maxlength="500" placeholder="Ex.: Kit especial, vale-compras ou brinde"></textarea></label>
+<label class="text-sm font-bold text-slate-600 md:col-span-3">Regras da dinâmica<textarea class="mt-1 min-h-[88px] w-full rounded-xl border-slate-200" id="firstGoalRulesInput" maxlength="900" placeholder="Ex.: Cada colaborador poderá escolher apenas um jogador. A escolha não poderá ser alterada após a confirmação."></textarea></label>
+<div class="flex items-end"><button class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white" type="submit"><span class="material-symbols-outlined">event_available</span>Salvar período</button></div>
 </form>
 <form class="mt-4 grid gap-4 md:grid-cols-[1fr,1.5fr,auto]" id="firstGoalPlayerForm">
 <label class="text-sm font-bold text-slate-600">Nome do jogador<input class="mt-1 w-full rounded-xl border-slate-200" id="firstGoalPlayerNameInput" maxlength="100" required/></label>
@@ -105,13 +105,13 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 </form>
 <p class="mt-3 hidden rounded-xl px-4 py-3 text-sm font-bold" id="firstGoalFormMessage"></p>
 </section>
-<div class="mt-5 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-900" id="firstGoalPeriodStatus">Carregando perÃ­odo de envio...</div>
+<div class="mt-5 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-900" id="firstGoalPeriodStatus">Carregando período de envio...</div>
 <div class="mt-4 grid gap-3 sm:grid-cols-2" id="firstGoalPrizeRules"></div>
 <div class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3" id="firstGoalPlayersList"><p class="text-slate-500 font-semibold">Carregando jogadores...</p></div>
-<div class="mt-8" id="firstGoalVotesPanel"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">ParticipaÃ§Ã£o</p><h3 class="font-display text-2xl">Palpites enviados - primeiro gol</h3><p class="mt-1 text-sm font-semibold text-slate-500">Confira os colaboradores que escolheram quem farÃ¡ o primeiro gol do Brasil.</p></div><div class="mt-4 space-y-3" id="firstGoalVotesList"></div></div>
+<div class="mt-8" id="firstGoalVotesPanel"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Participação</p><h3 class="font-display text-2xl">Palpites enviados - primeiro gol</h3><p class="mt-1 text-sm font-semibold text-slate-500">Confira os colaboradores que escolheram quem fará o primeiro gol do Brasil.</p></div><div class="mt-4 space-y-3" id="firstGoalVotesList"></div></div>
 </div>
 <div class="hidden pt-5" data-tab-panel="sent">
-<button class="flex w-full items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 text-left shadow-soft ring-1 ring-slate-100" id="sentPredictionsToggleBtn" type="button" aria-expanded="false" aria-controls="sentPredictionsContent"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">ParticipaÃ§Ã£o</p><h2 class="font-display text-3xl">Palpites enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Confira o placar informado, quem enviou e a data e hora do envio.</p></div><span class="material-symbols-outlined rounded-full bg-slate-100 p-2 text-slate-600" id="sentPredictionsToggleIcon">expand_more</span></button>
+<button class="flex w-full items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 text-left shadow-soft ring-1 ring-slate-100" id="sentPredictionsToggleBtn" type="button" aria-expanded="false" aria-controls="sentPredictionsContent"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Participação</p><h2 class="font-display text-3xl">Palpites enviados</h2><p class="mt-1 text-sm font-semibold text-slate-500">Confira o placar informado, quem enviou e a data e hora do envio.</p></div><span class="material-symbols-outlined rounded-full bg-slate-100 p-2 text-slate-600" id="sentPredictionsToggleIcon">expand_more</span></button>
 <div class="hidden" id="sentPredictionsContent">
 <div id="sentPredictionsViewMount"></div>
 <div class="mt-4 space-y-4" id="sentPredictionsList"><p class="text-slate-500 font-semibold">Carregando palpites...</p></div>
@@ -121,7 +121,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
   <div>
     <p class="text-xs font-bold uppercase tracking-widest text-primary">Primeiro Gol</p>
     <h2 class="font-display text-3xl">Palpites - Quem faz o primeiro gol?</h2>
-    <p class="mt-1 text-sm font-semibold text-slate-500">Veja quem enviou um palpite de primeiro gol e a seleÃ§Ã£o de cada colaborador.</p>
+    <p class="mt-1 text-sm font-semibold text-slate-500">Veja quem enviou um palpite de primeiro gol e a seleção de cada colaborador.</p>
   </div>
   <span class="material-symbols-outlined rounded-full bg-slate-100 p-2 text-slate-600" id="sentFirstGoalToggleIcon">expand_more</span>
 </button>
@@ -129,14 +129,14 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
   <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3" id="sentFirstGoalList"><p class="text-slate-500 font-semibold">Carregando palpites...</p></div>
 </div>
 </div>
-<div class="hidden pt-5" data-tab-panel="winners"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">HistÃ³rico</p><h2 class="font-display text-3xl">Ganhadores dos palpites</h2><p class="mt-1 text-sm font-semibold text-slate-500">Confira quem acertou o placar exato apÃ³s o resultado final de cada jogo.</p></div><div class="mt-4 space-y-4" id="winnersHistoryList"><p class="text-slate-500 font-semibold">Carregando ganhadores...</p></div></div>
+<div class="hidden pt-5" data-tab-panel="winners"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Histórico</p><h2 class="font-display text-3xl">Ganhadores dos palpites</h2><p class="mt-1 text-sm font-semibold text-slate-500">Confira quem acertou o placar exato após o resultado final de cada jogo.</p></div><div class="mt-4 space-y-4" id="winnersHistoryList"><p class="text-slate-500 font-semibold">Carregando ganhadores...</p></div></div>
 </section>
 </main>
 <footer class="superpop-footer" role="contentinfo">
   <div class="superpop-footer-inner">
     <span>Super Pop - Todos os direitos reservados.</span>
     <span class="superpop-footer-separator">|</span>
-    <span>VersÃ£o 2.7</span>
+    <span>Versão 2.7</span>
     <span class="superpop-footer-separator">|</span>
     <span>Desenvolvido por <a href="https://wa.me/5582999158412" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de Jeferson">Jeferson</a></span>
   </div>
@@ -148,7 +148,7 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
     <div class="prediction-success-icon">
       <span class="material-symbols-outlined">celebration</span>
     </div>
-    <p class="prediction-success-kicker">DinÃ¢micas POP</p>
+    <p class="prediction-success-kicker">Dinâmicas POP</p>
     <h2 id="predictionSuccessTitle">Palpite enviado com sucesso!</h2>
     <p id="predictionSuccessMessage">Seu palpite foi registrado e agora faz parte da torcida.</p>
     <div class="prediction-success-score" id="predictionSuccessScore"></div>
@@ -165,18 +165,18 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
         <span class="material-symbols-outlined text-3xl">timer</span>
       </div>
       <h2 class="font-display text-2xl text-slate-900">Prepare-se!</h2>
-      <p class="mt-2 text-sm font-semibold text-slate-500">A seleÃ§Ã£o para o primeiro gol ainda nÃ£o comeÃ§ou.</p>
+      <p class="mt-2 text-sm font-semibold text-slate-500">A seleção para o primeiro gol ainda não começou.</p>
     </div>
     
     <div class="mt-6 text-center">
-      <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Falta para comeÃ§ar</p>
+      <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Falta para começar</p>
       <div class="mt-2 flex justify-center gap-3 font-display text-4xl text-primary tabular-nums tracking-tight" id="firstGoalWaitCountdown">
         --:--:--
       </div>
     </div>
     
     <div class="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 text-center text-sm font-semibold text-slate-600">
-      DisponÃ­vel no perÃ­odo:<br><strong class="text-slate-900" id="firstGoalWaitPeriod">...</strong>
+      Disponível no período:<br><strong class="text-slate-900" id="firstGoalWaitPeriod">...</strong>
     </div>
 
     <div class="mt-6 space-y-3 text-left">
