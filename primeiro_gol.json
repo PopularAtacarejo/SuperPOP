@@ -1,8 +1,17 @@
 {
-  "jogadores": [],
+  "jogadores": [
+    {
+      "id": "51369ea87e1544f3a98ab7811c605b09",
+      "nome": "Alisson",
+      "foto_url": "https://imagecache.365scores.com/image/upload/Athletes/NationalTeam/10896",
+      "created_at_iso": "2026-07-02T15:36:22.923027-03:00"
+    }
+  ],
   "palpites": [],
   "inicio_palpites_iso": "",
   "fim_palpites_iso": "",
   "descricao_premio": "",
-  "regras": ""
+  "regras": "",
+  "palpite_ganhador_id": "",
+  "palpite_ganhador_selecionado_em_iso": ""
 }
