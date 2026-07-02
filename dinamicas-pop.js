@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const apiBase = String(window.SUPERPOP_API_URL || "https://superpopbackend.onrender.com").replace(/\/+$/, "");
   const developerPanel = document.getElementById("developerPanel");
   const gameForm = document.getElementById("gameForm");
+  const gameFormContent = document.getElementById("gameFormContent");
+  const gameFormToggleBtn = document.getElementById("gameFormToggleBtn");
+  const gameFormToggleIcon = document.getElementById("gameFormToggleIcon");
   const gamesList = document.getElementById("gamesList");
   const refreshGamesBtn = document.getElementById("refreshGamesBtn");
   const cancelEditBtn = document.getElementById("cancelEditBtn");
@@ -21,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const prizeDescriptionInput = document.getElementById("prizeDescriptionInput");
   const rulesInput = document.getElementById("rulesInput");
   const sentPredictionsList = document.getElementById("sentPredictionsList");
+  const sentPredictionsContent = document.getElementById("sentPredictionsContent");
+  const sentPredictionsToggleBtn = document.getElementById("sentPredictionsToggleBtn");
+  const sentPredictionsToggleIcon = document.getElementById("sentPredictionsToggleIcon");
+  const sentPredictionsViewMount = document.getElementById("sentPredictionsViewMount");
   const winnersHistoryList = document.getElementById("winnersHistoryList");
   const firstGoalDeveloperPanel = document.getElementById("firstGoalDeveloperPanel");
   const firstGoalPeriodForm = document.getElementById("firstGoalPeriodForm");
@@ -28,7 +35,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const firstGoalStartTimeInput = document.getElementById("firstGoalStartTimeInput");
   const firstGoalEndDateInput = document.getElementById("firstGoalEndDateInput");
   const firstGoalEndTimeInput = document.getElementById("firstGoalEndTimeInput");
+  const firstGoalPrizeInput = document.getElementById("firstGoalPrizeInput");
+  const firstGoalRulesInput = document.getElementById("firstGoalRulesInput");
   const firstGoalPeriodStatus = document.getElementById("firstGoalPeriodStatus");
+  const firstGoalPrizeRules = document.getElementById("firstGoalPrizeRules");
   const firstGoalPlayerForm = document.getElementById("firstGoalPlayerForm");
   const firstGoalPlayerNameInput = document.getElementById("firstGoalPlayerNameInput");
   const firstGoalPlayerPhotoInput = document.getElementById("firstGoalPlayerPhotoInput");
@@ -46,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const predictionSuccessScore = document.getElementById("predictionSuccessScore");
   const predictionConfetti = document.getElementById("predictionConfetti");
   let games = [];
-  let firstGoalData = { jogadores: [], palpites_enviados: [], meu_palpite: null, ja_enviou_palpite: false, status_palpites: "nao_configurado", palpite_aberto: false, escolhas_reveladas: false };
+  let firstGoalData = { jogadores: [], palpites_enviados: [], meu_palpite: null, ja_enviou_palpite: false, status_palpites: "nao_configurado", palpite_aberto: false, escolhas_reveladas: false, descricao_premio: "", regras: "" };
   let isDeveloper = false;
   let editingGameId = "";
   let editingFirstGoalPlayerId = "";
@@ -102,9 +112,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function setSentPredictionsExpanded(expanded) {
+    if (!sentPredictionsContent || !sentPredictionsToggleBtn || !sentPredictionsToggleIcon) return;
+    sentPredictionsContent.classList.toggle("hidden", !expanded);
+    sentPredictionsToggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+    sentPredictionsToggleIcon.textContent = expanded ? "expand_less" : "expand_more";
+  }
+
   function setupSentViewControls() {
-    if (!sentPredictionsList || document.getElementById("sentPredictionsViewControls")) return;
-    sentPredictionsList.insertAdjacentHTML("beforebegin",
+    const mount = sentPredictionsViewMount || sentPredictionsList;
+    if (!mount || document.getElementById("sentPredictionsViewControls")) return;
+    mount.insertAdjacentHTML("beforeend",
       '<div class="mt-4 flex justify-end" id="sentPredictionsViewControls">' +
         '<div class="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm" aria-label="Modo de visualizacao dos palpites">' +
           '<button class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-extrabold text-slate-500" data-sent-view="list" type="button"><span class="material-symbols-outlined text-base">view_list</span>Lista</button>' +
@@ -153,6 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
     gameFormMessage.className = "rounded-xl px-4 py-3 text-sm font-bold " +
       (error ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-700");
     gameFormMessage.classList.toggle("hidden", !message);
+  }
+
+  function setGameFormExpanded(expanded) {
+    if (!gameFormContent || !gameFormToggleBtn || !gameFormToggleIcon) return;
+    gameFormContent.classList.toggle("hidden", !expanded);
+    gameFormToggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+    gameFormToggleIcon.textContent = expanded ? "expand_less" : "expand_more";
   }
 
   function resetForm() {
@@ -287,6 +312,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (firstGoalStartTimeInput) firstGoalStartTimeInput.value = start.time || "";
     if (firstGoalEndDateInput) firstGoalEndDateInput.value = end.date || "";
     if (firstGoalEndTimeInput) firstGoalEndTimeInput.value = end.time || "";
+    if (firstGoalPrizeInput) firstGoalPrizeInput.value = firstGoalData.descricao_premio || "";
+    if (firstGoalRulesInput) firstGoalRulesInput.value = firstGoalData.regras || "";
   }
 
   function renderFirstGoalPeriodStatus() {
@@ -308,6 +335,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     firstGoalPeriodStatus.textContent = text;
     firstGoalPeriodStatus.className = className;
+  }
+
+  function renderFirstGoalPrizeRules() {
+    if (!firstGoalPrizeRules) return;
+    const prize = String(firstGoalData.descricao_premio || "").trim();
+    const rules = String(firstGoalData.regras || "").trim();
+    if (!prize && !rules) {
+      firstGoalPrizeRules.innerHTML = "";
+      return;
+    }
+    const prizeHtml = prize
+      ? '<div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
+        '<p class="mt-2 text-sm font-bold leading-relaxed text-amber-950">' + multilineHtml(prize) + '</p></div>'
+      : "";
+    const rulesHtml = rules
+      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
+        '<p class="mt-2 text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
+      : "";
+    firstGoalPrizeRules.innerHTML = prizeHtml + rulesHtml;
   }
 
   function firstGoalPlayerCardHtml(player) {
@@ -353,23 +401,31 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderFirstGoalVotes() {
     if (!firstGoalVotesPanel || !firstGoalVotesList) return;
     const canSeeVotes = Boolean(firstGoalData.escolhas_reveladas);
-    firstGoalVotesPanel.classList.toggle("hidden", !canSeeVotes);
-    if (!canSeeVotes) return;
+    firstGoalVotesPanel.classList.remove("hidden");
+    if (!canSeeVotes) {
+      firstGoalVotesList.className = "mt-4";
+      firstGoalVotesList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-center font-semibold text-slate-500">Os palpites enviados ficam ocultos para os colaboradores até o período de envio acabar.</div>';
+      return;
+    }
     const votes = Array.isArray(firstGoalData.palpites_enviados) ? firstGoalData.palpites_enviados : [];
     if (!votes.length) {
+      firstGoalVotesList.className = "mt-4";
       firstGoalVotesList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-center font-semibold text-slate-500">Nenhuma escolha enviada.</div>';
       return;
     }
+    firstGoalVotesList.className = "mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
     firstGoalVotesList.innerHTML = votes.map(function (item) {
       const roleHtml = item.usuario_funcao ? '<span class="text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
-      return '<article class="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft sm:flex-row sm:items-center sm:justify-between">' +
-        '<div class="flex items-center gap-3">' + userAvatarHtml(item, "h-11 w-11") +
-        '<div><p class="text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + ' ' + roleHtml + '</p>' +
-        '<p class="text-xs font-semibold text-slate-500">' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</p></div></div>' +
-        '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-2 text-sm font-extrabold text-emerald-800">' +
-        firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-9 w-9") +
-        '<span>' + escapeHtml(item.jogador_nome || "Jogador") + '</span></div>' +
-        (isDeveloper ? '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') +
+      return '<article class="flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">' +
+        '<div class="flex items-center justify-between gap-3"><p class="text-xs font-bold uppercase tracking-widest text-primary">Palpite enviado</p>' +
+        (isDeveloper ? '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') + '</div>' +
+        '<div class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">' + userAvatarHtml(item, "h-11 w-11") +
+        '<div class="min-w-0"><p class="truncate text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + '</p>' +
+        '<p class="truncate text-xs font-bold text-slate-400">' + roleHtml + '</p></div></div>' +
+        '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-3 text-sm font-extrabold text-emerald-800">' +
+        firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10") +
+        '<div><p class="text-xs uppercase tracking-widest text-emerald-600">Primeiro gol</p><p>' + escapeHtml(item.jogador_nome || "Jogador") + '</p></div></div>' +
+        '<div class="mt-auto flex items-center gap-2 text-xs font-bold text-slate-500"><span class="material-symbols-outlined text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
         '</article>';
     }).join("");
   }
@@ -386,6 +442,8 @@ document.addEventListener("DOMContentLoaded", function () {
         ja_enviou_palpite: Boolean(payload.ja_enviou_palpite),
         inicio_palpites_iso: payload.inicio_palpites_iso || "",
         fim_palpites_iso: payload.fim_palpites_iso || "",
+        descricao_premio: payload.descricao_premio || "",
+        regras: payload.regras || "",
         status_palpites: payload.status_palpites || "nao_configurado",
         palpite_aberto: Boolean(payload.palpite_aberto),
         escolhas_reveladas: Boolean(payload.escolhas_reveladas)
@@ -394,6 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (firstGoalDeveloperPanel) firstGoalDeveloperPanel.classList.toggle("hidden", !isDeveloper);
       populateFirstGoalPeriodForm();
       renderFirstGoalPeriodStatus();
+      renderFirstGoalPrizeRules();
       renderFirstGoalPlayers();
       renderFirstGoalVotes();
     } catch (error) {
@@ -711,6 +770,7 @@ document.addEventListener("DOMContentLoaded", function () {
       resetForm();
       await loadGames();
     } catch (error) {
+      setGameFormExpanded(true);
       showFormMessage(error.message, true);
     }
   });
@@ -725,7 +785,9 @@ document.addEventListener("DOMContentLoaded", function () {
             data_inicio_palpites: firstGoalStartDateInput ? firstGoalStartDateInput.value : "",
             horario_inicio_palpites: firstGoalStartTimeInput ? firstGoalStartTimeInput.value : "",
             data_fim_palpites: firstGoalEndDateInput ? firstGoalEndDateInput.value : "",
-            horario_fim_palpites: firstGoalEndTimeInput ? firstGoalEndTimeInput.value : ""
+            horario_fim_palpites: firstGoalEndTimeInput ? firstGoalEndTimeInput.value : "",
+            descricao_premio: firstGoalPrizeInput ? firstGoalPrizeInput.value : "",
+            regras: firstGoalRulesInput ? firstGoalRulesInput.value : ""
           })
         });
         showFirstGoalFormMessage("Período salvo com sucesso.", false);
@@ -958,6 +1020,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (rulesInput) rulesInput.value = game.regras || "";
       saveGameLabel.textContent = "Salvar alterações";
       cancelEditBtn.classList.remove("hidden");
+      setGameFormExpanded(true);
       developerPanel.scrollIntoView({ behavior: "smooth" });
       return;
     }
@@ -979,6 +1042,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   cancelEditBtn.addEventListener("click", resetForm);
+  if (gameFormToggleBtn) {
+    gameFormToggleBtn.addEventListener("click", function () {
+      setGameFormExpanded(gameFormToggleBtn.getAttribute("aria-expanded") !== "true");
+    });
+  }
+  if (sentPredictionsToggleBtn) {
+    sentPredictionsToggleBtn.addEventListener("click", function () {
+      setSentPredictionsExpanded(sentPredictionsToggleBtn.getAttribute("aria-expanded") !== "true");
+    });
+  }
   if (firstGoalCancelEditBtn) firstGoalCancelEditBtn.addEventListener("click", resetFirstGoalPlayerForm);
   refreshGamesBtn.addEventListener("click", refreshDynamics);
   predictionSuccessCloseBtn.addEventListener("click", closePredictionSuccess);
