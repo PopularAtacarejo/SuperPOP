@@ -471,8 +471,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   async function loadFirstGoal() {
-    if (!firstGoalPlayersList) return;
-    firstGoalPlayersList.innerHTML = '<p class="text-slate-500 font-semibold">Carregando jogadores...</p>';
     try {
       const payload = await api("/api/primeiro-gol");
       firstGoalData = {
@@ -493,12 +491,20 @@ document.addEventListener("DOMContentLoaded", function () {
       populateFirstGoalPeriodForm();
       renderFirstGoalPeriodStatus();
       renderFirstGoalPrizeRules();
-      renderFirstGoalPlayers();
+      if (firstGoalPlayersList) {
+        firstGoalPlayersList.innerHTML = '<p class="text-slate-500 font-semibold">Carregando jogadores...</p>';
+        renderFirstGoalPlayers();
+      }
       renderFirstGoalVotes();
       renderSentFirstGoalPredictions();
       showFirstGoalWaitModal();
     } catch (error) {
-      firstGoalPlayersList.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
+      if (firstGoalPlayersList) {
+        firstGoalPlayersList.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
+      }
+      if (sentFirstGoalList) {
+        sentFirstGoalList.innerHTML = '<div class="rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
+      }
     }
   }
 
