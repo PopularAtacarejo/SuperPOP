@@ -1,8 +1,36 @@
 {
-  "jogadores": [],
+  "jogadores": [
+    {
+      "id": "22d4e0d1bbd041f2a391034dbb972327",
+      "nome": "Alex Sandro",
+      "foto_url": "https://imagecache.365scores.com/image/upload/Athletes/NationalTeam/7704",
+      "created_at_iso": "2026-07-02T09:55:32.316570-03:00"
+    },
+    {
+      "id": "de061ddf3d9e4213a53014f79939d5a7",
+      "nome": "Bremer",
+      "foto_url": "https://imagecache.365scores.com/image/upload/Athletes/NationalTeam/49409",
+      "created_at_iso": "2026-07-02T09:56:04.198623-03:00"
+    },
+    {
+      "id": "ca1d525212be4b76bac6cd46d1c6d7e7",
+      "nome": "Danilo",
+      "foto_url": "https://imagecache.365scores.com/image/upload/Athletes/NationalTeam/7705",
+      "created_at_iso": "2026-07-02T09:56:18.550395-03:00"
+    },
+    {
+      "id": "8a1332f8580b4c23aeff18e875372adb",
+      "nome": "Douglas Santos",
+      "foto_url": "https://imagecache.365scores.com/image/upload/Athletes/NationalTeam/6247",
+      "created_at_iso": "2026-07-02T09:56:31.748661-03:00",
+      "updated_at_iso": "2026-07-02T10:15:08.875950-03:00"
+    }
+  ],
   "palpites": [],
-  "inicio_palpites_iso": "",
-  "fim_palpites_iso": "",
-  "descricao_premio": "",
-  "regras": ""
+  "inicio_palpites_iso": "2026-07-03T00:00:00-03:00",
+  "fim_palpites_iso": "2026-07-05T16:00:00-03:00",
+  "descricao_premio": "🎉 Prêmio especial para o vencedor! 🏆 O colaborador vencedor do bolão receberá um kit exclusivo contendo: 🏆 1 chaveiro da Copa do Mundo 🎁 1 Kit Popular 🥤 1 copo personalizado Guaraná Kuat 🥤 1 copo personalizado Coca-Cola 🥤 1 copo personalizado +Pop",
+  "regras": "🏆 Bolão Brasil x Noruega ⚽\nApenas um colaborador será o vencedor da premiação. 🎁\n✅ Selecione apenas um jogador da Seleção Brasileira que você acredita que fará o primeiro gol no jogo Brasil x Noruega.\n📅 Data do jogo: 05/07/2026\n⏰ Horário: 17h\n⚠️ Critério de desempate:\nCaso mais de um colaborador escolha o mesmo jogador, o desempate será feito pelo horário de envio do palpite. Quem enviar primeiro terá a vantagem. ⏱️\nBoa sorte! 🍀",
+  "palpite_ganhador_id": "",
+  "palpite_ganhador_selecionado_em_iso": ""
 }
