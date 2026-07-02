@@ -3,6 +3,18 @@ body[data-page="dinamicas-pop"] .match-card { overflow: hidden; }
 body[data-page="dinamicas-pop"] [data-tab-button] { position: relative; }
 body[data-page="dinamicas-pop"] [data-tab-button].text-primary { background: linear-gradient(180deg,transparent,rgba(255,241,242,.8)); }
 
+/* Foto clicável do jogador */
+img[data-photo-zoom] {
+  transition: transform 200ms ease, box-shadow 200ms ease, ring-color 200ms ease;
+}
+img[data-photo-zoom]:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.35), 0 12px 28px -10px rgba(15, 23, 42, 0.3);
+}
+img[data-photo-zoom]:active {
+  transform: scale(0.97);
+}
+
 .prediction-success-modal {
   position: fixed;
   inset: 0;
@@ -160,5 +172,90 @@ body[data-page="dinamicas-pop"] [data-tab-button].text-primary { background: lin
   .prediction-success-modal.is-open .prediction-success-card {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE - Dinâmicas POP
+   ========================================================= */
+
+/* Tabs: scroll horizontal em telas pequenas */
+@media (max-width: 640px) {
+  /* Header padding para não ficar atrás do botão de menu */
+  body[data-page="dinamicas-pop"] header {
+    padding-top: 3.5rem !important;
+  }
+
+  /* Título menor no mobile */
+  body[data-page="dinamicas-pop"] h1.font-display {
+    font-size: 2rem !important;
+  }
+
+  /* Abas com scroll horizontal */
+  body[data-page="dinamicas-pop"] [data-tab-button]:first-child ~ * {
+    white-space: nowrap;
+  }
+  body[data-page="dinamicas-pop"] .flex.flex-wrap.gap-2 {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  body[data-page="dinamicas-pop"] .flex.flex-wrap.gap-2::-webkit-scrollbar {
+    display: none;
+  }
+  body[data-page="dinamicas-pop"] [data-tab-button] {
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 0.75rem !important;
+    padding: 0.6rem 0.75rem !important;
+  }
+
+  /* Botão de atualizar em linha própria */
+  body[data-page="dinamicas-pop"] .flex.flex-wrap.items-center.justify-between.gap-3.border-b {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  body[data-page="dinamicas-pop"] #refreshGamesBtn {
+    align-self: flex-end;
+  }
+
+  /* Padding do main menor */
+  body[data-page="dinamicas-pop"] main {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Modal "Prepare-se" com scroll em telas pequenas */
+  #firstGoalWaitModal > div {
+    max-height: 90dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  #firstGoalWaitModal {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+  #firstGoalWaitModalCard {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-radius: 1.5rem 1.5rem 0 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 1.25rem 1rem 2rem !important;
+  }
+
+  /* Card de palpite: texto menor, sem overflow */
+  .prediction-success-card {
+    padding: 1.25rem 1rem !important;
+    border-radius: 1.25rem !important;
+  }
+  .prediction-success-icon {
+    width: 68px !important;
+    height: 68px !important;
+  }
+  .prediction-success-card h2 {
+    font-size: 1.6rem !important;
   }
 }

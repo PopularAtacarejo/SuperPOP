@@ -123,8 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!lines.length) return "";
     return lines
       .map(function (line) {
-        return '<span class="flex items-start py-0.5 leading-snug">' +
-          '<span>' + escapeHtml(line) + '</span>' +
+        return '<span class="flex items-start gap-2 py-1.5 leading-relaxed border-b border-amber-100/60 last:border-0">' +
+          '<span class="mt-0.5 shrink-0 text-amber-500">&#9733;</span>' +
+          '<span class="break-words">' + escapeHtml(line) + '</span>' +
           '</span>';
       })
       .join("");
@@ -292,12 +293,15 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.style.overflow = "";
   }
 
-  function firstGoalPlayerPhotoHtml(player, sizeClass) {
+  function firstGoalPlayerPhotoHtml(player, sizeClass, zoomable) {
     const photo = player && (player.foto_url || player.jogador_foto) || "";
     const name = player && (player.nome || player.jogador_nome) || "Jogador";
     const size = sizeClass || "h-20 w-20";
+    const zoomAttrs = (zoomable && photo)
+      ? ' data-photo-zoom="' + escapeHtml(photo) + '" data-photo-name="' + escapeHtml(name) + '" role="button" tabindex="0" title="Ver foto ampliada" style="cursor:zoom-in"'
+      : '';
     if (photo) {
-      return '<img src="' + escapeHtml(photo) + '" alt="Foto de ' + escapeHtml(name) + '" class="' + size + ' shrink-0 rounded-full border-4 border-white object-cover shadow-sm ring-1 ring-slate-200" />';
+      return '<img src="' + escapeHtml(photo) + '" alt="Foto de ' + escapeHtml(name) + '" class="' + size + ' shrink-0 rounded-full border-4 border-white object-cover shadow-sm ring-1 ring-slate-200"' + zoomAttrs + ' />';
     }
     return '<div class="' + size + ' flex shrink-0 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-emerald-100 to-yellow-100 text-lg font-extrabold text-emerald-700 shadow-sm ring-1 ring-slate-200">' +
       escapeHtml(initials(name)) + '</div>';
@@ -375,14 +379,14 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     const prizeHtml = prize
-      ? '<div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
-        '<div class="mt-2 flex flex-col gap-0.5 text-sm font-bold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
+      ? '<div class="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-5">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-3"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
+        '<div class="flex flex-col text-sm font-semibold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
       : "";
     const rulesHtml = rules
-      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
-        '<p class="mt-2 text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
+      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600 mb-3"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
+        '<p class="text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
       : "";
     firstGoalPrizeRules.innerHTML = prizeHtml + rulesHtml;
   }
@@ -406,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const buttonClass = selected ? "bg-emerald-600" : "bg-primary";
     return '<article class="' + cardClass + '">' +
       adminActions +
-      '<div class="flex justify-center">' + firstGoalPlayerPhotoHtml(player, "h-24 w-24") + '</div>' +
+      '<div class="flex justify-center">' + firstGoalPlayerPhotoHtml(player, "h-24 w-24", true) + '</div>' +
       '<h3 class="mt-4 text-lg font-extrabold text-slate-900">' + escapeHtml(player.nome || "Jogador") + '</h3>' +
       (firstGoalData.escolhas_reveladas ? '<p class="mt-1 text-xs font-bold uppercase tracking-widest text-slate-400">' + Number(player.total_palpites || 0) + ' escolha(s)</p>' : '<p class="mt-1 text-xs font-bold uppercase tracking-widest text-slate-400">Escolhas ocultas</p>') +
       '<form class="first-goal-prediction-form mt-4" data-player-id="' + escapeHtml(player.id) + '">' +
@@ -608,14 +612,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const rules = String(game.regras || "").trim();
     if (!prize && !rules) return "";
     const prizeHtml = prize
-      ? '<div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
-        '<div class="mt-2 flex flex-col gap-0.5 text-sm font-bold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
+      ? '<div class="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-5">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-3"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
+        '<div class="flex flex-col text-sm font-semibold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
       : "";
     const rulesHtml = rules
-      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
-        '<p class="mt-2 text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
+      ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">' +
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-slate-600 mb-3"><span class="material-symbols-outlined text-base">rule</span>Regras</p>' +
+        '<p class="text-sm font-semibold leading-relaxed text-slate-700">' + multilineHtml(rules) + '</p></div>'
       : "";
     return '<div class="mt-4 grid gap-3 sm:grid-cols-2">' + prizeHtml + rulesHtml + '</div>';
   }
@@ -1046,7 +1050,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const prize = String(firstGoalData.descricao_premio || "").trim();
     if (firstGoalWaitPrize) {
       if (prize) {
-        firstGoalWaitPrize.innerHTML = '<p class="text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-sm align-middle mr-1">redeem</span>Premiação</p><div class="mt-1 flex flex-col gap-0.5 text-sm font-bold text-amber-950">' + prizeListHtml(prize) + '</div>';
+        firstGoalWaitPrize.innerHTML =
+          '<div class="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-4">' +
+          '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-3">' +
+          '<span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
+          '<div class="flex flex-col text-sm font-semibold leading-relaxed text-amber-950">' +
+          prizeListHtml(prize) +
+          '</div></div>';
       } else {
         firstGoalWaitPrize.innerHTML = "";
       }
@@ -1301,5 +1311,66 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
   setupSentViewControls();
+
+  // ===== LIGHTBOX: FOTO DO JOGADOR =====
+  (function () {
+    const lb = document.getElementById("playerPhotoLightbox");
+    const lbImg = document.getElementById("playerPhotoLightboxImg");
+    const lbName = document.getElementById("playerPhotoLightboxName");
+    const lbCard = document.getElementById("playerPhotoLightboxCard");
+    const lbBg = document.getElementById("playerPhotoLightboxBg");
+    const lbClose = document.getElementById("playerPhotoLightboxClose");
+    if (!lb || !lbImg) return;
+
+    function openLightbox(src, name) {
+      lbImg.src = src;
+      lbImg.alt = "Foto de " + (name || "Jogador");
+      lbName.textContent = name || "";
+      lb.classList.remove("hidden");
+      void lb.offsetWidth;
+      lb.classList.remove("opacity-0");
+      lbCard.classList.remove("scale-90");
+      lbCard.classList.add("scale-100");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lb.classList.add("opacity-0");
+      lbCard.classList.remove("scale-100");
+      lbCard.classList.add("scale-90");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      setTimeout(function () {
+        lb.classList.add("hidden");
+        lbImg.src = "";
+      }, 280);
+    }
+
+    // Delegação de evento — funciona com fotos renderizadas dinamicamente
+    document.addEventListener("click", function (event) {
+      const target = event.target.closest("[data-photo-zoom]");
+      if (target) {
+        openLightbox(target.dataset.photoZoom, target.dataset.photoName);
+        return;
+      }
+    });
+
+    // Teclado: Enter/Space na foto
+    document.addEventListener("keydown", function (event) {
+      if ((event.key === "Enter" || event.key === " ") && event.target.dataset.photoZoom) {
+        event.preventDefault();
+        openLightbox(event.target.dataset.photoZoom, event.target.dataset.photoName);
+        return;
+      }
+      if (event.key === "Escape" && !lb.classList.contains("hidden")) {
+        closeLightbox();
+      }
+    });
+
+    if (lbClose) lbClose.addEventListener("click", closeLightbox);
+    if (lbBg) lbBg.addEventListener("click", closeLightbox);
+  })();
+
   refreshDynamics();
 });
