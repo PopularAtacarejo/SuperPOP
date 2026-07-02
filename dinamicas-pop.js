@@ -22,6 +22,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const rulesInput = document.getElementById("rulesInput");
   const sentPredictionsList = document.getElementById("sentPredictionsList");
   const winnersHistoryList = document.getElementById("winnersHistoryList");
+  const firstGoalDeveloperPanel = document.getElementById("firstGoalDeveloperPanel");
+  const firstGoalPeriodForm = document.getElementById("firstGoalPeriodForm");
+  const firstGoalStartDateInput = document.getElementById("firstGoalStartDateInput");
+  const firstGoalStartTimeInput = document.getElementById("firstGoalStartTimeInput");
+  const firstGoalEndDateInput = document.getElementById("firstGoalEndDateInput");
+  const firstGoalEndTimeInput = document.getElementById("firstGoalEndTimeInput");
+  const firstGoalPeriodStatus = document.getElementById("firstGoalPeriodStatus");
+  const firstGoalPlayerForm = document.getElementById("firstGoalPlayerForm");
+  const firstGoalPlayerNameInput = document.getElementById("firstGoalPlayerNameInput");
+  const firstGoalPlayerPhotoInput = document.getElementById("firstGoalPlayerPhotoInput");
+  const firstGoalCancelEditBtn = document.getElementById("firstGoalCancelEditBtn");
+  const firstGoalSavePlayerLabel = document.getElementById("firstGoalSavePlayerLabel");
+  const firstGoalFormMessage = document.getElementById("firstGoalFormMessage");
+  const firstGoalPlayersList = document.getElementById("firstGoalPlayersList");
+  const firstGoalVotesPanel = document.getElementById("firstGoalVotesPanel");
+  const firstGoalVotesList = document.getElementById("firstGoalVotesList");
   const tabButtons = Array.from(document.querySelectorAll("[data-tab-button]"));
   const tabPanels = Array.from(document.querySelectorAll("[data-tab-panel]"));
   const predictionSuccessModal = document.getElementById("predictionSuccessModal");
@@ -30,8 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const predictionSuccessScore = document.getElementById("predictionSuccessScore");
   const predictionConfetti = document.getElementById("predictionConfetti");
   let games = [];
+  let firstGoalData = { jogadores: [], palpites_enviados: [], meu_palpite: null, ja_enviou_palpite: false, status_palpites: "nao_configurado", palpite_aberto: false, escolhas_reveladas: false };
   let isDeveloper = false;
   let editingGameId = "";
+  let editingFirstGoalPlayerId = "";
   let sentPredictionsView = "list";
 
   try {
@@ -218,6 +236,169 @@ document.addEventListener("DOMContentLoaded", function () {
     predictionSuccessModal.classList.remove("is-open");
     predictionSuccessModal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+  }
+
+  function firstGoalPlayerPhotoHtml(player, sizeClass) {
+    const photo = player && (player.foto_url || player.jogador_foto) || "";
+    const name = player && (player.nome || player.jogador_nome) || "Jogador";
+    const size = sizeClass || "h-20 w-20";
+    if (photo) {
+      return '<img src="' + escapeHtml(photo) + '" alt="Foto de ' + escapeHtml(name) + '" class="' + size + ' shrink-0 rounded-full border-4 border-white object-cover shadow-sm ring-1 ring-slate-200" />';
+    }
+    return '<div class="' + size + ' flex shrink-0 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-emerald-100 to-yellow-100 text-lg font-extrabold text-emerald-700 shadow-sm ring-1 ring-slate-200">' +
+      escapeHtml(initials(name)) + '</div>';
+  }
+
+  function showFirstGoalSuccess(player) {
+    if (!predictionSuccessModal) return;
+    predictionSuccessMessage.textContent = "Sua escolha foi registrada e n\u00e3o poder\u00e1 ser alterada.";
+    predictionSuccessScore.textContent = String(player && player.nome || "Jogador selecionado");
+    buildConfetti();
+    predictionSuccessModal.classList.add("is-open");
+    predictionSuccessModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    window.setTimeout(function () {
+      predictionSuccessCloseBtn.focus();
+    }, 250);
+    window.setTimeout(closePredictionSuccess, 5000);
+  }
+
+  function showFirstGoalFormMessage(message, error) {
+    if (!firstGoalFormMessage) return;
+    firstGoalFormMessage.textContent = String(message || "");
+    firstGoalFormMessage.className = "mt-3 rounded-xl px-4 py-3 text-sm font-bold " +
+      (error ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-700");
+    firstGoalFormMessage.classList.toggle("hidden", !message);
+  }
+
+  function resetFirstGoalPlayerForm() {
+    editingFirstGoalPlayerId = "";
+    if (firstGoalPlayerForm) firstGoalPlayerForm.reset();
+    if (firstGoalCancelEditBtn) firstGoalCancelEditBtn.classList.add("hidden");
+    if (firstGoalSavePlayerLabel) firstGoalSavePlayerLabel.textContent = "Cadastrar jogador";
+    showFirstGoalFormMessage("", false);
+  }
+
+  function populateFirstGoalPeriodForm() {
+    if (!firstGoalPeriodForm) return;
+    const start = splitIsoDateTime(firstGoalData.inicio_palpites_iso || "");
+    const end = splitIsoDateTime(firstGoalData.fim_palpites_iso || "");
+    if (firstGoalStartDateInput) firstGoalStartDateInput.value = start.date || "";
+    if (firstGoalStartTimeInput) firstGoalStartTimeInput.value = start.time || "";
+    if (firstGoalEndDateInput) firstGoalEndDateInput.value = end.date || "";
+    if (firstGoalEndTimeInput) firstGoalEndTimeInput.value = end.time || "";
+  }
+
+  function renderFirstGoalPeriodStatus() {
+    if (!firstGoalPeriodStatus) return;
+    const status = firstGoalData.status_palpites || "nao_configurado";
+    const startText = formatDateTime(firstGoalData.inicio_palpites_iso);
+    const endText = formatDateTime(firstGoalData.fim_palpites_iso);
+    let text = "Período de envio não configurado pelo desenvolvedor.";
+    let className = "mt-5 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-600";
+    if (status === "aguardando") {
+      text = "As escolhas começam em " + startText + " e encerram em " + endText + ".";
+      className = "mt-5 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-900";
+    } else if (status === "aberto") {
+      text = "Escolhas abertas até " + endText + ". Depois de confirmar, não será possível alterar.";
+      className = "mt-5 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-bold text-emerald-800";
+    } else if (status === "encerrado") {
+      text = "Período encerrado. As escolhas dos colaboradores foram reveladas.";
+      className = "mt-5 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700";
+    }
+    firstGoalPeriodStatus.textContent = text;
+    firstGoalPeriodStatus.className = className;
+  }
+
+  function firstGoalPlayerCardHtml(player) {
+    const ownPrediction = firstGoalData.meu_palpite || {};
+    const selected = ownPrediction.jogador_id === player.id;
+    const alreadySent = Boolean(firstGoalData.ja_enviou_palpite);
+    const predictionsOpen = Boolean(firstGoalData.palpite_aberto);
+    const disabled = alreadySent || !predictionsOpen;
+    const adminActions = isDeveloper
+      ? '<div class="absolute right-3 top-3 flex gap-2">' +
+          '<button class="rounded-lg bg-white/95 px-3 py-2 text-xs font-bold shadow-sm" data-edit-first-goal-player="' + escapeHtml(player.id) + '" type="button">Editar</button>' +
+          '<button class="rounded-lg bg-red-50 px-3 py-2 text-xs font-bold text-red-700 shadow-sm" data-delete-first-goal-player="' + escapeHtml(player.id) + '" type="button">Excluir</button>' +
+        '</div>'
+      : "";
+    const cardClass = selected
+      ? "relative rounded-3xl border-2 border-emerald-400 bg-emerald-50 p-5 text-center shadow-soft ring-4 ring-emerald-100"
+      : "relative rounded-3xl border border-slate-100 bg-white p-5 text-center shadow-soft";
+    const buttonText = selected ? "Selecionado" : (alreadySent ? "Escolha enviada" : (predictionsOpen ? "Escolher jogador" : "Fora do período"));
+    const buttonClass = selected ? "bg-emerald-600" : "bg-primary";
+    return '<article class="' + cardClass + '">' +
+      adminActions +
+      '<div class="flex justify-center">' + firstGoalPlayerPhotoHtml(player, "h-24 w-24") + '</div>' +
+      '<h3 class="mt-4 text-lg font-extrabold text-slate-900">' + escapeHtml(player.nome || "Jogador") + '</h3>' +
+      (firstGoalData.escolhas_reveladas ? '<p class="mt-1 text-xs font-bold uppercase tracking-widest text-slate-400">' + Number(player.total_palpites || 0) + ' escolha(s)</p>' : '<p class="mt-1 text-xs font-bold uppercase tracking-widest text-slate-400">Escolhas ocultas</p>') +
+      '<form class="first-goal-prediction-form mt-4" data-player-id="' + escapeHtml(player.id) + '">' +
+      '<button class="inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white disabled:opacity-60 ' + buttonClass + '" type="submit"' + (disabled ? " disabled" : "") + '>' +
+      '<span class="material-symbols-outlined text-base">' + (selected ? "check_circle" : "sports_soccer") + '</span>' + buttonText + '</button>' +
+      '<p class="first-goal-message mt-3 hidden rounded-xl px-3 py-2 text-sm font-bold"></p>' +
+      '</form>' +
+      '</article>';
+  }
+
+  function renderFirstGoalPlayers() {
+    if (!firstGoalPlayersList) return;
+    const players = Array.isArray(firstGoalData.jogadores) ? firstGoalData.jogadores : [];
+    if (!players.length) {
+      firstGoalPlayersList.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center font-semibold text-slate-500">Nenhum jogador cadastrado.</div>';
+      return;
+    }
+    firstGoalPlayersList.innerHTML = players.map(firstGoalPlayerCardHtml).join("");
+  }
+
+  function renderFirstGoalVotes() {
+    if (!firstGoalVotesPanel || !firstGoalVotesList) return;
+    const canSeeVotes = Boolean(firstGoalData.escolhas_reveladas);
+    firstGoalVotesPanel.classList.toggle("hidden", !canSeeVotes);
+    if (!canSeeVotes) return;
+    const votes = Array.isArray(firstGoalData.palpites_enviados) ? firstGoalData.palpites_enviados : [];
+    if (!votes.length) {
+      firstGoalVotesList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-center font-semibold text-slate-500">Nenhuma escolha enviada.</div>';
+      return;
+    }
+    firstGoalVotesList.innerHTML = votes.map(function (item) {
+      const roleHtml = item.usuario_funcao ? '<span class="text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
+      return '<article class="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft sm:flex-row sm:items-center sm:justify-between">' +
+        '<div class="flex items-center gap-3">' + userAvatarHtml(item, "h-11 w-11") +
+        '<div><p class="text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + ' ' + roleHtml + '</p>' +
+        '<p class="text-xs font-semibold text-slate-500">' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</p></div></div>' +
+        '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-2 text-sm font-extrabold text-emerald-800">' +
+        firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-9 w-9") +
+        '<span>' + escapeHtml(item.jogador_nome || "Jogador") + '</span></div>' +
+        (isDeveloper ? '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') +
+        '</article>';
+    }).join("");
+  }
+
+  async function loadFirstGoal() {
+    if (!firstGoalPlayersList) return;
+    firstGoalPlayersList.innerHTML = '<p class="text-slate-500 font-semibold">Carregando jogadores...</p>';
+    try {
+      const payload = await api("/api/primeiro-gol");
+      firstGoalData = {
+        jogadores: Array.isArray(payload.jogadores) ? payload.jogadores : [],
+        palpites_enviados: Array.isArray(payload.palpites_enviados) ? payload.palpites_enviados : [],
+        meu_palpite: payload.meu_palpite || null,
+        ja_enviou_palpite: Boolean(payload.ja_enviou_palpite),
+        inicio_palpites_iso: payload.inicio_palpites_iso || "",
+        fim_palpites_iso: payload.fim_palpites_iso || "",
+        status_palpites: payload.status_palpites || "nao_configurado",
+        palpite_aberto: Boolean(payload.palpite_aberto),
+        escolhas_reveladas: Boolean(payload.escolhas_reveladas)
+      };
+      isDeveloper = Boolean(payload.is_developer);
+      if (firstGoalDeveloperPanel) firstGoalDeveloperPanel.classList.toggle("hidden", !isDeveloper);
+      populateFirstGoalPeriodForm();
+      renderFirstGoalPeriodStatus();
+      renderFirstGoalPlayers();
+      renderFirstGoalVotes();
+    } catch (error) {
+      firstGoalPlayersList.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
+    }
   }
 
   function developerPredictionsHtml(game) {
@@ -534,6 +715,124 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  if (firstGoalPeriodForm) {
+    firstGoalPeriodForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      try {
+        await api("/api/primeiro-gol/periodo", {
+          method: "PUT",
+          body: JSON.stringify({
+            data_inicio_palpites: firstGoalStartDateInput ? firstGoalStartDateInput.value : "",
+            horario_inicio_palpites: firstGoalStartTimeInput ? firstGoalStartTimeInput.value : "",
+            data_fim_palpites: firstGoalEndDateInput ? firstGoalEndDateInput.value : "",
+            horario_fim_palpites: firstGoalEndTimeInput ? firstGoalEndTimeInput.value : ""
+          })
+        });
+        showFirstGoalFormMessage("Período salvo com sucesso.", false);
+        await loadFirstGoal();
+      } catch (error) {
+        showFirstGoalFormMessage(error.message, true);
+      }
+    });
+  }
+
+  if (firstGoalPlayerForm) {
+    firstGoalPlayerForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const body = {
+        nome: firstGoalPlayerNameInput ? firstGoalPlayerNameInput.value : "",
+        foto_url: firstGoalPlayerPhotoInput ? firstGoalPlayerPhotoInput.value : ""
+      };
+      try {
+        await api("/api/primeiro-gol/jogadores" + (editingFirstGoalPlayerId ? "/" + encodeURIComponent(editingFirstGoalPlayerId) : ""), {
+          method: editingFirstGoalPlayerId ? "PUT" : "POST",
+          body: JSON.stringify(body)
+        });
+        resetFirstGoalPlayerForm();
+        await loadFirstGoal();
+      } catch (error) {
+        showFirstGoalFormMessage(error.message, true);
+      }
+    });
+  }
+
+  if (firstGoalPlayersList) {
+    firstGoalPlayersList.addEventListener("submit", async function (event) {
+      const form = event.target.closest(".first-goal-prediction-form");
+      if (!form) return;
+      event.preventDefault();
+      const button = form.querySelector("button[type=submit]");
+      const message = form.querySelector(".first-goal-message");
+      const selectedPlayer = (firstGoalData.jogadores || []).find(function (item) {
+        return item.id === form.dataset.playerId;
+      });
+      const playerName = selectedPlayer && selectedPlayer.nome || "jogador selecionado";
+      if (!window.confirm("Você está enviando o palpite de que quem fará o primeiro gol do Brasil será " + playerName + ". Depois de confirmar, não será possível alterar. Confirmar envio?")) {
+        return;
+      }
+      if (button) button.disabled = true;
+      try {
+        await api("/api/primeiro-gol/palpite", {
+          method: "POST",
+          body: JSON.stringify({ jogador_id: form.dataset.playerId })
+        });
+        showFirstGoalSuccess(selectedPlayer);
+        await loadFirstGoal();
+      } catch (error) {
+        if (button) button.disabled = false;
+        if (message) {
+          message.textContent = error.message;
+          message.className = "first-goal-message mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm font-bold text-red-700";
+        }
+      }
+    });
+
+    firstGoalPlayersList.addEventListener("click", async function (event) {
+      const editButton = event.target.closest("[data-edit-first-goal-player]");
+      const deleteButton = event.target.closest("[data-delete-first-goal-player]");
+      if (editButton) {
+        const player = (firstGoalData.jogadores || []).find(function (item) {
+          return item.id === editButton.dataset.editFirstGoalPlayer;
+        });
+        if (!player) return;
+        editingFirstGoalPlayerId = player.id;
+        if (firstGoalPlayerNameInput) firstGoalPlayerNameInput.value = player.nome || "";
+        if (firstGoalPlayerPhotoInput) firstGoalPlayerPhotoInput.value = player.foto_url || "";
+        if (firstGoalSavePlayerLabel) firstGoalSavePlayerLabel.textContent = "Salvar alteracoes";
+        if (firstGoalCancelEditBtn) firstGoalCancelEditBtn.classList.remove("hidden");
+        if (firstGoalDeveloperPanel) firstGoalDeveloperPanel.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+      if (deleteButton) {
+        if (!window.confirm("Excluir este jogador e as escolhas vinculadas a ele?")) return;
+        try {
+          await api("/api/primeiro-gol/jogadores/" + encodeURIComponent(deleteButton.dataset.deleteFirstGoalPlayer), {
+            method: "DELETE"
+          });
+          await loadFirstGoal();
+        } catch (error) {
+          window.alert(error.message);
+        }
+      }
+    });
+  }
+
+  if (firstGoalVotesList) {
+    firstGoalVotesList.addEventListener("click", async function (event) {
+      const deleteButton = event.target.closest("[data-delete-first-goal-vote]");
+      if (!deleteButton) return;
+      if (!window.confirm("Excluir a escolha deste colaborador?")) return;
+      try {
+        await api("/api/primeiro-gol/palpites/" + encodeURIComponent(deleteButton.dataset.deleteFirstGoalVote), {
+          method: "DELETE"
+        });
+        await loadFirstGoal();
+      } catch (error) {
+        window.alert(error.message);
+      }
+    });
+  }
+
   gamesList.addEventListener("submit", async function (event) {
     const developerForm = event.target.closest(".developer-prediction-form");
     if (developerForm) {
@@ -675,8 +974,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  async function refreshDynamics() {
+    await Promise.all([loadGames(), loadFirstGoal()]);
+  }
+
   cancelEditBtn.addEventListener("click", resetForm);
-  refreshGamesBtn.addEventListener("click", loadGames);
+  if (firstGoalCancelEditBtn) firstGoalCancelEditBtn.addEventListener("click", resetFirstGoalPlayerForm);
+  refreshGamesBtn.addEventListener("click", refreshDynamics);
   predictionSuccessCloseBtn.addEventListener("click", closePredictionSuccess);
   predictionSuccessModal.addEventListener("click", function (event) {
     if (event.target === predictionSuccessModal) {
@@ -704,5 +1008,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
   setupSentViewControls();
-  loadGames();
+  refreshDynamics();
 });
