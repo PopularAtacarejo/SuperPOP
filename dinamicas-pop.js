@@ -115,6 +115,21 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("<br>");
   }
 
+  function prizeListHtml(value) {
+    var lines = String(value || "")
+      .split(/\n+/)
+      .map(function (line) { return line.trim(); })
+      .filter(Boolean);
+    if (!lines.length) return "";
+    return lines
+      .map(function (line) {
+        return '<span class="flex items-start py-0.5 leading-snug">' +
+          '<span>' + escapeHtml(line) + '</span>' +
+          '</span>';
+      })
+      .join("");
+  }
+
   function updateSentViewButtons() {
     document.querySelectorAll("[data-sent-view]").forEach(function (button) {
       const active = button.dataset.sentView === sentPredictionsView;
@@ -362,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const prizeHtml = prize
       ? '<div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">' +
         '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
-        '<p class="mt-2 text-sm font-bold leading-relaxed text-amber-950">' + multilineHtml(prize) + '</p></div>'
+        '<div class="mt-2 flex flex-col gap-0.5 text-sm font-bold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
       : "";
     const rulesHtml = rules
       ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">' +
@@ -496,7 +511,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderFirstGoalPlayers();
       }
       renderFirstGoalVotes();
-      renderSentFirstGoalPredictions();
+      renderSentFirstGoalPredictions(true); // auto-expand when there is data
       showFirstGoalWaitModal();
     } catch (error) {
       if (firstGoalPlayersList) {
@@ -594,8 +609,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!prize && !rules) return "";
     const prizeHtml = prize
       ? '<div class="rounded-2xl border border-amber-100 bg-amber-50 p-4">' +
-        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Prêmio</p>' +
-        '<p class="mt-2 text-sm font-bold leading-relaxed text-amber-950">' + multilineHtml(prize) + '</p></div>'
+        '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
+        '<div class="mt-2 flex flex-col gap-0.5 text-sm font-bold leading-relaxed text-amber-950">' + prizeListHtml(prize) + '</div></div>'
       : "";
     const rulesHtml = rules
       ? '<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">' +
@@ -657,16 +672,20 @@ document.addEventListener("DOMContentLoaded", function () {
     gamesList.innerHTML = games.map(gameHtml).join("");
   }
 
-  function renderSentFirstGoalPredictions() {
-    if (!sentFirstGoalList) return;
+  function renderSentFirstGoalPredictions(autoExpand) {
+    const list = document.getElementById("sentFirstGoalList");
+    const content = document.getElementById("sentFirstGoalContent");
+    const toggleBtn = document.getElementById("sentFirstGoalToggleBtn");
+    const toggleIcon = document.getElementById("sentFirstGoalToggleIcon");
+    if (!list) return;
     const votes = Array.isArray(firstGoalData.palpites_enviados) ? firstGoalData.palpites_enviados : [];
     if (!votes.length) {
-      sentFirstGoalList.className = "mt-4";
-      sentFirstGoalList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center font-semibold text-slate-500">Nenhuma escolha enviada.</div>';
+      list.className = "mt-4";
+      list.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center font-semibold text-slate-500">Nenhuma escolha enviada.</div>';
       return;
     }
-    sentFirstGoalList.className = "mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
-    sentFirstGoalList.innerHTML = votes.map(function (item) {
+    list.className = "mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
+    list.innerHTML = votes.map(function (item) {
       const selected = Boolean(item.ganhador_selecionado);
       const isHidden = Boolean(item.oculto);
       const roleHtml = item.usuario_funcao ? '<span class="text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
@@ -692,6 +711,12 @@ document.addEventListener("DOMContentLoaded", function () {
         '<div class="mt-auto flex items-center gap-2 text-xs font-bold text-slate-500"><span class="material-symbols-outlined text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
         '</article>';
     }).join("");
+    // Auto-expand the section when data is loaded
+    if (autoExpand && content && toggleBtn) {
+      content.classList.remove("hidden");
+      toggleBtn.setAttribute("aria-expanded", "true");
+      if (toggleIcon) toggleIcon.textContent = "expand_less";
+    }
   }
 
   function renderSentPredictions() {
@@ -801,7 +826,9 @@ document.addEventListener("DOMContentLoaded", function () {
         ? escapeHtml(game.time_casa) + ' ' + escapeHtml(result.gols_casa) + ' x ' + escapeHtml(result.gols_visitante) + ' ' + escapeHtml(game.time_visitante)
         : escapeHtml(game.time_casa) + ' x ' + escapeHtml(game.time_visitante);
       const prizeHistoryHtml = game.descricao_premio
-        ? '<div class="mt-4 rounded-xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-950"><span class="material-symbols-outlined mr-1 align-middle text-base text-amber-700">redeem</span>' + multilineHtml(game.descricao_premio) + '</div>'
+        ? '<div class="mt-4 rounded-xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-950">' +
+          '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-2"><span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
+          '<div class="flex flex-col gap-0.5">' + prizeListHtml(game.descricao_premio) + '</div></div>'
         : "";
 
       return '<article class="rounded-2xl border border-slate-100 bg-white p-4 shadow-soft">' +
@@ -1019,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const prize = String(firstGoalData.descricao_premio || "").trim();
     if (firstGoalWaitPrize) {
       if (prize) {
-        firstGoalWaitPrize.innerHTML = '<p class="text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-sm align-middle mr-1">redeem</span>Premiação</p><p class="mt-1 text-sm font-bold text-amber-950">' + multilineHtml(prize) + '</p>';
+        firstGoalWaitPrize.innerHTML = '<p class="text-xs font-extrabold uppercase tracking-widest text-amber-700"><span class="material-symbols-outlined text-sm align-middle mr-1">redeem</span>Premiação</p><div class="mt-1 flex flex-col gap-0.5 text-sm font-bold text-amber-950">' + prizeListHtml(prize) + '</div>';
       } else {
         firstGoalWaitPrize.innerHTML = "";
       }
@@ -1228,10 +1255,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   if (sentFirstGoalToggleBtn) {
     sentFirstGoalToggleBtn.addEventListener("click", function () {
-      const expanded = sentFirstGoalToggleBtn.getAttribute("aria-expanded") === "true";
-      sentFirstGoalContent.classList.toggle("hidden", expanded);
-      sentFirstGoalToggleBtn.setAttribute("aria-expanded", expanded ? "false" : "true");
-      if (sentFirstGoalToggleIcon) sentFirstGoalToggleIcon.textContent = expanded ? "expand_more" : "expand_less";
+      const btn = document.getElementById("sentFirstGoalToggleBtn");
+      const content = document.getElementById("sentFirstGoalContent");
+      const icon = document.getElementById("sentFirstGoalToggleIcon");
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      if (!expanded) {
+        // Re-render fresh data whenever user expands
+        renderSentFirstGoalPredictions(false);
+        content.classList.remove("hidden");
+        btn.setAttribute("aria-expanded", "true");
+        if (icon) icon.textContent = "expand_less";
+      } else {
+        content.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+        if (icon) icon.textContent = "expand_more";
+      }
     });
   }
   if (firstGoalCancelEditBtn) firstGoalCancelEditBtn.addEventListener("click", resetFirstGoalPlayerForm);
