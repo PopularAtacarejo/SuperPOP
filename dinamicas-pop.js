@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const sentPredictionsToggleBtn = document.getElementById("sentPredictionsToggleBtn");
   const sentPredictionsToggleIcon = document.getElementById("sentPredictionsToggleIcon");
   const sentPredictionsViewMount = document.getElementById("sentPredictionsViewMount");
+  const sentFirstGoalList = document.getElementById("sentFirstGoalList");
+  const sentFirstGoalContent = document.getElementById("sentFirstGoalContent");
+  const sentFirstGoalToggleBtn = document.getElementById("sentFirstGoalToggleBtn");
+  const sentFirstGoalToggleIcon = document.getElementById("sentFirstGoalToggleIcon");
   const winnersHistoryList = document.getElementById("winnersHistoryList");
   const firstGoalDeveloperPanel = document.getElementById("firstGoalDeveloperPanel");
   const firstGoalPeriodForm = document.getElementById("firstGoalPeriodForm");
@@ -422,33 +426,45 @@ document.addEventListener("DOMContentLoaded", function () {
     firstGoalVotesList.innerHTML = votes.map(function (item) {
       const selected = Boolean(item.ganhador_selecionado);
       const isHidden = Boolean(item.oculto);
-      const blurClass = isHidden ? " blur-[4px] select-none opacity-70 grayscale" : "";
       const roleHtml = item.usuario_funcao ? '<span class="text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
-      
-      const articleClass = selected 
-        ? "flex h-full flex-col gap-4 rounded-2xl border-2 border-yellow-400 bg-yellow-50 p-4 shadow-sm ring-4 ring-yellow-100" 
+
+      const articleClass = selected
+        ? "flex h-full flex-col gap-4 rounded-2xl border-2 border-yellow-400 bg-yellow-50 p-4 shadow-sm ring-4 ring-yellow-100"
         : "flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft";
 
       const crownSvg = selected
-          ? '<span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm" title="Palpite ganhador">' +
-            '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
-            '</span>'
-          : "";
+        ? '<span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm" title="Palpite ganhador">' +
+          '<svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+          '</span>'
+        : "";
 
       const winnerButton = selected
         ? '<span class="rounded-lg bg-yellow-200 px-3 py-2 text-xs font-extrabold text-yellow-900">Ganhador</span>'
         : '<button class="rounded-lg bg-yellow-100 px-3 py-2 text-xs font-bold text-yellow-800 hover:bg-yellow-200" data-select-first-goal-winner="' + escapeHtml(item.id) + '" type="button">Marcar ganhador</button>';
 
+      // Hidden player block: blurred overlay
+      const playerBlock = isHidden
+        ? '<div class="relative flex items-center gap-3 rounded-xl overflow-hidden" style="background:#ecfdf5;padding:12px;">' +
+          '<div style="filter:blur(7px);opacity:0.7;pointer-events:none;display:flex;align-items:center;gap:12px;width:100%;">' +
+          firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10 shrink-0") +
+          '<div><p style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#059669;">Primeiro gol</p>' +
+          '<p style="font-size:14px;font-weight:800;color:#065f46;">???</p></div></div>' +
+          '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6px;">' +
+          '<span class="material-symbols-outlined" style="font-size:16px;color:#6b7280;">lock</span>' +
+          '<span style="font-size:11px;font-weight:700;color:#6b7280;">Oculto até encerrar</span></div></div>'
+        : '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-3 text-sm font-extrabold text-emerald-800">' +
+          firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10 shrink-0") +
+          '<div><p class="text-xs uppercase tracking-widest text-emerald-600">Primeiro gol</p><p class="truncate">' + escapeHtml(item.jogador_nome || "Jogador") + '</p></div></div>';
+
       return '<article class="' + articleClass + '">' +
         '<div class="flex items-center justify-between gap-3"><p class="text-xs font-bold uppercase tracking-widest text-primary">Palpite enviado</p>' +
         '<div class="flex gap-2">' +
-        (isDeveloper ? winnerButton + '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') + '</div></div>' +
+        (isDeveloper ? winnerButton + '<button class="rounded-lg bg-red-100 px-3 py-2 text-xs font-bold text-red-700" data-delete-first-goal-vote="' + escapeHtml(item.id) + '" type="button">Excluir</button>' : '') +
+        '</div></div>' +
         '<div class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">' + userAvatarHtml(item, "h-11 w-11") +
         '<div class="min-w-0 mr-auto"><p class="truncate text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + '</p>' +
         '<p class="truncate text-xs font-bold text-slate-400">' + roleHtml + '</p></div>' + crownSvg + '</div>' +
-        '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-3 text-sm font-extrabold text-emerald-800 relative overflow-hidden">' +
-        firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10 shrink-0" + blurClass) +
-        '<div class="min-w-0' + blurClass + '"><p class="text-xs uppercase tracking-widest text-emerald-600">Primeiro gol</p><p class="truncate">' + escapeHtml(item.jogador_nome || "Jogador") + '</p></div></div>' +
+        playerBlock +
         '<div class="mt-auto flex items-center gap-2 text-xs font-bold text-slate-500"><span class="material-symbols-outlined text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
         '</article>';
     }).join("");
@@ -479,6 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
       renderFirstGoalPrizeRules();
       renderFirstGoalPlayers();
       renderFirstGoalVotes();
+      renderSentFirstGoalPredictions();
       showFirstGoalWaitModal();
     } catch (error) {
       firstGoalPlayersList.innerHTML = '<div class="sm:col-span-2 xl:col-span-3 rounded-2xl bg-red-50 p-4 font-bold text-red-700">' + escapeHtml(error.message) + '</div>';
@@ -632,6 +649,43 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     gamesList.innerHTML = games.map(gameHtml).join("");
+  }
+
+  function renderSentFirstGoalPredictions() {
+    if (!sentFirstGoalList) return;
+    const votes = Array.isArray(firstGoalData.palpites_enviados) ? firstGoalData.palpites_enviados : [];
+    if (!votes.length) {
+      sentFirstGoalList.className = "mt-4";
+      sentFirstGoalList.innerHTML = '<div class="rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center font-semibold text-slate-500">Nenhuma escolha enviada.</div>';
+      return;
+    }
+    sentFirstGoalList.className = "mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
+    sentFirstGoalList.innerHTML = votes.map(function (item) {
+      const selected = Boolean(item.ganhador_selecionado);
+      const isHidden = Boolean(item.oculto);
+      const roleHtml = item.usuario_funcao ? '<span class="text-xs font-bold text-slate-400">(' + escapeHtml(item.usuario_funcao) + ')</span>' : "";
+      const articleClass = selected
+        ? "flex h-full flex-col gap-4 rounded-2xl border-2 border-yellow-400 bg-yellow-50 p-4 shadow-sm ring-4 ring-yellow-100"
+        : "flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft";
+      const crownSvg = selected
+        ? '<span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 shadow-sm" title="Palpite ganhador"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" aria-hidden="true"><path d="M3.7 8.2 8.6 12l3.1-6.4L15.2 12l5.1-3.8-1.6 10.2H5.3L3.7 8.2Z" fill="currentColor"/><path d="M5.4 20h13.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>'
+        : "";
+      const winnerBadge = selected ? '<span class="rounded-lg bg-yellow-200 px-3 py-2 text-xs font-extrabold text-yellow-900">Ganhador</span>' : "";
+      const playerBlock = isHidden
+        ? '<div class="relative flex items-center gap-3 rounded-xl overflow-hidden" style="background:#ecfdf5;padding:12px;"><div style="filter:blur(7px);opacity:0.7;pointer-events:none;display:flex;align-items:center;gap:12px;width:100%;"><div style="height:40px;width:40px;border-radius:50%;background:#a7f3d0;flex-shrink:0;"></div><div><p style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#059669;">Primeiro gol</p><p style="font-size:14px;font-weight:800;color:#065f46;">???</p></div></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6px;"><span class="material-symbols-outlined" style="font-size:16px;color:#6b7280;">lock</span><span style="font-size:11px;font-weight:700;color:#6b7280;">Oculto até encerrar</span></div></div>'
+        : '<div class="flex items-center gap-3 rounded-xl bg-emerald-50 px-3 py-3 text-sm font-extrabold text-emerald-800">' +
+          firstGoalPlayerPhotoHtml({ nome: item.jogador_nome, foto_url: item.jogador_foto }, "h-10 w-10 shrink-0") +
+          '<div><p class="text-xs uppercase tracking-widest text-emerald-600">Primeiro gol</p><p class="truncate">' + escapeHtml(item.jogador_nome || "Jogador") + '</p></div></div>';
+      return '<article class="' + articleClass + '">' +
+        '<div class="flex items-center justify-between gap-3"><p class="text-xs font-bold uppercase tracking-widest text-primary">Palpite enviado</p>' +
+        '<div class="flex gap-2">' + winnerBadge + '</div></div>' +
+        '<div class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-3">' + userAvatarHtml(item, "h-11 w-11") +
+        '<div class="min-w-0 mr-auto"><p class="truncate text-sm font-bold text-slate-900">' + escapeHtml(item.usuario_nome || "Usuario") + '</p>' +
+        '<p class="truncate text-xs font-bold text-slate-400">' + roleHtml + '</p></div>' + crownSvg + '</div>' +
+        playerBlock +
+        '<div class="mt-auto flex items-center gap-2 text-xs font-bold text-slate-500"><span class="material-symbols-outlined text-base">schedule</span>' + escapeHtml(formatDateTime(item.enviado_em_iso)) + '</div>' +
+        '</article>';
+    }).join("");
   }
 
   function renderSentPredictions() {
@@ -1164,6 +1218,14 @@ document.addEventListener("DOMContentLoaded", function () {
   if (sentPredictionsToggleBtn) {
     sentPredictionsToggleBtn.addEventListener("click", function () {
       setSentPredictionsExpanded(sentPredictionsToggleBtn.getAttribute("aria-expanded") !== "true");
+    });
+  }
+  if (sentFirstGoalToggleBtn) {
+    sentFirstGoalToggleBtn.addEventListener("click", function () {
+      const expanded = sentFirstGoalToggleBtn.getAttribute("aria-expanded") === "true";
+      sentFirstGoalContent.classList.toggle("hidden", expanded);
+      sentFirstGoalToggleBtn.setAttribute("aria-expanded", expanded ? "false" : "true");
+      if (sentFirstGoalToggleIcon) sentFirstGoalToggleIcon.textContent = expanded ? "expand_more" : "expand_less";
     });
   }
   if (firstGoalCancelEditBtn) firstGoalCancelEditBtn.addEventListener("click", resetFirstGoalPlayerForm);

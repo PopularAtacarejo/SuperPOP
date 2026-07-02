@@ -116,6 +116,18 @@ tailwind.config={theme:{extend:{colors:{primary:"#E63946",secondary:"#FFB703"},f
 <div id="sentPredictionsViewMount"></div>
 <div class="mt-4 space-y-4" id="sentPredictionsList"><p class="text-slate-500 font-semibold">Carregando palpites...</p></div>
 </div>
+
+<button class="mt-4 flex w-full items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 text-left shadow-soft ring-1 ring-slate-100" id="sentFirstGoalToggleBtn" type="button" aria-expanded="false" aria-controls="sentFirstGoalContent">
+  <div>
+    <p class="text-xs font-bold uppercase tracking-widest text-primary">Primeiro Gol</p>
+    <h2 class="font-display text-3xl">Palpites - Quem faz o primeiro gol?</h2>
+    <p class="mt-1 text-sm font-semibold text-slate-500">Veja quem enviou um palpite de primeiro gol e a seleção de cada colaborador.</p>
+  </div>
+  <span class="material-symbols-outlined rounded-full bg-slate-100 p-2 text-slate-600" id="sentFirstGoalToggleIcon">expand_more</span>
+</button>
+<div class="hidden" id="sentFirstGoalContent">
+  <div class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3" id="sentFirstGoalList"><p class="text-slate-500 font-semibold">Carregando palpites...</p></div>
+</div>
 </div>
 <div class="hidden pt-5" data-tab-panel="winners"><div><p class="text-xs font-bold uppercase tracking-widest text-primary">Histórico</p><h2 class="font-display text-3xl">Ganhadores dos palpites</h2><p class="mt-1 text-sm font-semibold text-slate-500">Confira quem acertou o placar exato após o resultado final de cada jogo.</p></div><div class="mt-4 space-y-4" id="winnersHistoryList"><p class="text-slate-500 font-semibold">Carregando ganhadores...</p></div></div>
 </section>
