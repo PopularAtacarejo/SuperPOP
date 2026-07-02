@@ -1,5 +1,12 @@
 {
-  "jogadores": [],
+  "jogadores": [
+    {
+      "id": "22d4e0d1bbd041f2a391034dbb972327",
+      "nome": "Alex Sandro",
+      "foto_url": "https://imagecache.365scores.com/image/upload/Athletes/NationalTeam/7704",
+      "created_at_iso": "2026-07-02T09:55:32.316570-03:00"
+    }
+  ],
   "palpites": [],
   "inicio_palpites_iso": "",
   "fim_palpites_iso": "",
