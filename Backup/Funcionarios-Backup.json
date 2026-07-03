@@ -1306,5 +1306,25 @@
     "data_nascimento_iso": "2007-11-19",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "02a18a96abd7411bb8752a324ad958cb",
+    "nome": "Gracenildo da Silva Lima Junior",
+    "funcao": "Repositor de frios",
+    "numero_celular": "(82) 9 8771 - 5769",
+    "numero_normalizado": "82987715769",
+    "email": "juniordasilvalima18@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "5789d902f3828f1555205c0afb0bd8dc",
+      "hash": "45bb979a09d2b6ca69e79febfc7fd34aca053548471b86c34f381dd3d46b381e",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-07-03T11:58:55.538331-03:00",
+    "data_nascimento_iso": "1998-12-30",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
