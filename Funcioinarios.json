@@ -1366,5 +1366,25 @@
     "data_nascimento_iso": "1993-12-09",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "e95b06a90a9a4a82b3075a5cf5cb8ce8",
+    "nome": "Arlete santos",
+    "funcao": "Fiscal de Prevencao de Perdas",
+    "numero_celular": "(82) 9 9628 - 8334",
+    "numero_normalizado": "82996288334",
+    "email": "arletesilva14946@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "30256edf0ae8ed32c9278bb14bcbf520",
+      "hash": "24a698e1878a5b65fafb1a2fd20bd4594428800b8b90ef85ee5613a0e4c75195",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-07-03T12:48:37.549602-03:00",
+    "data_nascimento_iso": "1983-10-08",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
