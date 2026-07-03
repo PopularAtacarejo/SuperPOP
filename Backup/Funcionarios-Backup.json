@@ -829,23 +829,23 @@
   },
   {
     "id": "bcbb3cb36b384fb8b736e3cfdb364664",
-    "nome": "Cauan",
-    "funcao": "Função pendente",
+    "nome": "Cauan Santos de lima",
+    "funcao": "Auxiliar de Reposicao",
     "numero_celular": "(82) 9 8872 - 4013",
     "numero_normalizado": "82988724013",
-    "email": "",
+    "email": "locauan30@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "bbdf5108ca6084ab6645281c9a8cbdd0",
-      "hash": "f7999aca777fef0827ffd0c0799f76d55e9e4a5ea7b1ec1da81b7cb77f660766",
+      "salt": "41ad5f3eb94ae9eb2ac114056f944e1a",
+      "hash": "795c224d1edcc76054665e171953410268d587ea7195233ec4d6d550ba8c1fd6",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:41:28.840979-03:00",
-    "data_nascimento_iso": "",
-    "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "data_nascimento_iso": "2006-05-27",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   },
   {
     "id": "9f0be8e29f554110bdb4464c8e728362",
