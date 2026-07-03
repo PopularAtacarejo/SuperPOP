@@ -123,9 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!lines.length) return "";
     return lines
       .map(function (line) {
-        return '<span class="flex items-start gap-2 py-1.5 leading-relaxed border-b border-amber-100/60 last:border-0">' +
+        return '<span class="first-goal-prize-line flex min-w-0 w-full items-start gap-2 py-1.5 leading-relaxed border-b border-amber-100/60 last:border-0">' +
           '<span class="mt-0.5 shrink-0 text-amber-500">&#9733;</span>' +
-          '<span class="break-words">' + escapeHtml(line) + '</span>' +
+          '<span class="first-goal-prize-text min-w-0 flex-1 break-words">' + escapeHtml(line) + '</span>' +
           '</span>';
       })
       .join("");
@@ -1045,13 +1045,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const startText = formatDateTime(firstGoalData.inicio_palpites_iso);
     const endText = formatDateTime(firstGoalData.fim_palpites_iso);
-    if (firstGoalWaitPeriod) firstGoalWaitPeriod.innerHTML = escapeHtml(startText) + " até " + escapeHtml(endText);
+    if (firstGoalWaitPeriod) {
+      firstGoalWaitPeriod.innerHTML =
+        '<span class="first-goal-period-date">' + escapeHtml(startText) + '</span>' +
+        '<span class="first-goal-period-separator">até</span>' +
+        '<span class="first-goal-period-date">' + escapeHtml(endText) + '</span>';
+    }
     
     const prize = String(firstGoalData.descricao_premio || "").trim();
     if (firstGoalWaitPrize) {
       if (prize) {
         firstGoalWaitPrize.innerHTML =
-          '<div class="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-4">' +
+          '<div class="first-goal-wait-card rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-4">' +
           '<p class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-700 mb-3">' +
           '<span class="material-symbols-outlined text-base">redeem</span>Premiação</p>' +
           '<div class="flex flex-col text-sm font-semibold leading-relaxed text-amber-950">' +
