@@ -1386,5 +1386,25 @@
     "data_nascimento_iso": "1983-10-08",
     "mostrar_aniversario": false,
     "pre_cadastro": false
+  },
+  {
+    "id": "8895338fbbeb45e89e23fedb78ced350",
+    "nome": "José Cláudio",
+    "funcao": "Limpesa",
+    "numero_celular": "(82) 9 9426 - 4901",
+    "numero_normalizado": "82994264901",
+    "email": "jj36122072@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "3ef6c9ecf6e15e6c7e5f2464aaf2c958",
+      "hash": "ace9b0e3b4b95273b76e5895462dd4cfc9ab5a7e9ab2b1187b9a36911fda1670",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-07-03T14:09:11.368257-03:00",
+    "data_nascimento_iso": "1981-10-25",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
