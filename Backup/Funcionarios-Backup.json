@@ -1406,5 +1406,25 @@
     "data_nascimento_iso": "1981-10-25",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "2ee52fcc57094f939fb83d44f2a669df",
+    "nome": "Kauan Guilherme de Barros Miglioli",
+    "funcao": "Embalador",
+    "numero_celular": "(82) 9 9932 - 7231",
+    "numero_normalizado": "82999327231",
+    "email": "kauanquilherme@outlook.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "c9c69c186b06f47fdbb2d4940a48716f",
+      "hash": "249f3a57162b3901c9348d8a0a686508672b35332dbff904731385e91b82fefb",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-07-03T19:05:09.666221-03:00",
+    "data_nascimento_iso": "2006-07-27",
+    "mostrar_aniversario": false,
+    "pre_cadastro": false
   }
 ]
