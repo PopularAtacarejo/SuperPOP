@@ -483,6 +483,28 @@
     }
 
     /* Botão de usuário: mostrar só o avatar */
+    body[data-page] .auth-user-btn {
+      width: 40px !important;
+      min-width: 40px !important;
+      max-width: 40px !important;
+      height: 40px !important;
+      min-height: 40px !important;
+      justify-content: center !important;
+      padding: 4px !important;
+      gap: 0 !important;
+    }
+
+    body[data-page] .auth-user-avatar {
+      display: inline-flex !important;
+      width: 32px !important;
+      height: 32px !important;
+      min-width: 32px !important;
+      min-height: 32px !important;
+      max-width: 32px !important;
+      max-height: 32px !important;
+      flex: 0 0 32px !important;
+    }
+
     body[data-page] .auth-user-btn .material-symbols-outlined:last-child {
       display: none !important;
     }
