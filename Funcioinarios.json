@@ -1326,5 +1326,25 @@
     "data_nascimento_iso": "1998-12-30",
     "mostrar_aniversario": true,
     "pre_cadastro": false
+  },
+  {
+    "id": "159fefeef1a644ddb135aafb06187dae",
+    "nome": "Lucas Santos",
+    "funcao": "Auxiliar de Limpeza",
+    "numero_celular": "(82) 9 9605 - 5549",
+    "numero_normalizado": "82996055549",
+    "email": "8204lucassantos1@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "37d76d96448396da289568e5001a079e",
+      "hash": "42e82eb429dcbd69d09d36a740a3ad4bfc56aafe1dd5369e2519e43b804f7e52",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-07-03T12:04:18.378486-03:00",
+    "data_nascimento_iso": "2000-02-27",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
