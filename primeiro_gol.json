@@ -348,6 +348,17 @@
       "jogador_nome": "Endrick",
       "jogador_foto": "https://i.ibb.co/202dz3md/106075.png",
       "enviado_em_iso": "2026-07-04T09:03:14.640133-03:00"
+    },
+    {
+      "id": "32edb6e0608c40f0ac3a5ed5d1376e28",
+      "usuario_id": "159fefeef1a644ddb135aafb06187dae",
+      "usuario_nome": "Lucas Santos",
+      "usuario_foto": "",
+      "usuario_funcao": "Auxiliar de Limpeza",
+      "jogador_id": "0e1f8be6625c4cd7bde9e70947bd72ef",
+      "jogador_nome": "Vinicius Júnior",
+      "jogador_foto": "https://i.ibb.co/W4Z0ckbM/48298.png",
+      "enviado_em_iso": "2026-07-04T09:05:41.483563-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
