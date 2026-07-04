@@ -337,6 +337,17 @@
       "jogador_nome": "Vinicius Júnior",
       "jogador_foto": "https://i.ibb.co/W4Z0ckbM/48298.png",
       "enviado_em_iso": "2026-07-04T09:02:40.665560-03:00"
+    },
+    {
+      "id": "4172103b64a54e5abe282815ccdf2b35",
+      "usuario_id": "1612befb1c2c4393b4d802046a362b70",
+      "usuario_nome": "Maria Micherlane Felix dos Santos",
+      "usuario_foto": "",
+      "usuario_funcao": "Operador de Caixa",
+      "jogador_id": "b269c5f874f549c48d7deab0a6bebd90",
+      "jogador_nome": "Endrick",
+      "jogador_foto": "https://i.ibb.co/202dz3md/106075.png",
+      "enviado_em_iso": "2026-07-04T09:03:14.640133-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
