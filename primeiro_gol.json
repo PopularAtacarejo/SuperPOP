@@ -359,6 +359,17 @@
       "jogador_nome": "Vinicius Júnior",
       "jogador_foto": "https://i.ibb.co/W4Z0ckbM/48298.png",
       "enviado_em_iso": "2026-07-04T09:05:41.483563-03:00"
+    },
+    {
+      "id": "de6cbc582e8643fdae31691f5e67af04",
+      "usuario_id": "e95b06a90a9a4a82b3075a5cf5cb8ce8",
+      "usuario_nome": "Arlete santos",
+      "usuario_foto": "",
+      "usuario_funcao": "Fiscal de Prevencao de Perdas",
+      "jogador_id": "b269c5f874f549c48d7deab0a6bebd90",
+      "jogador_nome": "Endrick",
+      "jogador_foto": "https://i.ibb.co/202dz3md/106075.png",
+      "enviado_em_iso": "2026-07-04T09:18:10.750026-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
