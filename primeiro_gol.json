@@ -414,6 +414,17 @@
       "jogador_nome": "Léo Pereira",
       "jogador_foto": "https://i.ibb.co/JwvqBTKq/3132.png",
       "enviado_em_iso": "2026-07-04T11:30:24.244039-03:00"
+    },
+    {
+      "id": "d7e0a6b1085746a1825d67a4e8ca3f86",
+      "usuario_id": "04a15f4a6c3e429abc506243fbd0a4d0",
+      "usuario_nome": "RAUL LINO DA SILVA",
+      "usuario_foto": "",
+      "usuario_funcao": "Repositor",
+      "jogador_id": "b1759f1452474e31b1f22990e22ccbbb",
+      "jogador_nome": "Rayan",
+      "jogador_foto": "https://i.ibb.co/GvqgZ1Mj/127470.png",
+      "enviado_em_iso": "2026-07-04T17:31:29.270083-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
