@@ -282,6 +282,17 @@
       "jogador_nome": "Vinicius Júnior",
       "jogador_foto": "https://i.ibb.co/W4Z0ckbM/48298.png",
       "enviado_em_iso": "2026-07-04T07:31:13.125649-03:00"
+    },
+    {
+      "id": "2cf476cbc5f944758f42c4672903f0fe",
+      "usuario_id": "c27055d3a93f4802a0323d3215cfbc5f",
+      "usuario_nome": "Isabella Teodosio",
+      "usuario_foto": "",
+      "usuario_funcao": "Assistente Administrativo",
+      "jogador_id": "ecd5b9e716df4904a1265a9c1dcaa269",
+      "jogador_nome": "Neymar",
+      "jogador_foto": "https://i.ibb.co/cSPgtCj7/45.png",
+      "enviado_em_iso": "2026-07-04T08:04:47.619980-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
