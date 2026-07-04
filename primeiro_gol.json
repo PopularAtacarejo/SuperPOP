@@ -293,6 +293,17 @@
       "jogador_nome": "Neymar",
       "jogador_foto": "https://i.ibb.co/cSPgtCj7/45.png",
       "enviado_em_iso": "2026-07-04T08:04:47.619980-03:00"
+    },
+    {
+      "id": "6cfbe8db3e9b47cdb11ff5d93c5098ac",
+      "usuario_id": "ee041b017ae748ba8f965e8616ebfce6",
+      "usuario_nome": "Aldair Higor",
+      "usuario_foto": "",
+      "usuario_funcao": "Operador de Caixa",
+      "jogador_id": "b1759f1452474e31b1f22990e22ccbbb",
+      "jogador_nome": "Rayan",
+      "jogador_foto": "https://i.ibb.co/GvqgZ1Mj/127470.png",
+      "enviado_em_iso": "2026-07-04T08:05:47.063659-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
