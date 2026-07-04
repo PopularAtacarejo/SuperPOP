@@ -392,6 +392,17 @@
       "jogador_nome": "Gabriel Martinelli",
       "jogador_foto": "https://i.ibb.co/TD1X7H9C/65748.png",
       "enviado_em_iso": "2026-07-04T09:51:01.886330-03:00"
+    },
+    {
+      "id": "2ca2752142d041a586492e0654618777",
+      "usuario_id": "cdecfdc636c24be6b39df6f2ffd1d43e",
+      "usuario_nome": "Deyvisson Felipe Ferreira da Silva",
+      "usuario_foto": "",
+      "usuario_funcao": "Repositor",
+      "jogador_id": "b1759f1452474e31b1f22990e22ccbbb",
+      "jogador_nome": "Rayan",
+      "jogador_foto": "https://i.ibb.co/GvqgZ1Mj/127470.png",
+      "enviado_em_iso": "2026-07-04T11:19:28.135196-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
