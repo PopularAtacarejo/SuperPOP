@@ -315,6 +315,17 @@
       "jogador_nome": "Rayan",
       "jogador_foto": "https://i.ibb.co/GvqgZ1Mj/127470.png",
       "enviado_em_iso": "2026-07-04T08:31:56.949281-03:00"
+    },
+    {
+      "id": "d7585378cf264985942a8a115c7c123b",
+      "usuario_id": "18ec570a205c4263895fe099888b4fd9",
+      "usuario_nome": "Eryk",
+      "usuario_foto": "",
+      "usuario_funcao": "Operador de Caixa",
+      "jogador_id": "0e1f8be6625c4cd7bde9e70947bd72ef",
+      "jogador_nome": "Vinicius Júnior",
+      "jogador_foto": "https://i.ibb.co/W4Z0ckbM/48298.png",
+      "enviado_em_iso": "2026-07-04T09:01:32.872729-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
