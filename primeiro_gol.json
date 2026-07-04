@@ -227,6 +227,17 @@
       "jogador_nome": "Matheus Cunha",
       "jogador_foto": "https://i.ibb.co/Ty7mHM5/79536.png",
       "enviado_em_iso": "2026-07-04T00:00:42.370113-03:00"
+    },
+    {
+      "id": "f445d2d009494609b8425f5a51209a25",
+      "usuario_id": "a449fefb30134ab18558cb7a71b334c7",
+      "usuario_nome": "Ana iris barboza da silva",
+      "usuario_foto": "",
+      "usuario_funcao": "Operador de Caixa",
+      "jogador_id": "d364fc29969a421395ba8e4cd7d07653",
+      "jogador_nome": "Matheus Cunha",
+      "jogador_foto": "https://i.ibb.co/Ty7mHM5/79536.png",
+      "enviado_em_iso": "2026-07-04T00:00:55.193355-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
