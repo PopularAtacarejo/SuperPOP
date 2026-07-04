@@ -629,23 +629,23 @@
   },
   {
     "id": "25a9c69afe90450984f0d07ee2b2c8ea",
-    "nome": "Thais",
-    "funcao": "Função pendente",
+    "nome": "Thais da Silva Menezes",
+    "funcao": "Vendedora",
     "numero_celular": "(82) 9 9947 - 3368",
     "numero_normalizado": "82999473368",
-    "email": "",
+    "email": "thaismenezes045@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "59380775eceaef5bcb85f5999a82cb4e",
-      "hash": "7219dc6c2706ffee62e247ffd79199dcdd7a281ea93675726e39584824a6fc62",
+      "salt": "a48c77450a875c4cce48454789a51357",
+      "hash": "c78c7f351441294a27ce36079b9d19bbe8231cb55e9a7dd2fd67d949196a5936",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:09:52.259240-03:00",
-    "data_nascimento_iso": "",
-    "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "data_nascimento_iso": "1994-01-17",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   },
   {
     "id": "8af58cecaf7045d9a6e59919f86a7739",
