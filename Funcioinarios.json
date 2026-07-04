@@ -569,23 +569,23 @@
   },
   {
     "id": "ee041b017ae748ba8f965e8616ebfce6",
-    "nome": "Aldair",
-    "funcao": "Função pendente",
+    "nome": "Aldair Higor",
+    "funcao": "Operador de Caixa",
     "numero_celular": "(82) 9 9665 - 2191",
     "numero_normalizado": "82996652191",
-    "email": "",
+    "email": "aldairmessias65@gmail.com",
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "65709683401c21f27ccfa31d573efbaa",
-      "hash": "7f7471a84e627773de334564da657fe3df79eb3c7f7b6912c8b1076270ec80ce",
+      "salt": "5de5254d2bd1a0e3e665e70a93262dfd",
+      "hash": "0faf06bfcf8a4e79cba73de48dbb5c0c76750c7c166e4a12a872cc6c999b7f4f",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
     "data_cadastro_iso": "2026-03-30T09:05:32.086165-03:00",
-    "data_nascimento_iso": "",
-    "mostrar_aniversario": false,
-    "pre_cadastro": true
+    "data_nascimento_iso": "2001-12-10",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   },
   {
     "id": "9afe1f508a9a42eca91b9acfe2cad26e",
