@@ -238,6 +238,17 @@
       "jogador_nome": "Matheus Cunha",
       "jogador_foto": "https://i.ibb.co/Ty7mHM5/79536.png",
       "enviado_em_iso": "2026-07-04T00:00:55.193355-03:00"
+    },
+    {
+      "id": "3e7bffe4a1a74941810cf8f4e506231d",
+      "usuario_id": "5c9dbd9cfd8246638cf5dec0a7efde5c",
+      "usuario_nome": "Luanderson da silva barros",
+      "usuario_foto": "",
+      "usuario_funcao": "Auxiliar Administrativo",
+      "jogador_id": "2383beef82944cea993349ccff6fab50",
+      "jogador_nome": "Raphinha",
+      "jogador_foto": "https://i.ibb.co/m53xzfDF/39789.png",
+      "enviado_em_iso": "2026-07-04T02:21:37.439392-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
