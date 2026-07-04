@@ -381,6 +381,17 @@
       "jogador_nome": "Igor Thiago",
       "jogador_foto": "https://i.ibb.co/n8064K1p/74557.png",
       "enviado_em_iso": "2026-07-04T09:44:44.488135-03:00"
+    },
+    {
+      "id": "68cfc203f9b548d3a8c5e1df6c6c6f9f",
+      "usuario_id": "2bbad22ab6ff4785b54b1c79d8c3ab3d",
+      "usuario_nome": "Maria Sabrina Leandro da Silva",
+      "usuario_foto": "",
+      "usuario_funcao": "Assistente de RH",
+      "jogador_id": "55d1181ffb43404c95a8524a160e0e1d",
+      "jogador_nome": "Gabriel Martinelli",
+      "jogador_foto": "https://i.ibb.co/TD1X7H9C/65748.png",
+      "enviado_em_iso": "2026-07-04T09:51:01.886330-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
