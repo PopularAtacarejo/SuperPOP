@@ -216,6 +216,17 @@
       "jogador_nome": "Rayan",
       "jogador_foto": "https://i.ibb.co/GvqgZ1Mj/127470.png",
       "enviado_em_iso": "2026-07-04T00:00:29.415550-03:00"
+    },
+    {
+      "id": "f2de696ca7664058a0714ff57069f775",
+      "usuario_id": "7ece14b2f81b4e2bb6394bc416ca25b8",
+      "usuario_nome": "Gabriel Levi Santos",
+      "usuario_foto": "",
+      "usuario_funcao": "Analista de TI",
+      "jogador_id": "d364fc29969a421395ba8e4cd7d07653",
+      "jogador_nome": "Matheus Cunha",
+      "jogador_foto": "https://i.ibb.co/Ty7mHM5/79536.png",
+      "enviado_em_iso": "2026-07-04T00:00:42.370113-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
