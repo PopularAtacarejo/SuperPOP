@@ -1432,5 +1432,25 @@
     "data_nascimento_iso": "2006-07-27",
     "mostrar_aniversario": false,
     "pre_cadastro": false
+  },
+  {
+    "id": "b0b53d49802d4ddebed9f3bf8b827957",
+    "nome": "Douglas pirfirio",
+    "funcao": "Repositor frios",
+    "numero_celular": "(82) 9 9160 - 0811",
+    "numero_normalizado": "82991600811",
+    "email": "dasillvadouglas37@gmail.com",
+    "tags_acesso": [],
+    "senha": {
+      "algoritmo": "pbkdf2_sha256",
+      "salt": "06c84fc73d788676265bd75b65c6bdfc",
+      "hash": "f03c4dc6bdc7865e401f68751d55e093bab871faf839f9aebf677d1e9b0f2e7e",
+      "iteracoes": 180000
+    },
+    "foto_perfil_data_url": "",
+    "data_cadastro_iso": "2026-07-05T12:01:48.911510-03:00",
+    "data_nascimento_iso": "1986-07-17",
+    "mostrar_aniversario": true,
+    "pre_cadastro": false
   }
 ]
