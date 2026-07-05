@@ -447,6 +447,17 @@
       "jogador_nome": "Vinicius Júnior",
       "jogador_foto": "https://i.ibb.co/W4Z0ckbM/48298.png",
       "enviado_em_iso": "2026-07-05T01:14:29.122516-03:00"
+    },
+    {
+      "id": "0c84161170a94790821b6f101061ff4e",
+      "usuario_id": "2857442ce9fd4969aecbd7728c9a51c6",
+      "usuario_nome": "Márcio Gabriel da Silva",
+      "usuario_foto": "",
+      "usuario_funcao": "Embalador",
+      "jogador_id": "b1759f1452474e31b1f22990e22ccbbb",
+      "jogador_nome": "Rayan",
+      "jogador_foto": "https://i.ibb.co/GvqgZ1Mj/127470.png",
+      "enviado_em_iso": "2026-07-05T08:45:39.369166-03:00"
     }
   ],
   "inicio_palpites_iso": "2026-07-04T00:00:00-03:00",
