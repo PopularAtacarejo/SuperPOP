@@ -12523,5 +12523,44 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "e0c434ace89e4b578e9365f0aed39207",
+    "card_id": "43b14cbebf",
+    "dia": "09/07/2026",
+    "horario": "09:34:57",
+    "data_hora_iso": "2026-07-09T09:34:57.541534-03:00",
+    "destinatario": {
+      "nome": "Lucas",
+      "numero": "5582996121968",
+      "numero_normalizado": "+5582996121968",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Eficiência"
+    ],
+    "mensagem": "Obrigada pelo seu apoio no ifood sempre que solicitado",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582996121968",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-43b14cbebf.png",
+      "uploaded_image_url": "https://i.ibb.co/K8pHkQ4/card-43b14cbebf.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-43b14cbebf.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/43b14cbebf?token=6fc99ed66adf1de8045a74c87a43a5dcf262fee95162c0dfcc3efa36da02e23e",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
