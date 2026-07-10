@@ -13289,5 +13289,44 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "b7d4cc6de3c04112b46443c6dbaa766b",
+    "card_id": "b7b6241370",
+    "dia": "09/07/2026",
+    "horario": "21:05:06",
+    "data_hora_iso": "2026-07-09T21:05:06.510214-03:00",
+    "destinatario": {
+      "nome": "Eduarda Beatriz",
+      "numero": "5582981168242",
+      "numero_normalizado": "+5582981168242",
+      "funcao": "Assistente De Marketing"
+    },
+    "remetente": {
+      "nome": "Israel Ribeiro",
+      "numero": "5582981189669",
+      "numero_normalizado": "+5582981189669",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Eficiência"
+    ],
+    "mensagem": "Bom amigo e um ótimo funcionário você superou expectativas mais uma vez. Obrigado pela dedicação consistente.",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582981168242",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b7b6241370.png",
+      "uploaded_image_url": "https://i.ibb.co/wZf61bHD/card-b7b6241370.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-b7b6241370.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/b7b6241370?token=4549b5a8b6518c56273de3585d13ac83ea174a69c32c2972d3004f5abf1c4b69",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
