@@ -12928,5 +12928,45 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "967ed0b715ea45c58ecf304e5d5b70be",
+    "card_id": "80d5336246",
+    "dia": "09/07/2026",
+    "horario": "21:00:52",
+    "data_hora_iso": "2026-07-09T21:00:52.889199-03:00",
+    "destinatario": {
+      "nome": "Millena S. Ribeiro",
+      "numero": "5582987549379",
+      "numero_normalizado": "+5582987549379",
+      "funcao": "Atendente de SAC"
+    },
+    "remetente": {
+      "nome": "Israel Ribeiro",
+      "numero": "5582981189669",
+      "numero_normalizado": "+5582981189669",
+      "funcao": "Conferente de Mercadorias"
+    },
+    "opcoes_marcadas": [
+      "Eficiência",
+      "Resultado"
+    ],
+    "mensagem": "Seu comprometimento foi essencial para alcançarmos os resultados deste projeto. Excelente trabalho e obrigado por manter o alto nível de excelência",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582987549379",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-80d5336246.png",
+      "uploaded_image_url": "https://i.ibb.co/6cvZx98v/card-80d5336246.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-80d5336246.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/80d5336246?token=6a397d0e5dd32e0d78ed74d82cdfa1f4b7f021914137a260cfc843e6bc2384e3",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
