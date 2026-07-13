@@ -12643,6 +12643,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/bf8275b49d?token=73fc05a1e4c846707c5e6f4ae5bfb57f10a4fed7e03f7327409f6af9492a6688",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-07-13T11:39:43.978283-03:00",
+      "reactor": {
+        "id": "2bbad22ab6ff4785b54b1c79d8c3ab3d",
+        "nome": "Maria Sabrina Leandro da Silva"
+      }
     }
   },
   {
