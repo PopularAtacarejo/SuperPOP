@@ -13378,5 +13378,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "5ffb9f40b8cc4124a629b313ca6d7542",
+    "card_id": "47f87537b9",
+    "dia": "14/07/2026",
+    "horario": "12:28:42",
+    "data_hora_iso": "2026-07-14T12:28:42.611769-03:00",
+    "destinatario": {
+      "nome": "Grayce Kelly Brito silva",
+      "numero": "5582982012587",
+      "numero_normalizado": "+5582982012587",
+      "funcao": "Atendente de Caixa"
+    },
+    "remetente": {
+      "nome": "Charleane da silva",
+      "numero": "5582996104536",
+      "numero_normalizado": "+5582996104536",
+      "funcao": "Fiscaldecaixa"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Gostaria de agradecer a você pelo apoio que tivemos durante o período de férias da Suzana, e te disse que você me surpreendeu com tanto desempenho ao fazer esse papel . Obrigada pela apoio, e seja sempre essa menina determinada que eis. 123 super pop pra você Grayce Kelly 😘",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582982012587",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-47f87537b9.png",
+      "uploaded_image_url": "https://i.ibb.co/HpkVtBWN/card-47f87537b9.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-47f87537b9.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/47f87537b9?token=8862da99879560803518b10ee53c91a8c2c8b6ce2a99cf18f0236993734b97e4",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
