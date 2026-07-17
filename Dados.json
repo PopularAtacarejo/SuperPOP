@@ -13688,5 +13688,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "14d1bd13ccc749daa7d7e423e40a9452",
+    "card_id": "c52383f4f5",
+    "dia": "17/07/2026",
+    "horario": "11:59:15",
+    "data_hora_iso": "2026-07-17T11:59:15.602280-03:00",
+    "destinatario": {
+      "nome": "Sidnei",
+      "numero": "5582999247078",
+      "numero_normalizado": "+5582999247078",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Gratidão por todo carinho e acolhimento as necessidades e solicitações da frente de loja",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999247078",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-c52383f4f5.png",
+      "uploaded_image_url": "https://i.ibb.co/N2hWb9zs/card-c52383f4f5.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-c52383f4f5.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/c52383f4f5?token=f3d84d3ed3a494590dace2d4ccf33fa1238e41488b43dbaccd38d2cd551b451a",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
