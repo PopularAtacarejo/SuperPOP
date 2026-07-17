@@ -39,6 +39,14 @@
       "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/6fee8071a4?token=87329bd186ef030c995842c5efcfce79b511482f35ce64da9f0723b434a340c6",
       "upload_status": "success",
       "upload_error": ""
+    },
+    "reacao_destinatario": {
+      "emoji": "❤️",
+      "updated_at_iso": "2026-07-17T07:12:59.363357-03:00",
+      "reactor": {
+        "id": "16ac2783a31142a3a852e002409a8127",
+        "nome": "Sandrielly pereira da paz"
+      }
     }
   },
   {
