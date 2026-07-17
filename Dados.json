@@ -13604,5 +13604,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "3fd5f748c0f3408c9373001cac0a6801",
+    "card_id": "98c24a5744",
+    "dia": "17/07/2026",
+    "horario": "11:55:33",
+    "data_hora_iso": "2026-07-17T11:55:33.791749-03:00",
+    "destinatario": {
+      "nome": "Francisco Alexandre",
+      "numero": "5582999275990",
+      "numero_normalizado": "+5582999275990",
+      "funcao": "Função pendente"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Por seu sim e acolhimento e atendimento junto a frente de loja e sua gentileza de sempre \nMinha gratidão .",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999275990",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-98c24a5744.png",
+      "uploaded_image_url": "https://i.ibb.co/ZRb5J0GC/card-98c24a5744.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-98c24a5744.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/98c24a5744?token=6f9d6937c77ba9589156549605fdf588fb12e21969c1584e9ca8da2a91e9bf3e",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
