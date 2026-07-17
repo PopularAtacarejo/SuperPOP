@@ -13646,5 +13646,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "939a693adb3a430fb6f7af41a5b4f0c3",
+    "card_id": "bd3637cfa3",
+    "dia": "17/07/2026",
+    "horario": "11:58:47",
+    "data_hora_iso": "2026-07-17T11:58:47.286764-03:00",
+    "destinatario": {
+      "nome": "Maria Sabrina Leandro da Silva",
+      "numero": "5582996394586",
+      "numero_normalizado": "+5582996394586",
+      "funcao": "Assistente de RH"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Gratidão por todo carinho e acolhimento as necessidades e solicitações da frente de loja",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582996394586",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-bd3637cfa3.png",
+      "uploaded_image_url": "https://i.ibb.co/0RwXVNnN/card-bd3637cfa3.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-bd3637cfa3.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/bd3637cfa3?token=cd9c995dfc29eb613445760a90db84a698ac4b71a016a26d75845e77885d82b4",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
