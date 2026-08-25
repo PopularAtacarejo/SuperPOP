@@ -14190,5 +14190,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "4c87b351794248638a9ab5f1c8334944",
+    "card_id": "f70a1e482c",
+    "dia": "24/08/2026",
+    "horario": "21:48:04",
+    "data_hora_iso": "2026-08-24T21:48:04.917827-03:00",
+    "destinatario": {
+      "nome": "Yuri Kwai Alves Feitosa de Souza",
+      "numero": "5582993321236",
+      "numero_normalizado": "+5582993321236",
+      "funcao": "Operador de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Por sua educação e gentileza com os clientes ,assim tbm como a disponibilidade em ajudar sempre que precisamos....parabéns vc faz a diferença",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582993321236",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-f70a1e482c.png",
+      "uploaded_image_url": "https://i.ibb.co/KjQ69nnq/card-f70a1e482c.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-f70a1e482c.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/f70a1e482c?token=bf2bd46c6aad9bf6131877541c938d19e99550e2603efe961107971a22e73a4f",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
