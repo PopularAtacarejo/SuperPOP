@@ -14106,5 +14106,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "fd497e53f35a42ddac8b3ec93e2b2c07",
+    "card_id": "86e96d570c",
+    "dia": "24/08/2026",
+    "horario": "21:45:38",
+    "data_hora_iso": "2026-08-24T21:45:38.163834-03:00",
+    "destinatario": {
+      "nome": "Grayce Kelly Brito silva",
+      "numero": "5582982012587",
+      "numero_normalizado": "+5582982012587",
+      "funcao": "Atendente de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Por entender e ajudat sempre que precisamos de apoio como fiscal",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582982012587",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-86e96d570c.png",
+      "uploaded_image_url": "https://i.ibb.co/zWJjGkG5/card-86e96d570c.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-86e96d570c.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/86e96d570c?token=892e8948efab3940268837c93e969f8f3ba616dc9fd26a7bd64901d5823f11df",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
