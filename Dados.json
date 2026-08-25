@@ -14148,5 +14148,47 @@
       "upload_status": "success",
       "upload_error": ""
     }
+  },
+  {
+    "id": "da82e4e0cb504190a05ebf34d475f79b",
+    "card_id": "2cca1dc5d1",
+    "dia": "24/08/2026",
+    "horario": "21:46:04",
+    "data_hora_iso": "2026-08-24T21:46:04.282259-03:00",
+    "destinatario": {
+      "nome": "Maria Micherlane Felix dos Santos",
+      "numero": "5582999482858",
+      "numero_normalizado": "+5582999482858",
+      "funcao": "Operador de Caixa"
+    },
+    "remetente": {
+      "nome": "Marci Cleia de Oliveira Almeida",
+      "numero": "5582988439630",
+      "numero_normalizado": "+5582988439630",
+      "funcao": "Líder de Frente de Loja"
+    },
+    "opcoes_marcadas": [
+      "Acolhimento",
+      "Eficiência",
+      "Cortesia",
+      "Resultado"
+    ],
+    "mensagem": "Por entender e ajudat sempre que precisamos de apoio como fiscal",
+    "whatsapp": {
+      "status": "wa_me",
+      "to": "+5582999482858",
+      "message_sid": "",
+      "error": "",
+      "format": "image"
+    },
+    "arquivos": {
+      "image_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-2cca1dc5d1.png",
+      "uploaded_image_url": "https://i.ibb.co/Gv41kyWt/card-2cca1dc5d1.png",
+      "pdf_url": "",
+      "enviado_url": "https://popularatacarejo.github.io/SuperPOP/index.html/media/card-2cca1dc5d1.png",
+      "auth_qr_url": "https://popularatacarejo.github.io/SuperPOP/index.html/api/cards/verify/2cca1dc5d1?token=f1e7394ee23d9b0c8f332b6bfb15d999dc881fd92fc7564c43236eb21ddd56c6",
+      "upload_status": "success",
+      "upload_error": ""
+    }
   }
 ]
