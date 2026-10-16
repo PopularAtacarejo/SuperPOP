@@ -524,8 +524,8 @@
     "tags_acesso": [],
     "senha": {
       "algoritmo": "pbkdf2_sha256",
-      "salt": "233bcbea80dfa494c18352368c62eb99",
-      "hash": "effdcdee4569b19c41d749f4935cafd53a8def734e5df5b705b7e12a5ffbe929",
+      "salt": "603b84369c5a7685f3482d5d8907d6e3",
+      "hash": "fb8b6df78141fdaf828555eb6a3b493c6329394f7ff57d0ee077abd2ef6b591b",
       "iteracoes": 180000
     },
     "foto_perfil_data_url": "",
